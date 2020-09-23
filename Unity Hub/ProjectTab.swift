@@ -19,9 +19,7 @@ struct ProjectTab: View {
         }
         .navigationTitle("Projects")
         .onAppear(perform: getAllProjects)
-        .onDisappear(perform: { settings.projects.removeAll() })
         .onChange(of: updateList) { value in
-            settings.projects.removeAll()
             getAllProjects()
         }
         .toolbar {
@@ -39,35 +37,7 @@ struct ProjectTab: View {
     }
     
     func getAllProjects() {
-        let fm = FileManager.default
-            
-        for path in settings.projectPaths {
-            if !fm.fileExists(atPath: path) {
-                settings.projectPaths.removeAll(where: { $0 == path })
-                continue
-            }
-            
-            do {
-                let items = try fm.contentsOfDirectory(atPath: path)
-                if !items.contains("Assets") || !items.contains("ProjectSettings") {
-                    continue
-                }
-                
-                let name = path.components(separatedBy: "/").last!
-                var version: String = ""
-                
-                let versionPath = "\(path)/ProjectSettings/ProjectVersion.txt"
-
-                let url = URL(fileURLWithPath: versionPath)
-                let versionText = try String(contentsOf: url)
-                version = versionText.components(separatedBy: "\n").first!
-                version.trimPrefix("m_EditorVersion: ")
-
-                settings.projects.append((path, name, version))
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
+        UnityHubApp.getAllProjects(settings: settings)
     }
     
     func locateProject() {

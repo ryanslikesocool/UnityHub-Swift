@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Cocoa
 
 struct ProjectButton: View {
     @EnvironmentObject var settings: HubSettings
@@ -49,6 +50,17 @@ struct ProjectButton: View {
     }
     
     func openProject() {
-        
+        for version in settings.versionsInstalled {
+            print("\(version.1) && \(self.version)")
+            if version.1 == self.version
+            {
+                let fullUnityPath = "\(version.0)/Unity.app/Contents/MacOS/Unity"
+                let commands = "-projectPath"
+                let result = shell("\(fullUnityPath) \(commands) \(path)")
+                print(result)
+                //NSWorkspace.shared.open(URL(fileURLWithPath: version.0))
+                return
+            }
+        }
     }
 }
