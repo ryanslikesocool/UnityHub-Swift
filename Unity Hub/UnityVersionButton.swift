@@ -21,8 +21,10 @@ struct UnityVersionButton: View {
                 .help(path)
             Spacer()
             ForEach(getInstalledModules()) { item in
-                item.rawValue.2
-                    .help(item.rawValue.0)
+                if let icon = item.getIcon() {
+                    icon
+                        .help(item.getDisplayName() ?? "")
+                }
             }
             Menu {
                 Button("Add Modules", action: {})
@@ -52,7 +54,7 @@ struct UnityVersionButton: View {
             let modules: [ModuleJSON] = try! JSONDecoder().decode([ModuleJSON].self, from: data)
             
             for module in modules {
-                if let unityModule = UnityModule(rawValue: ("", module.id, AnyView(Rectangle()))) {
+                if let unityModule = UnityModule(rawValue: module.id), !unityModules.contains(where: { $0.getDisplayName() == unityModule.getDisplayName() }) {
                     unityModules.append(unityModule)
                 }
             }

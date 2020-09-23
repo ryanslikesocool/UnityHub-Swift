@@ -18,14 +18,29 @@ enum UnityModule {
     case iOS
     case tvOS
     case android
+    case documentation
+    case androidSDKBuildTools
+    case androidSDKPlatforms
+    case androidSDKPlatformTools
+    case androidNDK
+    case androidOpenJDK
+    case samsungTV
+    case tizen
+    case vuforia
+    case webgl
+    case facebook
+    case facebookgameroom
+    case lumin
+    case standardAssets
+    case exampleProjects
 }
 
 extension UnityModule: RawRepresentable {
-    // (display name, json id, icon)
-    typealias RawValue = (String, String, AnyView)
+    // json id
+    typealias RawValue = String
     
-    init?(rawValue: (String, String, AnyView)) {
-        switch rawValue.1 {
+    init?(rawValue: String) {
+        switch rawValue {
         case "mac-mono": self = .macOSMono
         case "mac-il2cpp": self = .macOSIL2CPP
         case "windows-mono": self = .windowsMono
@@ -39,23 +54,92 @@ extension UnityModule: RawRepresentable {
         }
     }
     
-    var rawValue: (String, String, AnyView) {
+    var rawValue: String {
         switch self {
-        case .macOSMono: return ("macOS Mono", "mac-mono", AnyView(SVGShapes.macOS().frame(width: 20, height: 20)))
-        case .macOSIL2CPP: return ("macOS IL2CPP", "mac-il2cpp", AnyView(SVGShapes.macOS().frame(width: 20, height: 20)))
-        case .windowsMono: return ("Windows Mono", "windows-mono", AnyView(SVGShapes.Windows().frame(width: 20, height: 20)))
-        case .windowsIL2CPP: return ("Windows IL2CPP", "windows-il2cpp", AnyView(SVGShapes.Windows().frame(width: 20, height: 20)))
-        case .linuxMono: return ("Linux Mono", "linux-mono", AnyView(SVGShapes.Linux().frame(width: 20, height: 20)))
-        case .linuxIL2CPP: return ("Linux IL2CPP", "linux-il2cpp", AnyView(SVGShapes.Linux().frame(width: 20, height: 20)))
-        case .iOS: return ("iOS", "ios", AnyView(SVGShapes.iOS().frame(width: 20, height: 20)))
-        case .tvOS: return ("tvOS", "appletv", AnyView(SVGShapes.tvOS().frame(width: 20, height: 20)))
-        case .android: return ("Android", "android", AnyView(SVGShapes.Android().frame(width: 20, height: 20)))
+        case .documentation: return "documentation"
+        case .standardAssets: return "standardassets"
+        case .exampleProjects: return "exampleprojects"
+        case .android: return "android"
+        case .androidSDKBuildTools: return "android-sdk-build-tools"
+        case .androidSDKPlatforms: return "android-sdk-platforms"
+        case .androidSDKPlatformTools: return "android-sdk-platform-tools"
+        case .androidNDK: return "android-ndk"
+        case .androidOpenJDK: return "android-open-jdk"
+        case .iOS: return "ios"
+        case .tvOS: return "appletv"
+        case .linuxMono: return "linux-mono"
+        case .linuxIL2CPP: return "linux-il2cpp"
+        case .macOSMono: return "mac-mono"
+        case .macOSIL2CPP: return "mac-il2cpp"
+        case .samsungTV: return "samsungtv"
+        case .tizen: return "tizen"
+        case .vuforia: return "vuforia"
+        case .webgl: return "webgl"
+        case .windowsMono: return "windows-mono"
+        case .windowsIL2CPP: return "windows-il2cpp"
+        case .facebook: return "facebook"
+        case .facebookgameroom: return "facebookgameroom"
+        case .lumin: return "lumin"
+        }
+    }
+    
+    func getDisplayName() -> String? {
+        switch self {
+        case .macOSMono, .macOSIL2CPP: return "macOS"
+        case .windowsMono, .windowsIL2CPP: return "Windows"
+        case .linuxMono, .linuxIL2CPP: return "Linux"
+        case .iOS: return "iOS"
+        case .tvOS: return "tvOS"
+        case .android: return "Android"
+        default: return nil
+        }
+    }
+    
+    func getIcon() -> AnyView? {
+        switch self {
+        case .macOSMono, .macOSIL2CPP: return AnyView(SVGShapes.macOS().frame(width: 20, height: 20))
+        case .windowsMono, .windowsIL2CPP: return AnyView(SVGShapes.Windows().frame(width: 20, height: 20))
+        case .linuxMono, .linuxIL2CPP: return AnyView(SVGShapes.Linux().frame(width: 20, height: 20))
+        case .iOS: return AnyView(SVGShapes.iOS().frame(width: 20, height: 20))
+        case .tvOS: return AnyView(SVGShapes.tvOS().frame(width: 20, height: 20))
+        case .android: return AnyView(SVGShapes.Android().frame(width: 20, height: 20))
+        default: return nil
+        }
+    }
+    
+    func getInstallPath() -> String? {
+        switch self {
+        case .standardAssets: return "{UNITY_PATH}/Standard Assets"
+        case .exampleProjects: return "/Users/Shared/Unity"
+        case .android: return "{UNITY_PATH}/PlaybackEngines/AndroidPlayer"
+        case .androidSDKBuildTools: return "{UNITY_PATH}/PlaybackEngines/AndroidPlayer/SDK/build-tools"
+        case .androidSDKPlatforms: return "{UNITY_PATH}/PlaybackEngines/AndroidPlayer/SDK/platforms"
+        case .androidSDKPlatformTools: return "{UNITY_PATH}/PlaybackEngines/AndroidPlayer/SDK"
+        case .androidNDK: return "{UNITY_PATH}/PlaybackEngines/AndroidPlayer/NDK"
+        case .androidOpenJDK: return "{UNITY_PATH}/PlaybackEngines/AndroidPlayer/OpenJDK"
+        case .iOS: return "{UNITY_PATH}/PlaybackEngines"
+        case .tvOS: return "{UNITY_PATH}/PlaybackEngines/AppleTVSupport"
+        case .linuxMono, .linuxIL2CPP: return "{UNITY_PATH}/PlaybackEngines/LinuxStandaloneSupport"
+        case .macOSMono, .macOSIL2CPP: return "{UNITY_PATH}/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport"
+        case .samsungTV: return "{UNITY_PATH}/PlaybackEngines/STVPlayer"
+        case .tizen: return "{UNITY_PATH}/PlaybackEngines/TizenPlayer"
+        case .vuforia: return "{UNITY_PATH}/PlaybackEngines/VuforiaSupport"
+        case .webgl: return "{UNITY_PATH}/PlaybackEngines/WebGLSupport"
+        case .windowsMono, .windowsIL2CPP: return "{UNITY_PATH}/PlaybackEngines/WindowsStandaloneSupport"
+        case .facebook: return "{UNITY_PATH}/PlaybackEngines/Facebook"
+        case .lumin: return "{UNITY_PATH}/PlaybackEngines/LuminSupport"
+        case .facebookgameroom: return nil
+        default:
+            if (self.rawValue.hasPrefix("language-")) {
+                return "{UNITY_PATH}/Unity.app/Contents/Localization";
+            }
+            return "{UNITY_PATH}"
         }
     }
 }
 
 extension UnityModule: CaseIterable, Identifiable {
     var id: String {
-        return self.rawValue.1
+        return self.rawValue
     }
 }

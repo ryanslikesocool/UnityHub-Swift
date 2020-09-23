@@ -15,6 +15,7 @@
 		AF34E221251AF91F00192E53 /* InstallsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E220251AF91F00192E53 /* InstallsTab.swift */; };
 		AF34E226251AFD2D00192E53 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E225251AFD2D00192E53 /* SettingsView.swift */; };
 		AF34E22B251AFE5300192E53 /* HubSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E22A251AFE5300192E53 /* HubSettings.swift */; };
+		AF5A94D0251BF9E3002FA410 /* Release.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5A94CF251BF9E3002FA410 /* Release.swift */; };
 		AF66EBEE251AE3900088EC84 /* UnityHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF66EBED251AE3900088EC84 /* UnityHubApp.swift */; };
 		AF66EBF0251AE3900088EC84 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF66EBEF251AE3900088EC84 /* ContentView.swift */; };
 		AF66EBF2251AE3910088EC84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF66EBF1251AE3910088EC84 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 		AF34E220251AF91F00192E53 /* InstallsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallsTab.swift; sourceTree = "<group>"; };
 		AF34E225251AFD2D00192E53 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AF34E22A251AFE5300192E53 /* HubSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubSettings.swift; sourceTree = "<group>"; };
+		AF5A94CF251BF9E3002FA410 /* Release.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Release.swift; sourceTree = "<group>"; };
 		AF66EBEA251AE3900088EC84 /* Unity Hub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Unity Hub.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF66EBED251AE3900088EC84 /* UnityHubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityHubApp.swift; sourceTree = "<group>"; };
 		AF66EBEF251AE3900088EC84 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -90,10 +92,12 @@
 				AF66EBEF251AE3900088EC84 /* ContentView.swift */,
 				AF34E22A251AFE5300192E53 /* HubSettings.swift */,
 				AF34E220251AF91F00192E53 /* InstallsTab.swift */,
+				AF16FF23251B8CAD00C8A2A9 /* InstallVersionPopup.swift */,
 				AFB1C3A5251B357A00F8E3D8 /* ModuleJSON.swift */,
 				AFA0862B251B1CFB00B1B985 /* NSOpenPanel.swift */,
 				AFB1C3A8251B459600F8E3D8 /* ProjectButton.swift */,
 				AF16EDEE251AED6100C939AA /* ProjectTab.swift */,
+				AF5A94CF251BF9E3002FA410 /* Release.swift */,
 				AF34E225251AFD2D00192E53 /* SettingsView.swift */,
 				AFB1C3AF251B633C00F8E3D8 /* Shell.swift */,
 				AF16EDE7251AEC1700C939AA /* SidebarItem.swift */,
@@ -102,11 +106,10 @@
 				AF16EDF6251AEF4000C939AA /* TabSelector.swift */,
 				AF66EBED251AE3900088EC84 /* UnityHubApp.swift */,
 				AFB1C3A2251B325000F8E3D8 /* UnityModule.swift */,
+				AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */,
 				AFFDD8B2251B08EB000AE12C /* UnityVersionButton.swift */,
 				AF66EBF1251AE3910088EC84 /* Assets.xcassets */,
 				AF66EBF3251AE3910088EC84 /* Preview Content */,
-				AF16FF23251B8CAD00C8A2A9 /* InstallVersionPopup.swift */,
-				AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */,
 			);
 			path = "Unity Hub";
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 			files = (
 				AFB1C3A6251B357A00F8E3D8 /* ModuleJSON.swift in Sources */,
 				AFA0862C251B1CFB00B1B985 /* NSOpenPanel.swift in Sources */,
+				AF5A94D0251BF9E3002FA410 /* Release.swift in Sources */,
 				AF66EBF0251AE3900088EC84 /* ContentView.swift in Sources */,
 				AF34E226251AFD2D00192E53 /* SettingsView.swift in Sources */,
 				AFB1C3A3251B325000F8E3D8 /* UnityModule.swift in Sources */,
