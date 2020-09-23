@@ -3,7 +3,7 @@ Unity Hub, rebuilt for macOS with SwiftUI
 
 Current features
 - Find Unity versions with default and custom locations
-- Get installed modules per-project based on modules.json
+- Get installed modules per Unity version via modules.json
 
 Planned features
 - Almost everything Unity Hub has
