@@ -13,8 +13,8 @@ struct InstallsTab: View {
     
     var body: some View {
         List {
-            ForEach(settings.versionsInstalled, id: \.self) { version in
-                UnityVersionButton(version: version)
+            ForEach(settings.versionsInstalled, id: \.self.1) { version in
+                UnityVersionButton(path: version.1, version: version.0)
             }
         }
         .navigationTitle("Installs")
@@ -45,9 +45,10 @@ struct InstallsTab: View {
             var isDir: ObjCBool = false
 
             for item in items {
-                if fm.fileExists(atPath: "\(path)/\(item)", isDirectory: &isDir) {
+                let path = "\(path)/\(item)"
+                if fm.fileExists(atPath: path, isDirectory: &isDir) {
                     if isDir.boolValue {
-                        settings.versionsInstalled.append(item)
+                        settings.versionsInstalled.append((item, path))
                     }
                 }
             }
@@ -62,7 +63,7 @@ struct InstallsTab: View {
                 if items.contains("Unity.app") {
                     if isDir.boolValue {
                         let components = settings.customInstallPaths[i].components(separatedBy: "/")
-                        settings.versionsInstalled.append(components.last!)
+                        settings.versionsInstalled.append((components.last!, settings.customInstallPaths[i]))
                     }
                 } else {
                     settings.customInstallPaths.remove(at: i)

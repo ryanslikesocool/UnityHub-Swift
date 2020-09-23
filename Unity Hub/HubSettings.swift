@@ -21,5 +21,5 @@ class HubSettings: ObservableObject {
         set { UserDefaults.standard.set(newValue, forKey: "customInstallPaths") }
     }
     
-    @Published var versionsInstalled: [String] = []
+    @Published var versionsInstalled: [(String, String)] = []
 }

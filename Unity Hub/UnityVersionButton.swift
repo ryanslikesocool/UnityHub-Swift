@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct UnityVersionButton: View {
+    var path: String
     var version: String
     
     var body: some View {
@@ -19,6 +20,10 @@ struct UnityVersionButton: View {
                 .font(.system(size: 12, weight: .bold))
             
             Spacer()
+            
+            ForEach(getInstalledModules()) { item in
+                item.rawValue.2
+            }
             
             Menu {
                 Button("Add Modules", action: {})
@@ -38,10 +43,25 @@ struct UnityVersionButton: View {
         .frame(minWidth: 64, maxWidth: .infinity, minHeight: 48, maxHeight: 48)
         .padding(.vertical, 4)
     }
-}
-
-struct UnityVersionButton_Previews: PreviewProvider {
-    static var previews: some View {
-        UnityVersionButton(version: "2020.2.0b2")
+    
+    func getInstalledModules() -> [UnityModule] {
+        var unityModules: [UnityModule] = []
+                
+        if let url = URL(string: "file://\(path)/modules.json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let modules: [ModuleJSON] = try! JSONDecoder().decode([ModuleJSON].self, from: data)
+                
+                for module in modules {
+                    if let unityModule = UnityModule(rawValue: ("", module.id, AnyView(Rectangle()))) {
+                        unityModules.append(unityModule)
+                    }
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
+        return unityModules
     }
 }
