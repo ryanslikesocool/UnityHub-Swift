@@ -21,7 +21,7 @@ enum UnityModule {
 }
 
 extension UnityModule: RawRepresentable {
-    // (display name, json name, icon)
+    // (display name, json id, icon)
     typealias RawValue = (String, String, AnyView)
     
     init?(rawValue: (String, String, AnyView)) {

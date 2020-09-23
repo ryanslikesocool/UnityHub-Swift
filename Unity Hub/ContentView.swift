@@ -18,19 +18,21 @@ struct ContentView: View {
                     NavigationLink(destination: TabSelector(item: item), tag: item, selection: $selectedItem) {
                         HStack {
                             Image(systemName: item.rawValue.2)
+                                .font(.system(size: 12, weight: .black))
                             Text(item.rawValue.1)
+                                .font(.system(size: 12, weight: .semibold))
                             Spacer()
                         }
-                        .font(.system(size: 12, weight: .semibold))
                         .frame(width: 192, height: 28)
                     }
                 case .learn, .community:
                     HStack {
                         Image(systemName: item.rawValue.2)
+                            .font(.system(size: 12, weight: .black))
                         Text(item.rawValue.1)
+                            .font(.system(size: 12, weight: .semibold))
                         Spacer()
                     }
-                    .font(.system(size: 12, weight: .semibold))
                     .frame(width: 192, height: 28)
                     .foregroundColor(.gray)
                 }

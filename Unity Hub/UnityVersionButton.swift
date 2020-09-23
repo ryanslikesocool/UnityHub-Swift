@@ -18,14 +18,12 @@ struct UnityVersionButton: View {
                 .padding(.leading, 12)
             Text(version)
                 .font(.system(size: 12, weight: .bold))
-            
+                .help(path)
             Spacer()
-            
             ForEach(getInstalledModules()) { item in
                 item.rawValue.2
                     .help(item.rawValue.0)
             }
-            
             Menu {
                 Button("Add Modules", action: {})
                 Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path) })

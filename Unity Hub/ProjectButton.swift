@@ -21,11 +21,9 @@ struct ProjectButton: View {
                 Text(project)
                     .font(.system(size: 12, weight: .bold))
                     .padding(.leading, 12)
-
+                    .help(path)
                 Spacer()
-                
                 Text("Unity \(version)")
-                
                 Menu {
                     Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path) })
                     Button("Advanced", action: {})

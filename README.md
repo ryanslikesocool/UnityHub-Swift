@@ -10,4 +10,5 @@ Planned features
   - Loading projects with a specific version of Unity
   - Installing Unity versions and modules
 
+![Projects view](images/Projects.png) 
 ![Installs view](images/Installs.png) 
