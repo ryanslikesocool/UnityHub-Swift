@@ -55,9 +55,7 @@ struct ProjectButton: View {
             {
                 let fullUnityPath = "\(version.0)/Unity.app/Contents/MacOS/Unity"
                 let commands = "-projectPath"
-                let result = shell("\(fullUnityPath) \(commands) \(path)")
-                print(result)
-                //NSWorkspace.shared.open(URL(fileURLWithPath: version.0))
+                let _ = shell("\(fullUnityPath) \(commands) \(path)")
                 return
             }
         }

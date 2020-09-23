@@ -32,7 +32,7 @@ struct InstallsTab: View {
                 }
             }
         }.sheet(isPresented: $showInstaller) {
-            InstallVersionPopup(presented: $showInstaller)
+            InstallVersionPopup()
         }
     }
     

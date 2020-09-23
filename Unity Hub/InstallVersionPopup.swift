@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InstallVersionPopup: View {
-    @Binding var presented: Bool
+    @Environment(\.presentationMode) var presentationMode
     @State private var tab: String = "Version"
     @State private var selectedVersion: String = ""
     @State private var selectedModules: [UnityModule] = []
@@ -20,7 +20,6 @@ struct InstallVersionPopup: View {
                     Button("Cancel", action: closeMenu)
                     TabView(selection: $tab) {
                         Form {
-                            Text("Select Version")
                             Picker("", selection: $selectedVersion) {
                                 ForEach(getLatestVersions(), id: \.self.version) { version in
                                     Text(version.version)
@@ -37,11 +36,17 @@ struct InstallVersionPopup: View {
                         .tabItem { Text("Modules") }
                         .tag("Modules")
                     }
+                    
+                    HStack {
+                        Spacer()
+                        Button("Install", action: installSelectedItems)
+                            .disabled(selectedVersion == "")
+                    }
                 }
                 .foregroundColor(Color(.textColor))
                 .padding()
             )
-            .frame(width: 320, height: 384)
+            .frame(width: 256, height: 320)
             .foregroundColor(Color(.windowBackgroundColor))
     }
     
@@ -50,9 +55,13 @@ struct InstallVersionPopup: View {
     }
     
     func closeMenu() {
-        presented.toggle()
+        presentationMode.wrappedValue.dismiss()
         tab = "Version"
         selectedVersion = ""
         selectedModules = []
+    }
+    
+    func installSelectedItems() {
+        
     }
 }
