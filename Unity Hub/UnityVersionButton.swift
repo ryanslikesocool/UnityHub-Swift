@@ -47,19 +47,18 @@ struct UnityVersionButton: View {
     func getInstalledModules() -> [UnityModule] {
         var unityModules: [UnityModule] = []
                 
-        if let url = URL(string: "file://\(path)/modules.json") {
-            do {                
-                let data = try Data(contentsOf: url)
-                let modules: [ModuleJSON] = try! JSONDecoder().decode([ModuleJSON].self, from: data)
-                
-                for module in modules {
-                    if let unityModule = UnityModule(rawValue: ("", module.id, AnyView(Rectangle()))) {
-                        unityModules.append(unityModule)
-                    }
+        let url = URL(fileURLWithPath: "\(path)/modules.json")
+        do {
+            let data = try Data(contentsOf: url)
+            let modules: [ModuleJSON] = try! JSONDecoder().decode([ModuleJSON].self, from: data)
+            
+            for module in modules {
+                if let unityModule = UnityModule(rawValue: ("", module.id, AnyView(Rectangle()))) {
+                    unityModules.append(unityModule)
                 }
-            } catch {
-                print(error.localizedDescription)
             }
+        } catch {
+            print(error.localizedDescription)
         }
         
         return unityModules

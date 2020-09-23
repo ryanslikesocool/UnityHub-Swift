@@ -13,6 +13,7 @@ struct ProjectButton: View {
     var path: String
     var project: String
     var version: String
+    @Binding var updateList: Bool
     
     var body: some View {
         Button(action: openProject) {
@@ -28,7 +29,10 @@ struct ProjectButton: View {
                 Menu {
                     Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path) })
                     Button("Advanced", action: {})
-                    Button("Remove", action: { settings.projectPaths.removeAll(where: { $0 == path })})
+                    Button("Remove", action: {
+                        settings.projectPaths.removeAll(where: { $0 == path })
+                        updateList.toggle()
+                    })
                 } label: {}
                 .menuStyle(BorderlessButtonMenuStyle())
                 .frame(width: 32, height: 48)
