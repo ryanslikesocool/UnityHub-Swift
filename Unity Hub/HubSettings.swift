@@ -26,6 +26,6 @@ class HubSettings: ObservableObject {
         set { UserDefaults.standard.set(newValue, forKey: "projectPaths") }
     }
     
-    @Published var versionsInstalled: [(String, String)] = []
+    @Published var versionsInstalled: [(String, UnityVersion)] = []
     @Published var projects: [(String, String, String)] = []
 }

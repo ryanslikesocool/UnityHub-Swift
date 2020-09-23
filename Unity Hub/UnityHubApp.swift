@@ -43,7 +43,7 @@ struct UnityHubApp: App {
                 let path = "\(path)/\(item)"
                 if fm.fileExists(atPath: path, isDirectory: &isDir) {
                     if isDir.boolValue {
-                        settings.versionsInstalled.append((path, item))
+                        settings.versionsInstalled.append((path, UnityVersion(item)))
                     }
                 }
             }
@@ -58,14 +58,13 @@ struct UnityHubApp: App {
                 if items.contains("Unity.app") {
                     if isDir.boolValue {
                         let components = settings.customInstallPaths[i].components(separatedBy: "/")
-                        settings.versionsInstalled.append((settings.customInstallPaths[i], components.last!))
+                        settings.versionsInstalled.append((settings.customInstallPaths[i], UnityVersion(components.last!)))
                     }
                 } else {
                     settings.customInstallPaths.remove(at: i)
                 }
             }
         } catch {
-            // failed to read directory – bad permissions, perhaps?
             print(error.localizedDescription)
         }
     }

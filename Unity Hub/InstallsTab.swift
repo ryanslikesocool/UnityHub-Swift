@@ -10,7 +10,8 @@ import AppKit
 
 struct InstallsTab: View {
     @EnvironmentObject var settings: HubSettings
-    
+    @State private var showInstaller: Bool = false
+
     var body: some View {
         List {
             ForEach(settings.versionsInstalled, id: \.self.0) { version in
@@ -30,6 +31,8 @@ struct InstallsTab: View {
                     Image(systemName: "plus")
                 }
             }
+        }.sheet(isPresented: $showInstaller) {
+            InstallVersionPopup(presented: $showInstaller)
         }
     }
     
@@ -50,7 +53,7 @@ struct InstallsTab: View {
     }
     
     func installVersion() {
-        
+        showInstaller.toggle()
     }
 }
 

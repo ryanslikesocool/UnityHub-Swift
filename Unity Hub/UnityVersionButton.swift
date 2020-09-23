@@ -9,14 +9,14 @@ import SwiftUI
 
 struct UnityVersionButton: View {
     var path: String
-    var version: String
+    var version: UnityVersion
     
     var body: some View {
         HStack {
             SVGShapes.UnityCube()
                 .frame(width: 20, height: 20)
                 .padding(.leading, 12)
-            Text(version)
+            Text(version.version)
                 .font(.system(size: 12, weight: .bold))
                 .help(path)
             Spacer()

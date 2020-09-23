@@ -10,6 +10,8 @@
 		AF16EDE8251AEC1700C939AA /* SidebarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16EDE7251AEC1700C939AA /* SidebarItem.swift */; };
 		AF16EDEF251AED6100C939AA /* ProjectTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16EDEE251AED6100C939AA /* ProjectTab.swift */; };
 		AF16EDF7251AEF4000C939AA /* TabSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16EDF6251AEF4000C939AA /* TabSelector.swift */; };
+		AF16FF24251B8CAD00C8A2A9 /* InstallVersionPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16FF23251B8CAD00C8A2A9 /* InstallVersionPopup.swift */; };
+		AF16FF27251B8EA500C8A2A9 /* UnityVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */; };
 		AF34E221251AF91F00192E53 /* InstallsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E220251AF91F00192E53 /* InstallsTab.swift */; };
 		AF34E226251AFD2D00192E53 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E225251AFD2D00192E53 /* SettingsView.swift */; };
 		AF34E22B251AFE5300192E53 /* HubSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E22A251AFE5300192E53 /* HubSettings.swift */; };
@@ -31,6 +33,8 @@
 		AF16EDE7251AEC1700C939AA /* SidebarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarItem.swift; sourceTree = "<group>"; };
 		AF16EDEE251AED6100C939AA /* ProjectTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTab.swift; sourceTree = "<group>"; };
 		AF16EDF6251AEF4000C939AA /* TabSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSelector.swift; sourceTree = "<group>"; };
+		AF16FF23251B8CAD00C8A2A9 /* InstallVersionPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallVersionPopup.swift; sourceTree = "<group>"; };
+		AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityVersion.swift; sourceTree = "<group>"; };
 		AF34E220251AF91F00192E53 /* InstallsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallsTab.swift; sourceTree = "<group>"; };
 		AF34E225251AFD2D00192E53 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AF34E22A251AFE5300192E53 /* HubSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubSettings.swift; sourceTree = "<group>"; };
@@ -88,9 +92,12 @@
 				AF34E220251AF91F00192E53 /* InstallsTab.swift */,
 				AFB1C3A5251B357A00F8E3D8 /* ModuleJSON.swift */,
 				AFA0862B251B1CFB00B1B985 /* NSOpenPanel.swift */,
+				AFB1C3A8251B459600F8E3D8 /* ProjectButton.swift */,
 				AF16EDEE251AED6100C939AA /* ProjectTab.swift */,
 				AF34E225251AFD2D00192E53 /* SettingsView.swift */,
+				AFB1C3AF251B633C00F8E3D8 /* Shell.swift */,
 				AF16EDE7251AEC1700C939AA /* SidebarItem.swift */,
+				AFB1C3AC251B492900F8E3D8 /* String.swift */,
 				AF66EC01251AE57D0088EC84 /* SVGShapes.swift */,
 				AF16EDF6251AEF4000C939AA /* TabSelector.swift */,
 				AF66EBED251AE3900088EC84 /* UnityHubApp.swift */,
@@ -98,9 +105,8 @@
 				AFFDD8B2251B08EB000AE12C /* UnityVersionButton.swift */,
 				AF66EBF1251AE3910088EC84 /* Assets.xcassets */,
 				AF66EBF3251AE3910088EC84 /* Preview Content */,
-				AFB1C3A8251B459600F8E3D8 /* ProjectButton.swift */,
-				AFB1C3AC251B492900F8E3D8 /* String.swift */,
-				AFB1C3AF251B633C00F8E3D8 /* Shell.swift */,
+				AF16FF23251B8CAD00C8A2A9 /* InstallVersionPopup.swift */,
+				AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */,
 			);
 			path = "Unity Hub";
 			sourceTree = "<group>";
@@ -190,7 +196,9 @@
 				AF66EBEE251AE3900088EC84 /* UnityHubApp.swift in Sources */,
 				AF16EDF7251AEF4000C939AA /* TabSelector.swift in Sources */,
 				AFB1C3B0251B633C00F8E3D8 /* Shell.swift in Sources */,
+				AF16FF24251B8CAD00C8A2A9 /* InstallVersionPopup.swift in Sources */,
 				AFFDD8B3251B08EB000AE12C /* UnityVersionButton.swift in Sources */,
+				AF16FF27251B8EA500C8A2A9 /* UnityVersion.swift in Sources */,
 				AF34E22B251AFE5300192E53 /* HubSettings.swift in Sources */,
 				AFB1C3A9251B459600F8E3D8 /* ProjectButton.swift in Sources */,
 				AF16EDEF251AED6100C939AA /* ProjectTab.swift in Sources */,
