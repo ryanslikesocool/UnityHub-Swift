@@ -27,7 +27,7 @@ struct UnityVersionButton: View {
             
             Menu {
                 Button("Add Modules", action: {})
-                Button("Reveal in Finder", action: {})
+                Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path) })
                 Button("Uninstall", action: {})
             } label: {}
             .menuStyle(BorderlessButtonMenuStyle())
@@ -48,7 +48,7 @@ struct UnityVersionButton: View {
         var unityModules: [UnityModule] = []
                 
         if let url = URL(string: "file://\(path)/modules.json") {
-            do {
+            do {                
                 let data = try Data(contentsOf: url)
                 let modules: [ModuleJSON] = try! JSONDecoder().decode([ModuleJSON].self, from: data)
                 

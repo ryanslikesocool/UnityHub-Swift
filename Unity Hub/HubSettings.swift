@@ -21,5 +21,11 @@ class HubSettings: ObservableObject {
         set { UserDefaults.standard.set(newValue, forKey: "customInstallPaths") }
     }
     
+    var projectPaths: [String] {
+        get { return UserDefaults.standard.object(forKey: "projectPaths") as? [String] ?? [] }
+        set { UserDefaults.standard.set(newValue, forKey: "projectPaths") }
+    }
+    
     @Published var versionsInstalled: [(String, String)] = []
+    @Published var projects: [(String, String, String)] = []
 }

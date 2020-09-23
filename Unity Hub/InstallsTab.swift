@@ -13,29 +13,28 @@ struct InstallsTab: View {
     
     var body: some View {
         List {
-            ForEach(settings.versionsInstalled, id: \.self.1) { version in
-                UnityVersionButton(path: version.1, version: version.0)
+            ForEach(settings.versionsInstalled, id: \.self.0) { version in
+                UnityVersionButton(path: version.0, version: version.1)
             }
         }
         .navigationTitle("Installs")
-        .onAppear(perform: getUnityVersions)
+        .onAppear(perform: getAllVersions)
         .onDisappear(perform: { settings.versionsInstalled.removeAll() })
         .toolbar {
             ToolbarItem(placement: .automatic) {
-                Button(action: locateFolder) {
+                Button(action: locateVersion) {
                     Image(systemName: "magnifyingglass")
                 }
             }
             ToolbarItem(placement: .automatic) {
-                Button(action: {/*Install version*/}) {
+                Button(action: installVersion) {
                     Image(systemName: "plus")
                 }
             }
         }
-
     }
     
-    func getUnityVersions() {
+    func getAllVersions() {
         let fm = FileManager.default
         let path = settings.installLocation
 
@@ -48,7 +47,7 @@ struct InstallsTab: View {
                 let path = "\(path)/\(item)"
                 if fm.fileExists(atPath: path, isDirectory: &isDir) {
                     if isDir.boolValue {
-                        settings.versionsInstalled.append((item, path))
+                        settings.versionsInstalled.append((path, item))
                     }
                 }
             }
@@ -63,7 +62,7 @@ struct InstallsTab: View {
                 if items.contains("Unity.app") {
                     if isDir.boolValue {
                         let components = settings.customInstallPaths[i].components(separatedBy: "/")
-                        settings.versionsInstalled.append((components.last!, settings.customInstallPaths[i]))
+                        settings.versionsInstalled.append((settings.customInstallPaths[i], components.last!))
                     }
                 } else {
                     settings.customInstallPaths.remove(at: i)
@@ -75,7 +74,7 @@ struct InstallsTab: View {
         }
     }
     
-    func locateFolder() {
+    func locateVersion() {
         NSOpenPanel.openFolder { result in
             if case let .success(path) = result {
                 if !settings.customInstallPaths.contains(path) {
@@ -83,9 +82,13 @@ struct InstallsTab: View {
                 }
                 
                 settings.versionsInstalled.removeAll()
-                getUnityVersions()
+                getAllVersions()
             }
         }
+    }
+    
+    func installVersion() {
+        
     }
 }
 
