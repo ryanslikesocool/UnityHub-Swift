@@ -23,6 +23,7 @@ struct UnityVersionButton: View {
             
             ForEach(getInstalledModules()) { item in
                 item.rawValue.2
+                    .help(item.rawValue.0)
             }
             
             Menu {
