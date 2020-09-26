@@ -14,7 +14,7 @@ struct UnityVersionButton: View {
     var body: some View {
         HStack {
             SVGShapes.UnityCube()
-                .frame(width: 20, height: 20)
+                .frame(width: 16, height: 16)
                 .padding(.leading, 12)
             Text(version.version)
                 .font(.system(size: 12, weight: .bold))
@@ -23,6 +23,7 @@ struct UnityVersionButton: View {
             ForEach(getInstalledModules()) { item in
                 if let icon = item.getIcon() {
                     icon
+                        .frame(width: 16, height: 16)
                         .help(item.getDisplayName() ?? "")
                 }
             }
@@ -32,7 +33,7 @@ struct UnityVersionButton: View {
                 Button("Uninstall", action: {})
             } label: {}
             .menuStyle(BorderlessButtonMenuStyle())
-            .frame(width: 32, height: 48)
+            .frame(width: 16, height: 48)
             .padding(.trailing, 16)
         }
         .background(

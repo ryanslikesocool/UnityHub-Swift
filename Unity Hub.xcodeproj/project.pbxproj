@@ -96,6 +96,7 @@
 				AF66EBFA251AE3910088EC84 /* Unity_Hub.entitlements */,
 				AF66EBF9251AE3910088EC84 /* Info.plist */,
 				AF66EBEF251AE3900088EC84 /* ContentView.swift */,
+				AF59FEA4251EBB4A0093D284 /* EmojiPicker.swift */,
 				AFE222D0251EA41400265506 /* EmojiPickerButton.swift */,
 				AF34E22A251AFE5300192E53 /* HubSettings.swift */,
 				AF34E220251AF91F00192E53 /* InstallsTab.swift */,
@@ -117,7 +118,6 @@
 				AFFDD8B2251B08EB000AE12C /* UnityVersionButton.swift */,
 				AF66EBF1251AE3910088EC84 /* Assets.xcassets */,
 				AF66EBF3251AE3910088EC84 /* Preview Content */,
-				AF59FEA4251EBB4A0093D284 /* EmojiPicker.swift */,
 			);
 			path = "Unity Hub";
 			sourceTree = "<group>";

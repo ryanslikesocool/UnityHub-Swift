@@ -45,6 +45,7 @@ struct EmojiPicker: View {
                 LazyVGrid(columns: gridItems, alignment: .leading, spacing: 4) {
                     ForEach(categories[emojiCategory] ?? categories["people"]!, id: \.self) { emoji in
                         Button(emoji, action: { selectEmoji(emoji: emoji) })
+                        //.help(Smile.name(emoji: emoji))
                     }
                     .font(.system(size: 28))
                     .buttonStyle(PlainButtonStyle())

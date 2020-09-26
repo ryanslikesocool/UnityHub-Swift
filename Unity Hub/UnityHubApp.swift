@@ -42,7 +42,7 @@ struct UnityHubApp: App {
             for item in items {
                 let path = "\(path)/\(item)"
                 if fm.fileExists(atPath: path, isDirectory: &isDir) {
-                    if isDir.boolValue {
+                    if isDir.boolValue && validateEditor(path: path) {
                         settings.versionsInstalled.append((path, UnityVersion(item)))
                     }
                 }
@@ -56,7 +56,7 @@ struct UnityHubApp: App {
                 let items = try fm.contentsOfDirectory(atPath: settings.customInstallPaths[i])
                  
                 if items.contains("Unity.app") {
-                    if isDir.boolValue {
+                    if isDir.boolValue && validateEditor(path: settings.customInstallPaths[i]) {
                         let components = settings.customInstallPaths[i].components(separatedBy: "/")
                         settings.versionsInstalled.append((settings.customInstallPaths[i], UnityVersion(components.last!)))
                     }
@@ -66,6 +66,14 @@ struct UnityHubApp: App {
             }
         } catch {
             print(error.localizedDescription)
+        }
+        
+        settings.versionsInstalled.sort {
+            switch $0.1.compare(other: $1.1) {
+            case 1: return true
+            case -1: return false
+            default: return false
+            }
         }
     }
     
@@ -102,5 +110,30 @@ struct UnityHubApp: App {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    static func validateEditor(path: String) -> Bool {
+        do {
+            var format = PropertyListSerialization.PropertyListFormat.xml
+            let plistData = try Data(contentsOf: URL(fileURLWithPath: "\(path)/Unity.app/Contents/Info.plist"))
+            if let plistDictionary = try PropertyListSerialization.propertyList(from: plistData, options: .mutableContainersAndLeaves, format: &format) as? [String : AnyObject] {
+                if let bundleID = plistDictionary["CFBundleIdentifier"] as? String {
+                    if !bundleID.contains("com.unity3d.UnityEditor") {
+                        print("Invalid bundle identifier")
+                        return false
+                    }
+                } else {
+                    print("No bundle identifier")
+                    return false
+                }
+            } else {
+                print("No valid plist")
+                return false
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        return true
     }
 }

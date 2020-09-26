@@ -34,13 +34,10 @@ struct ProjectButton: View {
                 Menu {
                     Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path) })
                     Button("Advanced", action: {})
-                    Button("Remove", action: {
-                        settings.projectPaths.removeAll(where: { $0 == path })
-                        updateList.toggle()
-                    })
+                    Button("Remove", action: removeProject)
                 } label: {}
                 .menuStyle(BorderlessButtonMenuStyle())
-                .frame(width: 32, height: 48)
+                .frame(width: 16, height: 48)
                 .padding(.trailing, 16)
             }
             .background(
@@ -68,5 +65,11 @@ struct ProjectButton: View {
                 return
             }
         }
+    }
+    
+    func removeProject() {
+        settings.projectPaths.removeAll(where: { $0 == path })
+        updateList.toggle()
+        settings.removeProjectEmoji(project: project)
     }
 }

@@ -97,12 +97,12 @@ extension UnityModule: RawRepresentable {
     
     func getIcon() -> AnyView? {
         switch self {
-        case .macOSMono, .macOSIL2CPP: return AnyView(SVGShapes.macOS().frame(width: 20, height: 20))
-        case .windowsMono, .windowsIL2CPP: return AnyView(SVGShapes.Windows().frame(width: 20, height: 20))
-        case .linuxMono, .linuxIL2CPP: return AnyView(SVGShapes.Linux().frame(width: 20, height: 20))
-        case .iOS: return AnyView(SVGShapes.iOS().frame(width: 20, height: 20))
-        case .tvOS: return AnyView(SVGShapes.tvOS().frame(width: 20, height: 20))
-        case .android: return AnyView(SVGShapes.Android().frame(width: 20, height: 20))
+        case .macOSMono, .macOSIL2CPP: return AnyView(SVGShapes.macOS())
+        case .windowsMono, .windowsIL2CPP: return AnyView(SVGShapes.Windows())
+        case .linuxMono, .linuxIL2CPP: return AnyView(SVGShapes.Linux())
+        case .iOS: return AnyView(SVGShapes.iOS())
+        case .tvOS: return AnyView(SVGShapes.tvOS())
+        case .android: return AnyView(SVGShapes.Android())
         default: return nil
         }
     }
