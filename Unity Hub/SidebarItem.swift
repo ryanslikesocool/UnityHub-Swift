@@ -18,7 +18,6 @@ extension SidebarItem: RawRepresentable {
     // (order, label, icon)
     typealias RawValue = (Int, String, String)
     
-    // Don't allow creation
     init?(rawValue: (Int, String, String)) {
         switch(rawValue.0) {
         case 0: self = .projects

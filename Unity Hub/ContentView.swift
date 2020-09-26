@@ -37,9 +37,18 @@ struct ContentView: View {
                     .foregroundColor(.gray)
                 }
             }
-            .frame(width: 160)
             .listStyle(SidebarListStyle())
-            .navigationTitle("Unity Hub")
+            .toolbar {
+                ToolbarItem(placement: .navigation) {
+                    Button(action: toggleSidebar, label: {
+                        Image(systemName: "sidebar.left")
+                    })
+                }
+            }
         }
+    }
+    
+    func toggleSidebar() {
+            NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
     }
 }

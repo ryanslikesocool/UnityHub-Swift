@@ -26,6 +26,18 @@ class HubSettings: ObservableObject {
         set { UserDefaults.standard.set(newValue, forKey: "projectPaths") }
     }
     
+    func getProjectEmoji(project: String) -> String {
+        return UserDefaults.standard.string(forKey: "projectEmoji_\(project)") ?? "❓"
+    }
+    
+    func setProjectEmoji(emoji: String, project: String) {
+        UserDefaults.standard.set(emoji, forKey: "projectEmoji_\(project)")
+    }
+    
+    func removeProjectEmoji(project: String) {
+        UserDefaults.standard.removeObject(forKey: "projectEmoji_\(project)")
+    }
+    
     @Published var versionsInstalled: [(String, UnityVersion)] = []
     @Published var projects: [(String, String, String)] = []
 }

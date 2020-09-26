@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InstallVersionPopup: View {
+struct InstallVersionSheet: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var tab: String = "Version"
     @State private var selectedVersion: String = ""

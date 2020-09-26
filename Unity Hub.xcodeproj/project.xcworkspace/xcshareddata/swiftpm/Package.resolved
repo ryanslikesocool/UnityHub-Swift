@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Smile",
+        "repositoryURL": "https://github.com/onmyway133/Smile",
+        "state": {
+          "branch": null,
+          "revision": "40604722a7a56f735124e069fcbb58307637744b",
+          "version": "2.1.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

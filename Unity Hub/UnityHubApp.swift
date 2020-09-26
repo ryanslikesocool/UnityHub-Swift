@@ -76,6 +76,8 @@ struct UnityHubApp: App {
         for path in settings.projectPaths {
             if !fm.fileExists(atPath: path) {
                 settings.projectPaths.removeAll(where: { $0 == path })
+                let name = path.components(separatedBy: "/").last!
+                settings.removeProjectEmoji(project: name)
                 continue
             }
             
@@ -94,7 +96,7 @@ struct UnityHubApp: App {
                 let versionText = try String(contentsOf: url)
                 version = versionText.components(separatedBy: "\n").first!
                 version.trimPrefix("m_EditorVersion: ")
-
+                
                 settings.projects.append((path, name, version))
             } catch {
                 print(error.localizedDescription)

@@ -16,12 +16,18 @@ struct ProjectButton: View {
     var version: String
     @Binding var updateList: Bool
     
+    @State private var emoji: String = ""
+    
     var body: some View {
         Button(action: openProject) {
             HStack {
+                EmojiPickerButton(emoji: $emoji, action: {
+                    settings.setProjectEmoji(emoji: emoji, project: project)
+                })
+                .padding(.leading, 8)
+                .font(.system(size: 16))
                 Text(project)
                     .font(.system(size: 12, weight: .bold))
-                    .padding(.leading, 12)
                     .help(path)
                 Spacer()
                 Text("Unity \(version)")
@@ -47,6 +53,9 @@ struct ProjectButton: View {
             .padding(.vertical, 4)
         }
         .buttonStyle(PlainButtonStyle())
+        .onAppear {
+            emoji = settings.getProjectEmoji(project: project)
+        }
     }
     
     func openProject() {
