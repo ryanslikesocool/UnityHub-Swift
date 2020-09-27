@@ -75,25 +75,33 @@ struct UnityVersion {
         return major > other.major ? 1 : -1
     }
 
-    static func isOfficial(version: String) -> Bool {
+    func isOfficial() -> Bool {
         return isCorrectChannel(version: version, channelChar: "f");
     }
 
-    static func isAlpha(version: String) -> Bool {
+    func isAlpha() -> Bool {
         return isCorrectChannel(version: version, channelChar: "a");
     }
 
-    static func isBeta(version: String) -> Bool {
+    func isBeta() -> Bool {
         return isCorrectChannel(version: version, channelChar: "b");
     }
 
-    static func isCorrectChannel(version: String, channelChar: String) -> Bool {
-        let regexMatchers = UnityVersion.versionRegex.matches(in: version, options: [], range: NSRange(0 ..< version.count))
-        return String(describing: regexMatchers[4]) == channelChar
+    func isCorrectChannel(version: String, channelChar: String) -> Bool {
+        var correct: Bool = false
+        UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { (match, _, stop) in
+            guard let match = match else { return }
+            correct = String(version[Range(match.range(at: 4), in: version) ?? (version.startIndex ..< version.endIndex)]) == channelChar
+        }
+        return correct
     }
 
-    static func isValid(version: String) -> Bool {
-        let regexMatchers = UnityVersion.versionRegex.matches(in: version, options: [], range: NSRange(0 ..< version.count))
-        return regexMatchers.count == 6
+    func isValid(version: String) -> Bool {
+        var valid: Bool = false
+        UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { (match, _, stop) in
+            guard let match = match else { return }
+            valid = match.numberOfRanges == 6
+        }
+        return valid
     }
 }

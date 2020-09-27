@@ -19,6 +19,16 @@ struct UnityVersionButton: View {
             Text(version.version)
                 .font(.system(size: 12, weight: .bold))
                 .help(path)
+            
+            if version.isAlpha() || version.isBeta() {
+                RoundedRectangle(cornerRadius: 16, style: .circular)
+                    .frame(width: 48, height: 24)
+                    .foregroundColor(Color(.windowBackgroundColor))
+                    .overlay(
+                        Text(version.isAlpha() ? "Alpha" : "Beta")
+                    )
+            }
+            
             Spacer()
             ForEach(getInstalledModules()) { item in
                 if let icon = item.getIcon() {
@@ -39,7 +49,7 @@ struct UnityVersionButton: View {
         .background(
             RoundedRectangle(cornerRadius: 8, style: .continuous)
                 .frame(minWidth: 64, maxWidth: .infinity, minHeight: 48, maxHeight: 48)
-                .foregroundColor(Color(.windowBackgroundColor).opacity(0.5))
+                .foregroundColor(Color(.windowBackgroundColor).opacity(0.375))
         )
         .foregroundColor(Color(.textColor))
         .frame(minWidth: 64, maxWidth: .infinity, minHeight: 48, maxHeight: 48)
