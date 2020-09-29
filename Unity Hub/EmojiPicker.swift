@@ -30,7 +30,7 @@ struct EmojiPicker: View {
 
     var body: some View {
         let gridItems = [
-            GridItem(.flexible()),
+             GridItem(.flexible()),
              GridItem(.flexible()),
              GridItem(.flexible()),
              GridItem(.flexible()),
@@ -41,6 +41,12 @@ struct EmojiPicker: View {
         ]
         
         VStack(alignment: .center, spacing: 0) {
+            HStack {
+                Spacer()
+                Button("Clear", action: { selectEmoji(emoji: "") })
+                Button("Cancel", action: { presentationMode.wrappedValue.dismiss() })
+            }
+            .font(.body)
             ScrollView {
                 LazyVGrid(columns: gridItems, alignment: .leading, spacing: 4) {
                     ForEach(categories[emojiCategory] ?? categories["people"]!, id: \.self) { emoji in
@@ -52,8 +58,6 @@ struct EmojiPicker: View {
                 }
             }
             HStack {
-                Button("Cancel", action: { presentationMode.wrappedValue.dismiss() })
-                    .font(.body)
                 ForEach(categoryNames, id: \.self) { category in
                     Button(categories[category]?[0] ?? categories["people"]![0], action: { selectCategory(category: category) })
                         .buttonStyle(PlainButtonStyle())

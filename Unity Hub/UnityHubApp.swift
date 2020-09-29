@@ -110,6 +110,8 @@ struct UnityHubApp: App {
                 print(error.localizedDescription)
             }
         }
+        
+        settings.projects.sort(by: { $0.1 < $1.1 })
     }
     
     static func validateEditor(path: String) -> Bool {

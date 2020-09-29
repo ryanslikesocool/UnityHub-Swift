@@ -17,22 +17,29 @@ struct ProjectButton: View {
     @Binding var updateList: Bool
     
     @State private var emoji: String = ""
+    @State private var isPickerOpen: Bool = false
+
+    @State private var shellCommand: String? = nil
+    @State private var showWarning: Bool = false
     
     var body: some View {
         Button(action: openProject) {
             HStack {
-                EmojiPickerButton(emoji: $emoji, action: {
-                    settings.setProjectEmoji(emoji: emoji, project: project)
-                })
+                Text(emoji)
                 .padding(.leading, 8)
                 .font(.system(size: 16))
                 Text(project)
                     .font(.system(size: 12, weight: .bold))
                     .help(path)
                 Spacer()
+                if showWarning {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .help("The Editor version associated with this project is not currently available on this machine.  Go to Installs to download a matching version")
+                }
                 Text("Unity \(version)")
                 Menu {
                     Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path) })
+                    Button("Edit Emoji", action: { isPickerOpen.toggle() } )
                     Button("Advanced", action: {})
                     Button("Remove", action: removeProject)
                 } label: {}
@@ -52,18 +59,30 @@ struct ProjectButton: View {
         .buttonStyle(PlainButtonStyle())
         .onAppear {
             emoji = settings.getProjectEmoji(project: project)
+            shellCommand = getShellCommand()
         }
+        .sheet(isPresented: $isPickerOpen, content: {
+            EmojiPicker(pickedEmoji: $emoji, action: { settings.setProjectEmoji(emoji: emoji, project: project) })
+        })
     }
     
-    func openProject() {
+    func getShellCommand() -> String? {
         for version in settings.versionsInstalled {
             if version.1.version == self.version
             {
                 let fullUnityPath = "\(version.0)/Unity.app/Contents/MacOS/Unity"
                 let commands = "-projectPath"
-                let _ = shell("\(fullUnityPath) \(commands) \(path)")
-                return
+                return "\(fullUnityPath) \(commands) \(path)"
             }
+        }
+        
+        showWarning = true
+        return nil
+    }
+    
+    func openProject() {
+        if !showWarning {
+            let _ = shell(shellCommand!)
         }
     }
     
