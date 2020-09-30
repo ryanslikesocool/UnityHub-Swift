@@ -10,6 +10,7 @@ import SwiftUI
 struct UnityVersionButton: View {
     var path: String
     var version: UnityVersion
+    var hideRightSide: Bool = false
     
     var body: some View {
         HStack {
@@ -28,23 +29,26 @@ struct UnityVersionButton: View {
                         Text(version.isAlpha() ? "Alpha" : "Beta")
                     )
             }
-            
-            Spacer()
-            ForEach(getInstalledModules()) { item in
-                if let icon = item.getIcon() {
-                    icon
-                        .frame(width: 16, height: 16)
-                        .help(item.getDisplayName() ?? "")
+            if !hideRightSide {
+                Spacer()
+                ForEach(getInstalledModules()) { item in
+                    if let icon = item.getIcon() {
+                        icon
+                            .frame(width: 16, height: 16)
+                            .help(item.getDisplayName() ?? "")
+                    }
                 }
+                Menu {
+                    Button("Add Modules", action: {})
+                    Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path) })
+                    Button("Uninstall", action: {})
+                } label: {}
+                .menuStyle(BorderlessButtonMenuStyle())
+                .frame(width: 16, height: 48)
+                .padding(.trailing, 16)
+            } else {
+                Spacer()
             }
-            Menu {
-                Button("Add Modules", action: {})
-                Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path) })
-                Button("Uninstall", action: {})
-            } label: {}
-            .menuStyle(BorderlessButtonMenuStyle())
-            .frame(width: 16, height: 48)
-            .padding(.trailing, 16)
         }
         .background(
             RoundedRectangle(cornerRadius: 8, style: .continuous)

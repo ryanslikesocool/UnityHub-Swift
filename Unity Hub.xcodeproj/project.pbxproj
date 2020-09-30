@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF08B5442524309700E7D16B /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF08B5432524309600E7D16B /* VisualEffectView.swift */; };
+		AF08B5472524430400E7D16B /* SelectProjectVersionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF08B5462524430400E7D16B /* SelectProjectVersionSheet.swift */; };
 		AF16EDE8251AEC1700C939AA /* SidebarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16EDE7251AEC1700C939AA /* SidebarItem.swift */; };
 		AF16EDEF251AED6100C939AA /* ProjectTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16EDEE251AED6100C939AA /* ProjectTab.swift */; };
 		AF16EDF7251AEF4000C939AA /* TabSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16EDF6251AEF4000C939AA /* TabSelector.swift */; };
@@ -34,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF08B5432524309600E7D16B /* VisualEffectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
+		AF08B5462524430400E7D16B /* SelectProjectVersionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProjectVersionSheet.swift; sourceTree = "<group>"; };
 		AF16EDE7251AEC1700C939AA /* SidebarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarItem.swift; sourceTree = "<group>"; };
 		AF16EDEE251AED6100C939AA /* ProjectTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTab.swift; sourceTree = "<group>"; };
 		AF16EDF6251AEF4000C939AA /* TabSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSelector.swift; sourceTree = "<group>"; };
@@ -116,8 +120,10 @@
 				AFB1C3A2251B325000F8E3D8 /* UnityModule.swift */,
 				AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */,
 				AFFDD8B2251B08EB000AE12C /* UnityVersionButton.swift */,
+				AF08B5432524309600E7D16B /* VisualEffectView.swift */,
 				AF66EBF1251AE3910088EC84 /* Assets.xcassets */,
 				AF66EBF3251AE3910088EC84 /* Preview Content */,
+				AF08B5462524430400E7D16B /* SelectProjectVersionSheet.swift */,
 			);
 			path = "Unity Hub";
 			sourceTree = "<group>";
@@ -212,6 +218,7 @@
 				AF5A94D0251BF9E3002FA410 /* Release.swift in Sources */,
 				AF66EBF0251AE3900088EC84 /* ContentView.swift in Sources */,
 				AF34E226251AFD2D00192E53 /* SettingsView.swift in Sources */,
+				AF08B5472524430400E7D16B /* SelectProjectVersionSheet.swift in Sources */,
 				AFB1C3A3251B325000F8E3D8 /* UnityModule.swift in Sources */,
 				AF66EBEE251AE3900088EC84 /* UnityHubApp.swift in Sources */,
 				AF16EDF7251AEF4000C939AA /* TabSelector.swift in Sources */,
@@ -223,6 +230,7 @@
 				AF34E22B251AFE5300192E53 /* HubSettings.swift in Sources */,
 				AFB1C3A9251B459600F8E3D8 /* ProjectButton.swift in Sources */,
 				AF16EDEF251AED6100C939AA /* ProjectTab.swift in Sources */,
+				AF08B5442524309700E7D16B /* VisualEffectView.swift in Sources */,
 				AF34E221251AF91F00192E53 /* InstallsTab.swift in Sources */,
 				AFB1C3AD251B492900F8E3D8 /* StringExtensions.swift in Sources */,
 				AF16EDE8251AEC1700C939AA /* SidebarItem.swift in Sources */,

@@ -105,3 +105,19 @@ struct UnityVersion {
         return valid
     }
 }
+
+extension UnityVersion: Comparable {
+    static func ==(lhs: UnityVersion, rhs: UnityVersion) -> Bool {
+        return lhs.compare(other: rhs) == 0
+    }
+    
+    static func <(lhs: UnityVersion, rhs: UnityVersion) -> Bool {
+        return lhs.compare(other: rhs) == 1
+    }
+    
+    static func >(lhs: UnityVersion, rhs: UnityVersion) -> Bool {
+        return lhs.compare(other: rhs) == 1
+    }
+}
+
+extension UnityVersion: Equatable {}

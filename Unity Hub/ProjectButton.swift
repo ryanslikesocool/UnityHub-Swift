@@ -13,14 +13,25 @@ struct ProjectButton: View {
 
     var path: String
     var project: String
-    var version: String
+    @State var version: UnityVersion
     @Binding var updateList: Bool
     
     @State private var emoji: String = ""
-    @State private var isPickerOpen: Bool = false
 
     @State private var shellCommand: String? = nil
     @State private var showWarning: Bool = false
+
+    @State private var showSheet: Bool = false
+    @State private var activeSheet: ActiveSheet?
+        
+    enum ActiveSheet: Identifiable {
+        case emoji
+        case selectVersion
+        
+        var id: Int {
+            hashValue
+        }
+    }
     
     var body: some View {
         Button(action: openProject) {
@@ -36,10 +47,13 @@ struct ProjectButton: View {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .help("The Editor version associated with this project is not currently available on this machine.  Go to Installs to download a matching version")
                 }
-                Text("Unity \(version)")
+                Text("Unity \(version.version)")
                 Menu {
                     Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path) })
-                    Button("Edit Emoji", action: { isPickerOpen.toggle() } )
+                    Button("Edit Emoji", action: {
+                        activeSheet = .emoji
+                        showSheet.toggle()
+                    })
                     Button("Advanced", action: {})
                     Button("Remove", action: removeProject)
                 } label: {}
@@ -61,14 +75,19 @@ struct ProjectButton: View {
             emoji = settings.getProjectEmoji(project: project)
             shellCommand = getShellCommand()
         }
-        .sheet(isPresented: $isPickerOpen, content: {
-            EmojiPicker(pickedEmoji: $emoji, action: { settings.setProjectEmoji(emoji: emoji, project: project) })
-        })
+        .sheet(item: $activeSheet) { item in
+            switch item {
+            case .emoji: EmojiPicker(pickedEmoji: $emoji, action: { settings.setProjectEmoji(emoji: emoji, project: project) })
+            case .selectVersion: SelectProjectVersionSheet(version: $version, action: { shellCommand = getShellCommand() })
+            }
+        }
     }
     
     func getShellCommand() -> String? {
+        showWarning = false
+        
         for version in settings.versionsInstalled {
-            if version.1.version == self.version
+            if version.1 == self.version
             {
                 let fullUnityPath = "\(version.0)/Unity.app/Contents/MacOS/Unity"
                 let commands = "-projectPath"
@@ -82,7 +101,12 @@ struct ProjectButton: View {
     
     func openProject() {
         if !showWarning {
-            let _ = shell(shellCommand!)
+            DispatchQueue.main.async {
+                let _ = shell(shellCommand!)
+            }
+        } else {
+            activeSheet = .selectVersion
+            showSheet.toggle()
         }
     }
     

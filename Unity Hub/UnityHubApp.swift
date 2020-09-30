@@ -105,7 +105,7 @@ struct UnityHubApp: App {
                 version = versionText.components(separatedBy: "\n").first!
                 version.trimPrefix("m_EditorVersion: ")
                 
-                settings.projects.append((path, name, version))
+                settings.projects.append((path, name, UnityVersion(version)))
             } catch {
                 print(error.localizedDescription)
             }

@@ -40,13 +40,7 @@ struct EmojiPicker: View {
              GridItem(.flexible())
         ]
         
-        VStack(alignment: .center, spacing: 0) {
-            HStack {
-                Spacer()
-                Button("Clear", action: { selectEmoji(emoji: "") })
-                Button("Cancel", action: { presentationMode.wrappedValue.dismiss() })
-            }
-            .font(.body)
+        ZStack {
             ScrollView {
                 LazyVGrid(columns: gridItems, alignment: .leading, spacing: 4) {
                     ForEach(categories[emojiCategory] ?? categories["people"]!, id: \.self) { emoji in
@@ -56,18 +50,34 @@ struct EmojiPicker: View {
                     .font(.system(size: 28))
                     .buttonStyle(PlainButtonStyle())
                 }
-            }
-            HStack {
-                ForEach(categoryNames, id: \.self) { category in
-                    Button(categories[category]?[0] ?? categories["people"]![0], action: { selectCategory(category: category) })
-                        .buttonStyle(PlainButtonStyle())
-                        .font(.system(size: 24))
+                .padding(.top, 48)
+                .padding(.bottom, 64)
+            }.padding(.horizontal, 16)
+            VStack(alignment: .center, spacing: 0) {
+                HStack {
+                    Button("Cancel", action: { presentationMode.wrappedValue.dismiss() })
+                        .padding()
+                    Spacer()
+                    Button("None", action: { selectEmoji(emoji: "") })
+                        .help("Remove the current emoji")
+                        .padding()
                 }
+                .font(.body)
+                .background(VisualEffectView(material: .headerView))
+                Spacer()
+                HStack {
+                    ForEach(categoryNames, id: \.self) { category in
+                        Button(categories[category]?[0] ?? categories["people"]![0], action: { selectCategory(category: category) })
+                            .buttonStyle(PlainButtonStyle())
+                            .font(.system(size: 28))
+                            .help(category.capitalized)
+                    }
+                }
+                .padding()
+                .background(VisualEffectView(material: .headerView))
             }
-            .padding(.top, 4)
         }
-        .frame(width: 320, height: 192)
-        .padding()
+        .frame(width: 320, height: 320)
     }
     
     func selectEmoji(emoji: String) {

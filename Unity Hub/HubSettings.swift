@@ -39,7 +39,7 @@ class HubSettings: ObservableObject {
     }
     
     @Published var versionsInstalled: [(String, UnityVersion)] = []
-    @Published var projects: [(String, String, String)] = []
+    @Published var projects: [(String, String, UnityVersion)] = []
     
     var lastestVersionInstalled: UnityVersion? {
         if versionsInstalled.count == 0 {
