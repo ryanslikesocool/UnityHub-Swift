@@ -8,60 +8,113 @@
 import SwiftUI
 
 struct InstallVersionSheet: View {
+    @EnvironmentObject var settings: HubSettings
     @Environment(\.presentationMode) var presentationMode
     @State private var tab: String = "Version"
-    @State private var selectedVersion: String = ""
-    @State private var selectedModules: [UnityModule] = []
-    
+    @State private var selectedVersion: UnityVersion = UnityVersion.null
+    @State private var selectedModules: [Bool] = []
+    @State private var availableVersions: [UnityVersion] = []
+    @State private var availableModules: [UnityModule] = []
+
     var body: some View {
-        RoundedRectangle(cornerRadius: 12, style: .continuous)
-            .overlay(
-                VStack(alignment: .leading) {
-                    Button("Cancel", action: closeMenu)
-                    TabView(selection: $tab) {
-                        Form {
-                            Picker("", selection: $selectedVersion) {
-                                ForEach(getLatestVersions(), id: \.self.version) { version in
-                                    Text(version.version)
-                                        .tag(version.version)
+        VStack(alignment: .leading) {
+            Button("Cancel", action: closeMenu)
+            TabView(selection: $tab) {
+                Form {
+                    Text("Select a version of Unity")
+                        .font(.system(size: 14, weight: .bold))
+                    Picker("", selection: $selectedVersion) {
+                        ForEach(availableVersions, id: \.self) { version in
+                            HStack {
+                                Text(version.version)
+                                if version.isAlpha() || version.isBeta() {
+                                    PrereleaseTag(version: version)
                                 }
-                            }.pickerStyle(RadioGroupPickerStyle())
+                            }
+                            .tag(version)
+                            .frame(height: 24)
                         }
-                        .tabItem { Text("Version") }
-                        .tag("Version")
-                        
-                        Form {
-                            
-                        }
-                        .tabItem { Text("Modules") }
-                        .tag("Modules")
                     }
-                    
-                    HStack {
-                        Spacer()
-                        Button("Install", action: installSelectedItems)
-                            .disabled(selectedVersion == "")
+                    .labelsHidden()
+                    .pickerStyle(RadioGroupPickerStyle())
+                }
+                .tabItem { Text("Version") }
+                .tag("Version")
+                .padding()
+                
+                Form {
+                    Text("Select build targets")
+                        .font(.system(size: 14, weight: .bold))
+                    ForEach(0 ..< availableModules.count, id: \.self) { i in
+                        Toggle(availableModules[i].getDisplayName()!, isOn: $selectedModules[i])
                     }
                 }
-                .foregroundColor(Color(.textColor))
+                .tabItem { Text("Modules") }
+                .tag("Modules")
                 .padding()
-            )
-            .frame(width: 256, height: 320)
-            .foregroundColor(Color(.windowBackgroundColor))
+            }
+            
+            HStack {
+                Spacer()
+                Button("Install", action: installSelectedItems)
+                    .disabled(selectedVersion == UnityVersion.null)
+            }
+        }
+        .foregroundColor(Color(.textColor))
+        .padding()
+        .foregroundColor(Color(.windowBackgroundColor))
+        .frame(width: 256, height: 390)
+        .onAppear {
+            setupView()
+        }
+    }
+        
+    func setupView() {
+        tab = "Version"
+        availableVersions = getAvailableVersions()
+        availableModules = getAvailableModules()
+        selectedModules = [Bool](repeating: false, count: availableModules.count)
     }
     
-    func getLatestVersions() -> [UnityVersion] {
-        return [UnityVersion("2020.2.0b2"), UnityVersion("2020.1.6f1"), UnityVersion("2019.4.11f1")]
+    func getAvailableVersions() -> [UnityVersion] {
+        var versions: [UnityVersion] = []
+
+        let command = "\(HubSettings.hubCommandBase) e -r"
+        let result = shell(command)
+        let results = result.components(separatedBy: "\n")
+        
+        for result in results {
+            let version = result.components(separatedBy: " ").first;
+            if version != nil && version != "" && !settings.versionsInstalled.contains(where: { $0.1.version == version }) {
+                versions.append(UnityVersion(version!))
+            }
+        }
+    
+        return versions
+    }
+    
+    func getAvailableModules() -> [UnityModule] {
+        return [
+            .android,
+            .iOS,
+            .tvOS,
+            .linuxMono,
+            .linuxIL2CPP,
+            .macOSIL2CPP,
+            .webgl,
+            .windowsMono,
+            .lumin
+        ]
     }
     
     func closeMenu() {
         presentationMode.wrappedValue.dismiss()
-        tab = "Version"
-        selectedVersion = ""
-        selectedModules = []
     }
     
     func installSelectedItems() {
-        
+        let command = "\(HubSettings.hubCommandBase) i --version \(selectedVersion.version)"
+        DispatchQueue.global(qos: .background).async {
+            let _ = shell(command)
+        }
     }
 }

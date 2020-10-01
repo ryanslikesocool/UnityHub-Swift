@@ -22,6 +22,7 @@ struct UnityVersion {
     // p: patch
     // c: china
     static let versionRegex = try! NSRegularExpression(pattern: #"^(\d+)\.(\d+)\.(\d+)([a|b|f|p|c])(\d+)"#)
+    static let null: UnityVersion = UnityVersion("0.0.0a0")
 
     init(_ version: String) {
         self.version = version
@@ -121,3 +122,5 @@ extension UnityVersion: Comparable {
 }
 
 extension UnityVersion: Equatable {}
+
+extension UnityVersion: Hashable {}

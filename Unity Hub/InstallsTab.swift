@@ -43,8 +43,8 @@ struct InstallsTab: View {
     func locateVersion() {
         NSOpenPanel.openFolder { result in
             if case let .success(path) = result {
-                if !settings.customInstallPaths.contains(path) {
-                    settings.customInstallPaths.append(path)
+                if !HubSettings.customInstallPaths.contains(path) {
+                    HubSettings.customInstallPaths.append(path)
                 }
                 
                 getAllVersions()
@@ -54,11 +54,5 @@ struct InstallsTab: View {
     
     func installVersion() {
         showInstaller.toggle()
-    }
-}
-
-struct InstallsTab_Previews: PreviewProvider {
-    static var previews: some View {
-        InstallsTab()
     }
 }

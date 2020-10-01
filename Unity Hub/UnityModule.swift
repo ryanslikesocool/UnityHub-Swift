@@ -85,12 +85,17 @@ extension UnityModule: RawRepresentable {
     
     func getDisplayName() -> String? {
         switch self {
-        case .macOSMono, .macOSIL2CPP: return "macOS"
-        case .windowsMono, .windowsIL2CPP: return "Windows"
-        case .linuxMono, .linuxIL2CPP: return "Linux"
+        case .macOSMono: return "macOS (mono)"
+        case .macOSIL2CPP: return "macOS (IL2CPP)"
+        case .windowsMono: return "Windows (Mono)"
+        case .windowsIL2CPP: return "Windows (IL2CPP)"
+        case .linuxMono: return "Linux (Mono)"
+        case .linuxIL2CPP: return "Linux (IL2CPP)"
         case .iOS: return "iOS"
         case .tvOS: return "tvOS"
         case .android: return "Android"
+        case .lumin: return "Lumin OS (Magic Leap)"
+        case .webgl: return "WebGL"
         default: return nil
         }
     }

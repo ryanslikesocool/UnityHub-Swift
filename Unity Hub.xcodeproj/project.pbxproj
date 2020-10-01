@@ -31,6 +31,7 @@
 		AFB1C3A9251B459600F8E3D8 /* ProjectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3A8251B459600F8E3D8 /* ProjectButton.swift */; };
 		AFB1C3AD251B492900F8E3D8 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3AC251B492900F8E3D8 /* StringExtensions.swift */; };
 		AFB1C3B0251B633C00F8E3D8 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3AF251B633C00F8E3D8 /* Shell.swift */; };
+		AFC23C5825257E0700F5FE4B /* PrereleaseTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */; };
 		AFE222D1251EA41400265506 /* EmojiPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE222D0251EA41400265506 /* EmojiPickerButton.swift */; };
 		AFFDD8B3251B08EB000AE12C /* UnityVersionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFDD8B2251B08EB000AE12C /* UnityVersionButton.swift */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 		AFB1C3A8251B459600F8E3D8 /* ProjectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectButton.swift; sourceTree = "<group>"; };
 		AFB1C3AC251B492900F8E3D8 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		AFB1C3AF251B633C00F8E3D8 /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
+		AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrereleaseTag.swift; sourceTree = "<group>"; };
 		AFE222D0251EA41400265506 /* EmojiPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerButton.swift; sourceTree = "<group>"; };
 		AFFDD8B2251B08EB000AE12C /* UnityVersionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityVersionButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,6 +126,7 @@
 				AF66EBF1251AE3910088EC84 /* Assets.xcassets */,
 				AF66EBF3251AE3910088EC84 /* Preview Content */,
 				AF08B5462524430400E7D16B /* SelectProjectVersionSheet.swift */,
+				AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */,
 			);
 			path = "Unity Hub";
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				AF34E22B251AFE5300192E53 /* HubSettings.swift in Sources */,
 				AFB1C3A9251B459600F8E3D8 /* ProjectButton.swift in Sources */,
 				AF16EDEF251AED6100C939AA /* ProjectTab.swift in Sources */,
+				AFC23C5825257E0700F5FE4B /* PrereleaseTag.swift in Sources */,
 				AF08B5442524309700E7D16B /* VisualEffectView.swift in Sources */,
 				AF34E221251AF91F00192E53 /* InstallsTab.swift in Sources */,
 				AFB1C3AD251B492900F8E3D8 /* StringExtensions.swift in Sources */,

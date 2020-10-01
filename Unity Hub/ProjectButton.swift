@@ -72,12 +72,12 @@ struct ProjectButton: View {
         }
         .buttonStyle(PlainButtonStyle())
         .onAppear {
-            emoji = settings.getProjectEmoji(project: project)
+            emoji = HubSettings.getProjectEmoji(project: project)
             shellCommand = getShellCommand()
         }
         .sheet(item: $activeSheet) { item in
             switch item {
-            case .emoji: EmojiPicker(pickedEmoji: $emoji, action: { settings.setProjectEmoji(emoji: emoji, project: project) })
+            case .emoji: EmojiPicker(pickedEmoji: $emoji, action: { HubSettings.setProjectEmoji(emoji: emoji, project: project) })
             case .selectVersion: SelectProjectVersionSheet(version: $version, action: { shellCommand = getShellCommand() })
             }
         }
@@ -101,7 +101,7 @@ struct ProjectButton: View {
     
     func openProject() {
         if !showWarning {
-            DispatchQueue.main.async {
+            DispatchQueue.global(qos: .background).async {
                 let _ = shell(shellCommand!)
             }
         } else {
@@ -111,8 +111,8 @@ struct ProjectButton: View {
     }
     
     func removeProject() {
-        settings.projectPaths.removeAll(where: { $0 == path })
+        HubSettings.projectPaths.removeAll(where: { $0 == path })
         updateList.toggle()
-        settings.removeProjectEmoji(project: project)
+        HubSettings.removeProjectEmoji(project: project)
     }
 }

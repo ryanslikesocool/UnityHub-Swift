@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct UnityHubApp: App {
     var settings: HubSettings = HubSettings()
-    
+        
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -32,7 +32,7 @@ struct UnityHubApp: App {
     static func getAllVersions(settings: HubSettings) {
         settings.versionsInstalled.removeAll()
         let fm = FileManager.default
-        let path = settings.installLocation
+        let path = HubSettings.installLocation
 
         do {
             let items = try fm.contentsOfDirectory(atPath: path)
@@ -48,20 +48,20 @@ struct UnityHubApp: App {
                 }
             }
             
-            for i in 0 ..< settings.customInstallPaths.count {
-                if !fm.fileExists(atPath: settings.customInstallPaths[i]) {
-                    settings.customInstallPaths.remove(at: i)
+            for i in 0 ..< HubSettings.customInstallPaths.count {
+                if !fm.fileExists(atPath: HubSettings.customInstallPaths[i]) {
+                    HubSettings.customInstallPaths.remove(at: i)
                     continue
                 }
-                let items = try fm.contentsOfDirectory(atPath: settings.customInstallPaths[i])
+                let items = try fm.contentsOfDirectory(atPath: HubSettings.customInstallPaths[i])
                  
                 if items.contains("Unity.app") {
-                    if isDir.boolValue && validateEditor(path: settings.customInstallPaths[i]) {
-                        let components = settings.customInstallPaths[i].components(separatedBy: "/")
-                        settings.versionsInstalled.append((settings.customInstallPaths[i], UnityVersion(components.last!)))
+                    if isDir.boolValue && validateEditor(path: HubSettings.customInstallPaths[i]) {
+                        let components = HubSettings.customInstallPaths[i].components(separatedBy: "/")
+                        settings.versionsInstalled.append((HubSettings.customInstallPaths[i], UnityVersion(components.last!)))
                     }
                 } else {
-                    settings.customInstallPaths.remove(at: i)
+                    HubSettings.customInstallPaths.remove(at: i)
                 }
             }
         } catch {
@@ -81,11 +81,11 @@ struct UnityHubApp: App {
         settings.projects.removeAll()
         let fm = FileManager.default
             
-        for path in settings.projectPaths {
+        for path in HubSettings.projectPaths {
             if !fm.fileExists(atPath: path) {
-                settings.projectPaths.removeAll(where: { $0 == path })
+                HubSettings.projectPaths.removeAll(where: { $0 == path })
                 let name = path.components(separatedBy: "/").last!
-                settings.removeProjectEmoji(project: name)
+                HubSettings.removeProjectEmoji(project: name)
                 continue
             }
             

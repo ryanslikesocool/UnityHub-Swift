@@ -43,8 +43,8 @@ struct ProjectTab: View {
     func locateProject() {
         NSOpenPanel.openFolder { result in
             if case let .success(path) = result {
-                if !settings.projectPaths.contains(path) {
-                    settings.projectPaths.append(path)
+                if !HubSettings.projectPaths.contains(path) {
+                    HubSettings.projectPaths.append(path)
                 }
                 
                 updateList.toggle()
@@ -54,11 +54,5 @@ struct ProjectTab: View {
     
     func createProject() {
 
-    }
-}
-
-struct ProjectTab_Previews: PreviewProvider {
-    static var previews: some View {
-        ProjectTab()
     }
 }

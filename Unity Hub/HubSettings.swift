@@ -9,32 +9,43 @@ import Foundation
 import SwiftUI
 
 class HubSettings: ObservableObject {
-    static let defaultInstallLocation: String = "/Applications/Unity/Hub/Editor"
+    static let defaultInstallLocation: String = #"/Applications/Unity/Hub/Editor"#
+    static let defaultHubLocation: String = #"/Applications/Unity\ Hub.app"#
+    static let hubSubFolder: String = #"/Contents/MacOS/Unity\ Hub"#
     
-    var installLocation: String {
+    static var hubCommandBase: String {
+        return "\(hubLocation)\(hubSubFolder) -- --headless"
+    }
+
+    static var installLocation: String {
         get { return UserDefaults.standard.string(forKey: "installLocation") ?? HubSettings.defaultInstallLocation }
         set { UserDefaults.standard.setValue(newValue, forKey: "installLocation") }
     }
     
-    var customInstallPaths: [String] {
-        get { return UserDefaults.standard.object(forKey: "customInstallPaths") as? [String] ?? [] }
+    static var customInstallPaths: [String] {
+        get { return UserDefaults.standard.stringArray(forKey: "customInstallPaths") ?? [] }
         set { UserDefaults.standard.set(newValue, forKey: "customInstallPaths") }
     }
     
-    var projectPaths: [String] {
-        get { return UserDefaults.standard.object(forKey: "projectPaths") as? [String] ?? [] }
+    static var projectPaths: [String] {
+        get { return UserDefaults.standard.stringArray(forKey: "projectPaths") ?? [] }
         set { UserDefaults.standard.set(newValue, forKey: "projectPaths") }
     }
     
-    func getProjectEmoji(project: String) -> String {
+    static var hubLocation: String {
+        get { return UserDefaults.standard.string(forKey: "hubLocation") ?? HubSettings.defaultHubLocation }
+        set { UserDefaults.standard.set(newValue, forKey: "hubLocation") }
+    }
+    
+    static func getProjectEmoji(project: String) -> String {
         return UserDefaults.standard.string(forKey: "projectEmoji_\(project)") ?? "❓"
     }
     
-    func setProjectEmoji(emoji: String, project: String) {
+    static func setProjectEmoji(emoji: String, project: String) {
         UserDefaults.standard.set(emoji, forKey: "projectEmoji_\(project)")
     }
     
-    func removeProjectEmoji(project: String) {
+    static func removeProjectEmoji(project: String) {
         UserDefaults.standard.removeObject(forKey: "projectEmoji_\(project)")
     }
     
