@@ -47,6 +47,7 @@ struct EmojiPicker: View {
                         Button(emoji, action: { selectEmoji(emoji: emoji) })
                         //.help(Smile.name(emoji: emoji))
                     }
+                    .font(.system(size: 28))
                     .buttonStyle(PlainButtonStyle())
                 }
                 .padding(.top, 48)
@@ -71,7 +72,8 @@ struct EmojiPicker: View {
                             .help(category.capitalized)
                     }
                 }
-                .padding()
+                .padding(.horizontal)
+                .padding(.vertical, 8)
                 .background(VisualEffectView(material: .headerView))
             }
         }

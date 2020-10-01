@@ -36,7 +36,7 @@ struct SelectProjectVersionSheet: View {
                 Spacer()
             }
         }
-        .frame(width: 320, height: 256)
+        .frame(width: 256, height: 256)
     }
     
     func selectVersion(version: UnityVersion) {
