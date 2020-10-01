@@ -47,7 +47,6 @@ struct EmojiPicker: View {
                         Button(emoji, action: { selectEmoji(emoji: emoji) })
                         //.help(Smile.name(emoji: emoji))
                     }
-                    .font(.system(size: 28))
                     .buttonStyle(PlainButtonStyle())
                 }
                 .padding(.top, 48)
@@ -56,14 +55,13 @@ struct EmojiPicker: View {
             VStack(alignment: .center, spacing: 0) {
                 HStack {
                     Button("Cancel", action: { presentationMode.wrappedValue.dismiss() })
-                        .padding()
                     Spacer()
                     Button("None", action: { selectEmoji(emoji: "") })
                         .help("Remove the current emoji")
-                        .padding()
                 }
-                .font(.body)
+                .padding(8)
                 .background(VisualEffectView(material: .headerView))
+                .buttonStyle(UnityButtonStyle())
                 Spacer()
                 HStack {
                     ForEach(categoryNames, id: \.self) { category in

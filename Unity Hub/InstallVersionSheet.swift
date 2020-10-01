@@ -21,8 +21,6 @@ struct InstallVersionSheet: View {
             Button("Cancel", action: closeMenu)
             TabView(selection: $tab) {
                 Form {
-                    Text("Select a version of Unity")
-                        .font(.system(size: 14, weight: .bold))
                     Picker("", selection: $selectedVersion) {
                         ForEach(availableVersions, id: \.self) { version in
                             HStack {
@@ -43,10 +41,13 @@ struct InstallVersionSheet: View {
                 .padding()
                 
                 Form {
-                    Text("Select build targets")
-                        .font(.system(size: 14, weight: .bold))
-                    ForEach(0 ..< availableModules.count, id: \.self) { i in
-                        Toggle(availableModules[i].getDisplayName()!, isOn: $selectedModules[i])
+                    ScrollView {
+                        ForEach(0 ..< availableModules.count, id: \.self) { i in
+                            HStack {
+                                Toggle(availableModules[i].getDisplayName()!, isOn: $selectedModules[i])
+                                Spacer()
+                            }
+                        }
                     }
                 }
                 .tabItem { Text("Modules") }
@@ -63,10 +64,11 @@ struct InstallVersionSheet: View {
         .foregroundColor(Color(.textColor))
         .padding()
         .foregroundColor(Color(.windowBackgroundColor))
-        .frame(width: 256, height: 448)
+        .frame(width: 256, height: 256)
         .onAppear {
             setupView()
         }
+        .buttonStyle(UnityButtonStyle())
     }
         
     func setupView() {

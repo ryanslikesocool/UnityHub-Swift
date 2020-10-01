@@ -63,16 +63,10 @@ struct ProjectButton: View {
                 .frame(width: 16, height: 48)
                 .padding(.trailing, 16)
             }
-            .background(
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .frame(minWidth: 64, maxWidth: .infinity, minHeight: 48, maxHeight: 48)
-                    .foregroundColor(Color(.windowBackgroundColor).opacity(0.375))
-            )
-            .foregroundColor(Color(.textColor))
             .frame(minWidth: 64, maxWidth: .infinity, minHeight: 48, maxHeight: 48)
-            .padding(.vertical, 4)
         }
-        .buttonStyle(PlainButtonStyle())
+        .padding(.vertical, 2)
+        .buttonStyle(UnityButtonStyle(cornerRadius: 12, verticalPadding: 0, horizontalPadding: 0))
         .onAppear {
             emoji = HubSettings.getProjectEmoji(project: project)
             shellCommand = getShellCommand()

@@ -17,12 +17,9 @@ struct SelectProjectVersionSheet: View {
     var body: some View {
         ZStack {
             ScrollView {
-                VStack(spacing: 4) {
+                VStack(spacing: 0) {
                     ForEach(settings.versionsInstalled, id: \.self.0) { version in
-                        Button(action: { selectVersion(version: version.1) }) {
-                            UnityVersionButton(path: version.0, version: version.1, hideRightSide: true)
-                        }
-                        .buttonStyle(PlainButtonStyle())
+                        UnityVersionButton(path: version.0, version: version.1, hideRightSide: true, action: { selectVersion(version: version.1) })
                     }
                 }
                 .padding(.top, 48)
@@ -31,9 +28,10 @@ struct SelectProjectVersionSheet: View {
             VStack {
                 HStack {
                     Button("Cancel", action: { presentationMode.wrappedValue.dismiss() })
+                        .buttonStyle(UnityButtonStyle())
                     Spacer()
                 }
-                .padding()
+                .padding(8)
                 .background(VisualEffectView(material: .headerView))
                 Spacer()
             }

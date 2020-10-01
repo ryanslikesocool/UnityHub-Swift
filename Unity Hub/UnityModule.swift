@@ -104,6 +104,20 @@ extension UnityModule: RawRepresentable {
         }
     }
     
+    func getPlatform() -> String? {
+        switch self {
+        case .macOSMono, .macOSIL2CPP: return "macOS"
+        case .windowsMono, .windowsIL2CPP: return "Windows"
+        case .linuxMono, .linuxIL2CPP: return "Linux"
+        case .iOS: return "iOS"
+        case .tvOS: return "tvOS"
+        case .android: return "Android"
+        case .lumin: return "Lumin"
+        case .webgl: return "WebGL"
+        default: return ""
+        }
+    }
+    
     func getIcon() -> AnyView? {
         switch self {
         case .macOSMono, .macOSIL2CPP: return AnyView(SVGShapes.macOS())

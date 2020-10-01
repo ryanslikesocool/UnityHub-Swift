@@ -15,7 +15,7 @@ struct InstallsTab: View {
     var body: some View {
         List {
             ForEach(settings.versionsInstalled, id: \.self.0) { version in
-                UnityVersionButton(path: version.0, version: version.1)
+                UnityVersionButton(path: version.0, version: version.1, action: {})
             }
         }
         .navigationTitle("Installs")

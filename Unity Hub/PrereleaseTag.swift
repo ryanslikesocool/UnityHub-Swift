@@ -13,7 +13,7 @@ struct PrereleaseTag: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 16, style: .circular)
             .frame(width: 48, height: 24)
-            .foregroundColor(Color(.windowBackgroundColor))
+            .foregroundColor(Color.systemGray5)
             .overlay(
                 Text(version.isAlpha() ? "Alpha" : "Beta")
             )
