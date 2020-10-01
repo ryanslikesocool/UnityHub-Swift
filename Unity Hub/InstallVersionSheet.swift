@@ -63,7 +63,7 @@ struct InstallVersionSheet: View {
         .foregroundColor(Color(.textColor))
         .padding()
         .foregroundColor(Color(.windowBackgroundColor))
-        .frame(width: 256, height: 390)
+        .frame(width: 256, height: 448)
         .onAppear {
             setupView()
         }
@@ -96,6 +96,8 @@ struct InstallVersionSheet: View {
     func getAvailableModules() -> [UnityModule] {
         return [
             .android,
+            .androidOpenJDK,
+            .androidSDKNDKTools,
             .iOS,
             .tvOS,
             .linuxMono,
@@ -112,9 +114,18 @@ struct InstallVersionSheet: View {
     }
     
     func installSelectedItems() {
-        let command = "\(HubSettings.hubCommandBase) i --version \(selectedVersion.version)"
+        var command = "\(HubSettings.hubCommandBase) i --version \(selectedVersion.version)"
+        
+        for i in 0 ..< availableModules.count {
+            if selectedModules[i] {
+                command.append(" -m \(availableModules[i].rawValue)")
+            }
+        }
+        
         DispatchQueue.global(qos: .background).async {
             let _ = shell(command)
         }
+        
+        closeMenu()
     }
 }

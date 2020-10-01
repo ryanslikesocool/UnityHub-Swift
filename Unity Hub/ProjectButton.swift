@@ -27,6 +27,7 @@ struct ProjectButton: View {
     enum ActiveSheet: Identifiable {
         case emoji
         case selectVersion
+        case advancedSettings
         
         var id: Int {
             hashValue
@@ -54,7 +55,8 @@ struct ProjectButton: View {
                         activeSheet = .emoji
                         showSheet.toggle()
                     })
-                    Button("Advanced", action: {})
+                    Button("Select Unity Version", action: selectProjectVersion)
+                    Button("Advanced", action: openAdvancedSettings)
                     Button("Remove", action: removeProject)
                 } label: {}
                 .menuStyle(BorderlessButtonMenuStyle())
@@ -79,6 +81,7 @@ struct ProjectButton: View {
             switch item {
             case .emoji: EmojiPicker(pickedEmoji: $emoji, action: { HubSettings.setProjectEmoji(emoji: emoji, project: project) })
             case .selectVersion: SelectProjectVersionSheet(version: $version, action: { shellCommand = getShellCommand() })
+            case .advancedSettings: AdvancedProjectSettingsSheet()
             }
         }
     }
@@ -105,9 +108,18 @@ struct ProjectButton: View {
                 let _ = shell(shellCommand!)
             }
         } else {
-            activeSheet = .selectVersion
-            showSheet.toggle()
+            selectProjectVersion()
         }
+    }
+    
+    func selectProjectVersion() {
+        activeSheet = .selectVersion
+        showSheet.toggle()
+    }
+    
+    func openAdvancedSettings() {
+        activeSheet = .advancedSettings
+        showSheet.toggle()
     }
     
     func removeProject() {

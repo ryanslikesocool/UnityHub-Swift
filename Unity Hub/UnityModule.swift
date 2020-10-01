@@ -18,6 +18,7 @@ enum UnityModule {
     case iOS
     case tvOS
     case android
+    case androidSDKNDKTools
     case documentation
     case androidSDKBuildTools
     case androidSDKPlatforms
@@ -60,6 +61,7 @@ extension UnityModule: RawRepresentable {
         case .standardAssets: return "standardassets"
         case .exampleProjects: return "exampleprojects"
         case .android: return "android"
+        case .androidSDKNDKTools: return "android-sdk-ndk-tools"
         case .androidSDKBuildTools: return "android-sdk-build-tools"
         case .androidSDKPlatforms: return "android-sdk-platforms"
         case .androidSDKPlatformTools: return "android-sdk-platform-tools"
@@ -96,6 +98,8 @@ extension UnityModule: RawRepresentable {
         case .android: return "Android"
         case .lumin: return "Lumin OS (Magic Leap)"
         case .webgl: return "WebGL"
+        case .androidOpenJDK: return "Open JDK"
+        case .androidSDKNDKTools: return "Android SDK/NDK Tools"
         default: return nil
         }
     }
