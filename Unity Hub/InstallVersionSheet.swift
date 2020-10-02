@@ -18,7 +18,12 @@ struct InstallVersionSheet: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Button("Cancel", action: closeMenu)
+            HStack {
+                Button("Cancel", action: closeMenu)
+                    .buttonStyle(UnityButtonStyle())
+                    .padding(8)
+                Spacer()
+            }
             TabView(selection: $tab) {
                 Form {
                     Picker("", selection: $selectedVersion) {
@@ -54,23 +59,21 @@ struct InstallVersionSheet: View {
                 .tag("Modules")
                 .padding()
             }
-            
+            .padding(.horizontal)
             HStack {
                 Spacer()
                 Button("Install", action: installSelectedItems)
                     .disabled(selectedVersion == UnityVersion.null)
+                    .buttonStyle(UnityButtonStyle())
+                    .padding(8)
             }
         }
-        .foregroundColor(Color(.textColor))
-        .padding()
-        .foregroundColor(Color(.windowBackgroundColor))
         .frame(width: 256, height: 256)
         .onAppear {
             setupView()
         }
-        .buttonStyle(UnityButtonStyle())
     }
-        
+    
     func setupView() {
         tab = "Version"
         availableVersions = getAvailableVersions()
@@ -124,9 +127,23 @@ struct InstallVersionSheet: View {
             }
         }
         
+        let version = selectedVersion.version
+        
         DispatchQueue.global(qos: .background).async {
-            let _ = shell(command)
+            let string = shell(command)
+            
+            let index = settings.versionsInstalled.firstIndex(where: { $0.1.version == version })!
+            if string.contains("successfully downloaded") {
+                var versionSet = settings.versionsInstalled[index]
+                versionSet.1.installing = false
+                settings.versionsInstalled[index] = versionSet
+            } else {
+                settings.versionsInstalled.remove(at: index)
+            }
         }
+        
+        selectedVersion.installing = true
+        settings.versionsInstalled.append(("\(HubSettings.defaultInstallLocation)/\(selectedVersion.version)", selectedVersion))
         
         closeMenu()
     }

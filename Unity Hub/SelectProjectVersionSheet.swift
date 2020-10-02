@@ -22,21 +22,22 @@ struct SelectProjectVersionSheet: View {
                         UnityVersionButton(path: version.0, version: version.1, hideRightSide: true, action: { selectVersion(version: version.1) })
                     }
                 }
-                .padding(.top, 48)
+                .padding(.top, 56)
+                .padding(.bottom, 8)
             }
             .padding(.horizontal)
             VStack {
                 HStack {
                     Button("Cancel", action: { presentationMode.wrappedValue.dismiss() })
+                        .padding(8)
                         .buttonStyle(UnityButtonStyle())
                     Spacer()
                 }
-                .padding(8)
                 .background(VisualEffectView(material: .headerView))
                 Spacer()
             }
         }
-        .frame(width: 256, height: 256)
+        .frame(width: 256, height: 192)
     }
     
     func selectVersion(version: UnityVersion) {

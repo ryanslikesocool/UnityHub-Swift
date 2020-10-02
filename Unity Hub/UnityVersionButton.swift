@@ -8,18 +8,27 @@
 import SwiftUI
 
 struct UnityVersionButton: View {
+    @EnvironmentObject var settings: HubSettings
     var path: String
     var version: UnityVersion
     var hideRightSide: Bool = false
     var action: () -> Void
     @State private var modules: [(UnityModule, String)] = []
+    @State private var showUninstallWarning: Bool = false
+    @State private var installing: Bool = false
     
     var body: some View {
         Button(action: action) {
             HStack {
-                SVGShapes.UnityCube()
-                    .frame(width: 16, height: 16)
-                    .padding(.leading, 12)
+                if !installing {
+                    SVGShapes.UnityCube()
+                        .frame(width: 16, height: 16)
+                        .padding(.leading, 12)
+                } else {
+                    ProgressView()
+                        .frame(width: 16, height: 16)
+                        .padding(.leading, 12)
+                }
                 Text(version.version)
                     .font(.system(size: 12, weight: .bold))
                     .help(path)
@@ -37,9 +46,9 @@ struct UnityVersionButton: View {
                         }
                     }
                     Menu {
-                        Button("Add Modules", action: {})
+                        Button("Install Additional Modules", action: {})
                         Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path) })
-                        Button("Uninstall", action: {})
+                        Button("Uninstall Version", action: { showUninstallWarning.toggle() })
                     } label: {}
                     .menuStyle(BorderlessButtonMenuStyle())
                     .frame(width: 16, height: 48)
@@ -49,10 +58,13 @@ struct UnityVersionButton: View {
             .frame(minWidth: 64, maxWidth: .infinity, minHeight: 48, maxHeight: 48)
         }
         .padding(.vertical, 2)
+        .buttonStyle(UnityButtonStyle(cornerRadius: 12, verticalPadding: 0, horizontalPadding: 0))
         .onAppear {
             modules = getInstalledModules()
         }
-        .buttonStyle(UnityButtonStyle(cornerRadius: 12, verticalPadding: 0, horizontalPadding: 0))
+        .alert(isPresented: $showUninstallWarning, content: {
+            Alert(title: Text("Uninstall Unity \(version.version)"), message: Text("Do you really want to uninstall Unity \(version.version)?"), primaryButton: .cancel(Text("Cancel")), secondaryButton: .destructive(Text("Uninstall"), action: uninstallVersion))
+        })
     }
     
     func getInstalledModules() -> [(UnityModule, String)] {
@@ -80,5 +92,17 @@ struct UnityVersionButton: View {
         }
                 
         return unityModules
+    }
+    
+    func uninstallVersion() {
+        for i in 0 ..< settings.versionsInstalled.count {
+            if settings.versionsInstalled[i].1 == version {
+                DispatchQueue.global(qos: .background).async {
+                    let result = shell("rm -rf \(path)")
+                }
+                settings.versionsInstalled.remove(at: i)
+                return
+            }
+        }
     }
 }

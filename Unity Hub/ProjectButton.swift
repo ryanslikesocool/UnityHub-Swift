@@ -73,7 +73,7 @@ struct ProjectButton: View {
         }
         .sheet(item: $activeSheet) { item in
             switch item {
-            case .emoji: EmojiPicker(pickedEmoji: $emoji, action: { HubSettings.setProjectEmoji(emoji: emoji, project: project) })
+            case .emoji: EmojiPickerSheet(pickedEmoji: $emoji, action: { HubSettings.setProjectEmoji(emoji: emoji, project: project) })
             case .selectVersion: SelectProjectVersionSheet(version: $version, action: { shellCommand = getShellCommand() })
             case .advancedSettings: AdvancedProjectSettingsSheet()
             }

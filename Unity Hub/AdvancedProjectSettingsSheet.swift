@@ -11,11 +11,17 @@ struct AdvancedProjectSettingsSheet: View {
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Button("Cancel", action: closeMenu)
+                .padding(8)
             Spacer()
-            Button("Save", action: { })
+            HStack {
+                Spacer()
+                Button("Save", action: { })
+                    .padding(8)
+            }
         }
+        .buttonStyle(UnityButtonStyle())
         .frame(width: 256, height: 256)
     }
     

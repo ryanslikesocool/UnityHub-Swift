@@ -8,7 +8,7 @@
 import SwiftUI
 import Smile
 
-struct EmojiPicker: View {
+struct EmojiPickerSheet: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var pickedEmoji: String
     @State private var emojiCategory: String = "people"
@@ -93,6 +93,6 @@ struct EmojiPicker: View {
 
 struct EmojiPicker_Previews: PreviewProvider {
     static var previews: some View {
-        EmojiPicker(pickedEmoji: .constant("😀"), action: {})
+        EmojiPickerSheet(pickedEmoji: .constant("😀"), action: {})
     }
 }

@@ -19,7 +19,7 @@ struct EmojiPickerButton: View {
         Button(action: { isPickerOpen.toggle() }) {
             Text(emoji)
         }.sheet(isPresented: $isPickerOpen, content: {
-            EmojiPicker(pickedEmoji: $emoji, action: action)
+            EmojiPickerSheet(pickedEmoji: $emoji, action: action)
         })
         .buttonStyle(PlainButtonStyle())
     }
@@ -27,6 +27,6 @@ struct EmojiPickerButton: View {
 
 struct EmojiPickerButton_Previews: PreviewProvider {
     static var previews: some View {
-        EmojiPicker(pickedEmoji: .constant("😀"), action: {})
+        EmojiPickerSheet(pickedEmoji: .constant("😀"), action: {})
     }
 }

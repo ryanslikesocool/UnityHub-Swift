@@ -49,7 +49,9 @@ class HubSettings: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "projectEmoji_\(project)")
     }
     
+    //path, version
     @Published var versionsInstalled: [(String, UnityVersion)] = []
+    //path, name, version
     @Published var projects: [(String, String, UnityVersion)] = []
     
     var lastestVersionInstalled: UnityVersion? {

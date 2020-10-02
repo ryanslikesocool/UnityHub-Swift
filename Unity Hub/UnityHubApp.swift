@@ -29,6 +29,7 @@ struct UnityHubApp: App {
         }
     }
     
+    //TO DO: don't recalculate all
     static func getAllVersions(settings: HubSettings) {
         settings.versionsInstalled.removeAll()
         let fm = FileManager.default
@@ -114,7 +115,10 @@ struct UnityHubApp: App {
         settings.projects.sort(by: { $0.1 < $1.1 })
     }
     
-    static func validateEditor(path: String) -> Bool {
+    static func validateEditor(path: String/*, version: UnityVersion*/) -> Bool {
+        /*if version.installing {
+            return true
+        }*/
         do {
             var format = PropertyListSerialization.PropertyListFormat.xml
             let plistData = try Data(contentsOf: URL(fileURLWithPath: "\(path)/Unity.app/Contents/Info.plist"))

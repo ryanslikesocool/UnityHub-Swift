@@ -18,7 +18,7 @@
 		AF34E226251AFD2D00192E53 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E225251AFD2D00192E53 /* SettingsView.swift */; };
 		AF34E22B251AFE5300192E53 /* HubSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E22A251AFE5300192E53 /* HubSettings.swift */; };
 		AF4D2104251EBA220029101C /* Smile in Frameworks */ = {isa = PBXBuildFile; productRef = AF4D2103251EBA220029101C /* Smile */; };
-		AF59FEA5251EBB4A0093D284 /* EmojiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF59FEA4251EBB4A0093D284 /* EmojiPicker.swift */; };
+		AF59FEA5251EBB4A0093D284 /* EmojiPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF59FEA4251EBB4A0093D284 /* EmojiPickerSheet.swift */; };
 		AF5A94D0251BF9E3002FA410 /* Release.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5A94CF251BF9E3002FA410 /* Release.swift */; };
 		AF66EBEE251AE3900088EC84 /* UnityHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF66EBED251AE3900088EC84 /* UnityHubApp.swift */; };
 		AF66EBF0251AE3900088EC84 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF66EBEF251AE3900088EC84 /* ContentView.swift */; };
@@ -50,7 +50,7 @@
 		AF34E220251AF91F00192E53 /* InstallsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallsTab.swift; sourceTree = "<group>"; };
 		AF34E225251AFD2D00192E53 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AF34E22A251AFE5300192E53 /* HubSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubSettings.swift; sourceTree = "<group>"; };
-		AF59FEA4251EBB4A0093D284 /* EmojiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPicker.swift; sourceTree = "<group>"; };
+		AF59FEA4251EBB4A0093D284 /* EmojiPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerSheet.swift; sourceTree = "<group>"; };
 		AF5A94CF251BF9E3002FA410 /* Release.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Release.swift; sourceTree = "<group>"; };
 		AF66EBEA251AE3900088EC84 /* Unity Hub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Unity Hub.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF66EBED251AE3900088EC84 /* UnityHubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityHubApp.swift; sourceTree = "<group>"; };
@@ -110,7 +110,7 @@
 				AFEAC8062525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift */,
 				AFBB9A4E25260B000004F78B /* Color.swift */,
 				AF66EBEF251AE3900088EC84 /* ContentView.swift */,
-				AF59FEA4251EBB4A0093D284 /* EmojiPicker.swift */,
+				AF59FEA4251EBB4A0093D284 /* EmojiPickerSheet.swift */,
 				AFE222D0251EA41400265506 /* EmojiPickerButton.swift */,
 				AF34E22A251AFE5300192E53 /* HubSettings.swift */,
 				AF34E220251AF91F00192E53 /* InstallsTab.swift */,
@@ -241,7 +241,7 @@
 				AFBB9A4B252609040004F78B /* UnityButtonStyle.swift in Sources */,
 				AFFDD8B3251B08EB000AE12C /* UnityVersionButton.swift in Sources */,
 				AF16FF27251B8EA500C8A2A9 /* UnityVersion.swift in Sources */,
-				AF59FEA5251EBB4A0093D284 /* EmojiPicker.swift in Sources */,
+				AF59FEA5251EBB4A0093D284 /* EmojiPickerSheet.swift in Sources */,
 				AF34E22B251AFE5300192E53 /* HubSettings.swift in Sources */,
 				AFB1C3A9251B459600F8E3D8 /* ProjectButton.swift in Sources */,
 				AF16EDEF251AED6100C939AA /* ProjectTab.swift in Sources */,

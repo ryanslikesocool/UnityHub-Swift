@@ -15,6 +15,7 @@ struct UnityVersion {
     var update: Int
     var channel: String
     var iteration: Int
+    var installing: Bool
 
     // a: alpha
     // b: beta
@@ -31,6 +32,7 @@ struct UnityVersion {
         self.update = 0
         self.channel = ""
         self.iteration = 0
+        self.installing = false
 
         UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { (match, _, stop) in
             guard let match = match else { return }
