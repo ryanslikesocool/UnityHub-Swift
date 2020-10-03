@@ -98,7 +98,7 @@ struct UnityVersionButton: View {
         for i in 0 ..< settings.versionsInstalled.count {
             if settings.versionsInstalled[i].1 == version {
                 DispatchQueue.global(qos: .background).async {
-                    let result = shell("rm -rf \(path)")
+                    let _ = shell("rm -rf \(path)")
                 }
                 settings.versionsInstalled.remove(at: i)
                 return
