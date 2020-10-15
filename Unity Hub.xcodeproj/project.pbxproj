@@ -14,6 +14,19 @@
 		AF16EDF7251AEF4000C939AA /* TabSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16EDF6251AEF4000C939AA /* TabSelector.swift */; };
 		AF16FF24251B8CAD00C8A2A9 /* InstallVersionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16FF23251B8CAD00C8A2A9 /* InstallVersionSheet.swift */; };
 		AF16FF27251B8EA500C8A2A9 /* UnityVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */; };
+		AF219E73252C5FF6008CE04C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF219E72252C5FF6008CE04C /* WidgetKit.framework */; };
+		AF219E75252C5FF6008CE04C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF219E74252C5FF6008CE04C /* SwiftUI.framework */; };
+		AF219E78252C5FF6008CE04C /* UnityHubWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219E77252C5FF6008CE04C /* UnityHubWidget.swift */; };
+		AF219E7B252C5FF7008CE04C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF219E7A252C5FF7008CE04C /* Assets.xcassets */; };
+		AF219E7E252C5FF7008CE04C /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = AF219E79252C5FF6008CE04C /* Widget.intentdefinition */; };
+		AF219E7F252C5FF7008CE04C /* Widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = AF219E79252C5FF6008CE04C /* Widget.intentdefinition */; };
+		AF219E8B252C61A7008CE04C /* UnityVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */; };
+		AF219E94252C6243008CE04C /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3AF251B633C00F8E3D8 /* Shell.swift */; };
+		AF219E97252C6249008CE04C /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB9A4E25260B000004F78B /* Color+Extension.swift */; };
+		AF219E9F252C6258008CE04C /* UnityButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB9A4A252609040004F78B /* UnityButtonStyle.swift */; };
+		AF219EA2252C626F008CE04C /* HubSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E22A251AFE5300192E53 /* HubSettings.swift */; };
+		AF219EA5252C62AB008CE04C /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3AC251B492900F8E3D8 /* String+Extension.swift */; };
+		AF219EA8252C63CE008CE04C /* SimpleProjectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219E93252C61D6008CE04C /* SimpleProjectButton.swift */; };
 		AF34E221251AF91F00192E53 /* InstallsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E220251AF91F00192E53 /* InstallsTab.swift */; };
 		AF34E226251AFD2D00192E53 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E225251AFD2D00192E53 /* SettingsView.swift */; };
 		AF34E22B251AFE5300192E53 /* HubSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E22A251AFE5300192E53 /* HubSettings.swift */; };
@@ -31,12 +44,37 @@
 		AFB1C3A9251B459600F8E3D8 /* ProjectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3A8251B459600F8E3D8 /* ProjectButton.swift */; };
 		AFB1C3AD251B492900F8E3D8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3AC251B492900F8E3D8 /* String+Extension.swift */; };
 		AFB1C3B0251B633C00F8E3D8 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3AF251B633C00F8E3D8 /* Shell.swift */; };
+		AFB954CB2538523800D62BC8 /* WidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AF219E70252C5FF6008CE04C /* WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		AFBB9A4B252609040004F78B /* UnityButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB9A4A252609040004F78B /* UnityButtonStyle.swift */; };
 		AFBB9A4F25260B000004F78B /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB9A4E25260B000004F78B /* Color+Extension.swift */; };
 		AFC23C5825257E0700F5FE4B /* PrereleaseTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */; };
 		AFEAC8072525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEAC8062525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift */; };
 		AFFDD8B3251B08EB000AE12C /* UnityVersionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFDD8B2251B08EB000AE12C /* UnityVersionButton.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AFB954CC2538523800D62BC8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AF66EBE2251AE3900088EC84 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AF219E6F252C5FF6008CE04C;
+			remoteInfo = WidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AFB954CE2538523800D62BC8 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				AFB954CB2538523800D62BC8 /* WidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AF08B5432524309600E7D16B /* VisualEffectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
@@ -46,6 +84,15 @@
 		AF16EDF6251AEF4000C939AA /* TabSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSelector.swift; sourceTree = "<group>"; };
 		AF16FF23251B8CAD00C8A2A9 /* InstallVersionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallVersionSheet.swift; sourceTree = "<group>"; };
 		AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityVersion.swift; sourceTree = "<group>"; };
+		AF219E70252C5FF6008CE04C /* WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF219E72252C5FF6008CE04C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		AF219E74252C5FF6008CE04C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		AF219E77252C5FF6008CE04C /* UnityHubWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityHubWidget.swift; sourceTree = "<group>"; };
+		AF219E79252C5FF6008CE04C /* Widget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Widget.intentdefinition; sourceTree = "<group>"; };
+		AF219E7A252C5FF7008CE04C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AF219E7C252C5FF7008CE04C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AF219E7D252C5FF7008CE04C /* Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
+		AF219E93252C61D6008CE04C /* SimpleProjectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleProjectButton.swift; sourceTree = "<group>"; };
 		AF34E220251AF91F00192E53 /* InstallsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallsTab.swift; sourceTree = "<group>"; };
 		AF34E225251AFD2D00192E53 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AF34E22A251AFE5300192E53 /* HubSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubSettings.swift; sourceTree = "<group>"; };
@@ -73,6 +120,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AF219E6D252C5FF6008CE04C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF219E75252C5FF6008CE04C /* SwiftUI.framework in Frameworks */,
+				AF219E73252C5FF6008CE04C /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AF66EBE7251AE3900088EC84 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -84,9 +140,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AF219E71252C5FF6008CE04C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AF219E72252C5FF6008CE04C /* WidgetKit.framework */,
+				AF219E74252C5FF6008CE04C /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AF219E76252C5FF6008CE04C /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				AF219E77252C5FF6008CE04C /* UnityHubWidget.swift */,
+				AF219E79252C5FF6008CE04C /* Widget.intentdefinition */,
+				AF219E7A252C5FF7008CE04C /* Assets.xcassets */,
+				AF219E7C252C5FF7008CE04C /* Info.plist */,
+				AF219E7D252C5FF7008CE04C /* Widget.entitlements */,
+				AF219E93252C61D6008CE04C /* SimpleProjectButton.swift */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
 		AF66EBE1251AE3900088EC84 = {
 			isa = PBXGroup;
 			children = (
+				AF219E76252C5FF6008CE04C /* Widget */,
+				AF219E71252C5FF6008CE04C /* Frameworks */,
 				AF66EBEB251AE3900088EC84 /* Products */,
 				AF66EBEC251AE3900088EC84 /* Unity Hub */,
 			);
@@ -96,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				AF66EBEA251AE3900088EC84 /* Unity Hub.app */,
+				AF219E70252C5FF6008CE04C /* WidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -188,6 +269,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AF219E6F252C5FF6008CE04C /* WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AF219E86252C5FF7008CE04C /* Build configuration list for PBXNativeTarget "WidgetExtension" */;
+			buildPhases = (
+				AF219E6C252C5FF6008CE04C /* Sources */,
+				AF219E6D252C5FF6008CE04C /* Frameworks */,
+				AF219E6E252C5FF6008CE04C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WidgetExtension;
+			productName = WidgetExtension;
+			productReference = AF219E70252C5FF6008CE04C /* WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		AF66EBE9251AE3900088EC84 /* Unity Hub */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AF66EBFD251AE3910088EC84 /* Build configuration list for PBXNativeTarget "Unity Hub" */;
@@ -195,10 +293,12 @@
 				AF66EBE6251AE3900088EC84 /* Sources */,
 				AF66EBE7251AE3900088EC84 /* Frameworks */,
 				AF66EBE8251AE3900088EC84 /* Resources */,
+				AFB954CE2538523800D62BC8 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				AFB954CD2538523800D62BC8 /* PBXTargetDependency */,
 			);
 			name = "Unity Hub";
 			packageProductDependencies = (
@@ -217,6 +317,9 @@
 				LastSwiftUpdateCheck = 1220;
 				LastUpgradeCheck = 1220;
 				TargetAttributes = {
+					AF219E6F252C5FF6008CE04C = {
+						CreatedOnToolsVersion = 12.2;
+					};
 					AF66EBE9251AE3900088EC84 = {
 						CreatedOnToolsVersion = 12.2;
 					};
@@ -240,11 +343,20 @@
 			projectRoot = "";
 			targets = (
 				AF66EBE9251AE3900088EC84 /* Unity Hub */,
+				AF219E6F252C5FF6008CE04C /* WidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AF219E6E252C5FF6008CE04C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF219E7B252C5FF7008CE04C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AF66EBE8251AE3900088EC84 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -257,6 +369,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AF219E6C252C5FF6008CE04C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF219EA5252C62AB008CE04C /* String+Extension.swift in Sources */,
+				AF219E7E252C5FF7008CE04C /* Widget.intentdefinition in Sources */,
+				AF219E97252C6249008CE04C /* Color+Extension.swift in Sources */,
+				AF219E8B252C61A7008CE04C /* UnityVersion.swift in Sources */,
+				AF219EA8252C63CE008CE04C /* SimpleProjectButton.swift in Sources */,
+				AF219E94252C6243008CE04C /* Shell.swift in Sources */,
+				AF219EA2252C626F008CE04C /* HubSettings.swift in Sources */,
+				AF219E78252C5FF6008CE04C /* UnityHubWidget.swift in Sources */,
+				AF219E9F252C6258008CE04C /* UnityButtonStyle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AF66EBE6251AE3900088EC84 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -269,6 +397,7 @@
 				AF08B5472524430400E7D16B /* SelectProjectVersionSheet.swift in Sources */,
 				AFB1C3A3251B325000F8E3D8 /* UnityModule.swift in Sources */,
 				AF66EBEE251AE3900088EC84 /* UnityHubApp.swift in Sources */,
+				AF219E7F252C5FF7008CE04C /* Widget.intentdefinition in Sources */,
 				AF16EDF7251AEF4000C939AA /* TabSelector.swift in Sources */,
 				AFBB9A4F25260B000004F78B /* Color+Extension.swift in Sources */,
 				AFEAC8072525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift in Sources */,
@@ -292,7 +421,61 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		AFB954CD2538523800D62BC8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AF219E6F252C5FF6008CE04C /* WidgetExtension */;
+			targetProxy = AFB954CC2538523800D62BC8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		AF219E84252C5FF7008CE04C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = Widget/Widget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 838RGQ32CA;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Widget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = RyanBoyer.UnityHub.Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		AF219E85252C5FF7008CE04C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = Widget/Widget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 838RGQ32CA;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Widget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = RyanBoyer.UnityHub.Widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		AF66EBFB251AE3910088EC84 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -459,6 +642,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AF219E86252C5FF7008CE04C /* Build configuration list for PBXNativeTarget "WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF219E84252C5FF7008CE04C /* Debug */,
+				AF219E85252C5FF7008CE04C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AF66EBE5251AE3900088EC84 /* Build configuration list for PBXProject "Unity Hub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

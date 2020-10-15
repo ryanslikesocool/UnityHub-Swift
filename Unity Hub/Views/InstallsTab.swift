@@ -37,7 +37,7 @@ struct InstallsTab: View {
     }
     
     func getAllVersions() {
-        UnityHubApp.getAllVersions(settings: settings)
+        HubSettings.getAllVersions(settings: settings)
     }
     
     func locateVersion() {

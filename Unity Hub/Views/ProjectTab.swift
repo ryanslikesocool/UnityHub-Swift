@@ -37,7 +37,7 @@ struct ProjectTab: View {
     }
     
     func getAllProjects() {
-        UnityHubApp.getAllProjects(settings: settings)
+        HubSettings.getAllProjects(settings: settings)
     }
     
     func locateProject() {
