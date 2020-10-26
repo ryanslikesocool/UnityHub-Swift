@@ -29,10 +29,14 @@ struct UnityButtonStyle: ButtonStyle {
             return configuration.label
                 .padding(.vertical, verticalPadding ?? 8)
                 .padding(.horizontal, horizontalPadding ?? 16)
-                .background(backgroundColor ?? Color.systemGray5.opacity(0.5))
+                .background(
+                    (backgroundColor ?? Color.systemGray5)!.multiply(v: isEnabled ? 1 : 0.5).multiply(v: configuration.isPressed ? 0.75 : 1)
+                )
+                //.cornerRadius(cornerRadius ?? 8)
                 .mask(RoundedRectangle(cornerRadius: cornerRadius ?? 8, style: .continuous))
-                .opacity(isEnabled ? 1 : 0.5)
-                .opacity(configuration.isPressed ? 0.75 : 1)
+                //.shadow(radius: 2)
+                .animation(.easeIn, value: configuration.isPressed)
+                .animation(.easeIn, value: isEnabled)
         }
     }
 }

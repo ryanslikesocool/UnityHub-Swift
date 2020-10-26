@@ -56,9 +56,11 @@ struct EmojiPickerSheet: View {
             VStack(alignment: .center, spacing: 0) {
                 HStack {
                     Button("Cancel", action: { presentationMode.wrappedValue.dismiss() })
+                        .foregroundColor(.textColor)
                     Spacer()
                     Button("None", action: { selectEmoji(emoji: "") })
                         .help("Remove the current emoji")
+                        .foregroundColor(.textColor)
                 }
                 .padding(8)
                 .background(VisualEffectView(material: .headerView))

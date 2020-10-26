@@ -38,10 +38,12 @@ struct ProjectButton: View {
         Button(action: openProject) {
             HStack {
                 Text(emoji)
-                .padding(.leading, 8)
-                .font(.system(size: 16))
+                    .font(.system(size: 16))
+                    .foregroundColor(.textColor)
+                    .padding(.leading, 8)
                 Text(project)
                     .font(.system(size: 12, weight: .bold))
+                    .foregroundColor(.textColor)
                     .help(path)
                 Spacer()
                 if showWarning {
@@ -49,6 +51,7 @@ struct ProjectButton: View {
                         .help("The Editor version associated with this project is not currently available on this machine.  Go to Installs to download a matching version")
                 }
                 Text("Unity \(version.version)")
+                    .foregroundColor(.textColor)
                 Menu {
                     Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path) })
                     Button("Edit Emoji", action: {
@@ -65,8 +68,7 @@ struct ProjectButton: View {
             }
             .frame(minWidth: 64, maxWidth: .infinity, minHeight: 48, maxHeight: 48)
         }
-        .padding(.vertical, 2)
-        .buttonStyle(UnityButtonStyle(cornerRadius: 12, verticalPadding: 0, horizontalPadding: 0))
+        .buttonStyle(UnityButtonStyle(verticalPadding: 0, horizontalPadding: 0))
         .onAppear {
             emoji = HubSettings.getProjectEmoji(project: project)
             shellCommand = getShellCommand()

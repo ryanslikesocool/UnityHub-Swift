@@ -22,6 +22,7 @@ struct InstallVersionSheet: View {
                 Button("Cancel", action: closeMenu)
                     .buttonStyle(UnityButtonStyle())
                     .padding(8)
+                    .foregroundColor(.textColor)
                 Spacer()
             }
             TabView(selection: $tab) {
@@ -66,6 +67,7 @@ struct InstallVersionSheet: View {
                     .disabled(selectedVersion == UnityVersion.null)
                     .buttonStyle(UnityButtonStyle())
                     .padding(8)
+                    .foregroundColor(.textColor)
             }
         }
         .frame(width: 256, height: 256)

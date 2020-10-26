@@ -24,6 +24,7 @@ struct UnityVersionButton: View {
                     SVGShapes.UnityCube()
                         .frame(width: 16, height: 16)
                         .padding(.leading, 12)
+                        .foregroundColor(.textColor)
                 } else {
                     ProgressView()
                         .frame(width: 16, height: 16)
@@ -31,6 +32,7 @@ struct UnityVersionButton: View {
                 }
                 Text(version.version)
                     .font(.system(size: 12, weight: .bold))
+                    .foregroundColor(.textColor)
                     .help(path)
                 
                 if version.isAlpha() || version.isBeta() {
@@ -42,6 +44,7 @@ struct UnityVersionButton: View {
                         if let icon = item.0.getIcon() {
                             icon
                                 .frame(width: 16, height: 16)
+                                .foregroundColor(.textColor)
                                 .help(item.1)
                         }
                     }
@@ -57,8 +60,7 @@ struct UnityVersionButton: View {
             }
             .frame(minWidth: 64, maxWidth: .infinity, minHeight: 48, maxHeight: 48)
         }
-        .padding(.vertical, 2)
-        .buttonStyle(UnityButtonStyle(cornerRadius: 12, verticalPadding: 0, horizontalPadding: 0))
+        .buttonStyle(UnityButtonStyle(verticalPadding: 0, horizontalPadding: 0))
         .onAppear {
             modules = getInstalledModules()
         }

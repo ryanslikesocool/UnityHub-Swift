@@ -31,6 +31,7 @@ struct SelectProjectVersionSheet: View {
                     Button("Cancel", action: { presentationMode.wrappedValue.dismiss() })
                         .padding(8)
                         .buttonStyle(UnityButtonStyle())
+                        .foregroundColor(.textColor)
                     Spacer()
                 }
                 .background(VisualEffectView(material: .headerView))
