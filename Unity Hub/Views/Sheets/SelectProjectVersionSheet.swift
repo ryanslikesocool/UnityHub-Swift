@@ -17,13 +17,13 @@ struct SelectProjectVersionSheet: View {
     var body: some View {
         ZStack {
             ScrollView {
-                VStack(spacing: 0) {
+                VStack(spacing: 4) {
                     ForEach(settings.versionsInstalled, id: \.self.0) { version in
                         UnityVersionButton(path: version.0, version: version.1, hideRightSide: true, action: { selectVersion(version: version.1) })
                     }
                 }
                 .padding(.top, 56)
-                .padding(.bottom, 8)
+                .padding(.bottom, 16)
             }
             .padding(.horizontal)
             VStack {
