@@ -7,12 +7,14 @@
 
 import SwiftUI
 
-struct InstallVersionSheet: View {
+struct InstallSheet: View {
     @EnvironmentObject var settings: HubSettings
     @Environment(\.presentationMode) var presentationMode
     @State private var tab: String = "Version"
+    
     @State private var selectedVersion: UnityVersion = UnityVersion.null
     @State private var selectedModules: [Bool] = []
+    
     @State private var availableVersions: [UnityVersion] = []
     @State private var availableModules: [UnityModule] = []
 
@@ -26,39 +28,8 @@ struct InstallVersionSheet: View {
                 Spacer()
             }
             TabView(selection: $tab) {
-                Form {
-                    Picker("", selection: $selectedVersion) {
-                        ForEach(availableVersions, id: \.self) { version in
-                            HStack {
-                                Text(version.version)
-                                if version.isAlpha() || version.isBeta() {
-                                    PrereleaseTag(version: version)
-                                }
-                            }
-                            .tag(version)
-                            .frame(height: 24)
-                        }
-                    }
-                    .labelsHidden()
-                    .pickerStyle(RadioGroupPickerStyle())
-                }
-                .tabItem { Text("Version") }
-                .tag("Version")
-                .padding()
-                
-                Form {
-                    ScrollView {
-                        ForEach(0 ..< availableModules.count, id: \.self) { i in
-                            HStack {
-                                Toggle(availableModules[i].getDisplayName()!, isOn: $selectedModules[i])
-                                Spacer()
-                            }
-                        }
-                    }
-                }
-                .tabItem { Text("Modules") }
-                .tag("Modules")
-                .padding()
+                VersionSheet(selectedVersion: $selectedVersion, availableVersions: $availableVersions)
+                ModuleSheet(selectedModules: $selectedModules, availableModules: $availableModules)
             }
             .padding(.horizontal)
             HStack {
@@ -70,7 +41,6 @@ struct InstallVersionSheet: View {
                     .foregroundColor(.textColor)
             }
         }
-        .frame(width: 256, height: 256)
         .onAppear {
             setupView()
         }
