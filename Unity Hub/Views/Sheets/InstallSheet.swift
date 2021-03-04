@@ -62,7 +62,7 @@ struct InstallSheet: View {
         
         for result in results {
             let version = result.components(separatedBy: " ").first;
-            if version != nil && version != "" && !settings.versionsInstalled.contains(where: { $0.1.version == version }) {
+            if version != nil && version != "" && !settings.versionsInstalled.contains(where: { $0.version == version }) {
                 versions.append(UnityVersion(version!))
             }
         }
@@ -104,10 +104,10 @@ struct InstallSheet: View {
         DispatchQueue.global(qos: .background).async {
             let string = shell(command)
             
-            let index = settings.versionsInstalled.firstIndex(where: { $0.1.version == version })!
+            let index = settings.versionsInstalled.firstIndex(where: { $0.version == version })!
             if string.contains("successfully downloaded") {
                 var versionSet = settings.versionsInstalled[index]
-                versionSet.1.installing = false
+                versionSet.installing = false
                 settings.versionsInstalled[index] = versionSet
             } else {
                 settings.versionsInstalled.remove(at: index)
@@ -115,7 +115,9 @@ struct InstallSheet: View {
         }
         
         selectedVersion.installing = true
-        settings.versionsInstalled.append(("\(HubSettings.defaultInstallLocation)/\(selectedVersion.version)", selectedVersion))
+        selectedVersion.path = "\(HubSettings.defaultInstallLocation)/\(selectedVersion.version)"
+        
+        settings.versionsInstalled.append(selectedVersion)
         
         closeMenu()
     }

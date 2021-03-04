@@ -11,11 +11,16 @@ struct PrereleaseTag: View {
     var version: UnityVersion
     
     var body: some View {
-        RoundedRectangle(cornerRadius: 16, style: .circular)
-            .frame(width: 48, height: 24)
+        let isAlpha: Bool = version.isAlpha()
+        let labelText: String = isAlpha ? "Alpha" : "Beta"
+        let borderColor: Color = Color(isAlpha ? NSColor.systemRed : NSColor.systemYellow)
+        
+        return RoundedRectangle(cornerRadius: 6, style: .circular)
+            .stroke(borderColor, lineWidth: 2)
             .foregroundColor(Color.systemGray4)
+            .frame(width: 48, height: 24)
             .overlay(
-                Text(version.isAlpha() ? "Alpha" : "Beta")
+                Text(labelText)
                     .foregroundColor(.textColor)
             )
     }

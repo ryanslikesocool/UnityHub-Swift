@@ -16,6 +16,8 @@ struct UnityVersion {
     var channel: String
     var iteration: Int
     var installing: Bool
+    
+    var path: String = ""
 
     // a: alpha
     // b: beta
@@ -25,7 +27,7 @@ struct UnityVersion {
     static let versionRegex = try! NSRegularExpression(pattern: #"^(\d+)\.(\d+)\.(\d+)([a|b|f|p|c])(\d+)"#)
     static let null: UnityVersion = UnityVersion("0.0.0a0")
 
-    init(_ version: String) {
+    init(_ version: String, path: String = "") {
         self.version = version
         self.major = 0
         self.minor = 0
@@ -33,6 +35,8 @@ struct UnityVersion {
         self.channel = ""
         self.iteration = 0
         self.installing = false
+        
+        self.path = path
 
         UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { (match, _, stop) in
             guard let match = match else { return }
@@ -89,6 +93,10 @@ struct UnityVersion {
     func isBeta() -> Bool {
         return isCorrectChannel(version: version, channelChar: "b");
     }
+    
+    func isPrerelease() -> Bool {
+        return isAlpha() || isBeta()
+    }
 
     func isCorrectChannel(version: String, channelChar: String) -> Bool {
         var correct: Bool = false
@@ -126,3 +134,9 @@ extension UnityVersion: Comparable {
 extension UnityVersion: Equatable {}
 
 extension UnityVersion: Hashable {}
+
+extension UnityVersion: Identifiable {
+    var id: String {
+        return self.version
+    }
+}

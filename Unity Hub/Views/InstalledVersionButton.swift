@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-struct UnityVersionButton: View {
+struct InstalledVersionButton: View {
     @EnvironmentObject var settings: HubSettings
-    var path: String
     var version: UnityVersion
     var hideRightSide: Bool = false
     var action: () -> Void
@@ -33,10 +32,11 @@ struct UnityVersionButton: View {
                 Text(version.version)
                     .font(.system(size: 12, weight: .bold))
                     .foregroundColor(.textColor)
-                    .help(path)
+                    .help(version.path)
                 
-                if version.isAlpha() || version.isBeta() {
+                if version.isPrerelease() {
                     PrereleaseTag(version: version)
+                        .padding(4)
                 }
                 Spacer()
                 if !hideRightSide {
@@ -50,7 +50,7 @@ struct UnityVersionButton: View {
                     }
                     Menu {
                         Button("Install Additional Modules", action: {})
-                        Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path) })
+                        Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: version.path) })
                         Button("Uninstall Version", action: { showUninstallWarning.toggle() })
                     } label: {}
                     .menuStyle(BorderlessButtonMenuStyle())
@@ -58,9 +58,9 @@ struct UnityVersionButton: View {
                     .padding(.trailing, 16)
                 }
             }
-            .frame(minWidth: 64, maxWidth: .infinity, minHeight: 48, maxHeight: 48)
+            .frame(minWidth: 64, maxWidth: .infinity, minHeight: 64, maxHeight: 64)
         }
-        .buttonStyle(UnityButtonStyle(verticalPadding: 0, horizontalPadding: 0))
+        .buttonStyle(PlainButtonStyle())
         .onAppear {
             modules = getInstalledModules()
         }
@@ -72,7 +72,7 @@ struct UnityVersionButton: View {
     func getInstalledModules() -> [(UnityModule, String)] {
         var unityModules: [(UnityModule, String)] = []
                 
-        let url = URL(fileURLWithPath: "\(path)/modules.json")
+        let url = URL(fileURLWithPath: "\(version.path)/modules.json")
         do {
             let data = try Data(contentsOf: url)
             let modules: [ModuleJSON] = try! JSONDecoder().decode([ModuleJSON].self, from: data)
@@ -98,9 +98,9 @@ struct UnityVersionButton: View {
     
     func uninstallVersion() {
         for i in 0 ..< settings.versionsInstalled.count {
-            if settings.versionsInstalled[i].1 == version {
+            if settings.versionsInstalled[i] == version {
                 DispatchQueue.global(qos: .background).async {
-                    let _ = shell("rm -rf \(path)")
+                    let _ = shell("rm -rf \(version.path)")
                 }
                 settings.versionsInstalled.remove(at: i)
                 return

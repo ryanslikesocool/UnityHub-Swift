@@ -12,13 +12,17 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List(SidebarItem.allCases) { item in
+            /*List(SidebarItem.allCases) { item in
                 switch item {
                 case .projects, .installs:
                     SidebarItemView(enabled: true, item: item, selectedItem: $selectedItem)
                 case .learn, .community:
                     SidebarItemView(enabled: false, item: item, selectedItem: $selectedItem)
                 }
+            }*/
+            List {
+                SidebarItemView(enabled: true, item: .projects, selectedItem: $selectedItem)
+                SidebarItemView(enabled: true, item: .installs, selectedItem: $selectedItem)
             }
             .listStyle(SidebarListStyle())
             .toolbar {

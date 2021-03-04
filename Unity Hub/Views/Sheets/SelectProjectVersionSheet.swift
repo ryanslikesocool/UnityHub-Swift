@@ -18,8 +18,8 @@ struct SelectProjectVersionSheet: View {
         ZStack {
             ScrollView {
                 VStack(spacing: 4) {
-                    ForEach(settings.versionsInstalled, id: \.self.0) { version in
-                        UnityVersionButton(path: version.0, version: version.1, hideRightSide: true, action: { selectVersion(version: version.1) })
+                    ForEach(settings.versionsInstalled) { version in
+                        InstalledVersionButton(version: version, hideRightSide: true, action: { selectVersion(version: version) })
                     }
                 }
                 .padding(.top, 56)

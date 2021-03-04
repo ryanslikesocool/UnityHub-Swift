@@ -86,9 +86,9 @@ struct ProjectButton: View {
         showWarning = false
         
         for version in settings.versionsInstalled {
-            if version.1 == self.version
+            if version == self.version
             {
-                let fullUnityPath = "\(version.0)/Unity.app/Contents/MacOS/Unity"
+                let fullUnityPath = "\(version.path)/Unity.app/Contents/MacOS/Unity"
                 let commands = "-projectPath"
                 return "\(fullUnityPath) \(commands) \(path)"
             }

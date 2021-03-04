@@ -12,11 +12,11 @@
 		AF146CAF25622B990032343F /* VersionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF146CAE25622B990032343F /* VersionSheet.swift */; };
 		AF146CB325622BA30032343F /* ModuleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF146CB225622BA30032343F /* ModuleSheet.swift */; };
 		AF16EDE8251AEC1700C939AA /* SidebarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16EDE7251AEC1700C939AA /* SidebarItem.swift */; };
-		AF16EDEF251AED6100C939AA /* ProjectTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16EDEE251AED6100C939AA /* ProjectTab.swift */; };
+		AF16EDEF251AED6100C939AA /* ProjectPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16EDEE251AED6100C939AA /* ProjectPanel.swift */; };
 		AF16EDF7251AEF4000C939AA /* TabSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16EDF6251AEF4000C939AA /* TabSelector.swift */; };
 		AF16FF24251B8CAD00C8A2A9 /* InstallSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16FF23251B8CAD00C8A2A9 /* InstallSheet.swift */; };
 		AF16FF27251B8EA500C8A2A9 /* UnityVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */; };
-		AF34E221251AF91F00192E53 /* InstallsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E220251AF91F00192E53 /* InstallsTab.swift */; };
+		AF34E221251AF91F00192E53 /* InstalledVersionPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E220251AF91F00192E53 /* InstalledVersionPanel.swift */; };
 		AF34E226251AFD2D00192E53 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E225251AFD2D00192E53 /* SettingsView.swift */; };
 		AF34E22B251AFE5300192E53 /* HubSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E22A251AFE5300192E53 /* HubSettings.swift */; };
 		AF4D2104251EBA220029101C /* Smile in Frameworks */ = {isa = PBXBuildFile; productRef = AF4D2103251EBA220029101C /* Smile */; };
@@ -39,7 +39,7 @@
 		AFBB9A4F25260B000004F78B /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB9A4E25260B000004F78B /* Color+Extension.swift */; };
 		AFC23C5825257E0700F5FE4B /* PrereleaseTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */; };
 		AFEAC8072525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEAC8062525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift */; };
-		AFFDD8B3251B08EB000AE12C /* UnityVersionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFDD8B2251B08EB000AE12C /* UnityVersionButton.swift */; };
+		AFFDD8B3251B08EB000AE12C /* InstalledVersionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,13 +61,13 @@
 		AF146CAE25622B990032343F /* VersionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionSheet.swift; sourceTree = "<group>"; };
 		AF146CB225622BA30032343F /* ModuleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleSheet.swift; sourceTree = "<group>"; };
 		AF16EDE7251AEC1700C939AA /* SidebarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarItem.swift; sourceTree = "<group>"; };
-		AF16EDEE251AED6100C939AA /* ProjectTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTab.swift; sourceTree = "<group>"; };
+		AF16EDEE251AED6100C939AA /* ProjectPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPanel.swift; sourceTree = "<group>"; };
 		AF16EDF6251AEF4000C939AA /* TabSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSelector.swift; sourceTree = "<group>"; };
 		AF16FF23251B8CAD00C8A2A9 /* InstallSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallSheet.swift; sourceTree = "<group>"; };
 		AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityVersion.swift; sourceTree = "<group>"; };
 		AF219E72252C5FF6008CE04C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		AF219E74252C5FF6008CE04C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		AF34E220251AF91F00192E53 /* InstallsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallsTab.swift; sourceTree = "<group>"; };
+		AF34E220251AF91F00192E53 /* InstalledVersionPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledVersionPanel.swift; sourceTree = "<group>"; };
 		AF34E225251AFD2D00192E53 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AF34E22A251AFE5300192E53 /* HubSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubSettings.swift; sourceTree = "<group>"; };
 		AF59FEA4251EBB4A0093D284 /* EmojiPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerSheet.swift; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 		AFBB9A4E25260B000004F78B /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrereleaseTag.swift; sourceTree = "<group>"; };
 		AFEAC8062525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedProjectSettingsSheet.swift; sourceTree = "<group>"; };
-		AFFDD8B2251B08EB000AE12C /* UnityVersionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityVersionButton.swift; sourceTree = "<group>"; };
+		AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledVersionButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,15 +160,15 @@
 			isa = PBXGroup;
 			children = (
 				AF66EBEF251AE3900088EC84 /* ContentView.swift */,
-				AF34E220251AF91F00192E53 /* InstallsTab.swift */,
 				AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */,
+				AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */,
+				AF34E220251AF91F00192E53 /* InstalledVersionPanel.swift */,
 				AFB1C3A8251B459600F8E3D8 /* ProjectButton.swift */,
-				AF16EDEE251AED6100C939AA /* ProjectTab.swift */,
+				AF16EDEE251AED6100C939AA /* ProjectPanel.swift */,
 				AF34E225251AFD2D00192E53 /* SettingsView.swift */,
 				AF16EDE7251AEC1700C939AA /* SidebarItem.swift */,
 				AF66EC01251AE57D0088EC84 /* SVGShapes.swift */,
 				AF16EDF6251AEF4000C939AA /* TabSelector.swift */,
-				AFFDD8B2251B08EB000AE12C /* UnityVersionButton.swift */,
 				AF08B5432524309600E7D16B /* VisualEffectView.swift */,
 				AFC933F42527F6C500E5ECDE /* Sheets */,
 				AFC933FB2527F82300E5ECDE /* Styles */,
@@ -315,17 +315,17 @@
 				AFB1C3B0251B633C00F8E3D8 /* Shell.swift in Sources */,
 				AF16FF24251B8CAD00C8A2A9 /* InstallSheet.swift in Sources */,
 				AFBB9A4B252609040004F78B /* UnityButtonStyle.swift in Sources */,
-				AFFDD8B3251B08EB000AE12C /* UnityVersionButton.swift in Sources */,
+				AFFDD8B3251B08EB000AE12C /* InstalledVersionButton.swift in Sources */,
 				AF16FF27251B8EA500C8A2A9 /* UnityVersion.swift in Sources */,
 				AF73A4E325F0C1BA00B2EA1C /* ListDividerView.swift in Sources */,
 				AF59FEA5251EBB4A0093D284 /* EmojiPickerSheet.swift in Sources */,
 				AF34E22B251AFE5300192E53 /* HubSettings.swift in Sources */,
 				AF146CB325622BA30032343F /* ModuleSheet.swift in Sources */,
 				AFB1C3A9251B459600F8E3D8 /* ProjectButton.swift in Sources */,
-				AF16EDEF251AED6100C939AA /* ProjectTab.swift in Sources */,
+				AF16EDEF251AED6100C939AA /* ProjectPanel.swift in Sources */,
 				AFC23C5825257E0700F5FE4B /* PrereleaseTag.swift in Sources */,
 				AF08B5442524309700E7D16B /* VisualEffectView.swift in Sources */,
-				AF34E221251AF91F00192E53 /* InstallsTab.swift in Sources */,
+				AF34E221251AF91F00192E53 /* InstalledVersionPanel.swift in Sources */,
 				AFB1C3AD251B492900F8E3D8 /* String+Extension.swift in Sources */,
 				AF16EDE8251AEC1700C939AA /* SidebarItem.swift in Sources */,
 				AF66EC02251AE57D0088EC84 /* SVGShapes.swift in Sources */,

@@ -12,8 +12,8 @@ struct TabSelector: View {
     
     var body: some View {
         switch item {
-        case .projects: ProjectTab()
-        case .installs: InstallsTab()
+        case .projects: ProjectPanel()
+        case .installs: InstalledVersionPanel()
         default: Rectangle()
         }
     }

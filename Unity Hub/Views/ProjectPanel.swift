@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProjectTab: View {
+struct ProjectPanel: View {
     @EnvironmentObject var settings: HubSettings
     @State private var updateList: Bool = false
 
@@ -16,7 +16,7 @@ struct ProjectTab: View {
             VStack {
                 ProjectButton(path: project.0, project: project.1, version: project.2, updateList: $updateList)
                 
-                if project != settings.projects.last ?? ("", "", UnityVersion("0.0.0f0")) {
+                if project != settings.projects.last ?? ("", "", UnityVersion.null) {
                     ListDividerView()
                 }
             }

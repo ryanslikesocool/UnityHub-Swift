@@ -8,13 +8,19 @@
 import SwiftUI
 import AppKit
 
-struct InstallsTab: View {
+struct InstalledVersionPanel: View {
     @EnvironmentObject var settings: HubSettings
     @State private var showInstaller: Bool = false
 
     var body: some View {
-        List(settings.versionsInstalled, id: \.self.0) { version in
-            UnityVersionButton(path: version.0, version: version.1, action: {})
+        List(settings.versionsInstalled) { version in
+            VStack {
+                InstalledVersionButton(version: version, action: {})
+                
+                if version != settings.versionsInstalled.last ?? UnityVersion.null {
+                    ListDividerView()
+                }
+            }
         }
         .navigationTitle("Installs")
         .onAppear(perform: getAllVersions)

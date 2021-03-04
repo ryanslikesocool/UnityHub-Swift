@@ -50,7 +50,7 @@ class HubSettings: ObservableObject {
     }
     
     //path, version
-    @Published var versionsInstalled: [(String, UnityVersion)] = []
+    @Published var versionsInstalled: [UnityVersion] = []
     //path, name, version
     @Published var projects: [(String, String, UnityVersion)] = []
     
@@ -58,7 +58,7 @@ class HubSettings: ObservableObject {
         if versionsInstalled.count == 0 {
             return nil
         }
-        return versionsInstalled[0].1
+        return versionsInstalled[0]
     }
     
     //TO DO: don't recalculate all
@@ -76,7 +76,7 @@ class HubSettings: ObservableObject {
                 let path = "\(path)/\(item)"
                 if fm.fileExists(atPath: path, isDirectory: &isDir) {
                     if isDir.boolValue && validateEditor(path: path) {
-                        settings.versionsInstalled.append((path, UnityVersion(item)))
+                        settings.versionsInstalled.append(UnityVersion(item, path: path))
                     }
                 }
             }
@@ -91,7 +91,7 @@ class HubSettings: ObservableObject {
                 if items.contains("Unity.app") {
                     if isDir.boolValue && validateEditor(path: HubSettings.customInstallPaths[i]) {
                         let components = HubSettings.customInstallPaths[i].components(separatedBy: "/")
-                        settings.versionsInstalled.append((HubSettings.customInstallPaths[i], UnityVersion(components.last!)))
+                        settings.versionsInstalled.append(UnityVersion(components.last!, path: HubSettings.customInstallPaths[i]))
                     }
                 } else {
                     HubSettings.customInstallPaths.remove(at: i)
@@ -102,7 +102,7 @@ class HubSettings: ObservableObject {
         }
         
         settings.versionsInstalled.sort {
-            switch $0.1.compare(other: $1.1) {
+            switch $0.compare(other: $1) {
             case 1: return true
             case -1: return false
             default: return false
