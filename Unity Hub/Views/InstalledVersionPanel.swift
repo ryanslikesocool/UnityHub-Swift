@@ -90,11 +90,10 @@ struct InstalledVersionPanel: View {
     
     func deleteItems(offsets: IndexSet?) {
         if let index = offsets?.first {
-            print(settings.versionsInstalled[index].version)
-            /*DispatchQueue.global(qos: .background).async {
+            DispatchQueue.global(qos: .background).async {
                 let _ = shell("rm -rf \(settings.versionsInstalled[index].path)")
             }
-            settings.versionsInstalled.remove(at: index)*/
+            settings.versionsInstalled.remove(at: index)
         } else {
             deleteItems(install: installToRemove)
         }
