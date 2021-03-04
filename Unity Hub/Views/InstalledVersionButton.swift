@@ -13,9 +13,10 @@ struct InstalledVersionButton: View {
     var hideRightSide: Bool = false
     var action: () -> Void
     @State private var modules: [(UnityModule, String)] = []
-    @State private var showUninstallWarning: Bool = false
     @State private var installing: Bool = false
-    
+
+    var deleteAction: (UnityVersion) -> Void
+
     var body: some View {
         Button(action: action) {
             HStack {
@@ -48,7 +49,7 @@ struct InstalledVersionButton: View {
                     Menu {
                         Button("Install Additional Modules", action: {})
                         Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: version.path) })
-                        Button("Uninstall Version", action: { showUninstallWarning.toggle() })
+                        Button("Uninstall Version", action: { deleteAction(version) })
                     } label: {}
                     .menuStyle(BorderlessButtonMenuStyle())
                     .frame(width: 16, height: 48)
@@ -61,9 +62,6 @@ struct InstalledVersionButton: View {
         .onAppear {
             modules = getInstalledModules()
         }
-        .alert(isPresented: $showUninstallWarning, content: {
-            Alert(title: Text("Uninstall Unity \(version.version)"), message: Text("Do you really want to uninstall Unity \(version.version)?"), primaryButton: .cancel(Text("Cancel")), secondaryButton: .destructive(Text("Uninstall"), action: uninstallVersion))
-        })
     }
     
     func getInstalledModules() -> [(UnityModule, String)] {
@@ -91,17 +89,5 @@ struct InstalledVersionButton: View {
         }
                 
         return unityModules
-    }
-    
-    func uninstallVersion() {
-        for i in 0 ..< settings.versionsInstalled.count {
-            if settings.versionsInstalled[i] == version {
-                DispatchQueue.global(qos: .background).async {
-                    let _ = shell("rm -rf \(version.path)")
-                }
-                settings.versionsInstalled.remove(at: i)
-                return
-            }
-        }
     }
 }

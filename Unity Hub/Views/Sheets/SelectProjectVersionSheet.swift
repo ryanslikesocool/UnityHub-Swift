@@ -19,7 +19,8 @@ struct SelectProjectVersionSheet: View {
             ScrollView {
                 VStack(spacing: 4) {
                     ForEach(settings.versionsInstalled) { version in
-                        InstalledVersionButton(version: version, hideRightSide: true, action: { selectVersion(version: version) })
+                        //REPLACE THIS WITH A DEDICATED ITEM
+                        //InstalledVersionButton(version: version, hideRightSide: true, action: { selectVersion(version: version) }, deleteAction: {})
                     }
                 }
                 .padding(.top, 56)

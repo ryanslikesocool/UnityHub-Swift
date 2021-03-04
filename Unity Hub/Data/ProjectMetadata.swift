@@ -99,6 +99,10 @@ struct ProjectMetadata {
             \(pinned ? "true" : "false")
             """
     }
+    
+    func compare(other: ProjectMetadata) -> Bool {
+        return path == other.path
+    }
 }
 
 extension ProjectMetadata: Identifiable {

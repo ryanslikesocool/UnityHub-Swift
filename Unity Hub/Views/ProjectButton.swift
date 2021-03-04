@@ -21,6 +21,8 @@ struct ProjectButton: View {
     @Binding var usePins: Bool
     @Binding var alwaysShowLocation: Bool
     
+    var deleteAction: (ProjectMetadata) -> Void
+    
     @State private var shellCommand: String? = nil
     @State private var showWarning: Bool = false
 
@@ -91,7 +93,7 @@ struct ProjectButton: View {
                 }
                 Button("Select Unity Version", action: selectProjectVersion)
                 Button("Advanced", action: openAdvancedSettings)
-                Button("Remove", action: removeProject)
+                Button("Remove", action: { deleteAction(metadata) })
             } label: {}
             .menuStyle(BorderlessButtonMenuStyle())
             .frame(width: 16, height: 48)
@@ -153,11 +155,6 @@ struct ProjectButton: View {
     func openAdvancedSettings() {
         activeSheet = .advancedSettings
         showSheet.toggle()
-    }
-    
-    func removeProject() {
-        HubSettings.projectPaths.removeAll(where: { $0 == metadata.path })
-        updateList.toggle()
     }
 }
 

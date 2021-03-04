@@ -11,7 +11,9 @@ struct ProjectPanel: View {
     @EnvironmentObject var settings: HubSettings
     @State private var updateList: Bool = false
     @State private var showRemovalSheet: Bool = false
-    @State private var projectToRemove: IndexSet?
+    @State private var projectIndexToRemove: IndexSet?
+    @State private var projectToRemove: ProjectMetadata?
+    @State private var projectToRemoveName: String?
 
     var body: some View {
         let useEmoji = Binding(
@@ -30,17 +32,14 @@ struct ProjectPanel: View {
         List {
             ForEach(settings.projects) { project in
                 VStack {
-                    ProjectButton(metadata: project, updateList: $updateList, useEmoji: useEmoji, usePins: usePins, alwaysShowLocation: alwaysShowLocation)
+                    ProjectButton(metadata: project, updateList: $updateList, useEmoji: useEmoji, usePins: usePins, alwaysShowLocation: alwaysShowLocation, deleteAction: prepareForDeletion)
 
                     if project.path != (settings.projects.last ?? ProjectMetadata.null).path {
                         ListDividerView()
                     }
                 }
             }
-            .onDelete(perform: {
-                projectToRemove = $0
-                showRemovalSheet.toggle()
-            })
+            .onDelete(perform: prepareForDeletion)
         }
         .navigationTitle("Projects")
         .onAppear(perform: getAllProjects)
@@ -62,9 +61,9 @@ struct ProjectPanel: View {
         .alert(isPresented: $showRemovalSheet) {
             Alert(
                 title: Text("Remove Project"),
-                message: Text("Are you sure you want to remove the project \"\(settings.projects[projectToRemove!.first!].name)\" from the list?\nYour project files will remain on your hard drive and will not be deleted."),
+                message: Text("Are you sure you want to remove the project \"\(projectToRemoveName!)\" from the list?\nYour project files will remain on your hard drive and will not be deleted."),
                 primaryButton: .cancel(Text("Cancel")),
-                secondaryButton: .destructive(Text("Remove")) { deleteItems(at: projectToRemove!) }
+                secondaryButton: .destructive(Text("Remove")) { deleteItems(offsets: projectIndexToRemove) }
             )
         }
     }
@@ -85,10 +84,34 @@ struct ProjectPanel: View {
         }
     }
     
-    func deleteItems(at offsets: IndexSet) {
-        settings.projects.remove(atOffsets: offsets)
-        HubSettings.projectPaths.remove(atOffsets: offsets)
-        updateList.toggle()
+    func prepareForDeletion(at offsets: IndexSet) {
+        projectIndexToRemove = offsets
+        projectToRemoveName = settings.projects[offsets.first!].name
+        showRemovalSheet.toggle()
+    }
+    
+    func prepareForDeletion(metadata: ProjectMetadata) {
+        projectToRemove = metadata
+        projectToRemoveName = projectToRemove!.name
+        showRemovalSheet.toggle()
+    }
+    
+    func deleteItems(offsets: IndexSet?) {
+        if let index = offsets {
+            projectIndexToRemove = nil
+            settings.projects.remove(atOffsets: index)
+            HubSettings.projectPaths.remove(atOffsets: index)
+            updateList.toggle()
+        } else {
+            deleteItems(metadata: projectToRemove)
+        }
+    }
+    
+    func deleteItems(metadata: ProjectMetadata?) {
+        if let project = metadata {
+            settings.projects.removeAll(where: { $0.compare(other: project) })
+            HubSettings.projectPaths.removeAll(where: { $0 == project.path })
+        }
     }
     
     func createProject() {
