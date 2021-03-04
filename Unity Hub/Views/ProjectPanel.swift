@@ -10,16 +10,24 @@ import SwiftUI
 struct ProjectPanel: View {
     @EnvironmentObject var settings: HubSettings
     @State private var updateList: Bool = false
+    @State private var showRemovalSheet: Bool = false
+    @State private var projectToRemove: IndexSet?
 
     var body: some View {
-        List(settings.projects, id: \.self.1) { project in
-            VStack {
-                ProjectButton(path: project.0, project: project.1, version: project.2, updateList: $updateList)
-                
-                if project != settings.projects.last ?? ("", "", UnityVersion.null) {
-                    ListDividerView()
+        List {
+            ForEach(settings.projects) { project in
+                VStack {
+                    ProjectButton(metadata: project, updateList: $updateList)
+
+                    if project.path != (settings.projects.last ?? ProjectMetadata.null).path {
+                        ListDividerView()
+                    }
                 }
             }
+            .onDelete(perform: {
+                projectToRemove = $0
+                showRemovalSheet.toggle()
+            })
         }
         .navigationTitle("Projects")
         .onAppear(perform: getAllProjects)
@@ -38,6 +46,14 @@ struct ProjectPanel: View {
                 }
             }
         }
+        .alert(isPresented: $showRemovalSheet) {
+            Alert(
+                title: Text("Remove Project"),
+                message: Text("Are you sure you want to remove the project \"\(settings.projects[projectToRemove!.first!].name)\" from the list?\nYour project files will remain on your hard drive and will not be deleted."),
+                primaryButton: .cancel(Text("Cancel")),
+                secondaryButton: .destructive(Text("Remove")) { deleteItems(at: projectToRemove!) }
+            )
+        }
     }
     
     func getAllProjects() {
@@ -54,6 +70,12 @@ struct ProjectPanel: View {
                 updateList.toggle()
             }
         }
+    }
+    
+    func deleteItems(at offsets: IndexSet) {
+        settings.projects.remove(atOffsets: offsets)
+        HubSettings.projectPaths.remove(atOffsets: offsets)
+        updateList.toggle()
     }
     
     func createProject() {

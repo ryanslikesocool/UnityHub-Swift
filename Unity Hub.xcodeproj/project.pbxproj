@@ -29,6 +29,7 @@
 		AF66EC02251AE57D0088EC84 /* SVGShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF66EC01251AE57D0088EC84 /* SVGShapes.swift */; };
 		AF73A4DC25F0ACBF00B2EA1C /* SidebarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF73A4DB25F0ACBF00B2EA1C /* SidebarItemView.swift */; };
 		AF73A4E325F0C1BA00B2EA1C /* ListDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF73A4E225F0C1BA00B2EA1C /* ListDividerView.swift */; };
+		AF9F945925F1050D00539C3A /* ProjectMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F945825F1050D00539C3A /* ProjectMetadata.swift */; };
 		AFA0862C251B1CFB00B1B985 /* NSOpenPanel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA0862B251B1CFB00B1B985 /* NSOpenPanel+Extension.swift */; };
 		AFB1C3A3251B325000F8E3D8 /* UnityModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3A2251B325000F8E3D8 /* UnityModule.swift */; };
 		AFB1C3A6251B357A00F8E3D8 /* ModuleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3A5251B357A00F8E3D8 /* ModuleJSON.swift */; };
@@ -82,6 +83,7 @@
 		AF66EC01251AE57D0088EC84 /* SVGShapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGShapes.swift; sourceTree = "<group>"; };
 		AF73A4DB25F0ACBF00B2EA1C /* SidebarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarItemView.swift; sourceTree = "<group>"; };
 		AF73A4E225F0C1BA00B2EA1C /* ListDividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDividerView.swift; sourceTree = "<group>"; };
+		AF9F945825F1050D00539C3A /* ProjectMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMetadata.swift; sourceTree = "<group>"; };
 		AFA0862B251B1CFB00B1B985 /* NSOpenPanel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSOpenPanel+Extension.swift"; sourceTree = "<group>"; };
 		AFB1C3A2251B325000F8E3D8 /* UnityModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityModule.swift; sourceTree = "<group>"; };
 		AFB1C3A5251B357A00F8E3D8 /* ModuleJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleJSON.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				AFB1C3A5251B357A00F8E3D8 /* ModuleJSON.swift */,
 				AFB1C3A2251B325000F8E3D8 /* UnityModule.swift */,
 				AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */,
+				AF9F945825F1050D00539C3A /* ProjectMetadata.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 			files = (
 				AF146CAF25622B990032343F /* VersionSheet.swift in Sources */,
 				AFB1C3A6251B357A00F8E3D8 /* ModuleJSON.swift in Sources */,
+				AF9F945925F1050D00539C3A /* ProjectMetadata.swift in Sources */,
 				AFA0862C251B1CFB00B1B985 /* NSOpenPanel+Extension.swift in Sources */,
 				AF5A94D0251BF9E3002FA410 /* DownloadInfo.swift in Sources */,
 				AF66EBF0251AE3900088EC84 /* ContentView.swift in Sources */,

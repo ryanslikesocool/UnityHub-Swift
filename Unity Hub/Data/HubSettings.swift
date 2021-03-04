@@ -37,22 +37,8 @@ class HubSettings: ObservableObject {
         set { UserDefaults.standard.set(newValue, forKey: "hubLocation") }
     }
     
-    static func getProjectEmoji(project: String) -> String {
-        return UserDefaults.standard.string(forKey: "projectEmoji_\(project)") ?? "❓"
-    }
-    
-    static func setProjectEmoji(emoji: String, project: String) {
-        UserDefaults.standard.set(emoji, forKey: "projectEmoji_\(project)")
-    }
-    
-    static func removeProjectEmoji(project: String) {
-        UserDefaults.standard.removeObject(forKey: "projectEmoji_\(project)")
-    }
-    
-    //path, version
     @Published var versionsInstalled: [UnityVersion] = []
-    //path, name, version
-    @Published var projects: [(String, String, UnityVersion)] = []
+    @Published var projects: [ProjectMetadata] = []
     
     var lastestVersionInstalled: UnityVersion? {
         if versionsInstalled.count == 0 {
@@ -117,8 +103,6 @@ class HubSettings: ObservableObject {
         for path in HubSettings.projectPaths {
             if !fm.fileExists(atPath: path) {
                 HubSettings.projectPaths.removeAll(where: { $0 == path })
-                let name = path.components(separatedBy: "/").last!
-                HubSettings.removeProjectEmoji(project: name)
                 continue
             }
             
@@ -127,24 +111,19 @@ class HubSettings: ObservableObject {
                 if !items.contains("Assets") || !items.contains("ProjectSettings") {
                     continue
                 }
-                
-                let name = path.components(separatedBy: "/").last!
-                var version: String = ""
-                
-                let versionPath = "\(path)/ProjectSettings/ProjectVersion.txt"
-
-                let url = URL(fileURLWithPath: versionPath)
-                let versionText = try String(contentsOf: url)
-                version = versionText.components(separatedBy: "\n").first!
-                version.trimPrefix("m_EditorVersion: ")
-                
-                settings.projects.append((path, name, UnityVersion(version)))
+                                
+                settings.projects.append(ProjectMetadata(readFrom: path))
             } catch {
                 print(error.localizedDescription)
             }
         }
         
-        settings.projects.sort(by: { $0.1 < $1.1 })
+        settings.projects.sort(by: { $0.name < $1.name })
+        
+        HubSettings.projectPaths.removeAll()
+        for project in settings.projects {
+            HubSettings.projectPaths.append(project.path)
+        }
     }
     
     static func validateEditor(path: String/*, version: UnityVersion*/) -> Bool {

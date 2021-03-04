@@ -30,7 +30,7 @@ struct InstalledVersionButton: View {
                         .padding(.leading, 12)
                 }
                 Text(version.version)
-                    .font(.system(size: 12, weight: .bold))
+                    .font(.system(size: 12, weight: .semibold))
                     .foregroundColor(.textColor)
                     .help(version.path)
                 

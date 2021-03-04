@@ -14,13 +14,9 @@ import Dispatch
 struct ProjectButton: View {
     @EnvironmentObject var settings: HubSettings
 
-    var path: String
-    var project: String
-    @State var version: UnityVersion
+    @State var metadata: ProjectMetadata
     @Binding var updateList: Bool
     
-    @State private var emoji: String = ""
-
     @State private var shellCommand: String? = nil
     @State private var showWarning: Bool = false
 
@@ -38,27 +34,37 @@ struct ProjectButton: View {
     }
     
     var body: some View {
-        HStack {
+        let emojiBinding = Binding(
+            get: { self.metadata.emojiTag },
+            set: { self.metadata.emojiTag = $0 }
+        )
+        let versionBinding = Binding(
+            get: { self.metadata.version },
+            set: { self.metadata.version = $0 }
+        )
+        
+        return HStack {
             Button(action: selectEmoji) {
-                Text(emoji)
+                Text(emojiBinding.wrappedValue)
                     .font(.system(size: 32))
                     .foregroundColor(.textColor)
                     .padding(.leading, 16)
             }
             .buttonStyle(BorderlessButtonStyle())
-            Text(project)
+            Text(metadata.name)
                 .font(.system(size: 12, weight: .semibold))
                 .foregroundColor(.textColor)
-                .help(path)
+                .help(metadata.path)
             Spacer()
             if showWarning {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .help("The Editor version associated with this project is not currently available on this machine.  Go to Installs to download a matching version")
             }
-            Text("Unity \(version.version)")
+            Text("Unity \(versionBinding.wrappedValue.version)")
                 .foregroundColor(.textColor)
+                .opacity(0.75)
             Menu {
-                Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path) })
+                Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: metadata.path) })
                 Button("Select Emoji", action: selectEmoji)
                 Button("Select Unity Version", action: selectProjectVersion)
                 Button("Advanced", action: openAdvancedSettings)
@@ -70,13 +76,16 @@ struct ProjectButton: View {
         }
         .frame(minWidth: 64, maxWidth: .infinity, minHeight: 64, maxHeight: 64)
         .onAppear {
-            emoji = HubSettings.getProjectEmoji(project: project)
+            //metadata.emojiTag = HubSettings.getProjectEmoji(project: metadata.name)
             shellCommand = getShellCommand()
         }
         .sheet(item: $activeSheet) { item in
             switch item {
-            case .emoji: EmojiPickerSheet(pickedEmoji: $emoji, action: { HubSettings.setProjectEmoji(emoji: emoji, project: project) })
-            case .selectVersion: SelectProjectVersionSheet(version: $version, action: { shellCommand = getShellCommand() })
+            case .emoji: EmojiPickerSheet(pickedEmoji: emojiBinding, action: { metadata.save() })
+            case .selectVersion: SelectProjectVersionSheet(version: versionBinding, action: {
+                shellCommand = getShellCommand()
+                metadata.save()
+            })
             case .advancedSettings: AdvancedProjectSettingsSheet()
             }
         }
@@ -86,11 +95,11 @@ struct ProjectButton: View {
         showWarning = false
         
         for version in settings.versionsInstalled {
-            if version == self.version
+            if version == self.metadata.version
             {
                 let fullUnityPath = "\(version.path)/Unity.app/Contents/MacOS/Unity"
                 let commands = "-projectPath"
-                return "\(fullUnityPath) \(commands) \(path)"
+                return "\(fullUnityPath) \(commands) \(metadata.path)"
             }
         }
         
@@ -124,9 +133,8 @@ struct ProjectButton: View {
     }
     
     func removeProject() {
-        HubSettings.projectPaths.removeAll(where: { $0 == path })
+        HubSettings.projectPaths.removeAll(where: { $0 == metadata.path })
         updateList.toggle()
-        HubSettings.removeProjectEmoji(project: project)
     }
 }
 
