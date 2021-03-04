@@ -8,33 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedItem: SidebarItem? = SidebarItem.projects
+    @State private var selectedItem: SidebarItem? = .projects
 
     var body: some View {
         NavigationView {
             List(SidebarItem.allCases) { item in
                 switch item {
                 case .projects, .installs:
-                    NavigationLink(destination: TabSelector(item: item), tag: item, selection: $selectedItem) {
-                        HStack {
-                            Image(systemName: item.rawValue.2)
-                                .font(.system(size: 12, weight: .black))
-                            Text(item.rawValue.1)
-                                .font(.system(size: 12, weight: .semibold))
-                            Spacer()
-                        }
-                        .frame(width: 192, height: 28)
-                    }
+                    SidebarItemView(enabled: true, item: item, selectedItem: $selectedItem)
                 case .learn, .community:
-                    HStack {
-                        Image(systemName: item.rawValue.2)
-                            .font(.system(size: 12, weight: .black))
-                        Text(item.rawValue.1)
-                            .font(.system(size: 12, weight: .semibold))
-                        Spacer()
-                    }
-                    .frame(width: 192, height: 28)
-                    .foregroundColor(.gray)
+                    SidebarItemView(enabled: false, item: item, selectedItem: $selectedItem)
                 }
             }
             .listStyle(SidebarListStyle())

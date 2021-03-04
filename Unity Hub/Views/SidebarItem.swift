@@ -14,32 +14,37 @@ enum SidebarItem: CaseIterable {
     case installs
 }
 
-extension SidebarItem: RawRepresentable {
-    // (order, label, icon)
-    typealias RawValue = (Int, String, String)
-    
-    init?(rawValue: (Int, String, String)) {
-        switch(rawValue.0) {
-        case 0: self = .projects
-        case 1: self = .learn
-        case 2: self = .community
-        case 3: self = .installs
-        default: return nil
+extension SidebarItem {
+    func asOrder() -> Int {
+        switch self {
+        case .projects: return 0
+        case .learn: return 1
+        case .community: return 2
+        case .installs: return 3
         }
     }
     
-    var rawValue: (Int, String, String) {
+    func asText() -> String {
         switch self {
-        case .projects: return (0, "Projects", "cube.fill")
-        case .learn: return (1, "Learn", "graduationcap.fill")
-        case .community: return (2, "Community", "person.2.fill")
-        case .installs: return (3, "Installs", "list.dash")
+        case .projects: return "Projects"
+        case .learn: return "Learn"
+        case .community: return "Community"
+        case .installs: return "Installs"
+        }
+    }
+    
+    func asSymbol() -> String {
+        switch self {
+        case .projects: return "cube.fill"
+        case .learn: return "graduationcap.fill"
+        case .community: return "person.2.fill"
+        case .installs: return "list.dash"
         }
     }
 }
 
 extension SidebarItem: Identifiable {
     var id: Int {
-        rawValue.0
+        self.asOrder()
     }
 }

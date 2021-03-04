@@ -12,9 +12,13 @@ struct ProjectTab: View {
     @State private var updateList: Bool = false
 
     var body: some View {
-        List {
-            ForEach(settings.projects, id: \.self.1) { project in
+        List(settings.projects, id: \.self.1) { project in
+            VStack {
                 ProjectButton(path: project.0, project: project.1, version: project.2, updateList: $updateList)
+                
+                if project != settings.projects.last ?? ("", "", UnityVersion("0.0.0f0")) {
+                    ListDividerView()
+                }
             }
         }
         .navigationTitle("Projects")
@@ -25,7 +29,7 @@ struct ProjectTab: View {
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Button(action: locateProject) {
-                    Image(systemName: "magnifyingglass")
+                    Image(systemName: "folder")
                 }
             }
             ToolbarItem(placement: .automatic) {

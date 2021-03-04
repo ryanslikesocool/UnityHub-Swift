@@ -20,3 +20,10 @@ struct PrereleaseTag: View {
             )
     }
 }
+
+struct PrereleaseTag_Previews: PreviewProvider {
+    static var previews: some View {
+        PrereleaseTag(version: UnityVersion("2020.1.0b1"))
+        PrereleaseTag(version: UnityVersion("2020.1.0a1"))
+    }
+}

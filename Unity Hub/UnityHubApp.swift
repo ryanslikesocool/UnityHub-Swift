@@ -14,7 +14,7 @@ struct UnityHubApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .frame(minWidth: 750, maxWidth: .infinity, minHeight: 400, maxHeight: .infinity)
+                .frame(minWidth: 700, maxWidth: .infinity, minHeight: 400, maxHeight: .infinity)
                 .environmentObject(settings)
                 .onAppear(perform: { HubSettings.getAllVersions(settings: settings) })
         }

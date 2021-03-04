@@ -7,6 +7,9 @@
 
 import SwiftUI
 import Cocoa
+import AppKit
+import Foundation
+import Dispatch
 
 struct ProjectButton: View {
     @EnvironmentObject var settings: HubSettings
@@ -35,40 +38,37 @@ struct ProjectButton: View {
     }
     
     var body: some View {
-        Button(action: openProject) {
-            HStack {
+        HStack {
+            Button(action: selectEmoji) {
                 Text(emoji)
-                    .font(.system(size: 16))
+                    .font(.system(size: 32))
                     .foregroundColor(.textColor)
-                    .padding(.leading, 8)
-                Text(project)
-                    .font(.system(size: 12, weight: .bold))
-                    .foregroundColor(.textColor)
-                    .help(path)
-                Spacer()
-                if showWarning {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .help("The Editor version associated with this project is not currently available on this machine.  Go to Installs to download a matching version")
-                }
-                Text("Unity \(version.version)")
-                    .foregroundColor(.textColor)
-                Menu {
-                    Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path) })
-                    Button("Edit Emoji", action: {
-                        activeSheet = .emoji
-                        showSheet.toggle()
-                    })
-                    Button("Select Unity Version", action: selectProjectVersion)
-                    Button("Advanced", action: openAdvancedSettings)
-                    Button("Remove", action: removeProject)
-                } label: {}
-                .menuStyle(BorderlessButtonMenuStyle())
-                .frame(width: 16, height: 48)
-                .padding(.trailing, 16)
+                    .padding(.leading, 16)
             }
-            .frame(minWidth: 64, maxWidth: .infinity, minHeight: 48, maxHeight: 48)
+            .buttonStyle(BorderlessButtonStyle())
+            Text(project)
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundColor(.textColor)
+                .help(path)
+            Spacer()
+            if showWarning {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .help("The Editor version associated with this project is not currently available on this machine.  Go to Installs to download a matching version")
+            }
+            Text("Unity \(version.version)")
+                .foregroundColor(.textColor)
+            Menu {
+                Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path) })
+                Button("Select Emoji", action: selectEmoji)
+                Button("Select Unity Version", action: selectProjectVersion)
+                Button("Advanced", action: openAdvancedSettings)
+                Button("Remove", action: removeProject)
+            } label: {}
+            .menuStyle(BorderlessButtonMenuStyle())
+            .frame(width: 16, height: 48)
+            .padding(.trailing, 16)
         }
-        .buttonStyle(UnityButtonStyle(verticalPadding: 0, horizontalPadding: 0))
+        .frame(minWidth: 64, maxWidth: .infinity, minHeight: 64, maxHeight: 64)
         .onAppear {
             emoji = HubSettings.getProjectEmoji(project: project)
             shellCommand = getShellCommand()
@@ -98,6 +98,11 @@ struct ProjectButton: View {
         return nil
     }
     
+    func selectEmoji() {
+        activeSheet = .emoji
+        showSheet.toggle()
+    }
+    
     func openProject() {
         if !showWarning {
             DispatchQueue.global(qos: .background).async {
@@ -124,3 +129,10 @@ struct ProjectButton: View {
         HubSettings.removeProjectEmoji(project: project)
     }
 }
+
+/*struct ProjectButton_Previews: PreviewProvider {
+    static var previews: some View {
+        ProjectButton(path: "~/Little People", project: "Little People", version: UnityVersion("2021.1.0b8"), updateList: .constant(false))
+        ProjectButton(path: "~/Ultra Tempus", project: "Ultra Tempus", version: UnityVersion("2020.2.6f1"), updateList: .constant(false))
+    }
+}*/

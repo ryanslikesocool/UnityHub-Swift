@@ -13,17 +13,15 @@ struct InstallsTab: View {
     @State private var showInstaller: Bool = false
 
     var body: some View {
-        List {
-            ForEach(settings.versionsInstalled, id: \.self.0) { version in
-                UnityVersionButton(path: version.0, version: version.1, action: {})
-            }
+        List(settings.versionsInstalled, id: \.self.0) { version in
+            UnityVersionButton(path: version.0, version: version.1, action: {})
         }
         .navigationTitle("Installs")
         .onAppear(perform: getAllVersions)
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Button(action: locateVersion) {
-                    Image(systemName: "magnifyingglass")
+                    Image(systemName: "folder")
                 }
             }
             ToolbarItem(placement: .automatic) {
