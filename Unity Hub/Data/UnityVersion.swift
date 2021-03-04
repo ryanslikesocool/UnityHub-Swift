@@ -127,7 +127,7 @@ extension UnityVersion: Comparable {
     }
     
     static func >(lhs: UnityVersion, rhs: UnityVersion) -> Bool {
-        return lhs.compare(other: rhs) == 1
+        return lhs.compare(other: rhs) == -1
     }
 }
 

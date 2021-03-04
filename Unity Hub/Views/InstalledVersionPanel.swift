@@ -12,9 +12,8 @@ struct InstalledVersionPanel: View {
     @EnvironmentObject var settings: HubSettings
     @State private var showInstaller: Bool = false
     @State private var showRemovalSheet: Bool = false
-    @State private var installIndexToRemove: IndexSet?
+
     @State private var installToRemove: UnityVersion?
-    @State private var installToRemoveName: String?
 
     var body: some View {
         List {
@@ -48,10 +47,10 @@ struct InstalledVersionPanel: View {
         }
         .alert(isPresented: $showRemovalSheet) {
             Alert(
-                title: Text("Uninstall Unity \(installToRemoveName!)"),
-                message: Text("Are you sure you want to uninstall Unity version \(installToRemoveName!)?"),
+                title: Text("Uninstall Unity \(installToRemove!.version)"),
+                message: Text("Are you sure you want to uninstall Unity version \(installToRemove!.version)?"),
                 primaryButton: .cancel(Text("Cancel")),
-                secondaryButton: .destructive(Text("Uninstall")) { deleteItems(offsets: installIndexToRemove) }
+                secondaryButton: .destructive(Text("Uninstall")) { deleteItems(install: installToRemove) }
             )
         }
     }
@@ -77,26 +76,12 @@ struct InstalledVersionPanel: View {
     }
     
     func prepareForDeletion(at offsets: IndexSet) {
-        installIndexToRemove = offsets
-        installToRemoveName = settings.versionsInstalled[offsets.first!].version
-        showRemovalSheet.toggle()
+        prepareForDeletion(version: settings.versionsInstalled[offsets.first!])
     }
     
     func prepareForDeletion(version: UnityVersion) {
         installToRemove = version
-        installToRemoveName = version.version
         showRemovalSheet.toggle()
-    }
-    
-    func deleteItems(offsets: IndexSet?) {
-        if let index = offsets?.first {
-            DispatchQueue.global(qos: .background).async {
-                let _ = shell("rm -rf \(settings.versionsInstalled[index].path)")
-            }
-            settings.versionsInstalled.remove(at: index)
-        } else {
-            deleteItems(install: installToRemove)
-        }
     }
     
     func deleteItems(install: UnityVersion?) {
@@ -106,5 +91,6 @@ struct InstalledVersionPanel: View {
             }
             settings.versionsInstalled.removeAll(where: { $0.version == version.version })
         }
+        installToRemove = nil
     }
 }

@@ -11,9 +11,8 @@ struct ProjectPanel: View {
     @EnvironmentObject var settings: HubSettings
     @State private var updateList: Bool = false
     @State private var showRemovalSheet: Bool = false
-    @State private var projectIndexToRemove: IndexSet?
+
     @State private var projectToRemove: ProjectMetadata?
-    @State private var projectToRemoveName: String?
 
     var body: some View {
         let useEmoji = Binding(
@@ -61,9 +60,9 @@ struct ProjectPanel: View {
         .alert(isPresented: $showRemovalSheet) {
             Alert(
                 title: Text("Remove Project"),
-                message: Text("Are you sure you want to remove the project \"\(projectToRemoveName!)\" from the list?\nYour project files will remain on your hard drive and will not be deleted."),
+                message: Text("Are you sure you want to remove the project \"\(projectToRemove!.name)\" from the list?\nYour project files will remain on your hard drive and will not be deleted."),
                 primaryButton: .cancel(Text("Cancel")),
-                secondaryButton: .destructive(Text("Remove")) { deleteItems(offsets: projectIndexToRemove) }
+                secondaryButton: .destructive(Text("Remove")) { deleteItems(metadata: projectToRemove) }
             )
         }
     }
@@ -84,34 +83,22 @@ struct ProjectPanel: View {
         }
     }
     
-    func prepareForDeletion(at offsets: IndexSet) {
-        projectIndexToRemove = offsets
-        projectToRemoveName = settings.projects[offsets.first!].name
-        showRemovalSheet.toggle()
+    func prepareForDeletion(offsets: IndexSet) {
+        prepareForDeletion(metadata: settings.projects[offsets.first!])
     }
     
     func prepareForDeletion(metadata: ProjectMetadata) {
         projectToRemove = metadata
-        projectToRemoveName = projectToRemove!.name
         showRemovalSheet.toggle()
-    }
-    
-    func deleteItems(offsets: IndexSet?) {
-        if let index = offsets {
-            projectIndexToRemove = nil
-            settings.projects.remove(atOffsets: index)
-            HubSettings.projectPaths.remove(atOffsets: index)
-            updateList.toggle()
-        } else {
-            deleteItems(metadata: projectToRemove)
-        }
     }
     
     func deleteItems(metadata: ProjectMetadata?) {
         if let project = metadata {
             settings.projects.removeAll(where: { $0.compare(other: project) })
             HubSettings.projectPaths.removeAll(where: { $0 == project.path })
+            updateList.toggle()
         }
+        projectToRemove = nil
     }
     
     func createProject() {
