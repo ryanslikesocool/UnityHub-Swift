@@ -13,13 +13,11 @@ struct AdvancedProjectSettingsSheet: View {
     var body: some View {
         VStack(alignment: .leading) {
             Button("Cancel", action: closeMenu)
-                .foregroundColor(.textColor)
                 .padding(8)
             Spacer()
             HStack {
                 Spacer()
                 Button("Save", action: { })
-                    .foregroundColor(.textColor)
                     .padding(8)
             }
         }

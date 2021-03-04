@@ -79,13 +79,11 @@ struct EmojiPickerSheet: View {
     func topBar() -> some View {
         HStack {
             Button("Cancel", action: { presentationMode.wrappedValue.dismiss() })
-                .foregroundColor(.textColor)
             Spacer()
             /*Image(systemName: "magnifyingglass")
             TextField("", text: $emojiQuery)*/
             Button("None", action: { selectEmoji(emoji: "") })
                 .help("Remove the current emoji")
-                .foregroundColor(.textColor)
         }
         .padding(8)
         .background(VisualEffectView(material: .headerView))

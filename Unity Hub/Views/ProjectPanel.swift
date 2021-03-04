@@ -14,10 +14,23 @@ struct ProjectPanel: View {
     @State private var projectToRemove: IndexSet?
 
     var body: some View {
+        let useEmoji = Binding(
+            get: { HubSettings.useEmoji },
+            set: { HubSettings.useEmoji = $0 }
+        )
+        let usePins = Binding(
+            get: { HubSettings.usePins },
+            set: { HubSettings.usePins = $0 }
+        )
+        let alwaysShowLocation = Binding(
+            get: { HubSettings.alwaysShowLocation },
+            set: { HubSettings.alwaysShowLocation = $0 }
+        )
+        
         List {
             ForEach(settings.projects) { project in
                 VStack {
-                    ProjectButton(metadata: project, updateList: $updateList)
+                    ProjectButton(metadata: project, updateList: $updateList, useEmoji: useEmoji, usePins: usePins, alwaysShowLocation: alwaysShowLocation)
 
                     if project.path != (settings.projects.last ?? ProjectMetadata.null).path {
                         ListDividerView()

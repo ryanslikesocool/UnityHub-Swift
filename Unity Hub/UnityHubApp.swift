@@ -23,7 +23,7 @@ struct UnityHubApp: App {
         
         Settings {
             SettingsView()
-                .frame(width: 320, height: 384)
+                .frame(width: 320, height: 390)
                 .environmentObject(settings)
                 .navigationTitle("Settings")
         }

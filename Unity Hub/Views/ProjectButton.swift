@@ -17,6 +17,10 @@ struct ProjectButton: View {
     @State var metadata: ProjectMetadata
     @Binding var updateList: Bool
     
+    @Binding var useEmoji: Bool
+    @Binding var usePins: Bool
+    @Binding var alwaysShowLocation: Bool
+    
     @State private var shellCommand: String? = nil
     @State private var showWarning: Bool = false
 
@@ -44,28 +48,47 @@ struct ProjectButton: View {
         )
         
         return HStack {
-            Button(action: selectEmoji) {
-                Text(emojiBinding.wrappedValue)
-                    .font(.system(size: 32))
-                    .foregroundColor(.textColor)
-                    .padding(.leading, 16)
+            if useEmoji {
+                Button(action: selectEmoji) {
+                    Text(emojiBinding.wrappedValue)
+                        .font(.system(size: 32))
+                        .padding(.leading, 16)
+                }
+                .buttonStyle(BorderlessButtonStyle())
             }
-            .buttonStyle(BorderlessButtonStyle())
-            Text(metadata.name)
-                .font(.system(size: 12, weight: .semibold))
-                .foregroundColor(.textColor)
-                .help(metadata.path)
+            if !alwaysShowLocation {
+                Text(metadata.name)
+                    .font(.system(size: 12, weight: .semibold))
+                    .help(metadata.path)
+            } else {
+                VStack(alignment: .leading) {
+                    Text(metadata.name)
+                        .font(.system(size: 12, weight: .semibold))
+                    Text(metadata.path)
+                        .font(.system(size: 11, weight: .regular))
+                        .opacity(0.5)
+                }
+            }
+            if usePins && metadata.pinned {
+                Image(systemName: "pin.fill")
+                    .font(.system(size: 10, weight: .semibold))
+                    .rotationEffect(Angle(degrees: 45))
+            }
             Spacer()
             if showWarning {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .help("The Editor version associated with this project is not currently available on this machine.  Go to Installs to download a matching version")
             }
             Text("Unity \(versionBinding.wrappedValue.version)")
-                .foregroundColor(.textColor)
                 .opacity(0.75)
             Menu {
                 Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: metadata.path) })
-                Button("Select Emoji", action: selectEmoji)
+                if useEmoji {
+                    Button("Select Emoji", action: selectEmoji)
+                }
+                if usePins {
+                    Button("Toggle Pin", action: { metadata.pinned.toggle() })
+                }
                 Button("Select Unity Version", action: selectProjectVersion)
                 Button("Advanced", action: openAdvancedSettings)
                 Button("Remove", action: removeProject)

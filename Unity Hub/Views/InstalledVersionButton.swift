@@ -23,7 +23,6 @@ struct InstalledVersionButton: View {
                     SVGShapes.UnityCube()
                         .frame(width: 16, height: 16)
                         .padding(.leading, 12)
-                        .foregroundColor(.textColor)
                 } else {
                     ProgressView()
                         .frame(width: 16, height: 16)
@@ -31,7 +30,6 @@ struct InstalledVersionButton: View {
                 }
                 Text(version.version)
                     .font(.system(size: 12, weight: .semibold))
-                    .foregroundColor(.textColor)
                     .help(version.path)
                 
                 if version.isPrerelease() {
@@ -44,7 +42,6 @@ struct InstalledVersionButton: View {
                         if let icon = item.0.getIcon() {
                             icon
                                 .frame(width: 16, height: 16)
-                                .foregroundColor(.textColor)
                                 .help(item.1)
                         }
                     }

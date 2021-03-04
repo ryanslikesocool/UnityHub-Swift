@@ -9,34 +9,50 @@ import Foundation
 import SwiftUI
 
 class HubSettings: ObservableObject {
-    static let defaultInstallLocation: String = #"/Applications/Unity/Hub/Editor"#
     static let defaultHubLocation: String = #"/Applications/Unity\ Hub.app"#
+    static let defaultInstallLocation: String = #"/Applications/Unity/Hub/Editor"#
+    static let defaultProjectLocation: String = #"~"#
     static let hubSubFolder: String = #"/Contents/MacOS/Unity\ Hub"#
     
     static var hubCommandBase: String {
         return "\(hubLocation)\(hubSubFolder) -- --headless"
-    }
-
-    static var installLocation: String {
-        get { return UserDefaults.standard.string(forKey: "installLocation") ?? HubSettings.defaultInstallLocation }
-        set { UserDefaults.standard.setValue(newValue, forKey: "installLocation") }
-    }
-    
-    static var customInstallPaths: [String] {
-        get { return UserDefaults.standard.stringArray(forKey: "customInstallPaths") ?? [] }
-        set { UserDefaults.standard.set(newValue, forKey: "customInstallPaths") }
-    }
-    
-    static var projectPaths: [String] {
-        get { return UserDefaults.standard.stringArray(forKey: "projectPaths") ?? [] }
-        set { UserDefaults.standard.set(newValue, forKey: "projectPaths") }
     }
     
     static var hubLocation: String {
         get { return UserDefaults.standard.string(forKey: "hubLocation") ?? HubSettings.defaultHubLocation }
         set { UserDefaults.standard.set(newValue, forKey: "hubLocation") }
     }
+    static var installLocation: String {
+        get { return UserDefaults.standard.string(forKey: "installLocation") ?? HubSettings.defaultInstallLocation }
+        set { UserDefaults.standard.setValue(newValue, forKey: "installLocation") }
+    }
+    static var projectLocation: String {
+        get { return UserDefaults.standard.string(forKey: "projectLocation") ?? HubSettings.defaultProjectLocation }
+        set { UserDefaults.standard.setValue(newValue, forKey: "projectLocation") }
+    }
     
+    static var useEmoji: Bool {
+        get { return UserDefaults.standard.bool(forKey: "useEmoji") }
+        set { UserDefaults.standard.setValue(newValue, forKey: "useEmoji") }
+    }
+    static var usePins: Bool {
+        get { return UserDefaults.standard.bool(forKey: "usePins") }
+        set { UserDefaults.standard.setValue(newValue, forKey: "usePins") }
+    }
+    static var alwaysShowLocation: Bool {
+        get { return UserDefaults.standard.bool(forKey: "alwaysShowLocation") }
+        set { UserDefaults.standard.setValue(newValue, forKey: "alwaysShowLocation") }
+    }
+
+    static var customInstallPaths: [String] {
+        get { return UserDefaults.standard.stringArray(forKey: "customInstallPaths") ?? [] }
+        set { UserDefaults.standard.set(newValue, forKey: "customInstallPaths") }
+    }
+    static var projectPaths: [String] {
+        get { return UserDefaults.standard.stringArray(forKey: "projectPaths") ?? [] }
+        set { UserDefaults.standard.set(newValue, forKey: "projectPaths") }
+    }
+        
     @Published var versionsInstalled: [UnityVersion] = []
     @Published var projects: [ProjectMetadata] = []
     

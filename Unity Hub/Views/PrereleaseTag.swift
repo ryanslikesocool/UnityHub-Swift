@@ -21,7 +21,6 @@ struct PrereleaseTag: View {
             .frame(width: 48, height: 24)
             .overlay(
                 Text(labelText)
-                    .foregroundColor(.textColor)
             )
     }
 }
