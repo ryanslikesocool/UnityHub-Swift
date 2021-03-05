@@ -92,7 +92,7 @@ struct ProjectButton: View {
                     Button("Toggle Pin", action: { metadata.pinned.toggle() })
                 }
                 Button("Select Unity Version", action: selectProjectVersion)
-                Button("Advanced", action: openAdvancedSettings)
+                //Button("Advanced", action: openAdvancedSettings)
                 Button("Remove", action: { deleteAction(metadata) })
             } label: {}
             .menuStyle(BorderlessButtonMenuStyle())
@@ -101,7 +101,6 @@ struct ProjectButton: View {
         }
         .frame(minWidth: 64, maxWidth: .infinity, minHeight: 64, maxHeight: 64)
         .onAppear {
-            //metadata.emojiTag = HubSettings.getProjectEmoji(project: metadata.name)
             shellCommand = getShellCommand()
         }
         .sheet(item: $activeSheet) { item in

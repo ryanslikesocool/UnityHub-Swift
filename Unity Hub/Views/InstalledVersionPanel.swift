@@ -16,10 +16,15 @@ struct InstalledVersionPanel: View {
     @State private var installToRemove: UnityVersion?
 
     var body: some View {
+        let alwaysShowLocation = Binding(
+            get: { HubSettings.alwaysShowLocation },
+            set: { HubSettings.alwaysShowLocation = $0 }
+        )
+
         List {
             ForEach(settings.versionsInstalled) { version in
                 VStack {
-                    InstalledVersionButton(version: version, action: {}, deleteAction: prepareForDeletion)
+                    InstalledVersionButton(version: version, action: {}, alwaysShowLocation: alwaysShowLocation, deleteAction: prepareForDeletion)
                     
                     if version != settings.versionsInstalled.last ?? UnityVersion.null {
                         ListDividerView()

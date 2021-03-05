@@ -20,7 +20,7 @@ struct UnityHubApp: App {
         }
         .windowStyle(TitleBarWindowStyle())
         .windowToolbarStyle(UnifiedWindowToolbarStyle())
-        
+                
         Settings {
             SettingsView()
                 .frame(width: 320, height: 390)
