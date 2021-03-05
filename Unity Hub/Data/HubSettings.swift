@@ -142,10 +142,7 @@ class HubSettings: ObservableObject {
         }
     }
     
-    static func validateEditor(path: String/*, version: UnityVersion*/) -> Bool {
-        /*if version.installing {
-            return true
-        }*/
+    static func validateEditor(path: String) -> Bool {
         do {
             var format = PropertyListSerialization.PropertyListFormat.xml
             let plistData = try Data(contentsOf: URL(fileURLWithPath: "\(path)/Unity.app/Contents/Info.plist"))
@@ -168,5 +165,28 @@ class HubSettings: ObservableObject {
         }
         
         return true
+    }
+    
+    static func getInstalledModules(version: UnityVersion) -> [UnityModule] {
+        var unityModules: [UnityModule] = []
+                
+        let url = URL(fileURLWithPath: "\(version.path)/modules.json")
+        do {
+            let data = try Data(contentsOf: url)
+            let modules: [ModuleJSON] = try! JSONDecoder().decode([ModuleJSON].self, from: data)
+            
+            for module in modules {
+                if module.selected, let unityModule = UnityModule(rawValue: module.id) {
+                    let index = unityModules.firstIndex(where: { $0.getPlatform() == unityModule.getPlatform() })
+                    if index == nil {
+                        unityModules.append(unityModule)
+                    }
+                }
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+                
+        return unityModules
     }
 }

@@ -156,10 +156,3 @@ struct ProjectButton: View {
         showSheet.toggle()
     }
 }
-
-/*struct ProjectButton_Previews: PreviewProvider {
-    static var previews: some View {
-        ProjectButton(path: "~/Little People", project: "Little People", version: UnityVersion("2021.1.0b8"), updateList: .constant(false))
-        ProjectButton(path: "~/Ultra Tempus", project: "Ultra Tempus", version: UnityVersion("2020.2.6f1"), updateList: .constant(false))
-    }
-}*/

@@ -13,8 +13,9 @@ struct InstalledVersionButton: View {
     var hideRightSide: Bool = false
     var action: () -> Void
     
-    @State private var modules: [(UnityModule, String)] = []
+    @State private var modules: [UnityModule] = []
     @State private var installing: Bool = false
+    @State private var showModuleSheet: Bool = false
 
     @Binding var alwaysShowLocation: Bool
 
@@ -48,8 +49,9 @@ struct InstalledVersionButton: View {
         }
         .buttonStyle(PlainButtonStyle())
         .onAppear {
-            modules = getInstalledModules()
+            modules = HubSettings.getInstalledModules(version: version)
         }
+        .sheet(isPresented: $showModuleSheet) { InstallModuleSheet(selectedVersion: version) }
     }
     
     func versionAndLocation() -> some View {
@@ -72,15 +74,15 @@ struct InstalledVersionButton: View {
     
     func rightSide() -> some View {
         HStack {
-            ForEach(modules, id: \.self.0) { item in
-                if let icon = item.0.getIcon() {
+            ForEach(modules) { item in
+                if let icon = item.getIcon() {
                     icon
                         .frame(width: 16, height: 16)
-                        .help(item.1)
+                        .help(item.getDisplayName() ?? "")
                 }
             }
             Menu {
-                Button("Install Additional Modules", action: {})
+                Button("Install Additional Modules", action: installModuleSheet)
                 Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: version.path) })
                 Button("Uninstall Version", action: { deleteAction(version) })
             } label: {}
@@ -90,30 +92,7 @@ struct InstalledVersionButton: View {
         }
     }
     
-    func getInstalledModules() -> [(UnityModule, String)] {
-        var unityModules: [(UnityModule, String)] = []
-                
-        let url = URL(fileURLWithPath: "\(version.path)/modules.json")
-        do {
-            let data = try Data(contentsOf: url)
-            let modules: [ModuleJSON] = try! JSONDecoder().decode([ModuleJSON].self, from: data)
-            
-            for module in modules {
-                if module.selected, let unityModule = UnityModule(rawValue: module.id) {
-                    let index = unityModules.firstIndex(where: { $0.0.getPlatform() == unityModule.getPlatform() })
-                    if index == nil {
-                        unityModules.append((unityModule, unityModule.getDisplayName() ?? ""))
-                    } else {
-                        var atIndex = unityModules[index!]
-                        atIndex.1.append("\n\(String(describing: unityModule.getDisplayName() ?? ""))")
-                        unityModules[index!] = atIndex
-                    }
-                }
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
-                
-        return unityModules
+    func installModuleSheet() {
+        showModuleSheet.toggle()
     }
 }

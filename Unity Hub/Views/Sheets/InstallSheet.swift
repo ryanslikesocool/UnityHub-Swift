@@ -47,7 +47,7 @@ struct InstallSheet: View {
     func setupView() {
         tab = "Version"
         availableVersions = getAvailableVersions()
-        availableModules = getAvailableModules()
+        availableModules = UnityModule.getAvailableModules()
         selectedModules = [Bool](repeating: false, count: availableModules.count)
     }
     
@@ -66,22 +66,6 @@ struct InstallSheet: View {
         }
     
         return versions
-    }
-    
-    func getAvailableModules() -> [UnityModule] {
-        return [
-            .android,
-            .androidOpenJDK,
-            .androidSDKNDKTools,
-            .iOS,
-            .tvOS,
-            .linuxMono,
-            .linuxIL2CPP,
-            .macOSIL2CPP,
-            .webgl,
-            .windowsMono,
-            .lumin
-        ]
     }
     
     func closeMenu() {

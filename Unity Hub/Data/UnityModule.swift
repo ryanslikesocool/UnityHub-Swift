@@ -159,6 +159,22 @@ extension UnityModule: RawRepresentable {
             return "{UNITY_PATH}"
         }
     }
+    
+    static func getAvailableModules() -> [UnityModule] {
+        return [
+            .android,
+            .androidOpenJDK,
+            .androidSDKNDKTools,
+            .iOS,
+            .tvOS,
+            .linuxMono,
+            .linuxIL2CPP,
+            .macOSIL2CPP,
+            .webgl,
+            .windowsMono,
+            .lumin
+        ]
+    }
 }
 
 extension UnityModule: CaseIterable, Identifiable {
