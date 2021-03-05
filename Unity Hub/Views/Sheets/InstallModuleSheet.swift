@@ -52,6 +52,8 @@ struct InstallModuleSheet: View {
     }
     
     func installSelectedItems() {
+        print("starting install")
+        
         var command = "\(HubSettings.hubCommandBase) im --version \(selectedVersion.version)"
         
         for i in 0 ..< availableModules.count {
@@ -60,19 +62,18 @@ struct InstallModuleSheet: View {
             }
         }
         
-        let version = selectedVersion.version
-        
+        selectedVersion.installing = true
+
         DispatchQueue.global(qos: .background).async {
             let string = shell(command)
             
-            let index = settings.versionsInstalled.firstIndex(where: { $0.version == version })!
+            print(string)
+            
             if string.contains("successfully downloaded") {
-                settings.versionsInstalled[index].installing = false
+                selectedVersion.installing = false
             }
         }
-        
-        selectedVersion.installing = true
-        
+                
         closeMenu()
     }
 }

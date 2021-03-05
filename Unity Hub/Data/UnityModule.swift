@@ -132,31 +132,31 @@ extension UnityModule: RawRepresentable {
     
     func getInstallPath() -> String? {
         switch self {
-        case .standardAssets: return "{UNITY_PATH}/Standard Assets"
+        case .standardAssets: return "/Standard Assets"
         case .exampleProjects: return "/Users/Shared/Unity"
-        case .android: return "{UNITY_PATH}/PlaybackEngines/AndroidPlayer"
-        case .androidSDKBuildTools: return "{UNITY_PATH}/PlaybackEngines/AndroidPlayer/SDK/build-tools"
-        case .androidSDKPlatforms: return "{UNITY_PATH}/PlaybackEngines/AndroidPlayer/SDK/platforms"
-        case .androidSDKPlatformTools: return "{UNITY_PATH}/PlaybackEngines/AndroidPlayer/SDK"
-        case .androidNDK: return "{UNITY_PATH}/PlaybackEngines/AndroidPlayer/NDK"
-        case .androidOpenJDK: return "{UNITY_PATH}/PlaybackEngines/AndroidPlayer/OpenJDK"
-        case .iOS: return "{UNITY_PATH}/PlaybackEngines"
-        case .tvOS: return "{UNITY_PATH}/PlaybackEngines/AppleTVSupport"
-        case .linuxMono, .linuxIL2CPP: return "{UNITY_PATH}/PlaybackEngines/LinuxStandaloneSupport"
-        case .macOSMono, .macOSIL2CPP: return "{UNITY_PATH}/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport"
-        case .samsungTV: return "{UNITY_PATH}/PlaybackEngines/STVPlayer"
-        case .tizen: return "{UNITY_PATH}/PlaybackEngines/TizenPlayer"
-        case .vuforia: return "{UNITY_PATH}/PlaybackEngines/VuforiaSupport"
-        case .webgl: return "{UNITY_PATH}/PlaybackEngines/WebGLSupport"
-        case .windowsMono, .windowsIL2CPP: return "{UNITY_PATH}/PlaybackEngines/WindowsStandaloneSupport"
-        case .facebook: return "{UNITY_PATH}/PlaybackEngines/Facebook"
-        case .lumin: return "{UNITY_PATH}/PlaybackEngines/LuminSupport"
+        case .android: return "/PlaybackEngines/AndroidPlayer"
+        case .androidSDKBuildTools: return "/PlaybackEngines/AndroidPlayer/SDK/build-tools"
+        case .androidSDKPlatforms: return "/PlaybackEngines/AndroidPlayer/SDK/platforms"
+        case .androidSDKPlatformTools: return "/PlaybackEngines/AndroidPlayer/SDK"
+        case .androidNDK: return "/PlaybackEngines/AndroidPlayer/NDK"
+        case .androidOpenJDK: return "/PlaybackEngines/AndroidPlayer/OpenJDK"
+        case .iOS: return "/PlaybackEngines"
+        case .tvOS: return "/PlaybackEngines/AppleTVSupport"
+        case .linuxMono, .linuxIL2CPP: return "/PlaybackEngines/LinuxStandaloneSupport"
+        case .macOSMono, .macOSIL2CPP: return "/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport"
+        case .samsungTV: return "/PlaybackEngines/STVPlayer"
+        case .tizen: return "/PlaybackEngines/TizenPlayer"
+        case .vuforia: return "/PlaybackEngines/VuforiaSupport"
+        case .webgl: return "/PlaybackEngines/WebGLSupport"
+        case .windowsMono, .windowsIL2CPP: return "/PlaybackEngines/WindowsStandaloneSupport"
+        case .facebook: return "/PlaybackEngines/Facebook"
+        case .lumin: return "/PlaybackEngines/LuminSupport"
         case .facebookgameroom: return nil
         default:
             if (self.rawValue.hasPrefix("language-")) {
-                return "{UNITY_PATH}/Unity.app/Contents/Localization";
+                return "/Unity.app/Contents/Localization";
             }
-            return "{UNITY_PATH}"
+            return ""
         }
     }
     

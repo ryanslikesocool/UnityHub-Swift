@@ -15,7 +15,7 @@ struct ModuleJSON: Codable {
     let installedSize: Int
     let downloadSize: Int
     let visible: Bool
-    let selected: Bool
+    var selected: Bool
     let destination: String?
     let checksum: String?
 }

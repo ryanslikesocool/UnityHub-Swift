@@ -34,6 +34,7 @@
 		AF9F946825F1AE4600539C3A /* SettingsProjectPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F946725F1AE4600539C3A /* SettingsProjectPanel.swift */; };
 		AFA0862C251B1CFB00B1B985 /* NSOpenPanel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA0862B251B1CFB00B1B985 /* NSOpenPanel+Extension.swift */; };
 		AFAEFA1425F1B4690010B492 /* InstallModuleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAEFA1325F1B4690010B492 /* InstallModuleSheet.swift */; };
+		AFAEFA1925F1CCC50010B492 /* InstalledModuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAEFA1825F1CCC50010B492 /* InstalledModuleButton.swift */; };
 		AFB1C3A3251B325000F8E3D8 /* UnityModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3A2251B325000F8E3D8 /* UnityModule.swift */; };
 		AFB1C3A6251B357A00F8E3D8 /* ModuleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3A5251B357A00F8E3D8 /* ModuleJSON.swift */; };
 		AFB1C3A9251B459600F8E3D8 /* ProjectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3A8251B459600F8E3D8 /* ProjectButton.swift */; };
@@ -42,6 +43,7 @@
 		AFBB9A4B252609040004F78B /* UnityButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB9A4A252609040004F78B /* UnityButtonStyle.swift */; };
 		AFBB9A4F25260B000004F78B /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB9A4E25260B000004F78B /* Color+Extension.swift */; };
 		AFC23C5825257E0700F5FE4B /* PrereleaseTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */; };
+		AFCB17D225F1ECF800A8B918 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCB17D125F1ECF800A8B918 /* LazyView.swift */; };
 		AFEAC8072525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEAC8062525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift */; };
 		AFFDD8B3251B08EB000AE12C /* InstalledVersionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */; };
 /* End PBXBuildFile section */
@@ -91,6 +93,7 @@
 		AF9F946725F1AE4600539C3A /* SettingsProjectPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsProjectPanel.swift; sourceTree = "<group>"; };
 		AFA0862B251B1CFB00B1B985 /* NSOpenPanel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSOpenPanel+Extension.swift"; sourceTree = "<group>"; };
 		AFAEFA1325F1B4690010B492 /* InstallModuleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallModuleSheet.swift; sourceTree = "<group>"; };
+		AFAEFA1825F1CCC50010B492 /* InstalledModuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledModuleButton.swift; sourceTree = "<group>"; };
 		AFB1C3A2251B325000F8E3D8 /* UnityModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityModule.swift; sourceTree = "<group>"; };
 		AFB1C3A5251B357A00F8E3D8 /* ModuleJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleJSON.swift; sourceTree = "<group>"; };
 		AFB1C3A8251B459600F8E3D8 /* ProjectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectButton.swift; sourceTree = "<group>"; };
@@ -99,6 +102,7 @@
 		AFBB9A4A252609040004F78B /* UnityButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityButtonStyle.swift; sourceTree = "<group>"; };
 		AFBB9A4E25260B000004F78B /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrereleaseTag.swift; sourceTree = "<group>"; };
+		AFCB17D125F1ECF800A8B918 /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
 		AFEAC8062525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedProjectSettingsSheet.swift; sourceTree = "<group>"; };
 		AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledVersionButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -178,6 +182,7 @@
 			children = (
 				AF66EBEF251AE3900088EC84 /* ContentView.swift */,
 				AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */,
+				AFAEFA1825F1CCC50010B492 /* InstalledModuleButton.swift */,
 				AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */,
 				AF34E220251AF91F00192E53 /* InstalledVersionPanel.swift */,
 				AFB1C3A8251B459600F8E3D8 /* ProjectButton.swift */,
@@ -230,6 +235,7 @@
 				AFA0862B251B1CFB00B1B985 /* NSOpenPanel+Extension.swift */,
 				AFB1C3AF251B633C00F8E3D8 /* Shell.swift */,
 				AFB1C3AC251B492900F8E3D8 /* String+Extension.swift */,
+				AFCB17D125F1ECF800A8B918 /* LazyView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -338,10 +344,12 @@
 				AFEAC8072525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift in Sources */,
 				AFB1C3B0251B633C00F8E3D8 /* Shell.swift in Sources */,
 				AF16FF24251B8CAD00C8A2A9 /* InstallSheet.swift in Sources */,
+				AFAEFA1925F1CCC50010B492 /* InstalledModuleButton.swift in Sources */,
 				AFBB9A4B252609040004F78B /* UnityButtonStyle.swift in Sources */,
 				AFFDD8B3251B08EB000AE12C /* InstalledVersionButton.swift in Sources */,
 				AF16FF27251B8EA500C8A2A9 /* UnityVersion.swift in Sources */,
 				AF73A4E325F0C1BA00B2EA1C /* ListDividerView.swift in Sources */,
+				AFCB17D225F1ECF800A8B918 /* LazyView.swift in Sources */,
 				AF59FEA5251EBB4A0093D284 /* EmojiPickerSheet.swift in Sources */,
 				AF34E22B251AFE5300192E53 /* HubSettings.swift in Sources */,
 				AF146CB325622BA30032343F /* ModuleSheet.swift in Sources */,

@@ -10,10 +10,11 @@ import AppKit
 
 struct InstalledVersionPanel: View {
     @EnvironmentObject var settings: HubSettings
+    
     @State private var showInstaller: Bool = false
+    
     @State private var showRemovalSheet: Bool = false
-
-    @State private var installToRemove: UnityVersion?
+    @State private var installToRemove: UnityVersion? = nil
 
     var body: some View {
         let alwaysShowLocation = Binding(
@@ -24,7 +25,7 @@ struct InstalledVersionPanel: View {
         List {
             ForEach(settings.versionsInstalled) { version in
                 VStack {
-                    InstalledVersionButton(version: version, action: {}, alwaysShowLocation: alwaysShowLocation, deleteAction: prepareForDeletion)
+                    InstalledVersionButton(version: version, alwaysShowLocation: alwaysShowLocation, deleteAction: prepareForDeletion)
                     
                     if version != settings.versionsInstalled.last ?? UnityVersion.null {
                         ListDividerView()
@@ -47,9 +48,7 @@ struct InstalledVersionPanel: View {
                 }
             }
         }
-        .sheet(isPresented: $showInstaller) {
-            InstallSheet()
-        }
+        .sheet(isPresented: $showInstaller) { InstallSheet() }
         .alert(isPresented: $showRemovalSheet) {
             Alert(
                 title: Text("Uninstall Unity \(installToRemove!.version)"),
@@ -80,7 +79,7 @@ struct InstalledVersionPanel: View {
         showInstaller.toggle()
     }
     
-    func prepareForDeletion(at offsets: IndexSet) {
+    func prepareForDeletion(offsets: IndexSet) {
         prepareForDeletion(version: settings.versionsInstalled[offsets.first!])
     }
     

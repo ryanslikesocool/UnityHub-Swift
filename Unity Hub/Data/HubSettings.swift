@@ -189,4 +189,29 @@ class HubSettings: ObservableObject {
                 
         return unityModules
     }
+    
+    static func removeModule(version: UnityVersion, module: UnityModule) {
+        let url = URL(fileURLWithPath: "\(version.path)/modules.json")
+        do {
+            let data = try Data(contentsOf: url)
+            var modules: [ModuleJSON] = try! JSONDecoder().decode([ModuleJSON].self, from: data)
+                        
+            for i in 0..<modules.count {
+                if modules[i].selected, let m = UnityModule(rawValue: modules[i].id) {
+                    if m == module, let installPath = module.getInstallPath() {
+                        modules[i].selected = false
+                                                
+                        DispatchQueue.global(qos: .background).async {
+                            let _ = shell("rm -rf \(version.path)\(installPath)")
+                        }
+                    }
+                }
+            }
+            
+            let toSave = try JSONEncoder().encode(modules)
+            try toSave.write(to: url)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }
