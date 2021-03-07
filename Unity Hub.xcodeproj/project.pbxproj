@@ -44,6 +44,9 @@
 		AFBB9A4F25260B000004F78B /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB9A4E25260B000004F78B /* Color+Extension.swift */; };
 		AFC23C5825257E0700F5FE4B /* PrereleaseTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */; };
 		AFCB17D225F1ECF800A8B918 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCB17D125F1ECF800A8B918 /* LazyView.swift */; };
+		AFDFD24E25F51D1200E4F9D0 /* SlidableModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDFD24925F51D1100E4F9D0 /* SlidableModifier.swift */; };
+		AFDFD24F25F51D1200E4F9D0 /* Slot.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDFD24A25F51D1100E4F9D0 /* Slot.swift */; };
+		AFDFD25125F51D1200E4F9D0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDFD24D25F51D1100E4F9D0 /* Extensions.swift */; };
 		AFEAC8072525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEAC8062525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift */; };
 		AFFDD8B3251B08EB000AE12C /* InstalledVersionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */; };
 /* End PBXBuildFile section */
@@ -103,6 +106,9 @@
 		AFBB9A4E25260B000004F78B /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrereleaseTag.swift; sourceTree = "<group>"; };
 		AFCB17D125F1ECF800A8B918 /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
+		AFDFD24925F51D1100E4F9D0 /* SlidableModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlidableModifier.swift; sourceTree = "<group>"; };
+		AFDFD24A25F51D1100E4F9D0 /* Slot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slot.swift; sourceTree = "<group>"; };
+		AFDFD24D25F51D1100E4F9D0 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		AFEAC8062525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedProjectSettingsSheet.swift; sourceTree = "<group>"; };
 		AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledVersionButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,6 +128,7 @@
 		AF219E71252C5FF6008CE04C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AFDFD24825F51D1100E4F9D0 /* SwipeCell */,
 				AF219E72252C5FF6008CE04C /* WidgetKit.framework */,
 				AF219E74252C5FF6008CE04C /* SwiftUI.framework */,
 			);
@@ -264,6 +271,16 @@
 			path = Project;
 			sourceTree = "<group>";
 		};
+		AFDFD24825F51D1100E4F9D0 /* SwipeCell */ = {
+			isa = PBXGroup;
+			children = (
+				AFDFD24925F51D1100E4F9D0 /* SlidableModifier.swift */,
+				AFDFD24A25F51D1100E4F9D0 /* Slot.swift */,
+				AFDFD24D25F51D1100E4F9D0 /* Extensions.swift */,
+			);
+			path = SwipeCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -348,9 +365,11 @@
 				AFA0862C251B1CFB00B1B985 /* NSOpenPanel+Extension.swift in Sources */,
 				AFAEFA1425F1B4690010B492 /* InstallModuleSheet.swift in Sources */,
 				AF5A94D0251BF9E3002FA410 /* DownloadInfo.swift in Sources */,
+				AFDFD24E25F51D1200E4F9D0 /* SlidableModifier.swift in Sources */,
 				AF66EBF0251AE3900088EC84 /* ContentView.swift in Sources */,
 				AF34E226251AFD2D00192E53 /* SettingsView.swift in Sources */,
 				AF9F946825F1AE4600539C3A /* SettingsProjectPanel.swift in Sources */,
+				AFDFD24F25F51D1200E4F9D0 /* Slot.swift in Sources */,
 				AF08B5472524430400E7D16B /* SelectProjectVersionSheet.swift in Sources */,
 				AFB1C3A3251B325000F8E3D8 /* UnityModule.swift in Sources */,
 				AF73A4DC25F0ACBF00B2EA1C /* SidebarItemView.swift in Sources */,
@@ -373,6 +392,7 @@
 				AF16EDEF251AED6100C939AA /* ProjectPanel.swift in Sources */,
 				AFC23C5825257E0700F5FE4B /* PrereleaseTag.swift in Sources */,
 				AF08B5442524309700E7D16B /* VisualEffectView.swift in Sources */,
+				AFDFD25125F51D1200E4F9D0 /* Extensions.swift in Sources */,
 				AF34E221251AF91F00192E53 /* InstalledVersionPanel.swift in Sources */,
 				AFB1C3AD251B492900F8E3D8 /* String+Extension.swift in Sources */,
 				AF16EDE8251AEC1700C939AA /* SidebarItem.swift in Sources */,

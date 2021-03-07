@@ -32,7 +32,6 @@ struct InstalledVersionPanel: View {
                     }
                 }
             }
-            .onDelete(perform: prepareForDeletion)
         }
         .navigationTitle("Installs")
         .onAppear(perform: getAllVersions)
@@ -78,11 +77,7 @@ struct InstalledVersionPanel: View {
     func installVersion() {
         showInstaller.toggle()
     }
-    
-    func prepareForDeletion(offsets: IndexSet) {
-        prepareForDeletion(version: settings.versionsInstalled[offsets.first!])
-    }
-    
+        
     func prepareForDeletion(version: UnityVersion) {
         installToRemove = version
         showRemovalSheet.toggle()

@@ -38,7 +38,6 @@ struct ProjectPanel: View {
                     }
                 }
             }
-            .onDelete(perform: prepareForDeletion)
         }
         .navigationTitle("Projects")
         .onAppear(perform: getAllProjects)
@@ -81,10 +80,6 @@ struct ProjectPanel: View {
                 updateList.toggle()
             }
         }
-    }
-    
-    func prepareForDeletion(offsets: IndexSet) {
-        prepareForDeletion(metadata: settings.projects[offsets.first!])
     }
     
     func prepareForDeletion(metadata: ProjectMetadata) {

@@ -37,6 +37,7 @@ struct InstalledVersionButton: View {
         }
         .padding(.vertical, 12)
         .buttonStyle(PlainButtonStyle())
+        .contentShape(Rectangle())
         .onAppear { modules = HubSettings.getInstalledModules(version: version) }
         .sheet(isPresented: $showInstallSheet) { InstallModuleSheet(selectedVersion: version) }
         .alert(isPresented: $showRemovalSheet) {
@@ -47,6 +48,17 @@ struct InstalledVersionButton: View {
                 secondaryButton: .destructive(Text("Uninstall")) { deleteItems(module: moduleToRemove) }
             )
         }
+        .onSwipe(leading: [Slot(
+                            image: { Image(systemName: "star.fill").frame(width: 24, height: 24).embedInAnyView() },
+                            title: { EmptyView().embedInAnyView() },
+                            action: {},
+                            style: .init(background: .yellow)
+            )], trailing: [Slot(
+                            image: { Image(systemName: "trash.fill").frame(width: 24, height: 24).embedInAnyView() },
+                            title: { EmptyView().embedInAnyView() },
+                            action: { deleteAction(version) },
+                            style: .init(background: .red))]
+        )
     }
     
     func mainButton() -> some View {
@@ -65,7 +77,7 @@ struct InstalledVersionButton: View {
             
             if version.isPrerelease() {
                 PrereleaseTag(version: version)
-                    .padding(4)
+                    .padding(.horizontal, 4)
             }
             Spacer()
             rightSide()

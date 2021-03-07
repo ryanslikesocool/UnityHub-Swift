@@ -10,6 +10,7 @@ import Cocoa
 import AppKit
 import Foundation
 import Dispatch
+import SwipeableView
 
 struct ProjectButton: View {
     @EnvironmentObject var settings: HubSettings
@@ -40,65 +41,26 @@ struct ProjectButton: View {
     }
     
     var body: some View {
-        let emojiBinding = Binding(
-            get: { self.metadata.emojiTag },
-            set: { self.metadata.emojiTag = $0 }
-        )
         let versionBinding = Binding(
             get: { self.metadata.version },
             set: { self.metadata.version = $0 }
         )
+        let emojiBinding = Binding(
+            get: { self.metadata.emojiTag },
+            set: { self.metadata.emojiTag = $0 }
+        )
         
         return HStack {
-            if useEmoji {
-                Button(action: selectEmoji) {
-                    Text(emojiBinding.wrappedValue)
-                        .font(.system(size: 32))
-                        .padding(.leading, 16)
-                }
-                .buttonStyle(BorderlessButtonStyle())
+            emojiArea(emojiBinding: emojiBinding)
+            Group {
+                titleArea()
+                pinArea()
+                Spacer()
             }
-            if !alwaysShowLocation {
-                Text(metadata.name)
-                    .font(.system(size: 12, weight: .semibold))
-                    .help(metadata.path)
-            } else {
-                VStack(alignment: .leading) {
-                    Text(metadata.name)
-                        .font(.system(size: 12, weight: .semibold))
-                    Text(metadata.path)
-                        .font(.system(size: 11, weight: .regular))
-                        .opacity(0.5)
-                }
-            }
-            if usePins && metadata.pinned {
-                Image(systemName: "pin.fill")
-                    .font(.system(size: 10, weight: .semibold))
-                    .rotationEffect(Angle(degrees: 45))
-            }
-            Spacer()
-            if showWarning {
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .help("The Editor version associated with this project is not currently available on this machine.  Go to Installs to download a matching version")
-            }
-            Text("Unity \(versionBinding.wrappedValue.version)")
-                .opacity(0.75)
-            Menu {
-                Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: metadata.path) })
-                if useEmoji {
-                    Button("Select Emoji", action: selectEmoji)
-                }
-                if usePins {
-                    Button("Toggle Pin", action: togglePin)
-                }
-                Button("Select Unity Version", action: selectProjectVersion)
-                //Button("Advanced", action: openAdvancedSettings)
-                Button("Remove", action: { deleteAction(metadata) })
-            } label: {}
-            .menuStyle(BorderlessButtonMenuStyle())
-            .frame(width: 16, height: 48)
-            .padding(.trailing, 16)
+            versionArea(versionBinding: versionBinding)
+            dropDownMenu()
         }
+        .contentShape(Rectangle())
         .frame(minWidth: 64, maxWidth: .infinity, minHeight: 64, maxHeight: 64)
         .onAppear {
             shellCommand = getShellCommand()
@@ -113,6 +75,87 @@ struct ProjectButton: View {
             case .advancedSettings: AdvancedProjectSettingsSheet()
             }
         }
+        .onSwipe(leading: [Slot(
+                            image: { Image(systemName: "pin.fill").frame(width: 24, height: 24).embedInAnyView() },
+                            title: { EmptyView().embedInAnyView() },
+                            action: { togglePin() },
+                            style: .init(background: .orange)
+            )], trailing: [Slot(
+                            image: { Image(systemName: "trash.fill").frame(width: 24, height: 24).embedInAnyView() },
+                            title: { EmptyView().embedInAnyView() },
+                            action: { deleteAction(metadata) },
+                            style: .init(background: .red))]
+        )
+    }
+    
+    func emojiArea(emojiBinding: Binding<String>) -> some View {
+        Group {
+            if useEmoji {
+                Button(action: selectEmoji) {
+                    Text(emojiBinding.wrappedValue)
+                        .font(.system(size: 32))
+                        .padding(.leading, 16)
+                }
+                .buttonStyle(BorderlessButtonStyle())
+            }
+        }
+    }
+    
+    func titleArea() -> some View {
+        Group {
+            if !alwaysShowLocation {
+                Text(metadata.name)
+                    .font(.system(size: 12, weight: .semibold))
+                    .help(metadata.path)
+            } else {
+                VStack(alignment: .leading) {
+                    Text(metadata.name)
+                        .font(.system(size: 12, weight: .semibold))
+                    Text(metadata.path)
+                        .font(.system(size: 11, weight: .regular))
+                        .opacity(0.5)
+                }
+            }
+        }
+    }
+    
+    func pinArea() -> some View {
+        Group {
+            if usePins && metadata.pinned {
+                Image(systemName: "pin.fill")
+                    .font(.system(size: 10, weight: .semibold))
+                    .rotationEffect(Angle(degrees: 45))
+            }
+        }
+    }
+    
+    func versionArea(versionBinding: Binding<UnityVersion>) -> some View {
+        Group {
+            if showWarning {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .help("The Editor version associated with this project is not currently available on this machine.  Go to Installs to download a matching version")
+            }
+            Text("Unity \(versionBinding.wrappedValue.version)")
+                .opacity(0.75)
+        }
+    }
+    
+    func dropDownMenu() -> some View {
+        Menu {
+            Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: metadata.path) })
+            if useEmoji {
+                Button("Select Emoji", action: selectEmoji)
+            }
+            if usePins {
+                Button("Toggle Pin", action: togglePin)
+            }
+            Button("Select Unity Version", action: selectProjectVersion)
+            //Button("Advanced", action: openAdvancedSettings)
+            Button("Remove Project", action: { deleteAction(metadata) })
+        } label: {}
+        .menuStyle(BorderlessButtonMenuStyle())
+        .frame(width: 16, height: 48)
+        .padding(.trailing, 16)
     }
     
     func getShellCommand() -> String? {
