@@ -37,9 +37,7 @@ struct InstalledVersionButton: View {
         }
         .padding(.vertical, 12)
         .buttonStyle(PlainButtonStyle())
-        .onAppear {
-            modules = HubSettings.getInstalledModules(version: version)
-        }
+        .onAppear { modules = HubSettings.getInstalledModules(version: version) }
         .sheet(isPresented: $showInstallSheet) { InstallModuleSheet(selectedVersion: version) }
         .alert(isPresented: $showRemovalSheet) {
             Alert(
@@ -130,6 +128,7 @@ struct InstalledVersionButton: View {
     func deleteItems(module: UnityModule?) {
         if let m = module {
             HubSettings.removeModule(version: version, module: m)
+            modules.removeAll { $0.id == m.id }
         }
         moduleToRemove = nil
     }

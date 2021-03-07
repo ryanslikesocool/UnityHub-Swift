@@ -128,18 +128,25 @@ class HubSettings: ObservableObject {
                     continue
                 }
                                 
-                settings.projects.append(ProjectMetadata(readFrom: path))
+                settings.projects.append(ProjectMetadata(readFrom: path, availableVersions: settings.versionsInstalled))
             } catch {
                 print(error.localizedDescription)
             }
         }
         
-        settings.projects.sort(by: { $0.name < $1.name })
+        sortProjects(settings: settings)
+    }
+    
+    static func sortProjects(settings: HubSettings) {
+        settings.projects.sort {
+            if $0.pinned == $1.pinned {
+                return $0.name < $1.name
+            }
+            return $0.pinned && !$1.pinned
+        }
         
         HubSettings.projectPaths.removeAll()
-        for project in settings.projects {
-            HubSettings.projectPaths.append(project.path)
-        }
+        HubSettings.projectPaths.append(contentsOf: settings.projects.map { $0.path } )
     }
     
     static func validateEditor(path: String) -> Bool {

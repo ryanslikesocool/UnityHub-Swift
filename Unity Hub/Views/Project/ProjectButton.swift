@@ -89,7 +89,7 @@ struct ProjectButton: View {
                     Button("Select Emoji", action: selectEmoji)
                 }
                 if usePins {
-                    Button("Toggle Pin", action: { metadata.pinned.toggle() })
+                    Button("Toggle Pin", action: togglePin)
                 }
                 Button("Select Unity Version", action: selectProjectVersion)
                 //Button("Advanced", action: openAdvancedSettings)
@@ -154,5 +154,11 @@ struct ProjectButton: View {
     func openAdvancedSettings() {
         activeSheet = .advancedSettings
         showSheet.toggle()
+    }
+    
+    func togglePin() {
+        metadata.pinned.toggle()
+        metadata.save()
+        updateList.toggle()
     }
 }

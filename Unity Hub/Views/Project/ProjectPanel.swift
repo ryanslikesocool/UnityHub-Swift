@@ -42,7 +42,7 @@ struct ProjectPanel: View {
         }
         .navigationTitle("Projects")
         .onAppear(perform: getAllProjects)
-        .onChange(of: updateList) { value in
+        .onChange(of: updateList) { _ in
             getAllProjects()
         }
         .toolbar {

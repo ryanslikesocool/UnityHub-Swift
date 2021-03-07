@@ -140,7 +140,7 @@ extension UnityModule: RawRepresentable {
         case .androidSDKPlatformTools: return "/PlaybackEngines/AndroidPlayer/SDK"
         case .androidNDK: return "/PlaybackEngines/AndroidPlayer/NDK"
         case .androidOpenJDK: return "/PlaybackEngines/AndroidPlayer/OpenJDK"
-        case .iOS: return "/PlaybackEngines"
+        case .iOS: return "/PlaybackEngines/iOSSupport"
         case .tvOS: return "/PlaybackEngines/AppleTVSupport"
         case .linuxMono, .linuxIL2CPP: return "/PlaybackEngines/LinuxStandaloneSupport"
         case .macOSMono, .macOSIL2CPP: return "/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport"

@@ -180,13 +180,9 @@
 		AFC933F22527F6B300E5ECDE /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AFD0D1CC25F50CC200373759 /* Project */,
+				AFD0D1CB25F50CB300373759 /* Version */,
 				AF66EBEF251AE3900088EC84 /* ContentView.swift */,
-				AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */,
-				AFAEFA1825F1CCC50010B492 /* InstalledModuleButton.swift */,
-				AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */,
-				AF34E220251AF91F00192E53 /* InstalledVersionPanel.swift */,
-				AFB1C3A8251B459600F8E3D8 /* ProjectButton.swift */,
-				AF16EDEE251AED6100C939AA /* ProjectPanel.swift */,
 				AF73A4E225F0C1BA00B2EA1C /* ListDividerView.swift */,
 				AF16EDE7251AEC1700C939AA /* SidebarItem.swift */,
 				AF73A4DB25F0ACBF00B2EA1C /* SidebarItemView.swift */,
@@ -204,8 +200,8 @@
 		AFC933F32527F6BB00E5ECDE /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				AF5A94CF251BF9E3002FA410 /* DownloadInfo.swift */,
 				AF34E22A251AFE5300192E53 /* HubSettings.swift */,
+				AF5A94CF251BF9E3002FA410 /* DownloadInfo.swift */,
 				AFB1C3A5251B357A00F8E3D8 /* ModuleJSON.swift */,
 				AFB1C3A2251B325000F8E3D8 /* UnityModule.swift */,
 				AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */,
@@ -246,6 +242,26 @@
 				AFBB9A4A252609040004F78B /* UnityButtonStyle.swift */,
 			);
 			path = Styles;
+			sourceTree = "<group>";
+		};
+		AFD0D1CB25F50CB300373759 /* Version */ = {
+			isa = PBXGroup;
+			children = (
+				AF34E220251AF91F00192E53 /* InstalledVersionPanel.swift */,
+				AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */,
+				AFAEFA1825F1CCC50010B492 /* InstalledModuleButton.swift */,
+				AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */,
+			);
+			path = Version;
+			sourceTree = "<group>";
+		};
+		AFD0D1CC25F50CC200373759 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				AF16EDEE251AED6100C939AA /* ProjectPanel.swift */,
+				AFB1C3A8251B459600F8E3D8 /* ProjectButton.swift */,
+			);
+			path = Project;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

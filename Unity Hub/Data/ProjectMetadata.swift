@@ -29,21 +29,15 @@ struct ProjectMetadata {
         self.pinned = pinned
     }
     
-    init(readFrom: String) {
+    init(readFrom: String, availableVersions: [UnityVersion]) {
         let fm = FileManager.default
+        path = readFrom
         
         do {
             let items = try fm.contentsOfDirectory(atPath: readFrom)
             if !items.contains(ProjectMetadata.fileName) {
-                path = readFrom
-                name = path.components(separatedBy: "/").last!
-                
-                let versionPath = "\(path)/ProjectSettings/ProjectVersion.txt"
-                let url = URL(fileURLWithPath: versionPath)
-                var versionText = try String(contentsOf: url)
-                versionText = versionText.components(separatedBy: "\n").first!
-                versionText.trimPrefix("m_EditorVersion: ")
-                version = UnityVersion(versionText)
+                name = readFrom.components(separatedBy: "/").last!
+                version = ProjectMetadata.readVersion(path: readFrom)
                 
                 emojiTag = "❓"
                 pinned = false
@@ -52,8 +46,8 @@ struct ProjectMetadata {
                 save()
             } else {
                 let fileURL = URL(fileURLWithPath: readFrom).appendingPathComponent(ProjectMetadata.fileName)
-                let metaText = try String(contentsOf: fileURL)
-                let lines = metaText.components(separatedBy: "\n")
+                let text = try String(contentsOf: fileURL)
+                let lines = text.components(separatedBy: "\n")
                 
                 path = lines[0]
                 name = lines[1]
@@ -67,7 +61,6 @@ struct ProjectMetadata {
         } catch {
             print(error.localizedDescription)
             
-            path = readFrom
             name = path.components(separatedBy: "/").last!
             version = UnityVersion.null
             
@@ -77,6 +70,8 @@ struct ProjectMetadata {
             //print("Created metadata for \(name)")
             save()
         }
+        
+        ProjectMetadata.verifyVersion(version: &version, available: availableVersions, path: readFrom)
     }
     
     func save() {
@@ -102,6 +97,27 @@ struct ProjectMetadata {
     
     func compare(other: ProjectMetadata) -> Bool {
         return path == other.path
+    }
+        
+    static func readVersion(path: String) -> UnityVersion {
+        do {
+            let versionPath = "\(path)/ProjectSettings/ProjectVersion.txt"
+            let url = URL(fileURLWithPath: versionPath)
+            var versionText = try String(contentsOf: url)
+            versionText = versionText.components(separatedBy: "\n").first!
+            versionText.trimPrefix("m_EditorVersion: ")
+            return UnityVersion(versionText)
+        } catch {
+            print("Couldn't read Unity version from ProjectVersion.txt")
+            print(error.localizedDescription)
+        }
+        return UnityVersion.null
+    }
+    
+    static func verifyVersion(version: inout UnityVersion, available: [UnityVersion], path: String) {
+        if !available.contains(version) {
+            version = readVersion(path: path)
+        }
     }
 }
 

@@ -1,0 +1,100 @@
+{
+  "main": {
+    "id": "ac66c58fa0b51a0c",
+    "type": "split",
+    "children": [
+      {
+        "id": "2a04da2b07558c4e",
+        "type": "leaf",
+        "active": true,
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Version Item.md",
+            "mode": "source"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "658fa5f9e5422c43",
+    "type": "split",
+    "children": [
+      {
+        "id": "7fec45ed7e41564c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5c3bdc2412a4d04f",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "c4eadef6d321ddc1",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "3f8ea3052d48ffc7",
+    "type": "split",
+    "children": [
+      {
+        "id": "7f0e108bd0029699",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e5afe20e45bfda23",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Version Item.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "lastOpenFiles": [
+    "Version Item.md",
+    "Widget.md",
+    "Version Page.md",
+    "Settings.md",
+    "Project Item.md",
+    "Project Page.md",
+    "Metadata.md",
+    "Pinned Projects.md",
+    "Untitled.md",
+    "Project Tab.md"
+  ]
+}
