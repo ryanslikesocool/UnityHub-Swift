@@ -164,7 +164,7 @@ class HubSettings: ObservableObject {
     
     func sortProjects() {
         projects.sort {
-            if $0.pinned == $1.pinned {
+            if $0.pinned == $1.pinned || !usePins {
                 return $0.name < $1.name
             }
             return $0.pinned && !$1.pinned

@@ -27,12 +27,12 @@ struct ProjectButton: View {
     
     private var leadingSwipeActions: [Slot] {
         get {
-            return [Slot(
+            return settings.usePins ? [Slot(
                 image: { Image(systemName: "pin.fill").frame(width: 24, height: 24).embedInAnyView() },
                 title: { EmptyView().embedInAnyView() },
                 action: { togglePin() },
                 style: .init(background: .orange, slotHeight: 64)
-            )]
+            )] : []
         }
     }
     private var trailingSwipeActions: [Slot] {

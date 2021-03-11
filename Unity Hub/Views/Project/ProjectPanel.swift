@@ -31,6 +31,9 @@ struct ProjectPanel: View {
         .onChange(of: updateList) { _ in
             getAllProjects()
         }
+        .onChange(of: settings.usePins) { _ in
+            updateList.toggle()
+        }
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Button(action: locateProject) {
@@ -43,14 +46,16 @@ struct ProjectPanel: View {
                 }
             }
         }
-        .alert(isPresented: $showRemovalSheet) {
-            Alert(
-                title: Text("Remove Project"),
-                message: Text("Are you sure you want to remove the project \"\(projectToRemove!.name)\" from the list?\nYour project files will remain on your hard drive and will not be deleted."),
-                primaryButton: .cancel(Text("Cancel")),
-                secondaryButton: .destructive(Text("Remove")) { deleteItems(metadata: projectToRemove) }
-            )
-        }
+        .alert(isPresented: $showRemovalSheet) { removalAlert() }
+    }
+    
+    func removalAlert() -> Alert {
+        return Alert(
+            title: Text("Remove Project"),
+            message: Text("Are you sure you want to remove the project \"\(projectToRemove!.name)\" from the list?\nYour project files will remain on your hard drive and will not be deleted."),
+            primaryButton: .cancel(Text("Cancel")),
+            secondaryButton: .destructive(Text("Remove")) { deleteItems(metadata: projectToRemove) }
+        )
     }
     
     func getAllProjects() {
