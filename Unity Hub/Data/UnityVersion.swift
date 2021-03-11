@@ -63,6 +63,138 @@ struct UnityVersion {
         return "\(major).\(minor)"
     }
 
+    func isOfficial() -> Bool {
+        return isCorrectChannel(channelChar: "f");
+    }
+
+    func isAlpha() -> Bool {
+        return isCorrectChannel(channelChar: "a");
+    }
+
+    func isBeta() -> Bool {
+        return isCorrectChannel(channelChar: "b");
+    }
+    
+    func isPrerelease() -> Bool {
+        return isAlpha() || isBeta()
+    }
+}
+
+//MARK: - Validation
+extension UnityVersion {
+    func isCorrectChannel(channelChar: String) -> Bool {
+        var correct: Bool = false
+        UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { (match, _, stop) in
+            guard let match = match else { return }
+            correct = String(version[Range(match.range(at: 4), in: version) ?? (version.startIndex ..< version.endIndex)]) == channelChar
+        }
+        return correct
+    }
+
+    func isValid() -> Bool {
+        var valid: Bool = false
+        UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { (match, _, stop) in
+            guard let match = match else { return }
+            valid = match.numberOfRanges == 6
+        }
+        return valid
+    }
+    
+    static func validateEditor(path: String) -> Bool {
+        do {
+            var format = PropertyListSerialization.PropertyListFormat.xml
+            let plistData = try Data(contentsOf: URL(fileURLWithPath: "\(path)/Unity.app/Contents/Info.plist"))
+            if let plistDictionary = try PropertyListSerialization.propertyList(from: plistData, options: .mutableContainersAndLeaves, format: &format) as? [String : AnyObject] {
+                if let bundleID = plistDictionary["CFBundleIdentifier"] as? String {
+                    if !bundleID.contains("com.unity3d.UnityEditor") {
+                        print("Invalid bundle identifier")
+                        return false
+                    }
+                } else {
+                    print("No bundle identifier")
+                    return false
+                }
+            } else {
+                print("No valid plist")
+                return false
+            }
+        } catch {
+            print(error.localizedDescription)
+            return false
+        }
+        
+        return true
+    }
+}
+
+//MARK: - Modules
+extension UnityVersion {
+    var moduleURL: URL {
+        get { return URL(fileURLWithPath: "\(path)/modules.json") }
+    }
+    
+    func getData() throws -> Data {
+        return try Data(contentsOf: moduleURL)
+    }
+    
+    func getModules() -> [ModuleJSON] {
+        do {
+            let data: Data = try getData()
+            return try! JSONDecoder().decode([ModuleJSON].self, from: data)
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+    
+    func hasModule(module: UnityModule) -> Bool {
+        return getModules().contains(where: { $0.id == module.id })
+    }
+    
+    func getInstalledModules() -> [UnityModule] {
+        var unityModules: [UnityModule] = []
+                
+        let modules: [ModuleJSON] = getModules()
+        
+        for module in modules {
+            if module.selected, let unityModule = UnityModule(rawValue: module.id) {
+                let index = unityModules.firstIndex(where: { $0.getPlatform() == unityModule.getPlatform() })
+                if index == nil {
+                    unityModules.append(unityModule)
+                }
+            }
+        }
+                
+        return unityModules
+    }
+    
+    func removeModule(module: UnityModule) {
+        do {
+            var modules: [ModuleJSON] = getModules()
+                        
+            for i in 0..<modules.count {
+                if modules[i].selected, let m = UnityModule(rawValue: modules[i].id) {
+                    if m == module, let installPath = module.getInstallPath() {
+                        modules[i].selected = false
+                                                
+                        DispatchQueue.global(qos: .background).async {
+                            let _ = shell("rm -rf \(path)\(installPath)")
+                        }
+                    }
+                }
+            }
+            
+            let toSave = try JSONEncoder().encode(modules)
+            try toSave.write(to: moduleURL)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+}
+
+
+//MARK: - Compare
+extension UnityVersion: Comparable {
     func compare(other: UnityVersion) -> Int {
         if major == other.major {
             if minor == other.minor {
@@ -82,42 +214,6 @@ struct UnityVersion {
         return major > other.major ? 1 : -1
     }
 
-    func isOfficial() -> Bool {
-        return isCorrectChannel(version: version, channelChar: "f");
-    }
-
-    func isAlpha() -> Bool {
-        return isCorrectChannel(version: version, channelChar: "a");
-    }
-
-    func isBeta() -> Bool {
-        return isCorrectChannel(version: version, channelChar: "b");
-    }
-    
-    func isPrerelease() -> Bool {
-        return isAlpha() || isBeta()
-    }
-
-    func isCorrectChannel(version: String, channelChar: String) -> Bool {
-        var correct: Bool = false
-        UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { (match, _, stop) in
-            guard let match = match else { return }
-            correct = String(version[Range(match.range(at: 4), in: version) ?? (version.startIndex ..< version.endIndex)]) == channelChar
-        }
-        return correct
-    }
-
-    func isValid(version: String) -> Bool {
-        var valid: Bool = false
-        UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { (match, _, stop) in
-            guard let match = match else { return }
-            valid = match.numberOfRanges == 6
-        }
-        return valid
-    }
-}
-
-extension UnityVersion: Comparable {
     static func ==(lhs: UnityVersion, rhs: UnityVersion) -> Bool {
         return lhs.compare(other: rhs) == 0
     }
@@ -137,6 +233,6 @@ extension UnityVersion: Hashable {}
 
 extension UnityVersion: Identifiable {
     var id: String {
-        return self.version
+        return version
     }
 }

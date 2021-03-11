@@ -54,7 +54,7 @@ struct InstallSheet: View {
     func getAvailableVersions() -> [UnityVersion] {
         var versions: [UnityVersion] = []
 
-        let command = "\(HubSettings.hubCommandBase) e -r"
+        let command = "\(settings.hubCommandBase) e -r"
         let result = shell(command)
         let results = result.components(separatedBy: "\n")
         
@@ -73,7 +73,7 @@ struct InstallSheet: View {
     }
     
     func installSelectedItems() {
-        var command = "\(HubSettings.hubCommandBase) i --version \(selectedVersion.version)"
+        var command = "\(settings.hubCommandBase) i --version \(selectedVersion.version)"
         
         for i in 0 ..< availableModules.count {
             if selectedModules[i] {
@@ -97,7 +97,7 @@ struct InstallSheet: View {
         }
         
         selectedVersion.installing = true
-        selectedVersion.path = "\(HubSettings.defaultInstallLocation)/\(selectedVersion.version)"
+        selectedVersion.path = "/Applications/Unity/Hub/Editor/\(selectedVersion.version)"
         
         settings.versionsInstalled.append(selectedVersion)
         

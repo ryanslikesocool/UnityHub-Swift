@@ -10,7 +10,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Version Item.md",
+            "file": "Widget.md",
             "mode": "source"
           }
         }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Version Item.md",
+                "file": "Widget.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -86,12 +86,12 @@
     "collapsed": true
   },
   "lastOpenFiles": [
-    "Version Item.md",
     "Widget.md",
     "Version Page.md",
+    "Version Item.md",
     "Settings.md",
-    "Project Item.md",
     "Project Page.md",
+    "Project Item.md",
     "Metadata.md",
     "Pinned Projects.md",
     "Untitled.md",

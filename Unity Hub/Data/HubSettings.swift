@@ -9,41 +9,6 @@ import Foundation
 import SwiftUI
 
 class HubSettings: ObservableObject {
-    static let defaultHubLocation: String = #"/Applications/Unity\ Hub.app"#
-    static let defaultInstallLocation: String = #"/Applications/Unity/Hub/Editor"#
-    static let defaultProjectLocation: String = #"~"#
-    static let hubSubFolder: String = #"/Contents/MacOS/Unity\ Hub"#
-    
-    static var hubCommandBase: String {
-        return "\(hubLocation)\(hubSubFolder) -- --headless"
-    }
-    
-    static var hubLocation: String {
-        get { return UserDefaults.standard.string(forKey: "hubLocation") ?? HubSettings.defaultHubLocation }
-        set { UserDefaults.standard.set(newValue, forKey: "hubLocation") }
-    }
-    static var installLocation: String {
-        get { return UserDefaults.standard.string(forKey: "installLocation") ?? HubSettings.defaultInstallLocation }
-        set { UserDefaults.standard.setValue(newValue, forKey: "installLocation") }
-    }
-    static var projectLocation: String {
-        get { return UserDefaults.standard.string(forKey: "projectLocation") ?? HubSettings.defaultProjectLocation }
-        set { UserDefaults.standard.setValue(newValue, forKey: "projectLocation") }
-    }
-    
-    static var useEmoji: Bool {
-        get { return UserDefaults.standard.bool(forKey: "useEmoji") }
-        set { UserDefaults.standard.setValue(newValue, forKey: "useEmoji") }
-    }
-    static var usePins: Bool {
-        get { return UserDefaults.standard.bool(forKey: "usePins") }
-        set { UserDefaults.standard.setValue(newValue, forKey: "usePins") }
-    }
-    static var alwaysShowLocation: Bool {
-        get { return UserDefaults.standard.bool(forKey: "alwaysShowLocation") }
-        set { UserDefaults.standard.setValue(newValue, forKey: "alwaysShowLocation") }
-    }
-
     static var customInstallPaths: [String] {
         get { return UserDefaults.standard.stringArray(forKey: "customInstallPaths") ?? [] }
         set { UserDefaults.standard.set(newValue, forKey: "customInstallPaths") }
@@ -52,9 +17,70 @@ class HubSettings: ObservableObject {
         get { return UserDefaults.standard.stringArray(forKey: "projectPaths") ?? [] }
         set { UserDefaults.standard.set(newValue, forKey: "projectPaths") }
     }
-        
+    
     @Published var versionsInstalled: [UnityVersion] = []
     @Published var projects: [ProjectMetadata] = []
+    
+    var hubLocation: String {
+        willSet {
+            objectWillChange.send()
+            UserDefaults.standard.set(newValue, forKey: "hubLocation")
+        }
+    }
+    var installLocation: String {
+        willSet {
+            objectWillChange.send()
+            UserDefaults.standard.set(newValue, forKey: "installLocation")
+        }
+    }
+    var projectLocation: String {
+        willSet {
+            objectWillChange.send()
+            UserDefaults.standard.set(newValue, forKey: "projectLocation")
+        }
+    }
+    
+    var useEmoji: Bool {
+        willSet {
+            objectWillChange.send()
+            UserDefaults.standard.set(newValue, forKey: "useEmoji")
+        }
+    }
+    var usePins: Bool {
+        willSet {
+            objectWillChange.send()
+            UserDefaults.standard.set(newValue, forKey: "usePins")
+        }
+    }
+    var alwaysShowLocation: Bool {
+        willSet {
+            objectWillChange.send()
+            UserDefaults.standard.set(newValue, forKey: "alwaysShowLocation")
+        }
+    }
+    var showSidebarCount: Bool {
+        willSet {
+            objectWillChange.send()
+            UserDefaults.standard.set(newValue, forKey: "showSidebarCount")
+        }
+    }
+    
+    let hubSubFolder: String = #"/Contents/MacOS/Unity\ Hub"#
+
+    var hubCommandBase: String {
+        return "\(hubLocation)\(hubSubFolder) -- --headless"
+    }
+    
+    init() {
+        hubLocation = UserDefaults.standard.string(forKey: "hubLocation") ?? #"/Applications/Unity\ Hub.app"#
+        installLocation = UserDefaults.standard.string(forKey: "installLocation") ?? #"/Applications/Unity/Hub/Editor"#
+        projectLocation = UserDefaults.standard.string(forKey: "projectLocation") ?? #"~"#
+        
+        useEmoji = UserDefaults.hasKey("useEmoji") ? UserDefaults.standard.bool(forKey: "useEmoji") : true
+        usePins = UserDefaults.hasKey("usePins") ? UserDefaults.standard.bool(forKey: "usePins") : true
+        alwaysShowLocation = UserDefaults.hasKey("alwaysShowLocation") ? UserDefaults.standard.bool(forKey: "alwaysShowLocation") : false
+        showSidebarCount = UserDefaults.hasKey("showSidebarCount") ? UserDefaults.standard.bool(forKey: "showSidebarCount") : true
+    }
     
     var lastestVersionInstalled: UnityVersion? {
         if versionsInstalled.count == 0 {
@@ -64,10 +90,10 @@ class HubSettings: ObservableObject {
     }
     
     //TO DO: don't recalculate all
-    static func getAllVersions(settings: HubSettings) {
-        settings.versionsInstalled.removeAll()
+    func getAllVersions() {
+        versionsInstalled.removeAll()
         let fm = FileManager.default
-        let path = HubSettings.installLocation
+        let path = installLocation
 
         do {
             let items = try fm.contentsOfDirectory(atPath: path)
@@ -77,8 +103,8 @@ class HubSettings: ObservableObject {
             for item in items {
                 let path = "\(path)/\(item)"
                 if fm.fileExists(atPath: path, isDirectory: &isDir) {
-                    if isDir.boolValue && validateEditor(path: path) {
-                        settings.versionsInstalled.append(UnityVersion(item, path: path))
+                    if isDir.boolValue && UnityVersion.validateEditor(path: path) {
+                        versionsInstalled.append(UnityVersion(item, path: path))
                     }
                 }
             }
@@ -91,9 +117,9 @@ class HubSettings: ObservableObject {
                 let items = try fm.contentsOfDirectory(atPath: HubSettings.customInstallPaths[i])
                  
                 if items.contains("Unity.app") {
-                    if isDir.boolValue && validateEditor(path: HubSettings.customInstallPaths[i]) {
+                    if isDir.boolValue && UnityVersion.validateEditor(path: HubSettings.customInstallPaths[i]) {
                         let components = HubSettings.customInstallPaths[i].components(separatedBy: "/")
-                        settings.versionsInstalled.append(UnityVersion(components.last!, path: HubSettings.customInstallPaths[i]))
+                        versionsInstalled.append(UnityVersion(components.last!, path: HubSettings.customInstallPaths[i]))
                     }
                 } else {
                     HubSettings.customInstallPaths.remove(at: i)
@@ -103,7 +129,7 @@ class HubSettings: ObservableObject {
             print(error.localizedDescription)
         }
         
-        settings.versionsInstalled.sort {
+        versionsInstalled.sort {
             switch $0.compare(other: $1) {
             case 1: return true
             case -1: return false
@@ -112,8 +138,8 @@ class HubSettings: ObservableObject {
         }
     }
     
-    static func getAllProjects(settings: HubSettings) {
-        settings.projects.removeAll()
+    func getAllProjects() {
+        projects.removeAll()
         let fm = FileManager.default
             
         for path in HubSettings.projectPaths {
@@ -128,17 +154,17 @@ class HubSettings: ObservableObject {
                     continue
                 }
                                 
-                settings.projects.append(ProjectMetadata(readFrom: path, availableVersions: settings.versionsInstalled))
+                projects.append(ProjectMetadata(readFrom: path, availableVersions: versionsInstalled))
             } catch {
                 print(error.localizedDescription)
             }
         }
         
-        sortProjects(settings: settings)
+        sortProjects()
     }
     
-    static func sortProjects(settings: HubSettings) {
-        settings.projects.sort {
+    func sortProjects() {
+        projects.sort {
             if $0.pinned == $1.pinned {
                 return $0.name < $1.name
             }
@@ -146,79 +172,6 @@ class HubSettings: ObservableObject {
         }
         
         HubSettings.projectPaths.removeAll()
-        HubSettings.projectPaths.append(contentsOf: settings.projects.map { $0.path } )
-    }
-    
-    static func validateEditor(path: String) -> Bool {
-        do {
-            var format = PropertyListSerialization.PropertyListFormat.xml
-            let plistData = try Data(contentsOf: URL(fileURLWithPath: "\(path)/Unity.app/Contents/Info.plist"))
-            if let plistDictionary = try PropertyListSerialization.propertyList(from: plistData, options: .mutableContainersAndLeaves, format: &format) as? [String : AnyObject] {
-                if let bundleID = plistDictionary["CFBundleIdentifier"] as? String {
-                    if !bundleID.contains("com.unity3d.UnityEditor") {
-                        print("Invalid bundle identifier")
-                        return false
-                    }
-                } else {
-                    print("No bundle identifier")
-                    return false
-                }
-            } else {
-                print("No valid plist")
-                return false
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
-        
-        return true
-    }
-    
-    static func getInstalledModules(version: UnityVersion) -> [UnityModule] {
-        var unityModules: [UnityModule] = []
-                
-        let url = URL(fileURLWithPath: "\(version.path)/modules.json")
-        do {
-            let data = try Data(contentsOf: url)
-            let modules: [ModuleJSON] = try! JSONDecoder().decode([ModuleJSON].self, from: data)
-            
-            for module in modules {
-                if module.selected, let unityModule = UnityModule(rawValue: module.id) {
-                    let index = unityModules.firstIndex(where: { $0.getPlatform() == unityModule.getPlatform() })
-                    if index == nil {
-                        unityModules.append(unityModule)
-                    }
-                }
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
-                
-        return unityModules
-    }
-    
-    static func removeModule(version: UnityVersion, module: UnityModule) {
-        let url = URL(fileURLWithPath: "\(version.path)/modules.json")
-        do {
-            let data = try Data(contentsOf: url)
-            var modules: [ModuleJSON] = try! JSONDecoder().decode([ModuleJSON].self, from: data)
-                        
-            for i in 0..<modules.count {
-                if modules[i].selected, let m = UnityModule(rawValue: modules[i].id) {
-                    if m == module, let installPath = module.getInstallPath() {
-                        modules[i].selected = false
-                                                
-                        DispatchQueue.global(qos: .background).async {
-                            let _ = shell("rm -rf \(version.path)\(installPath)")
-                        }
-                    }
-                }
-            }
-            
-            let toSave = try JSONEncoder().encode(modules)
-            try toSave.write(to: url)
-        } catch {
-            print(error.localizedDescription)
-        }
+        HubSettings.projectPaths.append(contentsOf: projects.map { $0.path } )
     }
 }

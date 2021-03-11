@@ -10,18 +10,13 @@ import Cocoa
 import AppKit
 import Foundation
 import Dispatch
-import SwipeableView
 
 struct ProjectButton: View {
     @EnvironmentObject var settings: HubSettings
 
     @State var metadata: ProjectMetadata
     @Binding var updateList: Bool
-    
-    @Binding var useEmoji: Bool
-    @Binding var usePins: Bool
-    @Binding var alwaysShowLocation: Bool
-    
+        
     var deleteAction: (ProjectMetadata) -> Void
     
     @State private var shellCommand: String? = nil
@@ -52,29 +47,16 @@ struct ProjectButton: View {
         
         return HStack {
             emojiArea(emojiBinding: emojiBinding)
-            Group {
-                titleArea()
-                pinArea()
-                Spacer()
-            }
+            titleArea()
+            pinArea()
+            Spacer()
             versionArea(versionBinding: versionBinding)
             dropDownMenu()
         }
         .contentShape(Rectangle())
         .frame(minWidth: 64, maxWidth: .infinity, minHeight: 64, maxHeight: 64)
-        .onAppear {
-            shellCommand = getShellCommand()
-        }
-        .sheet(item: $activeSheet) { item in
-            switch item {
-            case .emoji: EmojiPickerSheet(pickedEmoji: emojiBinding, action: { metadata.save() })
-            case .selectVersion: SelectProjectVersionSheet(version: versionBinding, action: {
-                shellCommand = getShellCommand()
-                metadata.save()
-            })
-            case .advancedSettings: AdvancedProjectSettingsSheet()
-            }
-        }
+        .onAppear { shellCommand = getShellCommand() }
+        .sheet(item: $activeSheet) { sheetView(item: $0, emoji: emojiBinding, version: versionBinding) }
         .onSwipe(leading: [Slot(
                             image: { Image(systemName: "pin.fill").frame(width: 24, height: 24).embedInAnyView() },
                             title: { EmptyView().embedInAnyView() },
@@ -90,7 +72,7 @@ struct ProjectButton: View {
     
     func emojiArea(emojiBinding: Binding<String>) -> some View {
         Group {
-            if useEmoji {
+            if settings.useEmoji {
                 Button(action: selectEmoji) {
                     Text(emojiBinding.wrappedValue)
                         .font(.system(size: 32))
@@ -102,26 +84,24 @@ struct ProjectButton: View {
     }
     
     func titleArea() -> some View {
-        Group {
-            if !alwaysShowLocation {
+        VStack(alignment: .leading) {
+            if !settings.alwaysShowLocation {
                 Text(metadata.name)
                     .font(.system(size: 12, weight: .semibold))
                     .help(metadata.path)
             } else {
-                VStack(alignment: .leading) {
-                    Text(metadata.name)
-                        .font(.system(size: 12, weight: .semibold))
-                    Text(metadata.path)
-                        .font(.system(size: 11, weight: .regular))
-                        .opacity(0.5)
-                }
+                Text(metadata.name)
+                    .font(.system(size: 12, weight: .semibold))
+                Text(metadata.path)
+                    .font(.system(size: 11, weight: .regular))
+                    .opacity(0.5)
             }
         }
     }
     
     func pinArea() -> some View {
         Group {
-            if usePins && metadata.pinned {
+            if settings.usePins && metadata.pinned {
                 Image(systemName: "pin.fill")
                     .font(.system(size: 10, weight: .semibold))
                     .rotationEffect(Angle(degrees: 45))
@@ -143,10 +123,10 @@ struct ProjectButton: View {
     func dropDownMenu() -> some View {
         Menu {
             Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: metadata.path) })
-            if useEmoji {
+            if settings.useEmoji {
                 Button("Select Emoji", action: selectEmoji)
             }
-            if usePins {
+            if settings.usePins {
                 Button("Toggle Pin", action: togglePin)
             }
             Button("Select Unity Version", action: selectProjectVersion)
@@ -156,6 +136,19 @@ struct ProjectButton: View {
         .menuStyle(BorderlessButtonMenuStyle())
         .frame(width: 16, height: 48)
         .padding(.trailing, 16)
+    }
+    
+    func sheetView(item: ActiveSheet, emoji: Binding<String>, version: Binding<UnityVersion>) -> some View {
+        Group {
+            switch item {
+            case .emoji: EmojiPickerSheet(pickedEmoji: emoji, action: { metadata.save() })
+            case .selectVersion: SelectProjectVersionSheet(version: version, action: {
+                shellCommand = getShellCommand()
+                metadata.save()
+            })
+            case .advancedSettings: AdvancedProjectSettingsSheet()
+            }
+        }
     }
     
     func getShellCommand() -> String? {

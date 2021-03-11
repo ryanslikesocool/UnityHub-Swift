@@ -16,7 +16,7 @@ struct UnityHubApp: App {
             ContentView()
                 .frame(minWidth: 700, maxWidth: .infinity, minHeight: 400, maxHeight: .infinity)
                 .environmentObject(settings)
-                .onAppear(perform: { HubSettings.getAllVersions(settings: settings) })
+                .onAppear(perform: { settings.getAllVersions() })
         }
         .windowStyle(TitleBarWindowStyle())
         .windowToolbarStyle(UnifiedWindowToolbarStyle())

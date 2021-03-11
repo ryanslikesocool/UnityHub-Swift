@@ -11,7 +11,6 @@ struct InstalledVersionButton: View {
     @EnvironmentObject var settings: HubSettings
     
     @State var version: UnityVersion
-    @Binding var alwaysShowLocation: Bool
     var deleteAction: (UnityVersion) -> Void
 
     @State private var modules: [UnityModule] = []
@@ -38,16 +37,9 @@ struct InstalledVersionButton: View {
         .padding(.vertical, 12)
         .buttonStyle(PlainButtonStyle())
         .contentShape(Rectangle())
-        .onAppear { modules = HubSettings.getInstalledModules(version: version) }
+        .onAppear { modules = version.getInstalledModules() }
         .sheet(isPresented: $showInstallSheet) { InstallModuleSheet(selectedVersion: version) }
-        .alert(isPresented: $showRemovalSheet) {
-            Alert(
-                title: Text("Uninstall \(moduleToRemove!.getDisplayName()!) module"),
-                message: Text("Are you sure you want to uninstall the \(moduleToRemove!.getDisplayName()!) module for Unity \(version.version)?"),
-                primaryButton: .cancel(Text("Cancel")),
-                secondaryButton: .destructive(Text("Uninstall")) { deleteItems(module: moduleToRemove) }
-            )
-        }
+        .alert(isPresented: $showRemovalSheet) { alertPanel() }
         .onSwipe(leading: [Slot(
                             image: { Image(systemName: "star.fill").frame(width: 24, height: 24).embedInAnyView() },
                             title: { EmptyView().embedInAnyView() },
@@ -65,12 +57,12 @@ struct InstalledVersionButton: View {
         HStack {
             if !installing {
                 SVGShapes.UnityCube()
-                    .frame(width: 16, height: 16)
-                    .padding(.leading, 12)
+                    .frame(width: 32, height: 32)
+                    .padding(.leading, 16)
             } else {
                 ProgressView()
-                    .frame(width: 16, height: 16)
-                    .padding(.leading, 12)
+                    .frame(width: 32, height: 32)
+                    .padding(.leading, 16)
             }
             
             versionAndLocation()
@@ -86,19 +78,17 @@ struct InstalledVersionButton: View {
     }
     
     func versionAndLocation() -> some View {
-        Group {
-            if !alwaysShowLocation {
+        VStack(alignment: .leading) {
+            if !settings.alwaysShowLocation {
                 Text(version.version)
                     .font(.system(size: 12, weight: .semibold))
                     .help(version.path)
             } else {
-                VStack(alignment: .leading) {
-                    Text(version.version)
-                        .font(.system(size: 12, weight: .semibold))
-                    Text(version.path)
-                        .font(.system(size: 11, weight: .regular))
-                        .opacity(0.5)
-                }
+                Text(version.version)
+                    .font(.system(size: 12, weight: .semibold))
+                Text(version.path)
+                    .font(.system(size: 11, weight: .regular))
+                    .opacity(0.5)
             }
         }
     }
@@ -114,6 +104,8 @@ struct InstalledVersionButton: View {
             }
             Menu {
                 Button("Install Additional Modules", action: installModuleSheet)
+                //
+                Button("Set as Default", action: {  })
                 Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: version.path) })
                 Button("Uninstall Version", action: { deleteAction(version) })
             } label: {}
@@ -122,6 +114,15 @@ struct InstalledVersionButton: View {
             .frame(width: 16)
             .padding(.trailing, 16)
         }
+    }
+    
+    func alertPanel() -> Alert {
+        Alert(
+            title: Text("Uninstall \(moduleToRemove!.getDisplayName()!) module"),
+            message: Text("Are you sure you want to uninstall the \(moduleToRemove!.getDisplayName()!) module for Unity \(version.version)?"),
+            primaryButton: .cancel(Text("Cancel")),
+            secondaryButton: .destructive(Text("Uninstall")) { deleteItems(module: moduleToRemove) }
+        )
     }
     
     func installModuleSheet() {
@@ -139,7 +140,7 @@ struct InstalledVersionButton: View {
     
     func deleteItems(module: UnityModule?) {
         if let m = module {
-            HubSettings.removeModule(version: version, module: m)
+            version.removeModule(module: m)
             modules.removeAll { $0.id == m.id }
         }
         moduleToRemove = nil

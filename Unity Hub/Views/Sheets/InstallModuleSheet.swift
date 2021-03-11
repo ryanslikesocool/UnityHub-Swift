@@ -41,7 +41,7 @@ struct InstallModuleSheet: View {
     
     func setupView() {
         availableModules = UnityModule.getAvailableModules()
-        let preinstalledModules = HubSettings.getInstalledModules(version: selectedVersion)
+        let preinstalledModules = selectedVersion.getInstalledModules()
         availableModules.removeAll(where: { preinstalledModules.contains($0) })
         
         selectedModules = [Bool](repeating: false, count: availableModules.count)
@@ -54,7 +54,7 @@ struct InstallModuleSheet: View {
     func installSelectedItems() {
         print("starting install")
         
-        var command = "\(HubSettings.hubCommandBase) im --version \(selectedVersion.version)"
+        var command = "\(settings.hubCommandBase) im --version \(selectedVersion.version)"
         
         for i in 0 ..< availableModules.count {
             if selectedModules[i] {

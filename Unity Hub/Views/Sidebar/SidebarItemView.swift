@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SidebarItemView: View {
+    @EnvironmentObject var settings: HubSettings
+
     let enabled: Bool
     let item: SidebarItem
     
@@ -21,8 +23,13 @@ struct SidebarItemView: View {
                 Text(item.asText())
                     .font(.system(size: 12, weight: .semibold))
                 Spacer()
+                if settings.showSidebarCount {
+                    Text(item.asSubtitleText(settings: settings))
+                        .font(.system(size: 12, weight: .regular))
+                        .opacity(0.75)
+                }
             }
-            .frame(width: 192, height: 28)
+            .frame(height: 24)
         }.disabled(!enabled)
     }
 }

@@ -14,7 +14,6 @@ struct TabSelector: View {
         switch item {
         case .projects: ProjectPanel()
         case .installs: InstalledVersionPanel()
-        default: Rectangle()
         }
     }
 }

@@ -30,8 +30,6 @@
 		AF73A4DC25F0ACBF00B2EA1C /* SidebarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF73A4DB25F0ACBF00B2EA1C /* SidebarItemView.swift */; };
 		AF73A4E325F0C1BA00B2EA1C /* ListDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF73A4E225F0C1BA00B2EA1C /* ListDividerView.swift */; };
 		AF9F945925F1050D00539C3A /* ProjectMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F945825F1050D00539C3A /* ProjectMetadata.swift */; };
-		AF9F946325F14C8400539C3A /* SettingsLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F946225F14C8400539C3A /* SettingsLocations.swift */; };
-		AF9F946825F1AE4600539C3A /* SettingsProjectPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F946725F1AE4600539C3A /* SettingsProjectPanel.swift */; };
 		AFA0862C251B1CFB00B1B985 /* NSOpenPanel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA0862B251B1CFB00B1B985 /* NSOpenPanel+Extension.swift */; };
 		AFAEFA1425F1B4690010B492 /* InstallModuleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAEFA1325F1B4690010B492 /* InstallModuleSheet.swift */; };
 		AFAEFA1925F1CCC50010B492 /* InstalledModuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAEFA1825F1CCC50010B492 /* InstalledModuleButton.swift */; };
@@ -49,6 +47,9 @@
 		AFDFD25125F51D1200E4F9D0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDFD24D25F51D1100E4F9D0 /* Extensions.swift */; };
 		AFEAC8072525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEAC8062525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift */; };
 		AFFDD8B3251B08EB000AE12C /* InstalledVersionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */; };
+		AFFE8EA325F9AE420086F887 /* LocationSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE8EA225F9AE420086F887 /* LocationSetting.swift */; };
+		AFFE8EA725F9B3830086F887 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE8EA625F9B3830086F887 /* UserDefaults+Extension.swift */; };
+		AFFE8EAA25F9B4230086F887 /* ToggleSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE8EA925F9B4230086F887 /* ToggleSetting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -92,8 +93,6 @@
 		AF73A4DB25F0ACBF00B2EA1C /* SidebarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarItemView.swift; sourceTree = "<group>"; };
 		AF73A4E225F0C1BA00B2EA1C /* ListDividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDividerView.swift; sourceTree = "<group>"; };
 		AF9F945825F1050D00539C3A /* ProjectMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMetadata.swift; sourceTree = "<group>"; };
-		AF9F946225F14C8400539C3A /* SettingsLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLocations.swift; sourceTree = "<group>"; };
-		AF9F946725F1AE4600539C3A /* SettingsProjectPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsProjectPanel.swift; sourceTree = "<group>"; };
 		AFA0862B251B1CFB00B1B985 /* NSOpenPanel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSOpenPanel+Extension.swift"; sourceTree = "<group>"; };
 		AFAEFA1325F1B4690010B492 /* InstallModuleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallModuleSheet.swift; sourceTree = "<group>"; };
 		AFAEFA1825F1CCC50010B492 /* InstalledModuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledModuleButton.swift; sourceTree = "<group>"; };
@@ -111,6 +110,9 @@
 		AFDFD24D25F51D1100E4F9D0 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		AFEAC8062525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedProjectSettingsSheet.swift; sourceTree = "<group>"; };
 		AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledVersionButton.swift; sourceTree = "<group>"; };
+		AFFE8EA225F9AE420086F887 /* LocationSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSetting.swift; sourceTree = "<group>"; };
+		AFFE8EA625F9B3830086F887 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
+		AFFE8EA925F9B4230086F887 /* ToggleSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleSetting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,8 +180,9 @@
 		AF9F946125F14C7100539C3A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				AF9F946225F14C8400539C3A /* SettingsLocations.swift */,
-				AF9F946725F1AE4600539C3A /* SettingsProjectPanel.swift */,
+				AF34E225251AFD2D00192E53 /* SettingsView.swift */,
+				AFFE8EA225F9AE420086F887 /* LocationSetting.swift */,
+				AFFE8EA925F9B4230086F887 /* ToggleSetting.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -187,16 +190,14 @@
 		AFC933F22527F6B300E5ECDE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				AFD0D1CC25F50CC200373759 /* Project */,
-				AFD0D1CB25F50CB300373759 /* Version */,
 				AF66EBEF251AE3900088EC84 /* ContentView.swift */,
 				AF73A4E225F0C1BA00B2EA1C /* ListDividerView.swift */,
-				AF16EDE7251AEC1700C939AA /* SidebarItem.swift */,
-				AF73A4DB25F0ACBF00B2EA1C /* SidebarItemView.swift */,
 				AF16EDF6251AEF4000C939AA /* TabSelector.swift */,
 				AF08B5432524309600E7D16B /* VisualEffectView.swift */,
 				AF66EC01251AE57D0088EC84 /* SVGShapes.swift */,
-				AF34E225251AFD2D00192E53 /* SettingsView.swift */,
+				AFD0D1CC25F50CC200373759 /* Project */,
+				AFD0D1CB25F50CB300373759 /* Version */,
+				AFFE8EAC25F9C1210086F887 /* Sidebar */,
 				AF9F946125F14C7100539C3A /* Settings */,
 				AFC933F42527F6C500E5ECDE /* Sheets */,
 				AFC933FB2527F82300E5ECDE /* Styles */,
@@ -239,6 +240,7 @@
 				AFB1C3AF251B633C00F8E3D8 /* Shell.swift */,
 				AFB1C3AC251B492900F8E3D8 /* String+Extension.swift */,
 				AFCB17D125F1ECF800A8B918 /* LazyView.swift */,
+				AFFE8EA625F9B3830086F887 /* UserDefaults+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -279,6 +281,15 @@
 				AFDFD24D25F51D1100E4F9D0 /* Extensions.swift */,
 			);
 			path = SwipeCell;
+			sourceTree = "<group>";
+		};
+		AFFE8EAC25F9C1210086F887 /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+				AF16EDE7251AEC1700C939AA /* SidebarItem.swift */,
+				AF73A4DB25F0ACBF00B2EA1C /* SidebarItemView.swift */,
+			);
+			path = Sidebar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,9 +369,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFFE8EA725F9B3830086F887 /* UserDefaults+Extension.swift in Sources */,
 				AF146CAF25622B990032343F /* VersionSheet.swift in Sources */,
-				AF9F946325F14C8400539C3A /* SettingsLocations.swift in Sources */,
 				AFB1C3A6251B357A00F8E3D8 /* ModuleJSON.swift in Sources */,
+				AFFE8EAA25F9B4230086F887 /* ToggleSetting.swift in Sources */,
 				AF9F945925F1050D00539C3A /* ProjectMetadata.swift in Sources */,
 				AFA0862C251B1CFB00B1B985 /* NSOpenPanel+Extension.swift in Sources */,
 				AFAEFA1425F1B4690010B492 /* InstallModuleSheet.swift in Sources */,
@@ -368,11 +380,11 @@
 				AFDFD24E25F51D1200E4F9D0 /* SlidableModifier.swift in Sources */,
 				AF66EBF0251AE3900088EC84 /* ContentView.swift in Sources */,
 				AF34E226251AFD2D00192E53 /* SettingsView.swift in Sources */,
-				AF9F946825F1AE4600539C3A /* SettingsProjectPanel.swift in Sources */,
 				AFDFD24F25F51D1200E4F9D0 /* Slot.swift in Sources */,
 				AF08B5472524430400E7D16B /* SelectProjectVersionSheet.swift in Sources */,
 				AFB1C3A3251B325000F8E3D8 /* UnityModule.swift in Sources */,
 				AF73A4DC25F0ACBF00B2EA1C /* SidebarItemView.swift in Sources */,
+				AFFE8EA325F9AE420086F887 /* LocationSetting.swift in Sources */,
 				AF66EBEE251AE3900088EC84 /* UnityHubApp.swift in Sources */,
 				AF16EDF7251AEF4000C939AA /* TabSelector.swift in Sources */,
 				AFBB9A4F25260B000004F78B /* Color+Extension.swift in Sources */,

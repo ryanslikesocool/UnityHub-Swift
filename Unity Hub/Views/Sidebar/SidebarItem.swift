@@ -7,28 +7,15 @@
 
 import Foundation
 
-enum SidebarItem: CaseIterable {
-    case projects
-    case learn
-    case community
-    case installs
+enum SidebarItem: Int {
+    case projects = 0
+    case installs = 1
 }
 
 extension SidebarItem {
-    func asOrder() -> Int {
-        switch self {
-        case .projects: return 0
-        case .learn: return 1
-        case .community: return 2
-        case .installs: return 3
-        }
-    }
-    
     func asText() -> String {
         switch self {
         case .projects: return "Projects"
-        case .learn: return "Learn"
-        case .community: return "Community"
         case .installs: return "Installs"
         }
     }
@@ -36,15 +23,22 @@ extension SidebarItem {
     func asSymbol() -> String {
         switch self {
         case .projects: return "cube.fill"
-        case .learn: return "graduationcap.fill"
-        case .community: return "person.2.fill"
         case .installs: return "list.dash"
+        }
+    }
+    
+    func asSubtitleText(settings: HubSettings) -> String {
+        switch self {
+        case .projects: return String(settings.projects.count)
+        case .installs: return String(settings.versionsInstalled.count)
         }
     }
 }
 
+extension SidebarItem: CaseIterable{}
+
 extension SidebarItem: Identifiable {
     var id: Int {
-        self.asOrder()
+        self.rawValue
     }
 }
