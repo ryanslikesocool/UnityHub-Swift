@@ -17,6 +17,7 @@ class HubSettings: ObservableObject {
         get { return UserDefaults.standard.stringArray(forKey: "projectPaths") ?? [] }
         set { UserDefaults.standard.set(newValue, forKey: "projectPaths") }
     }
+    let hubSubFolder: String = #"/Contents/MacOS/Unity\ Hub"#
     
     @Published var versionsInstalled: [UnityVersion] = []
     @Published var projects: [ProjectMetadata] = []
@@ -65,8 +66,6 @@ class HubSettings: ObservableObject {
         }
     }
     
-    let hubSubFolder: String = #"/Contents/MacOS/Unity\ Hub"#
-
     var hubCommandBase: String {
         return "\(hubLocation)\(hubSubFolder) -- --headless"
     }

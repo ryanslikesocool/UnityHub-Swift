@@ -11,7 +11,7 @@ struct InstalledVersionButton: View {
     @EnvironmentObject var settings: HubSettings
     
     @State var version: UnityVersion
-    var deleteAction: (UnityVersion) -> Void
+    let deleteAction: (UnityVersion) -> Void
 
     @State private var modules: [UnityModule] = []
     @State private var installing: Bool = false
@@ -20,12 +20,33 @@ struct InstalledVersionButton: View {
     
     @State private var showRemovalSheet: Bool = false
     @State private var moduleToRemove: UnityModule? = nil
+    
+    private var leadingSwipeActions: [Slot] {
+        get { return displayFoldout ? [] : [Slot(
+                image: { Image(systemName: "star.fill").frame(width: 24, height: 24).embedInAnyView() },
+                title: { EmptyView().embedInAnyView() },
+                action: {},
+                style: .init(background: .yellow, slotHeight: 64)
+            )]
+        }
+    }
+    private var trailingSwipeActions: [Slot] {
+        get { return displayFoldout ? [] : [Slot(
+                image: { Image(systemName: "trash.fill").frame(width: 24, height: 24).embedInAnyView() },
+                title: { EmptyView().embedInAnyView() },
+                action: { deleteAction(version) },
+                style: .init(background: .red, slotHeight: 64)
+            )]
+        }
+    }
 
     var body: some View {
         VStack {
             Button(action: { displayFoldout.toggle() }) {
                 mainButton()
             }
+            .frame(minWidth: 64, maxWidth: .infinity, minHeight: 40, maxHeight: 40)
+            .contentShape(Rectangle())
             
             if displayFoldout {
                 ForEach(modules) { module in
@@ -36,21 +57,10 @@ struct InstalledVersionButton: View {
         }
         .padding(.vertical, 12)
         .buttonStyle(PlainButtonStyle())
-        .contentShape(Rectangle())
         .onAppear { modules = version.getInstalledModules() }
         .sheet(isPresented: $showInstallSheet) { InstallModuleSheet(selectedVersion: version) }
         .alert(isPresented: $showRemovalSheet) { alertPanel() }
-        .onSwipe(leading: [Slot(
-                            image: { Image(systemName: "star.fill").frame(width: 24, height: 24).embedInAnyView() },
-                            title: { EmptyView().embedInAnyView() },
-                            action: {},
-                            style: .init(background: .yellow)
-            )], trailing: [Slot(
-                            image: { Image(systemName: "trash.fill").frame(width: 24, height: 24).embedInAnyView() },
-                            title: { EmptyView().embedInAnyView() },
-                            action: { deleteAction(version) },
-                            style: .init(background: .red))]
-        )
+        .onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
     }
     
     func mainButton() -> some View {
@@ -74,7 +84,6 @@ struct InstalledVersionButton: View {
             Spacer()
             rightSide()
         }
-        .frame(minWidth: 64, maxWidth: .infinity, minHeight: 40, maxHeight: 40)
     }
     
     func versionAndLocation() -> some View {

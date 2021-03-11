@@ -94,17 +94,17 @@ public struct SlidableModifier: ViewModifier, Animatable {
     private var slotContainer: some View {
         HStack(spacing: 4) {
             ForEach(self.slots) { slot in
-                VStack(spacing: 4) {
-                    Spacer() // To extend top edge
+                VStack {
+                    //Spacer() // To extend top edge
                     
                     slot.image()
                         .foregroundColor(slot.style.imageColor)
                     
                     slot.title()
                     
-                    Spacer() // To extend bottom edge
+                    //Spacer() // To extend bottom edge
                 }
-                .frame(width: slot.style.slotWidth)
+                .frame(width: slot.style.slotWidth, height: slot.style.slotHeight)
                 .background(slot.style.background)
                 .onTapGesture {
                     slot.action()

@@ -39,10 +39,13 @@ public struct SlotStyle {
     public let imageColor: Color
     /// Individual slot width
     public let slotWidth: CGFloat
+    /// Individual slot height
+    public let slotHeight: CGFloat
     
-    public init(background: Color, imageColor: Color = .white, slotWidth: CGFloat = 60) {
+    public init(background: Color, imageColor: Color = .white, slotWidth: CGFloat = 60, slotHeight: CGFloat = 48) {
         self.background = background
         self.imageColor = imageColor
         self.slotWidth = slotWidth
+        self.slotHeight = slotHeight
     }
 }

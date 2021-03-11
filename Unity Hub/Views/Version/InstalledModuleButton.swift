@@ -8,15 +8,25 @@
 import SwiftUI
 
 struct InstalledModuleButton: View {
-    var version: UnityVersion
-    var module: UnityModule
-    var deleteAction: (UnityModule) -> Void
+    let version: UnityVersion
+    let module: UnityModule
+    let deleteAction: (UnityModule) -> Void
+    
+    private var trailingSwipeActions: [Slot] {
+        get { return [Slot(
+                image: { Image(systemName: "trash.fill").frame(width: 16, height: 16).embedInAnyView() },
+                title: { EmptyView().embedInAnyView() },
+                action: { deleteAction(module) },
+                style: .init(background: .red, slotHeight: 20)
+            )]
+        }
+    }
     
     var body: some View {
         HStack {
             if let icon = module.getIcon() {
                 icon
-                    .frame(width: 16, height: 16)
+                    .frame(width: 20, height: 20)
             }
             if let name = module.getDisplayName() {
                 Text(name)
@@ -31,6 +41,8 @@ struct InstalledModuleButton: View {
             .frame(width: 16)
             .padding(.trailing, 16)
         }
-        .padding(.leading, 32)
+        .padding(.horizontal, 32)
+        .contentShape(Rectangle())
+        .onSwipe(trailing: trailingSwipeActions)
     }
 }

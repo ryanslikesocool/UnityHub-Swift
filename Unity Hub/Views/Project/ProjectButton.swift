@@ -24,6 +24,27 @@ struct ProjectButton: View {
 
     @State private var showSheet: Bool = false
     @State private var activeSheet: ActiveSheet?
+    
+    private var leadingSwipeActions: [Slot] {
+        get {
+            return [Slot(
+                image: { Image(systemName: "pin.fill").frame(width: 24, height: 24).embedInAnyView() },
+                title: { EmptyView().embedInAnyView() },
+                action: { togglePin() },
+                style: .init(background: .orange, slotHeight: 64)
+            )]
+        }
+    }
+    private var trailingSwipeActions: [Slot] {
+        get {
+            return [Slot(
+                image: { Image(systemName: "trash.fill").frame(width: 24, height: 24).embedInAnyView() },
+                title: { EmptyView().embedInAnyView() },
+                action: { deleteAction(metadata) },
+                style: .init(background: .red, slotHeight: 64)
+            )]
+        }
+    }
         
     enum ActiveSheet: Identifiable {
         case emoji
@@ -57,17 +78,7 @@ struct ProjectButton: View {
         .frame(minWidth: 64, maxWidth: .infinity, minHeight: 64, maxHeight: 64)
         .onAppear { shellCommand = getShellCommand() }
         .sheet(item: $activeSheet) { sheetView(item: $0, emoji: emojiBinding, version: versionBinding) }
-        .onSwipe(leading: [Slot(
-                            image: { Image(systemName: "pin.fill").frame(width: 24, height: 24).embedInAnyView() },
-                            title: { EmptyView().embedInAnyView() },
-                            action: { togglePin() },
-                            style: .init(background: .orange)
-            )], trailing: [Slot(
-                            image: { Image(systemName: "trash.fill").frame(width: 24, height: 24).embedInAnyView() },
-                            title: { EmptyView().embedInAnyView() },
-                            action: { deleteAction(metadata) },
-                            style: .init(background: .red))]
-        )
+        .onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
     }
     
     func emojiArea(emojiBinding: Binding<String>) -> some View {
