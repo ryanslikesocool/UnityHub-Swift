@@ -17,14 +17,12 @@ struct InstalledVersionPanel: View {
     @State private var installToRemove: UnityVersion? = nil
 
     var body: some View {
-        List {
-            ForEach(settings.versionsInstalled) { version in
-                VStack {
-                    InstalledVersionButton(version: version, deleteAction: prepareForDeletion)
-                    
-                    if version != settings.versionsInstalled.last ?? UnityVersion.null {
-                        ListDividerView()
-                    }
+        List(settings.versionsInstalled) { version in
+            VStack {
+                InstalledVersionButton(version: version, deleteAction: prepareForDeletion)
+                
+                if version != settings.versionsInstalled.last ?? UnityVersion.null {
+                    ListDividerView()
                 }
             }
         }

@@ -9,20 +9,24 @@ import SwiftUI
 
 struct ProjectPanel: View {
     @EnvironmentObject var settings: HubSettings
+    
     @State private var updateList: Bool = false
     @State private var showRemovalSheet: Bool = false
+    @State private var projectToRemove: ProjectMetadata? = nil
+    
+    @State private var enableSearch: Bool = false
+    @State private var searchText: String = ""
 
-    @State private var projectToRemove: ProjectMetadata?
+    var body: some View {
+        if enableSearch {
+            SearchBar(text: $searchText)
+        }
+        List(settings.projects.filter({ searchText.isEmpty ? true : $0.name.lowercased().contains(searchText.lowercased()) })) { project in
+            VStack {
+                ProjectButton(metadata: project, updateList: $updateList, deleteAction: prepareForDeletion)
 
-    var body: some View {        
-        List {
-            ForEach(settings.projects) { project in
-                VStack {
-                    ProjectButton(metadata: project, updateList: $updateList, deleteAction: prepareForDeletion)
-
-                    if project.path != (settings.projects.last ?? ProjectMetadata.null).path {
-                        ListDividerView()
-                    }
+                if project.path != (settings.projects.last ?? ProjectMetadata.null).path {
+                    ListDividerView()
                 }
             }
         }
@@ -35,6 +39,11 @@ struct ProjectPanel: View {
             updateList.toggle()
         }
         .toolbar {
+            ToolbarItem(placement: .automatic) {
+                Button(action: toggleSearch) {
+                    Image(systemName: "magnifyingglass")
+                }
+            }
             ToolbarItem(placement: .automatic) {
                 Button(action: locateProject) {
                     Image(systemName: "folder")
@@ -60,6 +69,10 @@ struct ProjectPanel: View {
     
     func getAllProjects() {
         settings.getAllProjects()
+    }
+    
+    func toggleSearch() {
+        enableSearch.toggle()
     }
     
     func locateProject() {
