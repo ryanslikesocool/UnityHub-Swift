@@ -32,3 +32,10 @@ Project name
 Unity version
 - With warning if the version is missing
 Drop down menu
+
+## Metadata
+Contained within the [[Metadata]] file.  Has information like
+- Project name
+- Emoji tag
+- Install version
+- Path
