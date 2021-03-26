@@ -619,36 +619,34 @@ class SVGShapes {
     
     //MARK: - Windows
     struct Windows: Shape {
-        func path(in rect: CGRect) -> Path{
+        func path(in rect: CGRect) -> Path {
             var path = Path()
             let width = rect.size.width
             let height = rect.size.height
-
-            path.move(to: CGPoint(x: 0, y: 0.53125*height))
-            path.addLine(to: CGPoint(x: 0.46875*width, y: 0.53125*height))
-            path.addLine(to: CGPoint(x: 0.46875*width, y: 1*height))
-            path.addLine(to: CGPoint(x: 0, y: 1*height))
-            path.addLine(to: CGPoint(x: 0, y: 0.53125*height))
+            path.move(to: CGPoint(x: 0, y: 0.14158*height))
+            path.addLine(to: CGPoint(x: 0.40867*width, y: 0.0861*height))
+            path.addLine(to: CGPoint(x: 0.40885*width, y: 0.47908*height))
+            path.addLine(to: CGPoint(x: 0.00037*width, y: 0.4814*height))
+            path.addLine(to: CGPoint(x: 0, y: 0.14158*height))
             path.closeSubpath()
-            path.move(to: CGPoint(x: 1*width, y: 0.53125*height))
-            path.addLine(to: CGPoint(x: 1*width, y: 1*height))
-            path.addLine(to: CGPoint(x: 0.53125*width, y: 1*height))
-            path.addLine(to: CGPoint(x: 0.53125*width, y: 0.53125*height))
-            path.addLine(to: CGPoint(x: 1*width, y: 0.53125*height))
+            path.move(to: CGPoint(x: 0.40847*width, y: 0.52436*height))
+            path.addLine(to: CGPoint(x: 0.40879*width, y: 0.91768*height))
+            path.addLine(to: CGPoint(x: 0.00032*width, y: 0.86169*height))
+            path.addLine(to: CGPoint(x: 0.00029*width, y: 0.52172*height))
+            path.addLine(to: CGPoint(x: 0.40847*width, y: 0.52436*height))
             path.closeSubpath()
-            path.move(to: CGPoint(x: 1*width, y: 0))
-            path.addLine(to: CGPoint(x: 1*width, y: 0.46875*height))
-            path.addLine(to: CGPoint(x: 0.53125*width, y: 0.46874*height))
-            path.addLine(to: CGPoint(x: 0.53125*width, y: 0))
-            path.addLine(to: CGPoint(x: 1*width, y: 0))
+            path.move(to: CGPoint(x: 0.45801*width, y: 0.07884*height))
+            path.addLine(to: CGPoint(x: 0.99987*width, y: 0))
+            path.addLine(to: CGPoint(x: 0.99987*width, y: 0.47408*height))
+            path.addLine(to: CGPoint(x: 0.45801*width, y: 0.47837*height))
+            path.addLine(to: CGPoint(x: 0.45801*width, y: 0.07884*height))
             path.closeSubpath()
-            path.move(to: CGPoint(x: 0.46875*width, y: 0.46875*height))
-            path.addLine(to: CGPoint(x: 0, y: 0.46875*height))
-            path.addLine(to: CGPoint(x: 0, y: 0))
-            path.addLine(to: CGPoint(x: 0.46875*width, y: 0))
-            path.addLine(to: CGPoint(x: 0.46875*width, y: 0.46875*height))
+            path.move(to: CGPoint(x: width, y: 0.52806*height))
+            path.addLine(to: CGPoint(x: 0.99987*width, y: height))
+            path.addLine(to: CGPoint(x: 0.45801*width, y: 0.92376*height))
+            path.addLine(to: CGPoint(x: 0.45725*width, y: 0.52717*height))
+            path.addLine(to: CGPoint(x: width, y: 0.52806*height))
             path.closeSubpath()
-
             return path
         }
     }

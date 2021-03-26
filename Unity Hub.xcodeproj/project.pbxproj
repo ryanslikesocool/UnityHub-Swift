@@ -197,13 +197,13 @@
 				AF16EDF6251AEF4000C939AA /* TabSelector.swift */,
 				AF08B5432524309600E7D16B /* VisualEffectView.swift */,
 				AF66EC01251AE57D0088EC84 /* SVGShapes.swift */,
+				AF75222325F9D0EB00549E0E /* SearchBar.swift */,
 				AFD0D1CC25F50CC200373759 /* Project */,
 				AFD0D1CB25F50CB300373759 /* Version */,
 				AFFE8EAC25F9C1210086F887 /* Sidebar */,
 				AF9F946125F14C7100539C3A /* Settings */,
 				AFC933F42527F6C500E5ECDE /* Sheets */,
 				AFC933FB2527F82300E5ECDE /* Styles */,
-				AF75222325F9D0EB00549E0E /* SearchBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

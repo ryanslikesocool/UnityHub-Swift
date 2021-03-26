@@ -8,8 +8,11 @@
         "type": "leaf",
         "active": true,
         "state": {
-          "type": "graph",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "About.md",
+            "mode": "source"
+          }
         }
       }
     ],
@@ -66,6 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "About.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -82,9 +86,9 @@
     "collapsed": true
   },
   "lastOpenFiles": [
+    "About.md",
     "Widget.md",
     "Project Item.md",
-    "About.md",
     "Version Page.md",
     "Install Page.md",
     "Metadata.md",

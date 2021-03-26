@@ -16,6 +16,7 @@ struct UnityVersion {
     var channel: String
     var iteration: Int
     var installing: Bool
+    var lts: Bool
     
     var path: String = ""
 
@@ -35,6 +36,7 @@ struct UnityVersion {
         self.channel = ""
         self.iteration = 0
         self.installing = false
+        self.lts = false
         
         self.path = path
 
@@ -57,6 +59,8 @@ struct UnityVersion {
                 print("UnityVersion \(version) is not a valid unity version")
             }
         }
+        
+        self.lts = isLts()
     }
 
     func getBranch() -> String {
@@ -77,6 +81,11 @@ struct UnityVersion {
     
     func isPrerelease() -> Bool {
         return isAlpha() || isBeta()
+    }
+    
+    func isLts() -> Bool {
+        return ((major == 2017 || major == 2018 || major == 2019) && minor == 4)
+        || ((major == 2020 || major == 2021) && minor == 3)
     }
 }
 

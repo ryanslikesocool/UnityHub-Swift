@@ -77,7 +77,7 @@ struct InstalledVersionButton: View {
             
             versionAndLocation()
             
-            if version.isPrerelease() {
+            if version.isPrerelease() || version.lts {
                 PrereleaseTag(version: version)
                     .padding(.horizontal, 4)
             }
