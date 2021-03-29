@@ -100,6 +100,7 @@ struct InstallSheet: View {
         selectedVersion.path = "/Applications/Unity/Hub/Editor/\(selectedVersion.version)"
         
         settings.hub.versions.append(selectedVersion)
+        settings.save()
         
         closeMenu()
     }

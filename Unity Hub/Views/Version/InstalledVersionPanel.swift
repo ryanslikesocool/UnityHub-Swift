@@ -82,6 +82,7 @@ struct InstalledVersionPanel: View {
                 let _ = shell("rm -rf \(version.path)")
             }
             settings.hub.versions.removeAll(where: { $0.version == version.version })
+            settings.save()
         }
         installToRemove = nil
     }
