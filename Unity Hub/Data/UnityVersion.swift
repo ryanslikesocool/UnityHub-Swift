@@ -17,8 +17,8 @@ struct UnityVersion {
     var iteration: Int
     var installing: Bool
     var lts: Bool
-    
-    var path: String = ""
+    var path: String
+    var modules: [ModuleJSON]
 
     // a: alpha
     // b: beta
@@ -27,7 +27,9 @@ struct UnityVersion {
     // c: china
     static let versionRegex = try! NSRegularExpression(pattern: #"^(\d+)\.(\d+)\.(\d+)([a|b|f|p|c])(\d+)"#)
     static let null = UnityVersion("0.0.0a0")
-    
+
+    var installedModules: [UnityModule] { return modules.filter { $0.selected }.map { UnityModule(rawValue: $0.id) ?? .none }}
+
     init() {
         self.version = "0.0.0a0"
         self.major = 0
@@ -38,6 +40,7 @@ struct UnityVersion {
         self.installing = false
         self.lts = false
         self.path = #"/Applications/Unity/Hub/Editor/0.0.0a0"#
+        self.modules = []
     }
 
     init(_ version: String, path: String = "") {
@@ -49,12 +52,12 @@ struct UnityVersion {
         self.iteration = 0
         self.installing = false
         self.lts = false
-        
         self.path = path.replacingOccurrences(of: #" "#, with: #"\ "#)
+        self.modules = []
 
         UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { match, _, stop in
             guard let match = match else { return }
-            
+
             if match.numberOfRanges == 6,
                let range1 = Range(match.range(at: 1), in: version),
                let range2 = Range(match.range(at: 2), in: version),
@@ -72,8 +75,9 @@ struct UnityVersion {
                 print("UnityVersion \(version) is not a valid unity version")
             }
         }
-        
+
         self.lts = isLts()
+        self.modules = ModuleJSON.getModuleData(path)
     }
 
     func getBranch() -> String {
@@ -91,11 +95,11 @@ struct UnityVersion {
     func isBeta() -> Bool {
         return isCorrectChannel(channelChar: "b")
     }
-    
+
     func isPrerelease() -> Bool {
         return isAlpha() || isBeta()
     }
-    
+
     func isLts() -> Bool {
         return ((major == 2017 || major == 2018 || major == 2019) && minor == 4)
             || ((major == 2020 || major == 2021) && minor == 3)
@@ -122,7 +126,7 @@ extension UnityVersion {
         }
         return valid
     }
-    
+
     static func validateEditor(path: String) -> Bool {
         do {
             var format = PropertyListSerialization.PropertyListFormat.xml
@@ -145,7 +149,7 @@ extension UnityVersion {
             print(error.localizedDescription)
             return false
         }
-        
+
         return true
     }
 }
@@ -153,31 +157,15 @@ extension UnityVersion {
 // MARK: - Modules
 
 extension UnityVersion {
-    var moduleURL: URL { return URL(fileURLWithPath: "\(path)/modules.json") }
-    
-    func getData() throws -> Data {
-        return try Data(contentsOf: moduleURL)
-    }
-    
-    func getModules() -> [ModuleJSON] {
-        do {
-            let data: Data = try getData()
-            return try! JSONDecoder().decode([ModuleJSON].self, from: data)
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
-    }
-    
     func hasModule(module: UnityModule) -> Bool {
-        return getModules().contains(where: { $0.id == module.id })
+        return modules.contains(where: { $0.id == module.rawValue })
     }
-    
+
     func getInstalledModules() -> [UnityModule] {
         var unityModules: [UnityModule] = []
-                
-        let modules: [ModuleJSON] = getModules()
-        
+
+        let modules: [ModuleJSON] = ModuleJSON.getModuleData(path)
+
         for module in modules {
             if module.selected, let unityModule = UnityModule(rawValue: module.id) {
                 let index = unityModules.firstIndex(where: { $0.getPlatform() == unityModule.getPlatform() })
@@ -186,31 +174,8 @@ extension UnityVersion {
                 }
             }
         }
-                
+
         return unityModules
-    }
-    
-    func removeModule(module: UnityModule) {
-        do {
-            var modules: [ModuleJSON] = getModules()
-                        
-            for i in 0 ..< modules.count {
-                if modules[i].selected, let m = UnityModule(rawValue: modules[i].id) {
-                    if m == module, let installPath = module.getInstallPath() {
-                        modules[i].selected = false
-                                                
-                        DispatchQueue.global(qos: .background).async {
-                            _ = shell("rm -rf \(path)\(installPath)")
-                        }
-                    }
-                }
-            }
-            
-            let toSave = try JSONEncoder().encode(modules)
-            try toSave.write(to: moduleURL)
-        } catch {
-            print(error.localizedDescription)
-        }
     }
 }
 
@@ -239,11 +204,11 @@ extension UnityVersion: Comparable {
     static func ==(lhs: UnityVersion, rhs: UnityVersion) -> Bool {
         return lhs.compare(other: rhs) == 0
     }
-    
+
     static func <(lhs: UnityVersion, rhs: UnityVersion) -> Bool {
         return lhs.compare(other: rhs) == 1
     }
-    
+
     static func >(lhs: UnityVersion, rhs: UnityVersion) -> Bool {
         return lhs.compare(other: rhs) == -1
     }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF040BF72611E4B2006CD508 /* ModuleJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF040BF62611E4B2006CD508 /* ModuleJSONDecoder.swift */; };
 		AF08B5442524309700E7D16B /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF08B5432524309600E7D16B /* VisualEffectView.swift */; };
 		AF146CAF25622B990032343F /* VersionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF146CAE25622B990032343F /* VersionSheet.swift */; };
 		AF146CB325622BA30032343F /* ModuleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF146CB225622BA30032343F /* ModuleSheet.swift */; };
@@ -70,6 +71,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AF040BF62611E4B2006CD508 /* ModuleJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleJSONDecoder.swift; sourceTree = "<group>"; };
 		AF08B5432524309600E7D16B /* VisualEffectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		AF146CAE25622B990032343F /* VersionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionSheet.swift; sourceTree = "<group>"; };
 		AF146CB225622BA30032343F /* ModuleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleSheet.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				AFEB996E2611ADCF006E4E91 /* HubDataDecoder.swift */,
 				AFEB99712611B03D006E4E91 /* ProjectDataDecoder.swift */,
 				AFEB99732611B1F0006E4E91 /* UnityVersionDecoder.swift */,
+				AF040BF62611E4B2006CD508 /* ModuleJSONDecoder.swift */,
 			);
 			path = Decoders;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				AFFE8EAA25F9B4230086F887 /* ToggleSetting.swift in Sources */,
 				AFA0862C251B1CFB00B1B985 /* NSOpenPanel+Extension.swift in Sources */,
 				AFAEFA1425F1B4690010B492 /* InstallModuleSheet.swift in Sources */,
+				AF040BF72611E4B2006CD508 /* ModuleJSONDecoder.swift in Sources */,
 				AF5A94D0251BF9E3002FA410 /* DownloadInfo.swift in Sources */,
 				AFDFD24E25F51D1200E4F9D0 /* SlidableModifier.swift in Sources */,
 				AFEB99762611C194006E4E91 /* LoadingText.swift in Sources */,

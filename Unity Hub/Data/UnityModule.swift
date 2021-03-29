@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 enum UnityModule {
+    case none
     case macOSMono
     case macOSIL2CPP
     case windowsMono
@@ -63,6 +64,7 @@ extension UnityModule: RawRepresentable {
         case .webgl: return "webgl"
         case .windowsMono: return "windows-mono"
         case .lumin: return "lumin"
+        default: return ""
         }
     }
     

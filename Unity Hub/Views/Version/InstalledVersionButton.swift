@@ -13,7 +13,6 @@ struct InstalledVersionButton: View {
     @State var version: UnityVersion
     let deleteAction: (UnityVersion) -> Void
 
-    @State private var modules: [UnityModule] = []
     @State private var installing: Bool = false
     @State private var showInstallSheet: Bool = false
     @State private var displayFoldout: Bool = false
@@ -22,23 +21,20 @@ struct InstalledVersionButton: View {
     @State private var moduleToRemove: UnityModule? = nil
     @State private var fileSize: String = ""
     
-    private var leadingSwipeActions: [Slot] {
-        get { return displayFoldout ? [] : [Slot(
-            image: { Image(systemName: "star.fill").frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
-                title: { EmptyView().embedInAnyView() },
-                action: { settings.hub.setDefaultVersion(version) },
-                style: .init(background: .yellow, slotHeight: 64)
-            )]
-        }
+    private var leadingSwipeActions: [Slot] { return displayFoldout ? [] : [Slot(
+        image: { Image(systemName: "star.fill").frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
+        title: { EmptyView().embedInAnyView() },
+        action: { settings.hub.setDefaultVersion(version) },
+        style: .init(background: .yellow, slotHeight: 64)
+    )]
     }
-    private var trailingSwipeActions: [Slot] {
-        get { return displayFoldout ? [] : [Slot(
-                image: { Image(systemName: .trashIcon).frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
-                title: { EmptyView().embedInAnyView() },
-                action: { deleteAction(version) },
-                style: .init(background: .red, slotHeight: 64)
-            )]
-        }
+
+    private var trailingSwipeActions: [Slot] { return displayFoldout ? [] : [Slot(
+        image: { Image(systemName: .trashIcon).frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
+        title: { EmptyView().embedInAnyView() },
+        action: { deleteAction(version) },
+        style: .init(background: .red, slotHeight: 64)
+    )]
     }
 
     var body: some View {
@@ -50,7 +46,7 @@ struct InstalledVersionButton: View {
             .contentShape(Rectangle())
             
             if displayFoldout {
-                ForEach(modules) { module in
+                ForEach(version.installedModules) { module in
                     InstalledModuleButton(version: version, module: module, deleteAction: prepareForDeletion)
                 }
                 .onDelete(perform: prepareForDeletion)
@@ -59,7 +55,6 @@ struct InstalledVersionButton: View {
         .padding(.vertical, 12)
         .buttonStyle(PlainButtonStyle())
         .onAppear {
-            modules = version.getInstalledModules()
             getVersionSize()
         }
         .sheet(isPresented: $showInstallSheet) { InstallModuleSheet(selectedVersion: version) }
@@ -117,7 +112,7 @@ struct InstalledVersionButton: View {
                 LoadingText(text: $fileSize)
                     .padding(.trailing, 8)
             }
-            ForEach(modules) { item in
+            ForEach(version.installedModules) { item in
                 if let icon = item.getIcon() {
                     icon
                         .frame(width: 16, height: 16)
@@ -127,14 +122,14 @@ struct InstalledVersionButton: View {
             Menu {
                 Button("Install Additional Modules", action: installModuleSheet)
                 //
-                Button("Set as Default", action: {  })
+                Button("Set as Default", action: {})
                 Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: version.path) })
                 Button("Uninstall Version", action: { deleteAction(version) })
             } label: {}
-            .labelsHidden()
-            .menuStyle(BorderlessButtonMenuStyle())
-            .frame(width: 16)
-            .padding(.trailing, 16)
+                .labelsHidden()
+                .menuStyle(BorderlessButtonMenuStyle())
+                .frame(width: 16)
+                .padding(.trailing, 16)
         }
     }
     
@@ -152,7 +147,7 @@ struct InstalledVersionButton: View {
     }
     
     func prepareForDeletion(offsets: IndexSet) {
-        prepareForDeletion(module: modules[offsets.first!])
+        prepareForDeletion(module: version.installedModules[offsets.first!])
     }
     
     func prepareForDeletion(module: UnityModule) {
@@ -162,13 +157,12 @@ struct InstalledVersionButton: View {
     
     func deleteItems(module: UnityModule?) {
         if let m = module {
-            version.removeModule(module: m)
-            modules.removeAll { $0.id == m.id }
+            ModuleJSON.removeModule(version, moduleType: m, settings: settings)
         }
         moduleToRemove = nil
     }
     
-    func getVersionSize()  {
+    func getVersionSize() {
         DispatchQueue.global(qos: .background).async {
             let url = URL(fileURLWithPath: version.path)
             var size = ""

@@ -17,10 +17,11 @@ struct UnityVersionDecoder: Codable {
     var installing: Bool?
     var lts: Bool?
     var path: String?
-    
+    var modules: [ModuleJSON]?
+
     func toUnityVersion() -> UnityVersion {
         var result = UnityVersion()
-        
+
         result.version = version ?? "0.0.0a0"
         result.major = major ?? 0
         result.minor = minor ?? 0
@@ -30,7 +31,8 @@ struct UnityVersionDecoder: Codable {
         result.installing = installing ?? false
         result.lts = lts ?? false
         result.path = path ?? #"/Applications/Unity/Hub/Editor/0.0.0a0"#
-        
+        result.modules = modules ?? []
+
         return result
     }
 }

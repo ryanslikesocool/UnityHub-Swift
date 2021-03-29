@@ -183,6 +183,19 @@ extension HubData {
     func isStarred(_ version: UnityVersion) -> Bool {
         return version == starredVersion
     }
+    
+    mutating func setModule(_ version: UnityVersion, _ module: ModuleJSON) {
+        var version = version
+        let versionIndex = versions.firstIndex(where: { $0.version == version.version })
+        if let versionIndex = versionIndex {
+            let moduleIndex = version.modules.firstIndex(where: { $0.id == module.id })
+            if let moduleIndex = moduleIndex {
+                version.modules[moduleIndex] = module
+            }
+            versions[versionIndex] = version
+        }
+        save()
+    }
 }
 
 // MARK: - Projects
