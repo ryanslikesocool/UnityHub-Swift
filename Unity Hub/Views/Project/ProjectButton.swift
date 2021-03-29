@@ -66,17 +66,20 @@ struct ProjectButton: View {
         
         return HStack {
             emojiArea(emojiBinding: emojiBinding)
-            titleArea()
-            if settings.hub.usePins && projectData.pinned {
-                Image(systemName: .pinIcon)
-                    .font(.system(size: 10, weight: .semibold))
-                    .rotationEffect(Angle(degrees: 45))
+            Button(action: openProject) {
+                titleArea()
+                if settings.hub.usePins && projectData.pinned {
+                    Image(systemName: .pinIcon)
+                        .font(.system(size: 10, weight: .semibold))
+                        .rotationEffect(Angle(degrees: 45))
+                }
+                Spacer()
+                if settings.hub.showFileSizes {
+                    LoadingText(text: $fileSize)
+                        .padding(.trailing, 8)
+                }
             }
-            Spacer()
-            if settings.hub.showFileSizes {
-                LoadingText(text: $fileSize)
-                    .padding(.trailing, 8)
-            }
+            .buttonStyle(PlainButtonStyle())
             if showWarning {
                 Image(systemName: .warningIcon)
                     .help("The Editor version associated with this project is not currently available on this machine.  Go to Installs to download a matching version")
@@ -174,7 +177,8 @@ struct ProjectButton: View {
         showVersionWarning = false
         
         if settings.hub.versions.contains(projectData.version) {
-            return "\(projectData.version.path)/Unity.app/Contents/MacOS/Unity -projectPath \(projectData.path)"
+            let result =  "\(settings.hub.getRealVersion(projectData.version).path)/Unity.app/Contents/MacOS/Unity -projectPath \"\(projectData.path)\""
+            return result
         }
         
         showWarning = true

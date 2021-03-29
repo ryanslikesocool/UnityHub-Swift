@@ -8,7 +8,7 @@
 import Foundation
 
 struct HubData {
-    static let fileName: String = "HubData.json"
+    static let fileName: String = "UnityHubS/HubData.json"
     static var fileLocation: URL { return FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!.appendingPathComponent(fileName, isDirectory: false) }
     
     var uuid: String
@@ -225,5 +225,9 @@ extension HubData {
             projects[index] = project
         }
         save()
+    }
+    
+    func getRealVersion(_ version: UnityVersion) -> UnityVersion {
+        return versions.first(where: { version.version == $0.version })!
     }
 }
