@@ -64,12 +64,10 @@ struct LocationSetting: View {
             let result = dialog.url // Pathname of the file
 
             if (result != nil) {
-                let path: String = result!.path.replacingOccurrences(of: #" "#, with: #"\ "#)
-                assignAction(path)
+                location = result!.path.replacingOccurrences(of: #" "#, with: #"\ "#)
+                assignAction(location)
                 settings.save()
             }
-        } else {
-            return
         }
     }
 }

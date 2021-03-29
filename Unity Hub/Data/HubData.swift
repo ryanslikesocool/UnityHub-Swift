@@ -22,8 +22,9 @@ struct HubData {
     var useEmoji: Bool
     var usePins: Bool
     var alwaysShowLocation: Bool
+    var showFileSizes: Bool
     var showSidebarCount: Bool
-    
+
     var starredVersion: UnityVersion
     
     var projects: [ProjectData]
@@ -45,8 +46,9 @@ struct HubData {
         self.useEmoji = true
         self.usePins = true
         self.alwaysShowLocation = false
+        self.showFileSizes = false
         self.showSidebarCount = true
-        
+
         self.starredVersion = .null
 
         self.projects = projects
@@ -77,16 +79,16 @@ struct HubData {
 extension HubData: Codable {
     init(string: String) {
         let data = string.data(using: .utf8)!
-        self.init(data: data)
+        self = .init(data: data)
     }
     
     init(data: Data) {
-        do {
-            self = try JSONDecoder().decode(HubData.self, from: data)
-        } catch {
-            print(error.localizedDescription)
-            self = .init(uuid: UUID().uuidString, projects: [])
-        }
+        self = .init(decoder: HubDataDecoder(data: data))
+        save()
+    }
+    
+    init(decoder: HubDataDecoder) {
+        self = decoder.toHubData()
     }
     
     func asData() -> Data? {

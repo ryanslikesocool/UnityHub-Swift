@@ -39,6 +39,9 @@ struct ProjectPanel: View {
         .onChange(of: settings.hub.usePins) { _ in
             updateList.toggle()
         }
+        .onChange(of: settings.hub.showFileSizes) { _ in
+            updateList.toggle()
+        }
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Button(action: toggleSearch) {

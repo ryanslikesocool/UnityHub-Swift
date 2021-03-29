@@ -9,7 +9,7 @@ import AppKit
 import Foundation
 
 struct UnityVersion {
-    let version: String
+    var version: String
     var major: Int
     var minor: Int
     var update: Int
@@ -27,6 +27,18 @@ struct UnityVersion {
     // c: china
     static let versionRegex = try! NSRegularExpression(pattern: #"^(\d+)\.(\d+)\.(\d+)([a|b|f|p|c])(\d+)"#)
     static let null = UnityVersion("0.0.0a0")
+    
+    init() {
+        self.version = "0.0.0a0"
+        self.major = 0
+        self.minor = 0
+        self.update = 0
+        self.channel = ""
+        self.iteration = 0
+        self.installing = false
+        self.lts = false
+        self.path = #"/Applications/Unity/Hub/Editor/0.0.0a0"#
+    }
 
     init(_ version: String, path: String = "") {
         self.version = version
@@ -38,7 +50,7 @@ struct UnityVersion {
         self.installing = false
         self.lts = false
         
-        self.path = path
+        self.path = path.replacingOccurrences(of: #" "#, with: #"\ "#)
 
         UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { match, _, stop in
             guard let match = match else { return }

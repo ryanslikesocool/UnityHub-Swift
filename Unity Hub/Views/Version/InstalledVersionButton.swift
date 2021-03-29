@@ -104,6 +104,9 @@ struct InstalledVersionButton: View {
     
     func rightSide() -> some View {
         HStack {
+            if settings.hub.showFileSizes {
+                Text(getVersionSize())
+            }
             ForEach(modules) { item in
                 if let icon = item.getIcon() {
                     icon
@@ -153,5 +156,15 @@ struct InstalledVersionButton: View {
             modules.removeAll { $0.id == m.id }
         }
         moduleToRemove = nil
+    }
+    
+    func getVersionSize() -> String {
+        let url = URL(fileURLWithPath: version.path)
+        do {
+            let result = try url.sizeOnDisk() ?? ""
+            return result
+        } catch {
+            return ""
+        }
     }
 }

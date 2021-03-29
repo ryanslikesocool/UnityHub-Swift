@@ -15,13 +15,22 @@ struct ProjectData {
     var version: UnityVersion
     var emoji: String
     var pinned: Bool
+    
+    init() {
+        self.path = #"~/New Unity Project"#
+        self.name = "New Unity Project"
+        self.version = .null
+        self.emoji = "❓"
+        self.pinned = false
+    }
         
     init(path: String) {
-        self.path = path
+        self.path = path.replacingOccurrences(of: #" "#, with: #"\ "#)
         self.name = path.components(separatedBy: "/").last ?? "No Name"
         self.version = UnityVersion.null
         self.emoji = "❓"
         self.pinned = false
+        
         self.version = getVersion()
     }
     

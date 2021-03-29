@@ -5,11 +5,11 @@
 //  Created by Ryan Boyer on 9/23/20.
 //
 
-import SwiftUI
-import Cocoa
 import AppKit
-import Foundation
+import Cocoa
 import Dispatch
+import Foundation
+import SwiftUI
 
 struct ProjectButton: View {
     @EnvironmentObject var settings: HubSettings
@@ -26,24 +26,21 @@ struct ProjectButton: View {
     @State private var activeSheet: ActiveSheet?
     
     private var leadingSwipeActions: [Slot] {
-        get {
-            return settings.hub.usePins ? [Slot(
-                image: { Image(systemName: .pinIcon).frame(width: .swipeActionIconSize, height: .swipeActionIconSize).embedInAnyView() },
-                title: { EmptyView().embedInAnyView() },
-                action: { togglePin() },
-                style: .init(background: .orange, slotHeight: .swipeActionButtonSize)
-            )] : []
-        }
+        return settings.hub.usePins ? [Slot(
+            image: { Image(systemName: .pinIcon).frame(width: .swipeActionIconSize, height: .swipeActionIconSize).embedInAnyView() },
+            title: { EmptyView().embedInAnyView() },
+            action: { togglePin() },
+            style: .init(background: .orange, slotHeight: .swipeActionButtonSize)
+        )] : []
     }
+
     private var trailingSwipeActions: [Slot] {
-        get {
-            return [Slot(
-                image: { Image(systemName: .trashIcon).frame(width: .swipeActionIconSize, height: .swipeActionIconSize).embedInAnyView() },
-                title: { EmptyView().embedInAnyView() },
-                action: { deleteAction(projectData) },
-                style: .init(background: .red, slotHeight: .swipeActionButtonSize)
-            )]
-        }
+        return [Slot(
+            image: { Image(systemName: .trashIcon).frame(width: .swipeActionIconSize, height: .swipeActionIconSize).embedInAnyView() },
+            title: { EmptyView().embedInAnyView() },
+            action: { deleteAction(projectData) },
+            style: .init(background: .red, slotHeight: .swipeActionButtonSize)
+        )]
     }
         
     enum ActiveSheet: Identifiable {
@@ -71,6 +68,9 @@ struct ProjectButton: View {
             titleArea()
             pinArea()
             Spacer()
+            if settings.hub.showFileSizes {
+                Text(getProjectSize())
+            }
             versionArea(versionBinding: versionBinding)
             dropDownMenu()
         }
@@ -144,12 +144,12 @@ struct ProjectButton: View {
             }
             Divider()
             Button("Select Unity Version", action: selectProjectVersion)
-            //Button("Advanced", action: openAdvancedSettings)
+            // Button("Advanced", action: openAdvancedSettings)
             Button("Remove Project", action: { deleteAction(projectData) })
         } label: {}
-        .menuStyle(BorderlessButtonMenuStyle())
-        .frame(width: 16, height: 48)
-        .padding(.trailing, 16)
+            .menuStyle(BorderlessButtonMenuStyle())
+            .frame(width: 16, height: 48)
+            .padding(.trailing, 16)
     }
     
     func sheetView(item: ActiveSheet, emoji: Binding<String>, version: Binding<UnityVersion>) -> some View {
@@ -166,8 +166,7 @@ struct ProjectButton: View {
         showWarning = false
         
         for version in settings.hub.versions {
-            if version == self.projectData.version
-            {
+            if version == projectData.version {
                 let fullUnityPath = "\(version.path)/Unity.app/Contents/MacOS/Unity"
                 let commands = "-projectPath"
                 return "\(fullUnityPath) \(commands) \(projectData.path)"
@@ -186,7 +185,7 @@ struct ProjectButton: View {
     func openProject() {
         if !showWarning {
             DispatchQueue.global(qos: .background).async {
-                let _ = shell(shellCommand!)
+                _ = shell(shellCommand!)
             }
         } else {
             selectProjectVersion()
@@ -207,5 +206,15 @@ struct ProjectButton: View {
         projectData.pinned.toggle()
         settings.save()
         updateList.toggle()
+    }
+    
+    func getProjectSize() -> String {
+        let url = URL(fileURLWithPath: projectData.path)
+        do {
+            return try url.sizeOnDisk() ?? ""
+        } catch {
+            print(error.localizedDescription)
+            return ""
+        }
     }
 }

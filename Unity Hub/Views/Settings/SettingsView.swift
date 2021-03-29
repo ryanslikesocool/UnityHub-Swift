@@ -30,14 +30,18 @@ struct SettingsView: View {
                     LocationSetting(label: "Default Project Location", symbol: "folder", prompt: "Choose the default project location", isDirectory: true, assignAction: { settings.hub.projectLocation = $0 }, location: settings.hub.projectLocation, isLast: true)
                 }
                 Divider()
+                Section(header: Text("Sidebar").font(.title)) {
+                    ToggleSetting(label: "Show Item Count", toggle: $settings.hub.showSidebarCount, isFirst: true, isLast: true)
+                }
+                Divider()
                 Section(header: Text("Project Panel").font(.title)) {
                     ToggleSetting(label: "Use Emoji", toggle: $settings.hub.useEmoji, isFirst: true)
                     ToggleSetting(label: "Use Pins", toggle: $settings.hub.usePins, isLast: true)
                 }
                 Divider()
                 Section(header: Text("All Panels").font(.title)) {
-                    ToggleSetting(label: "Always Show Location", toggle: $settings.hub.alwaysShowLocation, isFirst: true)
-                    ToggleSetting(label: "Show Sidebar Count", toggle: $settings.hub.showSidebarCount, isLast: true)
+                    ToggleSetting(label: "Show File Location", toggle: $settings.hub.alwaysShowLocation, isFirst: true)
+                    ToggleSetting(label: "Show File Size", toggle: $settings.hub.showFileSizes, isLast: true)
                 }
             }
             .padding()

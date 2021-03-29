@@ -48,6 +48,10 @@
 		AFEB99542611856D006E4E91 /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB99532611856D006E4E91 /* CGFloat+Extension.swift */; };
 		AFEB9956261188EC006E4E91 /* HubData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB9955261188EC006E4E91 /* HubData.swift */; };
 		AFEB995826118940006E4E91 /* ProjectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB995726118940006E4E91 /* ProjectData.swift */; };
+		AFEB995B2611A6A3006E4E91 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB995A2611A6A3006E4E91 /* URL+Extension.swift */; };
+		AFEB996F2611ADCF006E4E91 /* HubDataDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB996E2611ADCF006E4E91 /* HubDataDecoder.swift */; };
+		AFEB99722611B03D006E4E91 /* ProjectDataDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB99712611B03D006E4E91 /* ProjectDataDecoder.swift */; };
+		AFEB99742611B1F0006E4E91 /* UnityVersionDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB99732611B1F0006E4E91 /* UnityVersionDecoder.swift */; };
 		AFFDD8B3251B08EB000AE12C /* InstalledVersionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */; };
 		AFFE8EA325F9AE420086F887 /* LocationSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE8EA225F9AE420086F887 /* LocationSetting.swift */; };
 		AFFE8EA725F9B3830086F887 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE8EA625F9B3830086F887 /* UserDefaults+Extension.swift */; };
@@ -113,6 +117,10 @@
 		AFEB99532611856D006E4E91 /* CGFloat+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extension.swift"; sourceTree = "<group>"; };
 		AFEB9955261188EC006E4E91 /* HubData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubData.swift; sourceTree = "<group>"; };
 		AFEB995726118940006E4E91 /* ProjectData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectData.swift; sourceTree = "<group>"; };
+		AFEB995A2611A6A3006E4E91 /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
+		AFEB996E2611ADCF006E4E91 /* HubDataDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubDataDecoder.swift; sourceTree = "<group>"; };
+		AFEB99712611B03D006E4E91 /* ProjectDataDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataDecoder.swift; sourceTree = "<group>"; };
+		AFEB99732611B1F0006E4E91 /* UnityVersionDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityVersionDecoder.swift; sourceTree = "<group>"; };
 		AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledVersionButton.swift; sourceTree = "<group>"; };
 		AFFE8EA225F9AE420086F887 /* LocationSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSetting.swift; sourceTree = "<group>"; };
 		AFFE8EA625F9B3830086F887 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
@@ -212,6 +220,7 @@
 		AFC933F32527F6BB00E5ECDE /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				AFEB99702611AEA3006E4E91 /* Decoders */,
 				AF34E22A251AFE5300192E53 /* HubSettings.swift */,
 				AFEB9955261188EC006E4E91 /* HubData.swift */,
 				AF5A94CF251BF9E3002FA410 /* DownloadInfo.swift */,
@@ -247,6 +256,7 @@
 				AFCB17D125F1ECF800A8B918 /* LazyView.swift */,
 				AFFE8EA625F9B3830086F887 /* UserDefaults+Extension.swift */,
 				AFEB99532611856D006E4E91 /* CGFloat+Extension.swift */,
+				AFEB995A2611A6A3006E4E91 /* URL+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -287,6 +297,16 @@
 				AFDFD24D25F51D1100E4F9D0 /* Extensions.swift */,
 			);
 			path = SwipeCell;
+			sourceTree = "<group>";
+		};
+		AFEB99702611AEA3006E4E91 /* Decoders */ = {
+			isa = PBXGroup;
+			children = (
+				AFEB996E2611ADCF006E4E91 /* HubDataDecoder.swift */,
+				AFEB99712611B03D006E4E91 /* ProjectDataDecoder.swift */,
+				AFEB99732611B1F0006E4E91 /* UnityVersionDecoder.swift */,
+			);
+			path = Decoders;
 			sourceTree = "<group>";
 		};
 		AFFE8EAC25F9C1210086F887 /* Sidebar */ = {
@@ -401,9 +421,13 @@
 				AFAEFA1925F1CCC50010B492 /* InstalledModuleButton.swift in Sources */,
 				AFBB9A4B252609040004F78B /* UnityButtonStyle.swift in Sources */,
 				AFFDD8B3251B08EB000AE12C /* InstalledVersionButton.swift in Sources */,
+				AFEB996F2611ADCF006E4E91 /* HubDataDecoder.swift in Sources */,
 				AF16FF27251B8EA500C8A2A9 /* UnityVersion.swift in Sources */,
 				AFEB99542611856D006E4E91 /* CGFloat+Extension.swift in Sources */,
+				AFEB995B2611A6A3006E4E91 /* URL+Extension.swift in Sources */,
 				AFCB17D225F1ECF800A8B918 /* LazyView.swift in Sources */,
+				AFEB99742611B1F0006E4E91 /* UnityVersionDecoder.swift in Sources */,
+				AFEB99722611B03D006E4E91 /* ProjectDataDecoder.swift in Sources */,
 				AF59FEA5251EBB4A0093D284 /* EmojiPickerSheet.swift in Sources */,
 				AF34E22B251AFE5300192E53 /* HubSettings.swift in Sources */,
 				AF146CB325622BA30032343F /* ModuleSheet.swift in Sources */,
