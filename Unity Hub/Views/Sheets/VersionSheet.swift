@@ -12,21 +12,20 @@ struct VersionSheet: View {
     @Binding var availableVersions: [UnityVersion]
 
     var body: some View {
-        Form {
+        VStack {
             Picker("", selection: $selectedVersion) {
                 ForEach(availableVersions, id: \.self) { version in
                     HStack {
                         Text(version.version)
-                        if version.isAlpha() || version.isBeta() {
-                            PrereleaseTag(version: version)
-                        }
+                        PrereleaseTag(version: version, small: true)
+                        Spacer()
                     }
                     .tag(version)
                     .frame(height: 24)
                 }
             }
-            .labelsHidden()
             .pickerStyle(RadioGroupPickerStyle())
+            Spacer()
         }
         .frame(width: 256, height: 256)
         .tabItem { Text("Version") }

@@ -31,7 +31,6 @@ struct SelectProjectVersionSheet: View {
                 HStack {
                     Button("Cancel", action: { presentationMode.wrappedValue.dismiss() })
                         .padding(8)
-                        .buttonStyle(UnityButtonStyle())
                     Spacer()
                 }
                 .background(VisualEffectView(material: .headerView))

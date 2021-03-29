@@ -37,10 +37,8 @@
 		AFB1C3A9251B459600F8E3D8 /* ProjectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3A8251B459600F8E3D8 /* ProjectButton.swift */; };
 		AFB1C3AD251B492900F8E3D8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3AC251B492900F8E3D8 /* String+Extension.swift */; };
 		AFB1C3B0251B633C00F8E3D8 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3AF251B633C00F8E3D8 /* Shell.swift */; };
-		AFBB9A4B252609040004F78B /* UnityButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB9A4A252609040004F78B /* UnityButtonStyle.swift */; };
 		AFBB9A4F25260B000004F78B /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB9A4E25260B000004F78B /* Color+Extension.swift */; };
 		AFC23C5825257E0700F5FE4B /* PrereleaseTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */; };
-		AFCB17D225F1ECF800A8B918 /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCB17D125F1ECF800A8B918 /* LazyView.swift */; };
 		AFDFD24E25F51D1200E4F9D0 /* SlidableModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDFD24925F51D1100E4F9D0 /* SlidableModifier.swift */; };
 		AFDFD24F25F51D1200E4F9D0 /* Slot.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDFD24A25F51D1100E4F9D0 /* Slot.swift */; };
 		AFDFD25125F51D1200E4F9D0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDFD24D25F51D1100E4F9D0 /* Extensions.swift */; };
@@ -106,10 +104,8 @@
 		AFB1C3A8251B459600F8E3D8 /* ProjectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectButton.swift; sourceTree = "<group>"; };
 		AFB1C3AC251B492900F8E3D8 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		AFB1C3AF251B633C00F8E3D8 /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
-		AFBB9A4A252609040004F78B /* UnityButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityButtonStyle.swift; sourceTree = "<group>"; };
 		AFBB9A4E25260B000004F78B /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrereleaseTag.swift; sourceTree = "<group>"; };
-		AFCB17D125F1ECF800A8B918 /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
 		AFDFD24925F51D1100E4F9D0 /* SlidableModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlidableModifier.swift; sourceTree = "<group>"; };
 		AFDFD24A25F51D1100E4F9D0 /* Slot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slot.swift; sourceTree = "<group>"; };
 		AFDFD24D25F51D1100E4F9D0 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -212,7 +208,6 @@
 				AFFE8EAC25F9C1210086F887 /* Sidebar */,
 				AF9F946125F14C7100539C3A /* Settings */,
 				AFC933F42527F6C500E5ECDE /* Sheets */,
-				AFC933FB2527F82300E5ECDE /* Styles */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -253,20 +248,11 @@
 				AFA0862B251B1CFB00B1B985 /* NSOpenPanel+Extension.swift */,
 				AFB1C3AF251B633C00F8E3D8 /* Shell.swift */,
 				AFB1C3AC251B492900F8E3D8 /* String+Extension.swift */,
-				AFCB17D125F1ECF800A8B918 /* LazyView.swift */,
 				AFFE8EA625F9B3830086F887 /* UserDefaults+Extension.swift */,
 				AFEB99532611856D006E4E91 /* CGFloat+Extension.swift */,
 				AFEB995A2611A6A3006E4E91 /* URL+Extension.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		AFC933FB2527F82300E5ECDE /* Styles */ = {
-			isa = PBXGroup;
-			children = (
-				AFBB9A4A252609040004F78B /* UnityButtonStyle.swift */,
-			);
-			path = Styles;
 			sourceTree = "<group>";
 		};
 		AFD0D1CB25F50CB300373759 /* Version */ = {
@@ -419,13 +405,11 @@
 				AFB1C3B0251B633C00F8E3D8 /* Shell.swift in Sources */,
 				AF16FF24251B8CAD00C8A2A9 /* InstallSheet.swift in Sources */,
 				AFAEFA1925F1CCC50010B492 /* InstalledModuleButton.swift in Sources */,
-				AFBB9A4B252609040004F78B /* UnityButtonStyle.swift in Sources */,
 				AFFDD8B3251B08EB000AE12C /* InstalledVersionButton.swift in Sources */,
 				AFEB996F2611ADCF006E4E91 /* HubDataDecoder.swift in Sources */,
 				AF16FF27251B8EA500C8A2A9 /* UnityVersion.swift in Sources */,
 				AFEB99542611856D006E4E91 /* CGFloat+Extension.swift in Sources */,
 				AFEB995B2611A6A3006E4E91 /* URL+Extension.swift in Sources */,
-				AFCB17D225F1ECF800A8B918 /* LazyView.swift in Sources */,
 				AFEB99742611B1F0006E4E91 /* UnityVersionDecoder.swift in Sources */,
 				AFEB99722611B03D006E4E91 /* ProjectDataDecoder.swift in Sources */,
 				AF59FEA5251EBB4A0093D284 /* EmojiPickerSheet.swift in Sources */,

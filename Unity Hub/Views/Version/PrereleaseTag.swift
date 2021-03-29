@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PrereleaseTag: View {
     var version: UnityVersion
+    var small: Bool = false
     
     var body: some View {
         let isAlpha: Bool = version.isAlpha()
@@ -16,13 +17,22 @@ struct PrereleaseTag: View {
         let labelText: String = isLts ? "LTS" : isAlpha ? "Alpha" : "Beta"
         let borderColor: Color = Color(isLts ? NSColor.systemGreen : isAlpha ? NSColor.systemRed : NSColor.systemYellow)
         
-        return RoundedRectangle(cornerRadius: 6, style: .circular)
-            .stroke(borderColor, lineWidth: 2)
-            .foregroundColor(Color.systemGray4)
-            .frame(width: 48, height: 24)
-            .overlay(
-                Text(labelText)
-            )
+        if small {
+            return RoundedRectangle(cornerRadius: 4, style: .circular)
+                .stroke(borderColor, lineWidth: 2)
+                .frame(width: 40, height: 16)
+                .overlay(
+                    Text(labelText)
+                        .font(.caption)
+                )
+        } else {
+            return RoundedRectangle(cornerRadius: 6, style: .circular)
+                .stroke(borderColor, lineWidth: 2)
+                .frame(width: 48, height: 24)
+                .overlay(
+                    Text(labelText)
+                )
+        }
     }
 }
 

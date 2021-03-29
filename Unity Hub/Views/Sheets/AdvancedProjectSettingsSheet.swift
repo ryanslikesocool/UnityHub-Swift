@@ -21,7 +21,6 @@ struct AdvancedProjectSettingsSheet: View {
                     .padding(8)
             }
         }
-        .buttonStyle(UnityButtonStyle())
         .frame(width: 256, height: 256)
     }
     

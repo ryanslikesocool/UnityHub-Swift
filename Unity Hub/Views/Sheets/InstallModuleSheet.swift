@@ -20,7 +20,6 @@ struct InstallModuleSheet: View {
         VStack(alignment: .leading) {
             HStack {
                 Button("Cancel", action: closeMenu)
-                    .buttonStyle(UnityButtonStyle())
                     .padding(8)
                 Spacer()
             }
@@ -30,7 +29,6 @@ struct InstallModuleSheet: View {
                 Spacer()
                 Button("Install", action: installSelectedItems)
                     .disabled(selectedVersion == UnityVersion.null)
-                    .buttonStyle(UnityButtonStyle())
                     .padding(8)
             }
         }

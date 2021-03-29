@@ -36,7 +36,7 @@ struct InstalledVersionPanel: View {
             }
             ToolbarItem(placement: .automatic) {
                 Button(action: installVersion) {
-                    Image(systemName: "doc.badge.plus")
+                    Image(systemName: "plus")
                 }
             }
         }
