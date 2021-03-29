@@ -20,6 +20,7 @@ struct InstalledVersionButton: View {
     
     @State private var showRemovalSheet: Bool = false
     @State private var moduleToRemove: UnityModule? = nil
+    @State private var fileSize: String = ""
     
     private var leadingSwipeActions: [Slot] {
         get { return displayFoldout ? [] : [Slot(
@@ -57,7 +58,10 @@ struct InstalledVersionButton: View {
         }
         .padding(.vertical, 12)
         .buttonStyle(PlainButtonStyle())
-        .onAppear { modules = version.getInstalledModules() }
+        .onAppear {
+            modules = version.getInstalledModules()
+            getVersionSize()
+        }
         .sheet(isPresented: $showInstallSheet) { InstallModuleSheet(selectedVersion: version) }
         .alert(isPresented: $showRemovalSheet) { alertPanel() }
         .onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
@@ -105,7 +109,7 @@ struct InstalledVersionButton: View {
     func rightSide() -> some View {
         HStack {
             if settings.hub.showFileSizes {
-                Text(getVersionSize())
+                Text(fileSize)
             }
             ForEach(modules) { item in
                 if let icon = item.getIcon() {
@@ -158,13 +162,19 @@ struct InstalledVersionButton: View {
         moduleToRemove = nil
     }
     
-    func getVersionSize() -> String {
-        let url = URL(fileURLWithPath: version.path)
-        do {
-            let result = try url.sizeOnDisk() ?? ""
-            return result
-        } catch {
-            return ""
+    func getVersionSize()  {
+        DispatchQueue.global(qos: .background).async {
+            let url = URL(fileURLWithPath: version.path)
+            var size = ""
+            do {
+                size = try url.sizeOnDisk() ?? ""
+            } catch {
+                print(error.localizedDescription)
+            }
+            
+            DispatchQueue.main.async {
+                fileSize = size
+            }
         }
     }
 }

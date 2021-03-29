@@ -14,6 +14,8 @@ struct InstalledModuleButton: View {
     let module: UnityModule
     let deleteAction: (UnityModule) -> Void
 
+    @State private var fileSize: String = ""
+
     private var trailingSwipeActions: [Slot] { return [Slot(
         image: { Image(systemName: "trash.fill").frame(width: 16, height: 16).embedInAnyView() },
         title: { EmptyView().embedInAnyView() },
@@ -33,7 +35,7 @@ struct InstalledModuleButton: View {
             }
             Spacer()
             if settings.hub.showFileSizes {
-                Text(getModuleSize())
+                Text(fileSize)
             }
 
             Menu {
@@ -48,17 +50,26 @@ struct InstalledModuleButton: View {
         .padding(.horizontal, 32)
         .contentShape(Rectangle())
         .onSwipe(trailing: trailingSwipeActions)
+        .onAppear {
+            getModuleSize()
+        }
     }
 
-    func getModuleSize() -> String {
+    func getModuleSize() {
         if let path = module.getInstallPath() {
-            let url = URL(fileURLWithPath: "\(version.path)\(path)")
-            do {
-                return try url.sizeOnDisk() ?? ""
-            } catch {
-                return ""
+            DispatchQueue.global(qos: .background).async {
+                let url = URL(fileURLWithPath: "\(version.path)\(path)")
+                var size = ""
+                do {
+                    size = try url.sizeOnDisk() ?? ""
+                } catch {
+                    print(error.localizedDescription)
+                }
+
+                DispatchQueue.main.async {
+                    fileSize = size
+                }
             }
         }
-        return ""
     }
 }

@@ -25,6 +25,8 @@ struct ProjectButton: View {
     @State private var showSheet: Bool = false
     @State private var activeSheet: ActiveSheet?
     
+    @State private var fileSize: String = ""
+    
     private var leadingSwipeActions: [Slot] {
         return settings.hub.usePins ? [Slot(
             image: { Image(systemName: .pinIcon).frame(width: .swipeActionIconSize, height: .swipeActionIconSize).embedInAnyView() },
@@ -69,7 +71,7 @@ struct ProjectButton: View {
             pinArea()
             Spacer()
             if settings.hub.showFileSizes {
-                Text(getProjectSize())
+                Text(fileSize)
             }
             versionArea(versionBinding: versionBinding)
             dropDownMenu()
@@ -77,7 +79,10 @@ struct ProjectButton: View {
         .contentShape(Rectangle())
         .frame(minWidth: 64, maxWidth: .infinity)
         .frame(height: .listItemHeight)
-        .onAppear { shellCommand = getShellCommand() }
+        .onAppear {
+            shellCommand = getShellCommand()
+            getProjectSize()
+        }
         .sheet(item: $activeSheet) { sheetView(item: $0, emoji: emojiBinding, version: versionBinding) }
         .onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
     }
@@ -208,13 +213,19 @@ struct ProjectButton: View {
         updateList.toggle()
     }
     
-    func getProjectSize() -> String {
-        let url = URL(fileURLWithPath: projectData.path)
-        do {
-            return try url.sizeOnDisk() ?? ""
-        } catch {
-            print(error.localizedDescription)
-            return ""
+    func getProjectSize() {
+        DispatchQueue.global(qos: .background).async {
+            let url = URL(fileURLWithPath: projectData.path)
+            var size = ""
+            do {
+                size = try url.sizeOnDisk() ?? ""
+            } catch {
+                print(error.localizedDescription)
+            }
+            
+            DispatchQueue.main.async {
+                fileSize = size
+            }
         }
     }
 }
