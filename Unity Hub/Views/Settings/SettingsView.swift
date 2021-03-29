@@ -18,9 +18,10 @@ struct SettingsView: View {
                         .font(.system(.body, design: .monospaced))
                         .bold()
                     HStack {
-                        Text("Made with ❤️ by ")
+                        Text("Made with ❤️ by")
                         Link("Ryan Boyer", destination: URL(string: "http://ryanjboyer.com")!)
                     }
+                    .padding(.top, -6)
                     .padding(.bottom, 8)
                 }
                 Divider()

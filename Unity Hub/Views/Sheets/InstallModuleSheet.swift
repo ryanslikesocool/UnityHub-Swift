@@ -60,15 +60,25 @@ struct InstallModuleSheet: View {
             }
         }
         
+        command.append(" --cm")
+        
         selectedVersion.installing = true
 
         DispatchQueue.global(qos: .background).async {
             let string = shell(command)
             
-            print(string)
-            
-            if string.contains("successfully downloaded") {
-                selectedVersion.installing = false
+            DispatchQueue.main.async {
+                if string.contains("successfully downloaded") {
+                    let index = settings.hub.versions.firstIndex(where: { $0.version == selectedVersion.version })!
+                    if string.contains("successfully downloaded") {
+                        var versionSet = settings.hub.versions[index]
+                        versionSet.installing = false
+                        settings.hub.versions[index] = versionSet
+                    } else {
+                        settings.hub.versions.remove(at: index)
+                    }
+                    settings.save()
+                }
             }
         }
                 

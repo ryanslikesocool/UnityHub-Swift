@@ -28,7 +28,7 @@ enum UnityModule {
     case lumin
 }
 
-extension UnityModule: RawRepresentable {    
+extension UnityModule: RawRepresentable {
     init?(rawValue: String) {
         switch rawValue {
         case "mac-mono": self = .macOSMono
@@ -127,18 +127,23 @@ extension UnityModule: RawRepresentable {
         case .windowsMono: return "/PlaybackEngines/WindowsStandaloneSupport"
         case .lumin: return "/PlaybackEngines/LuminSupport"
         default:
-            if (self.rawValue.hasPrefix("language-")) {
-                return "/Unity.app/Contents/Localization";
+            if self.rawValue.hasPrefix("language-") {
+                return "/Unity.app/Contents/Localization"
             }
             return ""
+        }
+    }
+    
+    func hasChildModules() -> Bool {
+        switch self {
+        case .android: return true
+        default: return false
         }
     }
     
     static func getAvailableModules() -> [UnityModule] {
         return [
             .android,
-            .androidOpenJDK,
-            .androidSDKNDKTools,
             .iOS,
             .tvOS,
             .linuxMono,

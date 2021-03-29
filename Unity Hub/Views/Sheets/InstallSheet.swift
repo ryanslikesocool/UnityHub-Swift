@@ -78,7 +78,7 @@ struct InstallSheet: View {
     }
     
     func installSelectedItems() {
-        var command = "\(settings.hubCommandBase) i --version \(selectedVersion.version)"
+        var command = "\(settings.hubCommandBase) im --version \(selectedVersion.version)"
         
         for i in 0 ..< availableModules.count {
             if selectedModules[i] {
@@ -86,18 +86,23 @@ struct InstallSheet: View {
             }
         }
         
+        command.append(" --cm")
+        
         let version = selectedVersion.version
         
         DispatchQueue.global(qos: .background).async {
             let string = shell(command)
             
-            let index = settings.hub.versions.firstIndex(where: { $0.version == version })!
-            if string.contains("successfully downloaded") {
-                var versionSet = settings.hub.versions[index]
-                versionSet.installing = false
-                settings.hub.versions[index] = versionSet
-            } else {
-                settings.hub.versions.remove(at: index)
+            DispatchQueue.main.async {
+                let index = settings.hub.versions.firstIndex(where: { $0.version == version })!
+                if string.contains("successfully downloaded") {
+                    var versionSet = settings.hub.versions[index]
+                    versionSet.installing = false
+                    settings.hub.versions[index] = versionSet
+                } else {
+                    settings.hub.versions.remove(at: index)
+                }
+                settings.save()
             }
         }
         

@@ -19,7 +19,7 @@ struct ProjectButton: View {
         
     var deleteAction: (ProjectData) -> Void
     
-    @State private var shellCommand: String? = nil
+    @State private var showVersionWarning: Bool = false
     @State private var showWarning: Bool = false
 
     @State private var showSheet: Bool = false
@@ -47,7 +47,6 @@ struct ProjectButton: View {
         
     enum ActiveSheet: Identifiable {
         case emoji
-        case selectVersion
         case advancedSettings
         
         var id: Int {
@@ -78,18 +77,34 @@ struct ProjectButton: View {
                 LoadingText(text: $fileSize)
                     .padding(.trailing, 8)
             }
-            versionArea(versionBinding: versionBinding)
+            if showWarning {
+                Image(systemName: .warningIcon)
+                    .help("The Editor version associated with this project is not currently available on this machine.  Go to Installs to download a matching version")
+            }
+            Menu {
+                ForEach(settings.hub.versions) { version in
+                    Button("Unity \(version.version)") {
+                        projectData.version = version
+                    }
+                }
+            } label: { Text("Unity \(versionBinding.wrappedValue.version)") }
+                .frame(width: 128)
             dropDownMenu()
         }
         .contentShape(Rectangle())
         .frame(minWidth: 64, maxWidth: .infinity)
         .frame(height: .listItemHeight)
         .onAppear {
-            shellCommand = getShellCommand()
             getProjectSize()
+            if !settings.hub.versions.contains(where: { $0.version == projectData.version.version }) {
+                showWarning = true
+            }
         }
         .sheet(item: $activeSheet) { sheetView(item: $0, emoji: emojiBinding, version: versionBinding) }
         .onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
+        .alert(isPresented: $showVersionWarning) {
+            Alert(title: Text("Missing Unity Version"), message: Text("The Unity version last used to open this project (\(projectData.version.version)) is missing.  Please reinstall it or redownload the version."), dismissButton: .default(Text("Ok")))
+        }
     }
     
     func emojiArea(emojiBinding: Binding<String>) -> some View {
@@ -121,30 +136,23 @@ struct ProjectButton: View {
         }
     }
     
-    func versionArea(versionBinding: Binding<UnityVersion>) -> some View {
-        Group {
-            if showWarning {
-                Image(systemName: .warningIcon)
-                    .help("The Editor version associated with this project is not currently available on this machine.  Go to Installs to download a matching version")
-            }
-            Text("Unity \(versionBinding.wrappedValue.version)")
-                .opacity(0.75)
-        }
-    }
-    
     func dropDownMenu() -> some View {
         Menu {
             Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: projectData.path) })
-            Divider()
             if settings.hub.useEmoji {
+                Divider()
                 Button("Select Emoji", action: selectEmoji)
+                if !settings.hub.usePins {
+                    Divider()
+                }
             }
             if settings.hub.usePins {
+                if !settings.hub.useEmoji {
+                    Divider()
+                }
                 Button("Toggle Pin", action: togglePin)
+                Divider()
             }
-            Divider()
-            Button("Select Unity Version", action: selectProjectVersion)
-            // Button("Advanced", action: openAdvancedSettings)
             Button("Remove Project", action: { deleteAction(projectData) })
         } label: {}
             .menuStyle(BorderlessButtonMenuStyle())
@@ -156,7 +164,6 @@ struct ProjectButton: View {
         Group {
             switch item {
             case .emoji: EmojiPickerSheet(action: { emoji.wrappedValue = $0 })
-            case .selectVersion: SelectProjectVersionSheet(version: version, action: { shellCommand = getShellCommand() })
             case .advancedSettings: AdvancedProjectSettingsSheet()
             }
         }
@@ -164,16 +171,14 @@ struct ProjectButton: View {
     
     func getShellCommand() -> String? {
         showWarning = false
+        showVersionWarning = false
         
-        for version in settings.hub.versions {
-            if version == projectData.version {
-                let fullUnityPath = "\(version.path)/Unity.app/Contents/MacOS/Unity"
-                let commands = "-projectPath"
-                return "\(fullUnityPath) \(commands) \(projectData.path)"
-            }
+        if settings.hub.versions.contains(projectData.version) {
+            return "\(projectData.version.path)/Unity.app/Contents/MacOS/Unity -projectPath \(projectData.path)"
         }
         
         showWarning = true
+        showVersionWarning = true
         return nil
     }
     
@@ -183,20 +188,15 @@ struct ProjectButton: View {
     }
     
     func openProject() {
-        if !showWarning {
+        if let shellCommand = getShellCommand(), !showWarning {
             DispatchQueue.global(qos: .background).async {
-                _ = shell(shellCommand!)
+                _ = shell(shellCommand)
             }
         } else {
-            selectProjectVersion()
+            showVersionWarning = true
         }
     }
-    
-    func selectProjectVersion() {
-        activeSheet = .selectVersion
-        showSheet.toggle()
-    }
-    
+        
     func openAdvancedSettings() {
         activeSheet = .advancedSettings
         showSheet.toggle()
