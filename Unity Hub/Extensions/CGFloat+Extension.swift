@@ -8,7 +8,9 @@
 import Foundation
 
 extension CGFloat {
-    static var swipeActionIconSize: CGFloat { return 24 }
+    static var swipeActionLargeIconSize: CGFloat { return 32 }
+    static var swipeActionSmallIconSize: CGFloat { return 16 }
+
     static var swipeActionButtonSize: CGFloat { return 64 }
 
     static var listItemHeight: CGFloat { return 64 }

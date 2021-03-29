@@ -24,16 +24,16 @@ struct InstalledVersionButton: View {
     
     private var leadingSwipeActions: [Slot] {
         get { return displayFoldout ? [] : [Slot(
-            image: { Image(systemName: "star.fill").frame(width: .swipeActionIconSize, height: .swipeActionIconSize).embedInAnyView() },
+            image: { Image(systemName: "star.fill").frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
                 title: { EmptyView().embedInAnyView() },
-                action: {},
+                action: { settings.hub.setDefaultVersion(version) },
                 style: .init(background: .yellow, slotHeight: 64)
             )]
         }
     }
     private var trailingSwipeActions: [Slot] {
         get { return displayFoldout ? [] : [Slot(
-                image: { Image(systemName: .trashIcon).frame(width: .swipeActionIconSize, height: .swipeActionIconSize).embedInAnyView() },
+                image: { Image(systemName: .trashIcon).frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
                 title: { EmptyView().embedInAnyView() },
                 action: { deleteAction(version) },
                 style: .init(background: .red, slotHeight: 64)
@@ -83,6 +83,11 @@ struct InstalledVersionButton: View {
             
             if version.isPrerelease() || version.lts {
                 PrereleaseTag(version: version)
+                    .padding(.horizontal, 4)
+            }
+            if settings.hub.isStarred(version) {
+                Image(systemName: "star.fill")
+                    .font(.system(size: 10, weight: .semibold))
                     .padding(.horizontal, 4)
             }
             Spacer()

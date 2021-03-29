@@ -17,7 +17,7 @@ struct InstalledModuleButton: View {
     @State private var fileSize: String = ""
 
     private var trailingSwipeActions: [Slot] { return [Slot(
-        image: { Image(systemName: "trash.fill").frame(width: 16, height: 16).embedInAnyView() },
+        image: { Image(systemName: .trashIcon).frame(width: .swipeActionSmallIconSize, height: .swipeActionSmallIconSize).embedInAnyView() },
         title: { EmptyView().embedInAnyView() },
         action: { deleteAction(module) },
         style: .init(background: .red, slotHeight: 20)

@@ -29,7 +29,7 @@ struct ProjectButton: View {
     
     private var leadingSwipeActions: [Slot] {
         return settings.hub.usePins ? [Slot(
-            image: { Image(systemName: .pinIcon).frame(width: .swipeActionIconSize, height: .swipeActionIconSize).embedInAnyView() },
+            image: { Image(systemName: .pinIcon).frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
             title: { EmptyView().embedInAnyView() },
             action: { togglePin() },
             style: .init(background: .orange, slotHeight: .swipeActionButtonSize)
@@ -38,7 +38,7 @@ struct ProjectButton: View {
 
     private var trailingSwipeActions: [Slot] {
         return [Slot(
-            image: { Image(systemName: .trashIcon).frame(width: .swipeActionIconSize, height: .swipeActionIconSize).embedInAnyView() },
+            image: { Image(systemName: .trashIcon).frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
             title: { EmptyView().embedInAnyView() },
             action: { deleteAction(projectData) },
             style: .init(background: .red, slotHeight: .swipeActionButtonSize)
@@ -68,7 +68,11 @@ struct ProjectButton: View {
         return HStack {
             emojiArea(emojiBinding: emojiBinding)
             titleArea()
-            pinArea()
+            if settings.hub.usePins && projectData.pinned {
+                Image(systemName: .pinIcon)
+                    .font(.system(size: 10, weight: .semibold))
+                    .rotationEffect(Angle(degrees: 45))
+            }
             Spacer()
             if settings.hub.showFileSizes {
                 LoadingText(text: $fileSize)
@@ -113,16 +117,6 @@ struct ProjectButton: View {
                 Text(projectData.path)
                     .font(.system(size: 11, weight: .regular))
                     .opacity(0.5)
-            }
-        }
-    }
-    
-    func pinArea() -> some View {
-        Group {
-            if settings.hub.usePins && projectData.pinned {
-                Image(systemName: .pinIcon)
-                    .font(.system(size: 10, weight: .semibold))
-                    .rotationEffect(Angle(degrees: 45))
             }
         }
     }

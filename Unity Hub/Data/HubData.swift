@@ -170,6 +170,19 @@ extension HubData {
             }
         }
     }
+    
+    mutating func setDefaultVersion(_ version: UnityVersion) {
+        if version == starredVersion {
+            starredVersion = .null
+        } else {
+            starredVersion = version
+        }
+        save()
+    }
+    
+    func isStarred(_ version: UnityVersion) -> Bool {
+        return version == starredVersion
+    }
 }
 
 // MARK: - Projects
