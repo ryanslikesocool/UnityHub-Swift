@@ -17,12 +17,12 @@ struct InstalledVersionPanel: View {
     @State private var installToRemove: UnityVersion? = nil
 
     var body: some View {
-        List(settings.versionsInstalled) { version in
+        List(settings.hub.versions) { version in
             VStack {
                 InstalledVersionButton(version: version, deleteAction: prepareForDeletion)
                 
-                if version != settings.versionsInstalled.last ?? UnityVersion.null {
-                    ListDividerView()
+                if version != settings.hub.versions.last ?? UnityVersion.null {
+                    Divider()
                 }
             }
         }
@@ -31,12 +31,12 @@ struct InstalledVersionPanel: View {
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Button(action: locateVersion) {
-                    Image(systemName: "folder")
+                    Image(systemName: "folder.badge.plus")
                 }
             }
             ToolbarItem(placement: .automatic) {
                 Button(action: installVersion) {
-                    Image(systemName: "plus")
+                    Image(systemName: "doc.badge.plus")
                 }
             }
         }
@@ -52,14 +52,14 @@ struct InstalledVersionPanel: View {
     }
     
     func getAllVersions() {
-        settings.getAllVersions()
+        settings.hub.getAllVersions()
     }
     
     func locateVersion() {
         NSOpenPanel.openFolder { result in
             if case let .success(path) = result {
-                if !HubSettings.customInstallPaths.contains(path) {
-                    HubSettings.customInstallPaths.append(path)
+                if !settings.hub.customInstallLocations.contains(path) {
+                    settings.hub.customInstallLocations.append(path)
                 }
                 
                 getAllVersions()
@@ -81,7 +81,7 @@ struct InstalledVersionPanel: View {
             DispatchQueue.global(qos: .background).async {
                 let _ = shell("rm -rf \(version.path)")
             }
-            settings.versionsInstalled.removeAll(where: { $0.version == version.version })
+            settings.hub.versions.removeAll(where: { $0.version == version.version })
         }
         installToRemove = nil
     }

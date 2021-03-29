@@ -23,7 +23,7 @@ struct SidebarItemView: View {
                 Text(item.asText())
                     .font(.system(size: 12, weight: .semibold))
                 Spacer()
-                if settings.showSidebarCount {
+                if settings.hub.showSidebarCount {
                     Text(item.asSubtitleText(settings: settings))
                         .font(.system(size: 12, weight: .regular))
                         .opacity(0.75)

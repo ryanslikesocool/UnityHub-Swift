@@ -18,7 +18,7 @@ struct SelectProjectVersionSheet: View {
         ZStack {
             ScrollView {
                 VStack(spacing: 4) {
-                    ForEach(settings.versionsInstalled) { version in
+                    ForEach(settings.hub.versions) { version in
                         //REPLACE THIS WITH A DEDICATED ITEM
                         //InstalledVersionButton(version: version, hideRightSide: true, action: { selectVersion(version: version) }, deleteAction: {})
                     }

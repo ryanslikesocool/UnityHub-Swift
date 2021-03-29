@@ -23,7 +23,7 @@ struct InstalledVersionButton: View {
     
     private var leadingSwipeActions: [Slot] {
         get { return displayFoldout ? [] : [Slot(
-                image: { Image(systemName: "star.fill").frame(width: 24, height: 24).embedInAnyView() },
+            image: { Image(systemName: "star.fill").frame(width: .swipeActionIconSize, height: .swipeActionIconSize).embedInAnyView() },
                 title: { EmptyView().embedInAnyView() },
                 action: {},
                 style: .init(background: .yellow, slotHeight: 64)
@@ -32,7 +32,7 @@ struct InstalledVersionButton: View {
     }
     private var trailingSwipeActions: [Slot] {
         get { return displayFoldout ? [] : [Slot(
-                image: { Image(systemName: "trash.fill").frame(width: 24, height: 24).embedInAnyView() },
+                image: { Image(systemName: .trashIcon).frame(width: .swipeActionIconSize, height: .swipeActionIconSize).embedInAnyView() },
                 title: { EmptyView().embedInAnyView() },
                 action: { deleteAction(version) },
                 style: .init(background: .red, slotHeight: 64)
@@ -88,7 +88,7 @@ struct InstalledVersionButton: View {
     
     func versionAndLocation() -> some View {
         VStack(alignment: .leading) {
-            if !settings.alwaysShowLocation {
+            if !settings.hub.alwaysShowLocation {
                 Text(version.version)
                     .font(.system(size: 12, weight: .semibold))
                     .help(version.path)

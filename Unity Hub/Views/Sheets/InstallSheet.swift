@@ -60,7 +60,7 @@ struct InstallSheet: View {
         
         for result in results {
             let version = result.components(separatedBy: " ").first;
-            if version != nil && version != "" && !settings.versionsInstalled.contains(where: { $0.version == version }) {
+            if version != nil && version != "" && !settings.hub.versions.contains(where: { $0.version == version }) {
                 versions.append(UnityVersion(version!))
             }
         }
@@ -86,20 +86,20 @@ struct InstallSheet: View {
         DispatchQueue.global(qos: .background).async {
             let string = shell(command)
             
-            let index = settings.versionsInstalled.firstIndex(where: { $0.version == version })!
+            let index = settings.hub.versions.firstIndex(where: { $0.version == version })!
             if string.contains("successfully downloaded") {
-                var versionSet = settings.versionsInstalled[index]
+                var versionSet = settings.hub.versions[index]
                 versionSet.installing = false
-                settings.versionsInstalled[index] = versionSet
+                settings.hub.versions[index] = versionSet
             } else {
-                settings.versionsInstalled.remove(at: index)
+                settings.hub.versions.remove(at: index)
             }
         }
         
         selectedVersion.installing = true
         selectedVersion.path = "/Applications/Unity/Hub/Editor/\(selectedVersion.version)"
         
-        settings.versionsInstalled.append(selectedVersion)
+        settings.hub.versions.append(selectedVersion)
         
         closeMenu()
     }

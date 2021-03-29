@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LocationSetting: View {
+    @EnvironmentObject var settings: HubSettings
+
     let label: String
     let symbol: String
     
@@ -64,6 +66,7 @@ struct LocationSetting: View {
             if (result != nil) {
                 let path: String = result!.path.replacingOccurrences(of: #" "#, with: #"\ "#)
                 assignAction(path)
+                settings.save()
             }
         } else {
             return

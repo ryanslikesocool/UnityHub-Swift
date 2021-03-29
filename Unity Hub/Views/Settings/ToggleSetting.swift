@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ToggleSetting: View {
+    @EnvironmentObject var settings: HubSettings
+
     let label: String
     
     @Binding var toggle: Bool
@@ -31,5 +33,8 @@ struct ToggleSetting: View {
         }
         .padding(.top, isFirst ? -4 : 0)
         .padding(.bottom, isLast ? 8 : 0)
+        .onChange(of: toggle) { _ in
+            settings.save()
+        }
     }
 }

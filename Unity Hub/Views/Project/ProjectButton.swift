@@ -14,10 +14,10 @@ import Dispatch
 struct ProjectButton: View {
     @EnvironmentObject var settings: HubSettings
 
-    @State var metadata: ProjectMetadata
+    @Binding var projectData: ProjectData
     @Binding var updateList: Bool
         
-    var deleteAction: (ProjectMetadata) -> Void
+    var deleteAction: (ProjectData) -> Void
     
     @State private var shellCommand: String? = nil
     @State private var showWarning: Bool = false
@@ -27,21 +27,21 @@ struct ProjectButton: View {
     
     private var leadingSwipeActions: [Slot] {
         get {
-            return settings.usePins ? [Slot(
-                image: { Image(systemName: "pin.fill").frame(width: 24, height: 24).embedInAnyView() },
+            return settings.hub.usePins ? [Slot(
+                image: { Image(systemName: .pinIcon).frame(width: .swipeActionIconSize, height: .swipeActionIconSize).embedInAnyView() },
                 title: { EmptyView().embedInAnyView() },
                 action: { togglePin() },
-                style: .init(background: .orange, slotHeight: 64)
+                style: .init(background: .orange, slotHeight: .swipeActionButtonSize)
             )] : []
         }
     }
     private var trailingSwipeActions: [Slot] {
         get {
             return [Slot(
-                image: { Image(systemName: "trash.fill").frame(width: 24, height: 24).embedInAnyView() },
+                image: { Image(systemName: .trashIcon).frame(width: .swipeActionIconSize, height: .swipeActionIconSize).embedInAnyView() },
                 title: { EmptyView().embedInAnyView() },
-                action: { deleteAction(metadata) },
-                style: .init(background: .red, slotHeight: 64)
+                action: { deleteAction(projectData) },
+                style: .init(background: .red, slotHeight: .swipeActionButtonSize)
             )]
         }
     }
@@ -58,12 +58,12 @@ struct ProjectButton: View {
     
     var body: some View {
         let versionBinding = Binding(
-            get: { self.metadata.version },
-            set: { self.metadata.version = $0 }
+            get: { self.projectData.version },
+            set: { self.projectData.version = $0 }
         )
         let emojiBinding = Binding(
-            get: { self.metadata.emojiTag },
-            set: { self.metadata.emojiTag = $0 }
+            get: { self.projectData.emoji },
+            set: { self.projectData.emoji = $0 }
         )
         
         return HStack {
@@ -75,7 +75,8 @@ struct ProjectButton: View {
             dropDownMenu()
         }
         .contentShape(Rectangle())
-        .frame(minWidth: 64, maxWidth: .infinity, minHeight: 64, maxHeight: 64)
+        .frame(minWidth: 64, maxWidth: .infinity)
+        .frame(height: .listItemHeight)
         .onAppear { shellCommand = getShellCommand() }
         .sheet(item: $activeSheet) { sheetView(item: $0, emoji: emojiBinding, version: versionBinding) }
         .onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
@@ -83,7 +84,7 @@ struct ProjectButton: View {
     
     func emojiArea(emojiBinding: Binding<String>) -> some View {
         Group {
-            if settings.useEmoji {
+            if settings.hub.useEmoji {
                 Button(action: selectEmoji) {
                     Text(emojiBinding.wrappedValue)
                         .font(.system(size: 32))
@@ -96,14 +97,14 @@ struct ProjectButton: View {
     
     func titleArea() -> some View {
         VStack(alignment: .leading) {
-            if !settings.alwaysShowLocation {
-                Text(metadata.name)
+            if !settings.hub.alwaysShowLocation {
+                Text(projectData.name)
                     .font(.system(size: 12, weight: .semibold))
-                    .help(metadata.path)
+                    .help(projectData.path)
             } else {
-                Text(metadata.name)
+                Text(projectData.name)
                     .font(.system(size: 12, weight: .semibold))
-                Text(metadata.path)
+                Text(projectData.path)
                     .font(.system(size: 11, weight: .regular))
                     .opacity(0.5)
             }
@@ -112,8 +113,8 @@ struct ProjectButton: View {
     
     func pinArea() -> some View {
         Group {
-            if settings.usePins && metadata.pinned {
-                Image(systemName: "pin.fill")
+            if settings.hub.usePins && projectData.pinned {
+                Image(systemName: .pinIcon)
                     .font(.system(size: 10, weight: .semibold))
                     .rotationEffect(Angle(degrees: 45))
             }
@@ -123,7 +124,7 @@ struct ProjectButton: View {
     func versionArea(versionBinding: Binding<UnityVersion>) -> some View {
         Group {
             if showWarning {
-                Image(systemName: "exclamationmark.triangle.fill")
+                Image(systemName: .warningIcon)
                     .help("The Editor version associated with this project is not currently available on this machine.  Go to Installs to download a matching version")
             }
             Text("Unity \(versionBinding.wrappedValue.version)")
@@ -133,16 +134,18 @@ struct ProjectButton: View {
     
     func dropDownMenu() -> some View {
         Menu {
-            Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: metadata.path) })
-            if settings.useEmoji {
+            Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: projectData.path) })
+            Divider()
+            if settings.hub.useEmoji {
                 Button("Select Emoji", action: selectEmoji)
             }
-            if settings.usePins {
+            if settings.hub.usePins {
                 Button("Toggle Pin", action: togglePin)
             }
+            Divider()
             Button("Select Unity Version", action: selectProjectVersion)
             //Button("Advanced", action: openAdvancedSettings)
-            Button("Remove Project", action: { deleteAction(metadata) })
+            Button("Remove Project", action: { deleteAction(projectData) })
         } label: {}
         .menuStyle(BorderlessButtonMenuStyle())
         .frame(width: 16, height: 48)
@@ -152,11 +155,8 @@ struct ProjectButton: View {
     func sheetView(item: ActiveSheet, emoji: Binding<String>, version: Binding<UnityVersion>) -> some View {
         Group {
             switch item {
-            case .emoji: EmojiPickerSheet(pickedEmoji: emoji, action: { metadata.save() })
-            case .selectVersion: SelectProjectVersionSheet(version: version, action: {
-                shellCommand = getShellCommand()
-                metadata.save()
-            })
+            case .emoji: EmojiPickerSheet(action: { emoji.wrappedValue = $0 })
+            case .selectVersion: SelectProjectVersionSheet(version: version, action: { shellCommand = getShellCommand() })
             case .advancedSettings: AdvancedProjectSettingsSheet()
             }
         }
@@ -165,12 +165,12 @@ struct ProjectButton: View {
     func getShellCommand() -> String? {
         showWarning = false
         
-        for version in settings.versionsInstalled {
-            if version == self.metadata.version
+        for version in settings.hub.versions {
+            if version == self.projectData.version
             {
                 let fullUnityPath = "\(version.path)/Unity.app/Contents/MacOS/Unity"
                 let commands = "-projectPath"
-                return "\(fullUnityPath) \(commands) \(metadata.path)"
+                return "\(fullUnityPath) \(commands) \(projectData.path)"
             }
         }
         
@@ -204,8 +204,8 @@ struct ProjectButton: View {
     }
     
     func togglePin() {
-        metadata.pinned.toggle()
-        metadata.save()
+        projectData.pinned.toggle()
+        settings.save()
         updateList.toggle()
     }
 }

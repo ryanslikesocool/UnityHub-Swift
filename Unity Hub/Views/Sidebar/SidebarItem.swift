@@ -29,8 +29,8 @@ extension SidebarItem {
     
     func asSubtitleText(settings: HubSettings) -> String {
         switch self {
-        case .projects: return String(settings.projects.count)
-        case .installs: return String(settings.versionsInstalled.count)
+        case .projects: return String(settings.hub.projects.count)
+        case .installs: return String(settings.hub.versions.count)
         }
     }
 }

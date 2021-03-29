@@ -5,8 +5,8 @@
 //  Created by Ryan Boyer on 9/23/20.
 //
 
-import Foundation
 import AppKit
+import Foundation
 
 struct UnityVersion {
     let version: String
@@ -26,7 +26,7 @@ struct UnityVersion {
     // p: patch
     // c: china
     static let versionRegex = try! NSRegularExpression(pattern: #"^(\d+)\.(\d+)\.(\d+)([a|b|f|p|c])(\d+)"#)
-    static let null: UnityVersion = UnityVersion("0.0.0a0")
+    static let null = UnityVersion("0.0.0a0")
 
     init(_ version: String, path: String = "") {
         self.version = version
@@ -40,7 +40,7 @@ struct UnityVersion {
         
         self.path = path
 
-        UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { (match, _, stop) in
+        UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { match, _, stop in
             guard let match = match else { return }
             
             if match.numberOfRanges == 6,
@@ -48,7 +48,8 @@ struct UnityVersion {
                let range2 = Range(match.range(at: 2), in: version),
                let range3 = Range(match.range(at: 3), in: version),
                let range4 = Range(match.range(at: 4), in: version),
-               let range5 = Range(match.range(at: 5), in: version) {
+               let range5 = Range(match.range(at: 5), in: version)
+            {
                 self.major = Int(String(version[range1])) ?? 0
                 self.minor = Int(String(version[range2])) ?? 0
                 self.update = Int(String(version[range3])) ?? 0
@@ -68,15 +69,15 @@ struct UnityVersion {
     }
 
     func isOfficial() -> Bool {
-        return isCorrectChannel(channelChar: "f");
+        return isCorrectChannel(channelChar: "f")
     }
 
     func isAlpha() -> Bool {
-        return isCorrectChannel(channelChar: "a");
+        return isCorrectChannel(channelChar: "a")
     }
 
     func isBeta() -> Bool {
-        return isCorrectChannel(channelChar: "b");
+        return isCorrectChannel(channelChar: "b")
     }
     
     func isPrerelease() -> Bool {
@@ -85,15 +86,16 @@ struct UnityVersion {
     
     func isLts() -> Bool {
         return ((major == 2017 || major == 2018 || major == 2019) && minor == 4)
-        || ((major == 2020 || major == 2021) && minor == 3)
+            || ((major == 2020 || major == 2021) && minor == 3)
     }
 }
 
-//MARK: - Validation
+// MARK: - Validation
+
 extension UnityVersion {
     func isCorrectChannel(channelChar: String) -> Bool {
         var correct: Bool = false
-        UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { (match, _, stop) in
+        UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { match, _, _ in
             guard let match = match else { return }
             correct = String(version[Range(match.range(at: 4), in: version) ?? (version.startIndex ..< version.endIndex)]) == channelChar
         }
@@ -102,7 +104,7 @@ extension UnityVersion {
 
     func isValid() -> Bool {
         var valid: Bool = false
-        UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { (match, _, stop) in
+        UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { match, _, _ in
             guard let match = match else { return }
             valid = match.numberOfRanges == 6
         }
@@ -113,7 +115,7 @@ extension UnityVersion {
         do {
             var format = PropertyListSerialization.PropertyListFormat.xml
             let plistData = try Data(contentsOf: URL(fileURLWithPath: "\(path)/Unity.app/Contents/Info.plist"))
-            if let plistDictionary = try PropertyListSerialization.propertyList(from: plistData, options: .mutableContainersAndLeaves, format: &format) as? [String : AnyObject] {
+            if let plistDictionary = try PropertyListSerialization.propertyList(from: plistData, options: .mutableContainersAndLeaves, format: &format) as? [String: AnyObject] {
                 if let bundleID = plistDictionary["CFBundleIdentifier"] as? String {
                     if !bundleID.contains("com.unity3d.UnityEditor") {
                         print("Invalid bundle identifier")
@@ -136,11 +138,10 @@ extension UnityVersion {
     }
 }
 
-//MARK: - Modules
+// MARK: - Modules
+
 extension UnityVersion {
-    var moduleURL: URL {
-        get { return URL(fileURLWithPath: "\(path)/modules.json") }
-    }
+    var moduleURL: URL { return URL(fileURLWithPath: "\(path)/modules.json") }
     
     func getData() throws -> Data {
         return try Data(contentsOf: moduleURL)
@@ -181,13 +182,13 @@ extension UnityVersion {
         do {
             var modules: [ModuleJSON] = getModules()
                         
-            for i in 0..<modules.count {
+            for i in 0 ..< modules.count {
                 if modules[i].selected, let m = UnityModule(rawValue: modules[i].id) {
                     if m == module, let installPath = module.getInstallPath() {
                         modules[i].selected = false
                                                 
                         DispatchQueue.global(qos: .background).async {
-                            let _ = shell("rm -rf \(path)\(installPath)")
+                            _ = shell("rm -rf \(path)\(installPath)")
                         }
                     }
                 }
@@ -201,8 +202,8 @@ extension UnityVersion {
     }
 }
 
+extension UnityVersion: Codable {}
 
-//MARK: - Compare
 extension UnityVersion: Comparable {
     func compare(other: UnityVersion) -> Int {
         if major == other.major {

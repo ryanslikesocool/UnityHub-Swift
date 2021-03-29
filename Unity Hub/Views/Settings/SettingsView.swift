@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var settings: HubSettings
-    
+
     var body: some View {
         ScrollView {
             Form {
@@ -17,27 +17,28 @@ struct SettingsView: View {
                     Text("Unity Hub S v\(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String ?? "0.0")")
                         .font(.system(.body, design: .monospaced))
                         .bold()
-                    Text("Made with ❤️ by Ryan Boyer")
-                        .padding(.bottom, 8)
+                    HStack {
+                        Text("Made with ❤️ by ")
+                        Link("Ryan Boyer", destination: URL(string: "http://ryanjboyer.com")!)
+                    }
+                    .padding(.bottom, 8)
                 }
-                ListDividerView()
+                Divider()
                 Section(header: Text("Locations").font(.title)) {
-                    LocationSetting(label: "Unity Hub Location", symbol: "folder", prompt: "Choose Unity Hub.app", isDirectory: false, assignAction: { settings.hubLocation = $0 }, location: settings.hubLocation, isFirst: true)
-                    LocationSetting(label: "Default Editor Location", symbol: "folder", prompt: "Choose the default editor location", isDirectory: true, assignAction: { settings.installLocation = $0 }, location: settings.installLocation)
-                    LocationSetting(label: "Default Project Location", symbol: "folder", prompt: "Choose the default project location", isDirectory: true, assignAction: { settings.projectLocation = $0 }, location: settings.projectLocation, isLast: true)
+                    LocationSetting(label: "Unity Hub Location", symbol: "folder", prompt: "Choose Unity Hub.app", isDirectory: false, assignAction: { settings.hub.hubLocation = $0 }, location: settings.hub.hubLocation, isFirst: true)
+                    LocationSetting(label: "Default Editor Location", symbol: "folder", prompt: "Choose the default editor location", isDirectory: true, assignAction: { settings.hub.installLocation = $0 }, location: settings.hub.installLocation)
+                    LocationSetting(label: "Default Project Location", symbol: "folder", prompt: "Choose the default project location", isDirectory: true, assignAction: { settings.hub.projectLocation = $0 }, location: settings.hub.projectLocation, isLast: true)
                 }
-                //SettingsLocations(hubLocation: HubSettings.hubLocation, installLocation: HubSettings.installLocation, projectLocation: HubSettings.projectLocation)
-                ListDividerView()
+                Divider()
                 Section(header: Text("Project Panel").font(.title)) {
-                    ToggleSetting(label: "Use Emoji", toggle: $settings.useEmoji, isFirst: true)
-                    ToggleSetting(label: "Use Pins", toggle: $settings.usePins, isLast: true)
+                    ToggleSetting(label: "Use Emoji", toggle: $settings.hub.useEmoji, isFirst: true)
+                    ToggleSetting(label: "Use Pins", toggle: $settings.hub.usePins, isLast: true)
                 }
-                ListDividerView()
+                Divider()
                 Section(header: Text("All Panels").font(.title)) {
-                    ToggleSetting(label: "Always Show Location", toggle: $settings.alwaysShowLocation, isFirst: true)
-                    ToggleSetting(label: "Show Sidebar Count", toggle: $settings.showSidebarCount, isLast: true)
+                    ToggleSetting(label: "Always Show Location", toggle: $settings.hub.alwaysShowLocation, isFirst: true)
+                    ToggleSetting(label: "Show Sidebar Count", toggle: $settings.hub.showSidebarCount, isLast: true)
                 }
-                //SettingsProjectPanel(useEmoji: useEmoji, usePins: usePins, alwaysShowLocation: alwaysShowLocation)
             }
             .padding()
         }

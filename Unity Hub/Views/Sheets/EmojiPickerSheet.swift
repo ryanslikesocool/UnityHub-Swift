@@ -10,11 +10,10 @@ import Smile
 
 struct EmojiPickerSheet: View {
     @Environment(\.presentationMode) var presentationMode
-    @Binding var pickedEmoji: String
     @State private var emojiCategory: String = "people"
     @State private var emojiQuery: String = ""
     
-    var action: () -> Void
+    var action: (String) -> Void
 
     let categoryNames = [
         "people",
@@ -105,18 +104,11 @@ struct EmojiPickerSheet: View {
     }
     
     func selectEmoji(emoji: String) {
-        pickedEmoji = emoji
         presentationMode.wrappedValue.dismiss()
-        action()
+        action(emoji)
     }
     
     func selectCategory(category: String) {
         emojiCategory = category
-    }
-}
-
-struct EmojiPicker_Previews: PreviewProvider {
-    static var previews: some View {
-        EmojiPickerSheet(pickedEmoji: .constant("😀"), action: {})
     }
 }
