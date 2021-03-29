@@ -71,7 +71,8 @@ struct ProjectButton: View {
             pinArea()
             Spacer()
             if settings.hub.showFileSizes {
-                Text(fileSize)
+                LoadingText(text: $fileSize)
+                    .padding(.trailing, 8)
             }
             versionArea(versionBinding: versionBinding)
             dropDownMenu()

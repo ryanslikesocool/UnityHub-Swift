@@ -50,6 +50,7 @@
 		AFEB996F2611ADCF006E4E91 /* HubDataDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB996E2611ADCF006E4E91 /* HubDataDecoder.swift */; };
 		AFEB99722611B03D006E4E91 /* ProjectDataDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB99712611B03D006E4E91 /* ProjectDataDecoder.swift */; };
 		AFEB99742611B1F0006E4E91 /* UnityVersionDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB99732611B1F0006E4E91 /* UnityVersionDecoder.swift */; };
+		AFEB99762611C194006E4E91 /* LoadingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB99752611C194006E4E91 /* LoadingText.swift */; };
 		AFFDD8B3251B08EB000AE12C /* InstalledVersionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */; };
 		AFFE8EA325F9AE420086F887 /* LocationSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE8EA225F9AE420086F887 /* LocationSetting.swift */; };
 		AFFE8EA725F9B3830086F887 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE8EA625F9B3830086F887 /* UserDefaults+Extension.swift */; };
@@ -117,6 +118,7 @@
 		AFEB996E2611ADCF006E4E91 /* HubDataDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubDataDecoder.swift; sourceTree = "<group>"; };
 		AFEB99712611B03D006E4E91 /* ProjectDataDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataDecoder.swift; sourceTree = "<group>"; };
 		AFEB99732611B1F0006E4E91 /* UnityVersionDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityVersionDecoder.swift; sourceTree = "<group>"; };
+		AFEB99752611C194006E4E91 /* LoadingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingText.swift; sourceTree = "<group>"; };
 		AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledVersionButton.swift; sourceTree = "<group>"; };
 		AFFE8EA225F9AE420086F887 /* LocationSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSetting.swift; sourceTree = "<group>"; };
 		AFFE8EA625F9B3830086F887 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				AFFE8EAC25F9C1210086F887 /* Sidebar */,
 				AF9F946125F14C7100539C3A /* Settings */,
 				AFC933F42527F6C500E5ECDE /* Sheets */,
+				AFEB99752611C194006E4E91 /* LoadingText.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				AFAEFA1425F1B4690010B492 /* InstallModuleSheet.swift in Sources */,
 				AF5A94D0251BF9E3002FA410 /* DownloadInfo.swift in Sources */,
 				AFDFD24E25F51D1200E4F9D0 /* SlidableModifier.swift in Sources */,
+				AFEB99762611C194006E4E91 /* LoadingText.swift in Sources */,
 				AF66EBF0251AE3900088EC84 /* ContentView.swift in Sources */,
 				AF34E226251AFD2D00192E53 /* SettingsView.swift in Sources */,
 				AFDFD24F25F51D1200E4F9D0 /* Slot.swift in Sources */,

@@ -109,7 +109,8 @@ struct InstalledVersionButton: View {
     func rightSide() -> some View {
         HStack {
             if settings.hub.showFileSizes {
-                Text(fileSize)
+                LoadingText(text: $fileSize)
+                    .padding(.trailing, 8)
             }
             ForEach(modules) { item in
                 if let icon = item.getIcon() {
