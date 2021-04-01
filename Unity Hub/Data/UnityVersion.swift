@@ -19,6 +19,14 @@ struct UnityVersion {
     var lts: Bool
     var path: String
     var modules: [ModuleJSON]
+    
+    var fileSize: String = ""
+
+    var localPath: String {
+        let url = URL(fileURLWithPath: path)
+        let homeDir = FileManager.default.homeDirectoryForCurrentUser
+        return url.relativePath.replacingOccurrences(of: homeDir.relativePath, with: "~")
+    }
 
     // a: alpha
     // b: beta
@@ -28,7 +36,7 @@ struct UnityVersion {
     static let versionRegex = try! NSRegularExpression(pattern: #"^(\d+)\.(\d+)\.(\d+)([a|b|f|p|c])(\d+)"#)
     static let null = UnityVersion("0.0.0a0")
 
-    var installedModules: [UnityModule] { return modules.filter { $0.selected && (UnityModule(rawValue: $0.id) != Optional.none) }.map { UnityModule(rawValue: $0.id) ?? .none }}
+    var installedModules: [ModuleJSON] { return modules.filter { $0.selected && (UnityModule(rawValue: $0.id) != Optional.none) } }
 
     init() {
         self.version = "0.0.0a0"

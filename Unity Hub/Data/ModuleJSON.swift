@@ -19,6 +19,9 @@ struct ModuleJSON: Codable {
     var destination: String?
     var checksum: String?
     
+    var fileSize: String? = ""
+    var module: UnityModule { return UnityModule(rawValue: self.id) ?? .none }
+    
     init() {
         self.id = ""
         self.name = ""
@@ -50,6 +53,23 @@ struct ModuleJSON: Codable {
             if module.selected, let installPath = moduleType.getInstallPath() {
                 DispatchQueue.global(qos: .background).async {
                     _ = shell("rm -rf \(version.path)\(installPath)")
+                    
+                    DispatchQueue.main.async {
+                        module.selected = false
+                        settings.setModule(version, module)
+                        ModuleJSON.saveModules(version)
+                    }
+                }
+            }
+        }
+    }
+    
+    static func removeModule(_ version: UnityVersion, module: ModuleJSON, settings: HubSettings) {
+        if let index = version.modules.firstIndex(where: { $0 == module }) {
+            var module = version.modules[index]
+            if module.selected, let installPath = module.module.getInstallPath() {
+                DispatchQueue.global(qos: .background).async {
+                    _ = shell("rm -rf \(version.path)\(installPath)")
                 
                     DispatchQueue.main.async {
                         module.selected = false
@@ -72,3 +92,5 @@ struct ModuleJSON: Codable {
 }
 
 extension ModuleJSON: Hashable {}
+
+extension ModuleJSON: Identifiable {}

@@ -11,10 +11,8 @@ struct ModuleButton: View {
     @EnvironmentObject var settings: HubSettings
 
     let version: UnityVersion
-    let module: UnityModule
-    let deleteAction: (UnityModule) -> Void
-
-    @State private var fileSize: String = ""
+    @Binding var module: ModuleJSON
+    let deleteAction: (ModuleJSON) -> Void
 
     private var trailingSwipeActions: [Slot] { return [Slot(
         image: { Image(systemName: .trashIcon).frame(width: .swipeActionSmallIconSize, height: .swipeActionSmallIconSize).embedInAnyView() },
@@ -26,21 +24,23 @@ struct ModuleButton: View {
 
     var body: some View {
         HStack {
-            if let icon = module.getIcon() {
+            if let icon = module.module.getIcon() {
                 icon
                     .frame(width: 20, height: 20)
             }
-            if let name = module.getDisplayName() {
+            if let name = module.module.getDisplayName() {
                 Text(name)
             }
             Spacer()
             if settings.hub.showFileSize {
-                LoadingText(text: $fileSize)
+                let sizeBinding = Binding(get: { return module.fileSize ?? "" }, set: { module.fileSize = $0 })
+                
+                LoadingText(text: sizeBinding)
                     .padding(.trailing, 8)
             }
 
             Menu {
-                Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: "\(version.path)\(module.getInstallPath()!)") })
+                Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: "\(version.path)\(module.module.getInstallPath()!)") })
                 Button("Uninstall Module", action: { deleteAction(module) })
             } label: {}
                 .labelsHidden()
@@ -53,12 +53,20 @@ struct ModuleButton: View {
         .contentShape(Rectangle())
         .onSwipe(trailing: trailingSwipeActions)
         .onAppear {
-            getModuleSize()
+            if settings.hub.showFileSize && (module.fileSize == "" || module.fileSize == ".") {
+                getModuleSize()
+            }
         }
+        .onChange(of: settings.hub.showFileSize, perform: { toggle in
+            if toggle, module.fileSize == "" || module.fileSize == "." {
+                getModuleSize()
+            }
+        })
     }
 
     func getModuleSize() {
-        if let path = module.getInstallPath() {
+        if let path = module.module.getInstallPath() {
+            module.fileSize = "."
             DispatchQueue.global(qos: .background).async {
                 let url = URL(fileURLWithPath: "\(version.path)\(path)")
                 var size = ""
@@ -69,7 +77,7 @@ struct ModuleButton: View {
                 }
 
                 DispatchQueue.main.async {
-                    fileSize = size
+                    module.fileSize = size
                 }
             }
         }

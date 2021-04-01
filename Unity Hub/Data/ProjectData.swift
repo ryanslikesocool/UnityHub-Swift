@@ -16,6 +16,14 @@ struct ProjectData {
     var emoji: String
     var pinned: Bool
     
+    var fileSize: String = ""
+
+    var localPath: String {
+        let url = URL(fileURLWithPath: path)
+        let homeDir = FileManager.default.homeDirectoryForCurrentUser
+        return url.relativePath.replacingOccurrences(of: homeDir.relativePath, with: "~")
+    }
+    
     init() {
         self.path = #"~/New Unity Project"#
         self.name = "New Unity Project"

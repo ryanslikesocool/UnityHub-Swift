@@ -20,8 +20,7 @@ struct VersionButton: View {
     @State private var displayFoldout: Bool = false
     
     @State private var showRemovalSheet: Bool = false
-    @State private var moduleToRemove: UnityModule? = nil
-    @State private var fileSize: String = ""
+    @State private var moduleToRemove: ModuleJSON? = nil
     
     private var leadingSwipeActions: [Slot] { return displayFoldout ? [] : [Slot(
         image: { Image(systemName: "star.fill").frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
@@ -49,22 +48,24 @@ struct VersionButton: View {
             
             if displayFoldout {
                 ForEach(version.installedModules) { module in
+                    let moduleBinding = Binding(get: { module }, set: { version.modules.setElement($0, where: { $0.module == module.module }) })
+                    
                     Divider()
                         .padding(.leading, 32)
-                    ModuleButton(version: version, module: module, deleteAction: prepareForDeletion)
+                    ModuleButton(version: version, module: moduleBinding, deleteAction: prepareForDeletion)
                 }
-                .onDelete(perform: prepareForDeletion)
+                // .onDelete(perform: prepareForDeletion)
             }
         }
         .frame(width: viewWidth)
         .buttonStyle(PlainButtonStyle())
         .onAppear {
-            if settings.hub.showFileSize {
+            if settings.hub.showFileSize && (version.fileSize == "" || version.fileSize == ".") {
                 getVersionSize()
             }
         }
         .onChange(of: settings.hub.showFileSize, perform: { toggle in
-            if toggle, fileSize == "" {
+            if toggle, version.fileSize == "" || version.fileSize == "." {
                 getVersionSize()
             }
         })
@@ -106,12 +107,12 @@ struct VersionButton: View {
             if !settings.hub.showLocation {
                 Text(version.version)
                     .font(.system(size: 12, weight: .semibold))
-                    .help(version.path)
+                    .help(version.localPath)
             } else {
                 Text(version.version)
                     .font(.system(size: 12, weight: .semibold))
-                Text(version.path)
-                    .font(.system(size: 11, weight: .regular))
+                Text(version.localPath)
+                    .font(.system(size: 10, weight: .regular))
                     .opacity(0.5)
             }
         }
@@ -120,20 +121,19 @@ struct VersionButton: View {
     func rightSide() -> some View {
         HStack {
             if settings.hub.showFileSize {
-                LoadingText(text: $fileSize)
+                LoadingText(text: $version.fileSize)
                     .padding(.trailing, 8)
             }
             ForEach(version.installedModules) { item in
-                if let icon = item.getIcon() {
+                if let icon = item.module.getIcon() {
                     icon
                         .frame(width: 16, height: 16)
-                        .help(item.getDisplayName() ?? "")
+                        .help(item.module.getDisplayName() ?? "")
                 }
             }
             Menu {
                 Button("Install Additional Modules", action: installModuleSheet)
-                //
-                Button("Set as Default", action: {})
+                Button(settings.hub.defaultVersion == version ? "Unset as Default Version" : "Set as Default Version", action: { settings.setDefaultVersion(version) })
                 Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: version.path) })
                 Button("Uninstall Version", action: { deleteAction(version) })
             } label: {}
@@ -142,12 +142,13 @@ struct VersionButton: View {
                 .frame(width: 16)
                 .padding(.trailing, 16)
         }
+        .padding(.trailing, 24)
     }
     
     func alertPanel() -> Alert {
         Alert(
-            title: Text("Uninstall \(moduleToRemove!.getDisplayName()!) module"),
-            message: Text("Are you sure you want to uninstall the \(moduleToRemove!.getDisplayName()!) module for Unity \(version.version)?"),
+            title: Text("Uninstall \(moduleToRemove!.module.getDisplayName()!) module"),
+            message: Text("Are you sure you want to uninstall the \(moduleToRemove!.module.getDisplayName()!) module for Unity \(version.version)?"),
             primaryButton: .cancel(Text("Cancel")),
             secondaryButton: .destructive(Text("Uninstall")) { deleteItems(module: moduleToRemove) }
         )
@@ -161,20 +162,20 @@ struct VersionButton: View {
         prepareForDeletion(module: version.installedModules[offsets.first!])
     }
     
-    func prepareForDeletion(module: UnityModule) {
+    func prepareForDeletion(module: ModuleJSON) {
         moduleToRemove = module
         showRemovalSheet.toggle()
     }
     
-    func deleteItems(module: UnityModule?) {
+    func deleteItems(module: ModuleJSON?) {
         if let m = module {
-            ModuleJSON.removeModule(version, moduleType: m, settings: settings)
+            ModuleJSON.removeModule(version, module: m, settings: settings)
         }
         moduleToRemove = nil
     }
     
     func getVersionSize() {
-        fileSize = "."
+        version.fileSize = "."
         DispatchQueue.global(qos: .background).async {
             let url = URL(fileURLWithPath: version.path)
             var size = ""
@@ -185,7 +186,7 @@ struct VersionButton: View {
             }
             
             DispatchQueue.main.async {
-                fileSize = size
+                version.fileSize = size
             }
         }
     }

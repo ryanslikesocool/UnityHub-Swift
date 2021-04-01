@@ -27,9 +27,7 @@ struct ProjectButton: View {
     @State private var showSheet: Bool = false
     @State private var showPopover: Bool = false
     @State private var activeSheet: ActiveSheet?
-    
-    @State private var fileSize: String = ""
-    
+        
     private var leadingSwipeActions: [Slot] {
         return settings.hub.usePins ? [Slot(
             image: { Image(systemName: .pinIcon).frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
@@ -80,7 +78,7 @@ struct ProjectButton: View {
             }
             Spacer()
             if settings.hub.showFileSize {
-                LoadingText(text: $fileSize)
+                LoadingText(text: $projectData.fileSize)
                     .padding(.trailing, 8)
             }
             if showWarning {
@@ -96,11 +94,11 @@ struct ProjectButton: View {
             } label: { Text("Unity \(versionBinding.wrappedValue.version)") }
                 .frame(width: 128)
             dropDownMenu()
+                .padding(.trailing, 24)
         }
         .contentShape(Rectangle())
-        .frame(width: viewWidth, height: .listItemHeight)
         .onAppear {
-            if settings.hub.showFileSize {
+            if settings.hub.showFileSize && (projectData.fileSize == "" || projectData.fileSize == ".") {
                 getProjectSize()
             }
             if !settings.hub.versions.contains(where: { $0.version == projectData.version.version }) {
@@ -113,10 +111,11 @@ struct ProjectButton: View {
             Alert(title: Text("Missing Unity Version"), message: Text("The Unity version last used to open this project (\(projectData.version.version)) is missing.  Please reinstall it or redownload the version."), dismissButton: .default(Text("Ok")))
         }
         .onChange(of: settings.hub.showFileSize) { toggle in
-            if toggle, fileSize == "" {
+            if toggle, projectData.fileSize == "" || projectData.fileSize == "." {
                 getProjectSize()
             }
         }
+        .frame(width: viewWidth, height: .listItemHeight)
         /* .trackingMouse { location, delta in
              print(delta)
          } */
@@ -140,13 +139,14 @@ struct ProjectButton: View {
             if !settings.hub.showLocation {
                 Text(projectData.name)
                     .font(.system(size: 12, weight: .semibold))
-                    .help(projectData.path)
+                    .help(projectData.localPath)
             } else {
                 Text(projectData.name)
                     .font(.system(size: 12, weight: .semibold))
-                Text(projectData.path)
-                    .font(.system(size: 11, weight: .regular))
+                Text(projectData.localPath)
+                    .font(.system(size: 10, weight: .regular))
                     .opacity(0.5)
+                    .help(projectData.path)
             }
         }
     }
@@ -220,7 +220,7 @@ struct ProjectButton: View {
     }
     
     func getProjectSize() {
-        fileSize = "."
+        projectData.fileSize = "."
         DispatchQueue.global(qos: .background).async {
             let url = URL(fileURLWithPath: projectData.path)
             var size = ""
@@ -231,7 +231,7 @@ struct ProjectButton: View {
             }
             
             DispatchQueue.main.async {
-                fileSize = size
+                projectData.fileSize = size
             }
         }
     }

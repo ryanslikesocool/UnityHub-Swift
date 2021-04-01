@@ -19,6 +19,12 @@ struct LocationSetting: View {
     
     @State var location: String
     
+    var localPath: String {
+        let url = URL(fileURLWithPath: location)
+        let homeDir = FileManager.default.homeDirectoryForCurrentUser
+        return url.relativePath.replacingOccurrences(of: homeDir.relativePath, with: "~")
+    }
+    
     let isFirst: Bool
     let isLast: Bool
     
@@ -43,7 +49,7 @@ struct LocationSetting: View {
                 Spacer()
             }
             .padding(.top, isFirst ? -4 : 0)
-            Text(location.replacingOccurrences(of: #"\"#, with: ""))
+            Text(localPath.replacingOccurrences(of: #"\"#, with: ""))
                 .font(.system(size: 11, weight: .semibold, design: .monospaced))
                 .opacity(0.75)
                 .padding(.top, -4)

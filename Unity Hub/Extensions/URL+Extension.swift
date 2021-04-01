@@ -21,20 +21,21 @@ extension URL {
             guard
                 let urls = FileManager.default.enumerator(at: self, includingPropertiesForKeys: nil)?.allObjects as? [URL] else { return nil }
             return try urls.lazy.reduce(0) {
-                    (try $1.resourceValues(forKeys: [.totalFileAllocatedSizeKey]).totalFileAllocatedSize ?? 0) + $0
+                (try $1.resourceValues(forKeys: [.totalFileAllocatedSizeKey]).totalFileAllocatedSize ?? 0) + $0
             }
         }
         return try FileManager.default.contentsOfDirectory(at: self, includingPropertiesForKeys: nil).lazy.reduce(0) {
-                 (try $1.resourceValues(forKeys: [.totalFileAllocatedSizeKey])
-                    .totalFileAllocatedSize ?? 0) + $0
+            (try $1.resourceValues(forKeys: [.totalFileAllocatedSizeKey])
+                .totalFileAllocatedSize ?? 0) + $0
         }
     }
 
     func sizeOnDisk() throws -> String? {
         guard let size = try directoryTotalAllocatedSize(includingSubfolders: true) else { return nil }
         URL.byteCountFormatter.countStyle = .file
-        guard let byteCount = URL.byteCountFormatter.string(for: size) else { return nil}
+        guard let byteCount = URL.byteCountFormatter.string(for: size) else { return nil }
         return byteCount
     }
+
     private static let byteCountFormatter = ByteCountFormatter()
 }
