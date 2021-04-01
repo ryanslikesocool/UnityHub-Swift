@@ -13,6 +13,8 @@ import SwiftUI
 
 struct ProjectButton: View {
     @EnvironmentObject var settings: HubSettings
+    
+    @Binding var viewWidth: CGFloat
 
     @Binding var projectData: ProjectData
     @Binding var updateList: Bool
@@ -96,10 +98,11 @@ struct ProjectButton: View {
             dropDownMenu()
         }
         .contentShape(Rectangle())
-        .frame(minWidth: 64, maxWidth: .infinity)
-        .frame(height: .listItemHeight)
+        .frame(width: viewWidth, height: .listItemHeight)
         .onAppear {
-            getProjectSize()
+            if settings.hub.showFileSize {
+                getProjectSize()
+            }
             if !settings.hub.versions.contains(where: { $0.version == projectData.version.version }) {
                 showWarning = true
             }
@@ -109,9 +112,14 @@ struct ProjectButton: View {
         .alert(isPresented: $showVersionWarning) {
             Alert(title: Text("Missing Unity Version"), message: Text("The Unity version last used to open this project (\(projectData.version.version)) is missing.  Please reinstall it or redownload the version."), dismissButton: .default(Text("Ok")))
         }
-        /*.trackingMouse { location, delta in
-            print(delta)
-        }*/
+        .onChange(of: settings.hub.showFileSize) { toggle in
+            if toggle, fileSize == "" {
+                getProjectSize()
+            }
+        }
+        /* .trackingMouse { location, delta in
+             print(delta)
+         } */
     }
     
     func emojiArea(emojiBinding: Binding<String>) -> some View {
@@ -212,6 +220,7 @@ struct ProjectButton: View {
     }
     
     func getProjectSize() {
+        fileSize = "."
         DispatchQueue.global(qos: .background).async {
             let url = URL(fileURLWithPath: projectData.path)
             var size = ""

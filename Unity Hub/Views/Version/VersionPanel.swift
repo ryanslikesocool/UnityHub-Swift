@@ -5,8 +5,8 @@
 //  Created by Ryan Boyer on 9/22/20.
 //
 
-import SwiftUI
 import AppKit
+import SwiftUI
 
 struct VersionPanel: View {
     @EnvironmentObject var settings: HubSettings
@@ -17,37 +17,41 @@ struct VersionPanel: View {
     @State private var installToRemove: UnityVersion? = nil
 
     var body: some View {
-        List(settings.hub.versions) { version in
-            VStack {
-                VersionButton(version: version, deleteAction: prepareForDeletion)
+        GeometryReader { geometry in
+            let sizeBinding = Binding(get: { return geometry.size.width }, set: { _ in })
+            
+            List(settings.hub.versions) { version in
+                VStack {
+                    VersionButton(viewWidth: sizeBinding, version: version, deleteAction: prepareForDeletion)
                 
-                if version != settings.hub.versions.last ?? UnityVersion.null {
-                    Divider()
+                    if version != settings.hub.versions.last ?? UnityVersion.null {
+                        Divider()
+                    }
                 }
             }
-        }
-        .navigationTitle("Installs")
-        .onAppear(perform: settings.getAllVersions)
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                Button(action: locateVersion) {
-                    Image(systemName: "folder")
+            .navigationTitle("Installs")
+            .onAppear(perform: settings.getAllVersions)
+            .toolbar {
+                ToolbarItem(placement: .automatic) {
+                    Button(action: locateVersion) {
+                        Image(systemName: "folder")
+                    }
+                }
+                ToolbarItem(placement: .automatic) {
+                    Button(action: installVersion) {
+                        Image(systemName: "plus")
+                    }
                 }
             }
-            ToolbarItem(placement: .automatic) {
-                Button(action: installVersion) {
-                    Image(systemName: "plus")
-                }
+            .sheet(isPresented: $showInstaller) { InstallVersionSheet() }
+            .alert(isPresented: $showRemovalSheet) {
+                Alert(
+                    title: Text("Uninstall Unity \(installToRemove!.version)"),
+                    message: Text("Are you sure you want to uninstall Unity version \(installToRemove!.version)?"),
+                    primaryButton: .cancel(Text("Cancel")),
+                    secondaryButton: .destructive(Text("Uninstall")) { deleteItems(install: installToRemove) }
+                )
             }
-        }
-        .sheet(isPresented: $showInstaller) { InstallSheet() }
-        .alert(isPresented: $showRemovalSheet) {
-            Alert(
-                title: Text("Uninstall Unity \(installToRemove!.version)"),
-                message: Text("Are you sure you want to uninstall Unity version \(installToRemove!.version)?"),
-                primaryButton: .cancel(Text("Cancel")),
-                secondaryButton: .destructive(Text("Uninstall")) { deleteItems(install: installToRemove) }
-            )
         }
         .animation(.interactiveSpring())
     }
@@ -76,7 +80,7 @@ struct VersionPanel: View {
     func deleteItems(install: UnityVersion?) {
         if let version = install {
             DispatchQueue.global(qos: .background).async {
-                let _ = shell("rm -rf \(version.path)")
+                _ = shell("rm -rf \(version.path)")
             }
             settings.hub.versions.removeAll(where: { $0.version == version.version })
             settings.wrap()

@@ -17,7 +17,9 @@ struct ProjectPanel: View {
     @State private var searchText: String = ""
     
     var body: some View {
-        return Group {
+        GeometryReader { geometry in
+            let sizeBinding = Binding(get: { return geometry.size.width }, set: { _ in })
+
             List(settings.hub.projects.filter { searchText.isEmpty ? true : $0.name.lowercased().contains(searchText.lowercased()) }) { project in
                 let dataBinding = Binding(
                     get: { project },
@@ -25,7 +27,7 @@ struct ProjectPanel: View {
                 )
             
                 VStack {
-                    ProjectButton(projectData: dataBinding, updateList: $updateList, deleteAction: prepareForDeletion)
+                    ProjectButton(viewWidth: sizeBinding, projectData: dataBinding, updateList: $updateList, deleteAction: prepareForDeletion)
 
                     if project != (settings.hub.projects.last ?? ProjectData.null) {
                         Divider()
@@ -60,8 +62,8 @@ struct ProjectPanel: View {
             .onAppear {
                 settings.sortProjects()
             }
-            .animation(.interactiveSpring())
         }
+        .animation(.interactiveSpring())
     }
     
     func removalAlert() -> Alert {

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InstallSheet: View {
+struct InstallVersionSheet: View {
     @EnvironmentObject var settings: HubSettings
     @Environment(\.presentationMode) var presentationMode
     @State private var tab: String = "Version"
@@ -64,8 +64,8 @@ struct InstallSheet: View {
             
             for result in results {
                 let version = result.components(separatedBy: " ").first
-                if version != nil, version != "", !settings.hub.versions.contains(where: { $0.version == version }) {
-                    versions.append(UnityVersion(version!))
+                if let version = version, version != "", !settings.hub.versions.contains(where: { $0.version == version }) {
+                    versions.append(UnityVersion(version))
                 }
             }
 

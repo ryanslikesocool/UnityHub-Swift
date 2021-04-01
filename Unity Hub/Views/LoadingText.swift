@@ -11,7 +11,7 @@ struct LoadingText: View {
     @Binding var text: String
     
     var body: some View {
-        if text == "" {
+        if text == "." {
             ProgressView()
                 .frame(width: 16, height: 16)
                 .scaleEffect(0.5)

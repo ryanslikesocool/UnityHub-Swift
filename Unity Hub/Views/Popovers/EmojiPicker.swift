@@ -50,26 +50,19 @@ struct EmojiPicker: View {
             }
         }
         .frame(width: 320, height: 320)
+        .animation(.interactiveSpring())
     }
     
     func emojiCategories() -> some View {
         ForEach(categories[emojiCategory] ?? categories["people"]!, id: \.self) { emoji in
-            Button(action: { selectEmoji(emoji: emoji) }) {
-                Text(emoji)
-            }
-            .id(emoji)
-            .help(Smile.name(emoji: emoji).first!.lowercased())
+            EmojiPickerButton(emoji: emoji, action: selectEmoji)
         }
     }
     
     func emojiSearch() -> some View {
         ForEach(categoryNames, id: \.self) { category in
             ForEach(categories[category]?.filter { Smile.name(emoji: $0).first!.lowercased().contains(emojiQuery.lowercased()) } ?? categories["people"]!, id: \.self) { emoji in
-                Button(action: { selectEmoji(emoji: emoji) }) {
-                    Text(emoji)
-                }
-                .id(emoji)
-                .help(Smile.name(emoji: emoji).first!.lowercased())
+                EmojiPickerButton(emoji: emoji, action: selectEmoji)
             }
         }
     }

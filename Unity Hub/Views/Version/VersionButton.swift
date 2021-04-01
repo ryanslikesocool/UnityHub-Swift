@@ -10,6 +10,8 @@ import SwiftUI
 struct VersionButton: View {
     @EnvironmentObject var settings: HubSettings
     
+    @Binding var viewWidth: CGFloat
+    
     @State var version: UnityVersion
     let deleteAction: (UnityVersion) -> Void
 
@@ -36,13 +38,13 @@ struct VersionButton: View {
         style: .init(background: .red, slotHeight: .listItemHeight)
     )]
     }
-
-    var body: some View {        
+    
+    var body: some View {
         return VStack {
             Button(action: { displayFoldout.toggle() }) {
                 mainButton()
             }
-            .frame(minWidth: 64, maxWidth: .infinity, minHeight: .listItemHeight, maxHeight: .listItemHeight)
+            .frame(height: .listItemHeight)
             .contentShape(Rectangle())
             
             if displayFoldout {
@@ -54,10 +56,18 @@ struct VersionButton: View {
                 .onDelete(perform: prepareForDeletion)
             }
         }
+        .frame(width: viewWidth)
         .buttonStyle(PlainButtonStyle())
         .onAppear {
-            getVersionSize()
+            if settings.hub.showFileSize {
+                getVersionSize()
+            }
         }
+        .onChange(of: settings.hub.showFileSize, perform: { toggle in
+            if toggle, fileSize == "" {
+                getVersionSize()
+            }
+        })
         .sheet(isPresented: $showInstallSheet) { InstallModuleSheet(selectedVersion: version) }
         .alert(isPresented: $showRemovalSheet) { alertPanel() }
         .onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
@@ -164,6 +174,7 @@ struct VersionButton: View {
     }
     
     func getVersionSize() {
+        fileSize = "."
         DispatchQueue.global(qos: .background).async {
             let url = URL(fileURLWithPath: version.path)
             var size = ""
