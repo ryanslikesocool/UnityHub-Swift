@@ -28,16 +28,7 @@ struct EmojiPicker: View {
     let categories = Smile.emojiCategories
 
     var body: some View {
-        let gridItems = [
-            GridItem(.flexible()),
-            GridItem(.flexible()),
-            GridItem(.flexible()),
-            GridItem(.flexible()),
-            GridItem(.flexible()),
-            GridItem(.flexible()),
-            GridItem(.flexible()),
-            GridItem(.flexible())
-        ]
+        let gridItems = Array(repeating: GridItem(.flexible()), count: 8)
         
         VStack(alignment: .center, spacing: 0) {
             ScrollViewReader { scrollView in

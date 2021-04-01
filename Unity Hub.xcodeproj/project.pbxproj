@@ -18,6 +18,9 @@
 		AF34E221251AF91F00192E53 /* VersionPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E220251AF91F00192E53 /* VersionPanel.swift */; };
 		AF34E226251AFD2D00192E53 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E225251AFD2D00192E53 /* SettingsView.swift */; };
 		AF34E22B251AFE5300192E53 /* HubSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E22A251AFE5300192E53 /* HubSettings.swift */; };
+		AF3C26CF2615CB740005B10E /* SwipeActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3C26CE2615CB740005B10E /* SwipeActionView.swift */; };
+		AF3C26D42615CD4F0005B10E /* SwipeActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3C26D32615CD4F0005B10E /* SwipeActionButton.swift */; };
+		AF3C26D82615DF4C0005B10E /* TrackingAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3C26D72615DF4C0005B10E /* TrackingAreaView.swift */; };
 		AF4D2104251EBA220029101C /* Smile in Frameworks */ = {isa = PBXBuildFile; productRef = AF4D2103251EBA220029101C /* Smile */; };
 		AF59FEA5251EBB4A0093D284 /* EmojiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF59FEA4251EBB4A0093D284 /* EmojiPicker.swift */; };
 		AF5A94D0251BF9E3002FA410 /* DownloadInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5A94CF251BF9E3002FA410 /* DownloadInfo.swift */; };
@@ -83,6 +86,9 @@
 		AF34E220251AF91F00192E53 /* VersionPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionPanel.swift; sourceTree = "<group>"; };
 		AF34E225251AFD2D00192E53 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AF34E22A251AFE5300192E53 /* HubSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubSettings.swift; sourceTree = "<group>"; };
+		AF3C26CE2615CB740005B10E /* SwipeActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeActionView.swift; sourceTree = "<group>"; };
+		AF3C26D32615CD4F0005B10E /* SwipeActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeActionButton.swift; sourceTree = "<group>"; };
+		AF3C26D72615DF4C0005B10E /* TrackingAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingAreaView.swift; sourceTree = "<group>"; };
 		AF59FEA4251EBB4A0093D284 /* EmojiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPicker.swift; sourceTree = "<group>"; };
 		AF5A94CF251BF9E3002FA410 /* DownloadInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadInfo.swift; sourceTree = "<group>"; };
 		AF66EBEA251AE3900088EC84 /* Unity Hub S.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Unity Hub S.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +159,15 @@
 			path = Popovers;
 			sourceTree = "<group>";
 		};
+		AF3C26D22615CD390005B10E /* Swipe Action */ = {
+			isa = PBXGroup;
+			children = (
+				AF3C26CE2615CB740005B10E /* SwipeActionView.swift */,
+				AF3C26D32615CD4F0005B10E /* SwipeActionButton.swift */,
+			);
+			path = "Swipe Action";
+			sourceTree = "<group>";
+		};
 		AF66EBE1251AE3900088EC84 = {
 			isa = PBXGroup;
 			children = (
@@ -211,12 +226,12 @@
 				AF75222325F9D0EB00549E0E /* SearchBar.swift */,
 				AF66EC01251AE57D0088EC84 /* SVGShapes.swift */,
 				AF16EDF6251AEF4000C939AA /* TabSelector.swift */,
+				AF3C26D22615CD390005B10E /* Swipe Action */,
 				AF3C26CD2615A3DA0005B10E /* Popovers */,
 				AFD0D1CC25F50CC200373759 /* Project */,
 				AFD0D1CB25F50CB300373759 /* Version */,
 				AF9F946125F14C7100539C3A /* Settings */,
 				AFC933F42527F6C500E5ECDE /* Sheets */,
-				AFFE8EAC25F9C1210086F887 /* Sidebar */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -232,6 +247,7 @@
 				AFB1C3A2251B325000F8E3D8 /* UnityModule.swift */,
 				AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */,
 				AFEB995726118940006E4E91 /* ProjectData.swift */,
+				AF16EDE7251AEC1700C939AA /* SidebarItem.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -260,6 +276,7 @@
 				AFFE8EA625F9B3830086F887 /* UserDefaults+Extension.swift */,
 				AFEB99532611856D006E4E91 /* CGFloat+Extension.swift */,
 				AFEB995A2611A6A3006E4E91 /* URL+Extension.swift */,
+				AF3C26D72615DF4C0005B10E /* TrackingAreaView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -302,14 +319,6 @@
 				AFEB99732611B1F0006E4E91 /* UnityVersionWrapper.swift */,
 			);
 			path = Wrappers;
-			sourceTree = "<group>";
-		};
-		AFFE8EAC25F9C1210086F887 /* Sidebar */ = {
-			isa = PBXGroup;
-			children = (
-				AF16EDE7251AEC1700C939AA /* SidebarItem.swift */,
-			);
-			path = Sidebar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,6 +400,7 @@
 			files = (
 				AFFE8EA725F9B3830086F887 /* UserDefaults+Extension.swift in Sources */,
 				AFEB995826118940006E4E91 /* ProjectData.swift in Sources */,
+				AF3C26D42615CD4F0005B10E /* SwipeActionButton.swift in Sources */,
 				AF146CAF25622B990032343F /* VersionSheet.swift in Sources */,
 				AFEB9956261188EC006E4E91 /* HubData.swift in Sources */,
 				AFB1C3A6251B357A00F8E3D8 /* ModuleJSON.swift in Sources */,
@@ -404,6 +414,7 @@
 				AFC0AF412615029A0039FFEC /* Array+Extension.swift in Sources */,
 				AF34E226251AFD2D00192E53 /* SettingsView.swift in Sources */,
 				AFDFD24F25F51D1200E4F9D0 /* Slot.swift in Sources */,
+				AF3C26D82615DF4C0005B10E /* TrackingAreaView.swift in Sources */,
 				AFB1C3A3251B325000F8E3D8 /* UnityModule.swift in Sources */,
 				AFFE8EA325F9AE420086F887 /* LocationSetting.swift in Sources */,
 				AF66EBEE251AE3900088EC84 /* UnityHubApp.swift in Sources */,
@@ -418,6 +429,7 @@
 				AF16FF27251B8EA500C8A2A9 /* UnityVersion.swift in Sources */,
 				AFEB99542611856D006E4E91 /* CGFloat+Extension.swift in Sources */,
 				AFEB995B2611A6A3006E4E91 /* URL+Extension.swift in Sources */,
+				AF3C26CF2615CB740005B10E /* SwipeActionView.swift in Sources */,
 				AFEB99742611B1F0006E4E91 /* UnityVersionWrapper.swift in Sources */,
 				AFEB99722611B03D006E4E91 /* ProjectDataWrapper.swift in Sources */,
 				AF59FEA5251EBB4A0093D284 /* EmojiPicker.swift in Sources */,

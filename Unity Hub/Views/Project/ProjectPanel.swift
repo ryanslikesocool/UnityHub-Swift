@@ -15,7 +15,7 @@ struct ProjectPanel: View {
     @State private var projectToRemove: ProjectData? = nil
     
     @State private var searchText: String = ""
-
+    
     var body: some View {
         return Group {
             List(settings.hub.projects.filter { searchText.isEmpty ? true : $0.name.lowercased().contains(searchText.lowercased()) }) { project in
@@ -26,6 +26,7 @@ struct ProjectPanel: View {
             
                 VStack {
                     ProjectButton(projectData: dataBinding, updateList: $updateList, deleteAction: prepareForDeletion)
+
                     if project != (settings.hub.projects.last ?? ProjectData.null) {
                         Divider()
                     }
@@ -56,6 +57,10 @@ struct ProjectPanel: View {
                 }
             }
             .alert(isPresented: $showRemovalSheet) { removalAlert() }
+            .onAppear {
+                settings.sortProjects()
+            }
+            .animation(.interactiveSpring())
         }
     }
     

@@ -32,7 +32,7 @@ struct ProjectButton: View {
         return settings.hub.usePins ? [Slot(
             image: { Image(systemName: .pinIcon).frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
             title: { EmptyView().embedInAnyView() },
-            action: { togglePin() },
+            action: togglePin,
             style: .init(background: .orange, slotHeight: .listItemHeight)
         )] : []
     }
@@ -69,18 +69,18 @@ struct ProjectButton: View {
                 .popover(isPresented: $showPopover) { EmojiPicker(action: { emojiBinding.wrappedValue = $0 }) }
             Button(action: openProject) {
                 titleArea()
-                if settings.hub.usePins && projectData.pinned {
-                    Image(systemName: .pinIcon)
-                        .font(.system(size: 13, weight: .semibold))
-                        .rotationEffect(Angle(degrees: 45))
-                }
-                Spacer()
-                if settings.hub.showFileSize {
-                    LoadingText(text: $fileSize)
-                        .padding(.trailing, 8)
-                }
             }
             .buttonStyle(PlainButtonStyle())
+            if settings.hub.usePins && projectData.pinned {
+                Image(systemName: .pinIcon)
+                    .font(.system(size: 13, weight: .semibold))
+                    .rotationEffect(Angle(degrees: 45))
+            }
+            Spacer()
+            if settings.hub.showFileSize {
+                LoadingText(text: $fileSize)
+                    .padding(.trailing, 8)
+            }
             if showWarning {
                 Image(systemName: .warningIcon)
                     .help("The Editor version associated with this project is not currently available on this machine.  Go to Installs to download a matching version")
@@ -109,6 +109,9 @@ struct ProjectButton: View {
         .alert(isPresented: $showVersionWarning) {
             Alert(title: Text("Missing Unity Version"), message: Text("The Unity version last used to open this project (\(projectData.version.version)) is missing.  Please reinstall it or redownload the version."), dismissButton: .default(Text("Ok")))
         }
+        /*.trackingMouse { location, delta in
+            print(delta)
+        }*/
     }
     
     func emojiArea(emojiBinding: Binding<String>) -> some View {
@@ -177,7 +180,7 @@ struct ProjectButton: View {
         showVersionWarning = false
         
         if settings.hub.versions.contains(projectData.version) {
-            let result =  "\(settings.getRealVersion(projectData.version).path)/Unity.app/Contents/MacOS/Unity -projectPath \"\(projectData.path)\""
+            let result = "\(settings.getRealVersion(projectData.version).path)/Unity.app/Contents/MacOS/Unity -projectPath \"\(projectData.path)\""
             return result
         }
         
@@ -204,6 +207,7 @@ struct ProjectButton: View {
     func togglePin() {
         projectData.pinned.toggle()
         settings.wrap()
+        settings.sortProjects()
         updateList.toggle()
     }
     

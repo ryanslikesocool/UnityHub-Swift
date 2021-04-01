@@ -13,4 +13,6 @@ extension CGFloat {
 
     static var listItemHeight: CGFloat { return 48 }
     static var smallListItemHeight: CGFloat { return 24 }
+
+    static var swipeActionButtonWidth: CGFloat { return 64 }
 }

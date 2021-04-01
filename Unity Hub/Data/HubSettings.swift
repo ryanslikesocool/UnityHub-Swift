@@ -16,6 +16,7 @@ class HubSettings: ObservableObject {
     
     init() {
         hub = HubData.load()
+        UserDefaults.standard.set(1, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
     }
     
     func wrap() {
@@ -103,7 +104,7 @@ extension HubSettings {
     }
 }
 
-extension HubSettings {
+extension HubSettings {    
     func hasProjectAtPath(_ path: String) -> Bool {
         for project in hub.projects {
             if project.path == path {

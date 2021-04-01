@@ -49,6 +49,7 @@ struct VersionPanel: View {
                 secondaryButton: .destructive(Text("Uninstall")) { deleteItems(install: installToRemove) }
             )
         }
+        .animation(.interactiveSpring())
     }
     
     func locateVersion() {
