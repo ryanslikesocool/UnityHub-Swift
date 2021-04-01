@@ -14,14 +14,10 @@ struct ProjectPanel: View {
     @State private var showRemovalSheet: Bool = false
     @State private var projectToRemove: ProjectData? = nil
     
-    @State private var enableSearch: Bool = false
     @State private var searchText: String = ""
 
     var body: some View {
         return Group {
-            if enableSearch {
-                SearchBar(text: $searchText)
-            }
             List(settings.hub.projects.filter { searchText.isEmpty ? true : $0.name.lowercased().contains(searchText.lowercased()) }) { project in
                 let dataBinding = Binding(
                     get: { project },
@@ -44,18 +40,18 @@ struct ProjectPanel: View {
             }
             .toolbar {
                 ToolbarItem(placement: .automatic) {
-                    Button(action: toggleSearch) {
-                        Image(systemName: "magnifyingglass")
-                    }
+                    SearchBar(text: $searchText)
+                        .frame(width: 200)
+                        .padding(.trailing, 8)
                 }
                 ToolbarItem(placement: .automatic) {
                     Button(action: locateProject) {
-                        Image(systemName: "folder.badge.plus")
+                        Image(systemName: "folder")
                     }
                 }
                 ToolbarItem(placement: .automatic) {
                     Button(action: createProject) {
-                        Image(systemName: "doc.badge.plus")
+                        Image(systemName: "doc")
                     }
                 }
             }
@@ -70,10 +66,6 @@ struct ProjectPanel: View {
             primaryButton: .cancel(Text("Cancel")),
             secondaryButton: .destructive(Text("Remove")) { deleteItems(data: projectToRemove) }
         )
-    }
-    
-    func toggleSearch() {
-        enableSearch.toggle()
     }
     
     func locateProject() {

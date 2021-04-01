@@ -31,7 +31,7 @@ struct VersionPanel: View {
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Button(action: locateVersion) {
-                    Image(systemName: "folder.badge.plus")
+                    Image(systemName: "folder")
                 }
             }
             ToolbarItem(placement: .automatic) {
