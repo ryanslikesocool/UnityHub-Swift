@@ -25,7 +25,7 @@ struct ModuleSheet: View {
                 }
             }
         }
-        .frame(width: 256, height: 256)
+        .frame(width: 200)
         .tabItem { Text("Modules") }
         .tag("Modules")
         .padding()

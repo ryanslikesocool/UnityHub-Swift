@@ -12,7 +12,7 @@ struct VersionSheet: View {
     @Binding var availableVersions: [UnityVersion]
 
     var body: some View {
-        VStack {
+        Form {
             Picker("", selection: $selectedVersion) {
                 ForEach(availableVersions, id: \.self) { version in
                     HStack {
@@ -27,7 +27,7 @@ struct VersionSheet: View {
             .pickerStyle(RadioGroupPickerStyle())
             Spacer()
         }
-        .frame(width: 256, height: 256)
+        .frame(width: 200)
         .tabItem { Text("Version") }
         .tag("Version")
         .padding()

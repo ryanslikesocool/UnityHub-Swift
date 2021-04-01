@@ -34,7 +34,7 @@ struct InstallVersionSheet: View {
                         VersionSheet(selectedVersion: $selectedVersion, availableVersions: $availableVersions)
                         ModuleSheet(selectedModules: $selectedModules, availableModules: $availableModules)
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal, 8)
                     HStack {
                         Spacer()
                         Button("Install", action: installSelectedItems)
