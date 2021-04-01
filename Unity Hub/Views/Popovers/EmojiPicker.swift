@@ -72,21 +72,21 @@ struct EmojiPicker: View {
     }
     
     func emojiSearch() -> some View {
-        ForEach(Smile.emojis(keywords: emojiQuery.components(separatedBy: " ")), id: \.self) { emoji in
-            Button(action: { selectEmoji(emoji: emoji) }) {
-                Text(emoji)
+        ForEach(categoryNames, id: \.self) { category in
+            ForEach(categories[category]?.filter { Smile.name(emoji: $0).first!.lowercased().contains(emojiQuery.lowercased()) } ?? categories["people"]!, id: \.self) { emoji in
+                Button(action: { selectEmoji(emoji: emoji) }) {
+                    Text(emoji)
+                }
+                .id(emoji)
+                .help(Smile.name(emoji: emoji).first!.lowercased())
             }
-            .id(emoji)
-            .help(Smile.name(emoji: emoji).first!.lowercased())
         }
     }
     
     func topBar() -> some View {
         Group {
             HStack {
-                Spacer()
-                /* Image(systemName: "magnifyingglass")
-                 TextField("", text: $emojiQuery) */
+                SearchBar(text: $emojiQuery)
                 Button("None", action: { selectEmoji(emoji: "") })
                     .help("Remove the current emoji")
             }
