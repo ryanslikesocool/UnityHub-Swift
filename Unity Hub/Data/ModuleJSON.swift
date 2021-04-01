@@ -53,7 +53,7 @@ struct ModuleJSON: Codable {
                 
                     DispatchQueue.main.async {
                         module.selected = false
-                        settings.hub.setModule(version, module)
+                        settings.setModule(version, module)
                         ModuleJSON.saveModules(version)
                     }
                 }

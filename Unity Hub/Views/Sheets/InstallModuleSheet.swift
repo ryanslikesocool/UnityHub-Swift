@@ -13,7 +13,7 @@ struct InstallModuleSheet: View {
 
     @State var selectedVersion: UnityVersion
     
-    @State private var selectedModules: [Bool] = []
+    @State private var selectedModules: [UnityModule: Bool] = [:]
     @State private var availableModules: [UnityModule] = []
 
     var body: some View {
@@ -42,7 +42,9 @@ struct InstallModuleSheet: View {
         let preinstalledModules = selectedVersion.getInstalledModules()
         availableModules.removeAll(where: { preinstalledModules.contains($0) })
         
-        selectedModules = [Bool](repeating: false, count: availableModules.count)
+        for module in availableModules {
+            selectedModules[module] = false
+        }
     }
     
     func closeMenu() {
@@ -54,9 +56,9 @@ struct InstallModuleSheet: View {
         
         var command = "\(settings.hubCommandBase) im --version \(selectedVersion.version)"
         
-        for i in 0 ..< availableModules.count {
-            if selectedModules[i] {
-                command.append(" -m \(availableModules[i].rawValue)")
+        for module in availableModules {
+            if selectedModules[module] ?? false {
+                command.append(" -m \(module.rawValue)")
             }
         }
         
@@ -77,7 +79,7 @@ struct InstallModuleSheet: View {
                     } else {
                         settings.hub.versions.remove(at: index)
                     }
-                    settings.save()
+                    settings.wrap()
                 }
             }
         }

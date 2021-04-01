@@ -18,48 +18,49 @@ struct ProjectPanel: View {
     @State private var searchText: String = ""
 
     var body: some View {
-        if enableSearch {
-            SearchBar(text: $searchText)
-        }
-        List(settings.hub.projects.filter { searchText.isEmpty ? true : $0.name.lowercased().contains(searchText.lowercased()) }) { project in
-            let dataBinding = Binding(
-                get: { return project },
-                set: { settings.hub.setProject($0) }
-            )
+        return Group {
+            if enableSearch {
+                SearchBar(text: $searchText)
+            }
+            List(settings.hub.projects.filter { searchText.isEmpty ? true : $0.name.lowercased().contains(searchText.lowercased()) }) { project in
+                let dataBinding = Binding(
+                    get: { project },
+                    set: { settings.setProject($0) }
+                )
             
-            VStack {
-                ProjectButton(projectData: dataBinding, updateList: $updateList, deleteAction: prepareForDeletion)
-
-                if project.path != (settings.hub.projects.last ?? ProjectData.null).path {
-                    Divider()
+                VStack {
+                    ProjectButton(projectData: dataBinding, updateList: $updateList, deleteAction: prepareForDeletion)
+                    if project != (settings.hub.projects.last ?? ProjectData.null) {
+                        Divider()
+                    }
                 }
             }
-        }
-        .navigationTitle("Projects")
-        .onChange(of: settings.hub.usePins) { _ in
-            updateList.toggle()
-        }
-        .onChange(of: settings.hub.showFileSizes) { _ in
-            updateList.toggle()
-        }
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                Button(action: toggleSearch) {
-                    Image(systemName: "magnifyingglass")
+            .navigationTitle("Projects")
+            .onChange(of: settings.hub.usePins) { _ in
+                updateList.toggle()
+            }
+            .onChange(of: settings.hub.showFileSize) { _ in
+                updateList.toggle()
+            }
+            .toolbar {
+                ToolbarItem(placement: .automatic) {
+                    Button(action: toggleSearch) {
+                        Image(systemName: "magnifyingglass")
+                    }
+                }
+                ToolbarItem(placement: .automatic) {
+                    Button(action: locateProject) {
+                        Image(systemName: "folder.badge.plus")
+                    }
+                }
+                ToolbarItem(placement: .automatic) {
+                    Button(action: createProject) {
+                        Image(systemName: "doc.badge.plus")
+                    }
                 }
             }
-            ToolbarItem(placement: .automatic) {
-                Button(action: locateProject) {
-                    Image(systemName: "folder.badge.plus")
-                }
-            }
-            ToolbarItem(placement: .automatic) {
-                Button(action: createProject) {
-                    Image(systemName: "doc.badge.plus")
-                }
-            }
+            .alert(isPresented: $showRemovalSheet) { removalAlert() }
         }
-        .alert(isPresented: $showRemovalSheet) { removalAlert() }
     }
     
     func removalAlert() -> Alert {
@@ -78,9 +79,9 @@ struct ProjectPanel: View {
     func locateProject() {
         NSOpenPanel.openFolder { result in
             if case let .success(path) = result {
-                if !settings.hub.hasProjectAtPath(path), ProjectData.isValidProjectPath(path) {
+                if !settings.hasProjectAtPath(path), ProjectData.isValidProjectPath(path) {
                     settings.hub.projects.append(ProjectData(path: path))
-                    settings.save()
+                    settings.wrap()
                 }
                 updateList.toggle()
             }

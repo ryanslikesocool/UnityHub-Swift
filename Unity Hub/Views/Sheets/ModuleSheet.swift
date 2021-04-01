@@ -8,16 +8,19 @@
 import SwiftUI
 
 struct ModuleSheet: View {
-    @Binding var selectedModules: [Bool]
+    @Binding var selectedModules: [UnityModule: Bool]
     @Binding var availableModules: [UnityModule]
-    
+
     var body: some View {
         Form {
             ScrollView {
-                ForEach(0 ..< availableModules.count, id: \.self) { i in
+                ForEach(availableModules, id: \.self) { module in
                     HStack {
-                        Toggle(availableModules[i].getDisplayName()!, isOn: $selectedModules[i])
-                        Spacer()
+                        if let binding = selectedModules[module] {
+                            let bindingValue = Binding(get: { return binding }, set: { selectedModules[module] = $0 })
+                            Toggle(module.getDisplayName()!, isOn: bindingValue)
+                            Spacer()
+                        }
                     }
                 }
             }

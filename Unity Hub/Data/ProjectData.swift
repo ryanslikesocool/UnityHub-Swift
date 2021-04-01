@@ -25,7 +25,7 @@ struct ProjectData {
     }
         
     init(path: String) {
-        self.path = path.replacingOccurrences(of: #" "#, with: #"\ "#)
+        self.path = path
         self.name = path.components(separatedBy: "/").last ?? "No Name"
         self.version = UnityVersion.null
         self.emoji = "❓"
@@ -35,16 +35,18 @@ struct ProjectData {
     }
     
     func getVersion() -> UnityVersion {
-        do {
-            let versionPath = "\(path)/ProjectSettings/ProjectVersion.txt"
-            let url = URL(fileURLWithPath: versionPath)
-            var versionText = try String(contentsOf: url)
-            versionText = versionText.components(separatedBy: "\n").first!
-            versionText.trimPrefix("m_EditorVersion: ")
-            return UnityVersion(versionText)
-        } catch {
-            print("Couldn't read Unity version from ProjectVersion.txt")
-            print(error.localizedDescription)
+        if FileManager.default.fileExists(atPath: path) {
+            let url = URL(fileURLWithPath: path).appendingPathComponent("ProjectSettings/ProjectVersion.txt")
+
+            do {
+                var versionText = try String(contentsOf: url)
+                versionText = versionText.components(separatedBy: "\n").first!
+                versionText.trimPrefix("m_EditorVersion: ")
+                return UnityVersion(versionText)
+            } catch {
+                print("Couldn't read Unity version from ProjectVersion.txt")
+                print(error.localizedDescription)
+            }
         }
         return UnityVersion.null
     }
@@ -78,3 +80,5 @@ extension ProjectData: Identifiable {
         return path
     }
 }
+
+extension ProjectData: Equatable {}

@@ -24,7 +24,7 @@ struct InstalledVersionButton: View {
     private var leadingSwipeActions: [Slot] { return displayFoldout ? [] : [Slot(
         image: { Image(systemName: "star.fill").frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
         title: { EmptyView().embedInAnyView() },
-        action: { settings.hub.setDefaultVersion(version) },
+        action: { settings.setDefaultVersion(version) },
         style: .init(background: .yellow, slotHeight: 64)
     )]
     }
@@ -80,7 +80,7 @@ struct InstalledVersionButton: View {
                 PrereleaseTag(version: version)
                     .padding(.horizontal, 4)
             }
-            if settings.hub.isStarred(version) {
+            if settings.isDefaultVersion(version) {
                 Image(systemName: "star.fill")
                     .font(.system(size: 10, weight: .semibold))
                     .padding(.horizontal, 4)
@@ -92,7 +92,7 @@ struct InstalledVersionButton: View {
     
     func versionAndLocation() -> some View {
         VStack(alignment: .leading) {
-            if !settings.hub.alwaysShowLocation {
+            if !settings.hub.showLocation {
                 Text(version.version)
                     .font(.system(size: 12, weight: .semibold))
                     .help(version.path)
@@ -108,7 +108,7 @@ struct InstalledVersionButton: View {
     
     func rightSide() -> some View {
         HStack {
-            if settings.hub.showFileSizes {
+            if settings.hub.showFileSize {
                 LoadingText(text: $fileSize)
                     .padding(.trailing, 8)
             }

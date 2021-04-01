@@ -30,12 +30,7 @@ struct SidebarItemView: View {
                 }
             }
             .frame(height: 24)
-        }.disabled(!enabled)
-    }
-}
-
-struct SidebarItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        SidebarItemView(enabled: true, item: .projects, selectedItem: .constant(.projects))
+        }
+        .disabled(!enabled)
     }
 }

@@ -34,7 +34,7 @@ struct ToggleSetting: View {
         .padding(.top, isFirst ? -4 : 0)
         .padding(.bottom, isLast ? 8 : 0)
         .onChange(of: toggle) { _ in
-            settings.save()
+            settings.wrap()
         }
     }
 }

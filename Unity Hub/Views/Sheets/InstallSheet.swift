@@ -13,7 +13,7 @@ struct InstallSheet: View {
     @State private var tab: String = "Version"
     
     @State private var selectedVersion = UnityVersion.null
-    @State private var selectedModules: [Bool] = []
+    @State private var selectedModules: [UnityModule: Bool] = [:]
     
     @State private var availableVersions: [UnityVersion] = []
     @State private var availableModules: [UnityModule] = []
@@ -48,7 +48,9 @@ struct InstallSheet: View {
             tab = "Version"
             getAvailableVersions()
             availableModules = UnityModule.getAvailableModules()
-            selectedModules = [Bool](repeating: false, count: availableModules.count)
+            for module in availableModules {
+                selectedModules[module] = false
+            }
         }
     }
     
@@ -80,9 +82,9 @@ struct InstallSheet: View {
     func installSelectedItems() {
         var command = "\(settings.hubCommandBase) im --version \(selectedVersion.version)"
         
-        for i in 0 ..< availableModules.count {
-            if selectedModules[i] {
-                command.append(" -m \(availableModules[i].rawValue)")
+        for module in availableModules {
+            if selectedModules[module] ?? false {
+                command.append(" -m \(module.rawValue)")
             }
         }
         
@@ -102,7 +104,7 @@ struct InstallSheet: View {
                 } else {
                     settings.hub.versions.remove(at: index)
                 }
-                settings.save()
+                settings.wrap()
             }
         }
         
@@ -110,7 +112,7 @@ struct InstallSheet: View {
         selectedVersion.path = "/Applications/Unity/Hub/Editor/\(selectedVersion.version)"
         
         settings.hub.versions.append(selectedVersion)
-        settings.save()
+        settings.wrap()
         
         closeMenu()
     }

@@ -21,11 +21,11 @@ struct HubData {
     
     var useEmoji: Bool
     var usePins: Bool
-    var alwaysShowLocation: Bool
-    var showFileSizes: Bool
+    var showLocation: Bool
+    var showFileSize: Bool
     var showSidebarCount: Bool
 
-    var starredVersion: UnityVersion
+    var defaultVersion: UnityVersion
     
     var projects: [ProjectData]
     var versions: [UnityVersion]
@@ -45,189 +45,51 @@ struct HubData {
         
         self.useEmoji = true
         self.usePins = true
-        self.alwaysShowLocation = false
-        self.showFileSizes = false
+        self.showLocation = false
+        self.showFileSize = false
         self.showSidebarCount = true
 
-        self.starredVersion = .null
+        self.defaultVersion = .null
 
         self.projects = projects
         self.versions = []
         
-        save()
-    }
-    
-    func save() {
-        do {
-            try asData()?.write(to: HubData.fileLocation)
-        } catch {
-            print("Couldn't save hub data\n\(error.localizedDescription)")
-        }
+        wrap()
     }
     
     static func load() -> HubData {
         do {
             let data = try Data(contentsOf: fileLocation)
-            return HubData(data: data)
+            let wrapper = HubDataWrapper(data: data)
+            var hubData = wrapper.unwrap()
+            verifyData(&hubData)
+            hubData.wrap()
+            return hubData
         } catch {
             print(error.localizedDescription)
-            return HubData()
+            
+            let defaultData = HubData()
+            defaultData.wrap()
+            return defaultData
         }
     }
-}
-
-extension HubData: Codable {
-    init(string: String) {
-        let data = string.data(using: .utf8)!
-        self = .init(data: data)
-    }
     
-    init(data: Data) {
-        self = .init(decoder: HubDataDecoder(data: data))
-        save()
-    }
-    
-    init(decoder: HubDataDecoder) {
-        self = decoder.toHubData()
-    }
-    
-    func asData() -> Data? {
-        do {
-            let encoder = JSONEncoder()
-            encoder.outputFormatting = .prettyPrinted
-            return try encoder.encode(self)
-        } catch {
-            print(error.localizedDescription)
-        }
+    static func verifyData(_ data: inout HubData) {
+        let fm = FileManager.default
         
-        return nil
+        let projectCopy = data.projects
+        for project in projectCopy {
+            if !fm.fileExists(atPath: project.path) {
+                data.projects.removeElement(project)
+            }
+        }
+    }
+    
+    func wrap() {
+        HubDataWrapper.wrap(self)
     }
 }
 
 extension HubData: Identifiable {
-    var id: String {
-        return uuid
-    }
-}
-
-// MARK: - Versions
-
-extension HubData {
-    var lastestVersionInstalled: UnityVersion? {
-        if versions.count == 0 {
-            return nil
-        }
-        return versions[0]
-    }
-    
-    // TO DO: don't regenrate all
-    // instead, verify each one, remove where needed
-    // check other locations for new versions
-    mutating func getAllVersions() {
-        versions.removeAll()
-        let fm = FileManager.default
-        let path = installLocation
-
-        do {
-            let items = try fm.contentsOfDirectory(atPath: path)
-            
-            var isDir: ObjCBool = false
-
-            for item in items {
-                let path = "\(path)/\(item)"
-                if fm.fileExists(atPath: path, isDirectory: &isDir) {
-                    if isDir.boolValue, UnityVersion.validateEditor(path: path) {
-                        versions.append(UnityVersion(item, path: path))
-                    }
-                }
-            }
-            
-            for i in 0 ..< customInstallLocations.count {
-                if !fm.fileExists(atPath: customInstallLocations[i]) {
-                    customInstallLocations.remove(at: i)
-                    continue
-                }
-                let items = try fm.contentsOfDirectory(atPath: customInstallLocations[i])
-                 
-                if items.contains("Unity.app") {
-                    if isDir.boolValue, UnityVersion.validateEditor(path: customInstallLocations[i]) {
-                        let components = customInstallLocations[i].components(separatedBy: "/")
-                        versions.append(UnityVersion(components.last!, path: customInstallLocations[i]))
-                    }
-                } else {
-                    customInstallLocations.remove(at: i)
-                }
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
-        
-        versions.sort {
-            switch $0.compare(other: $1) {
-            case 1: return true
-            case -1: return false
-            default: return false
-            }
-        }
-    }
-    
-    mutating func setDefaultVersion(_ version: UnityVersion) {
-        if version == starredVersion {
-            starredVersion = .null
-        } else {
-            starredVersion = version
-        }
-        save()
-    }
-    
-    func isStarred(_ version: UnityVersion) -> Bool {
-        return version == starredVersion
-    }
-    
-    mutating func setModule(_ version: UnityVersion, _ module: ModuleJSON) {
-        var version = version
-        let versionIndex = versions.firstIndex(where: { $0.version == version.version })
-        if let versionIndex = versionIndex {
-            let moduleIndex = version.modules.firstIndex(where: { $0.id == module.id })
-            if let moduleIndex = moduleIndex {
-                version.modules[moduleIndex] = module
-            }
-            versions[versionIndex] = version
-        }
-        save()
-    }
-}
-
-// MARK: - Projects
-
-extension HubData {
-    func hasProjectAtPath(_ path: String) -> Bool {
-        for project in projects {
-            if project.path == path {
-                return true
-            }
-        }
-        return false
-    }
-    
-    mutating func sortProjects() {
-        projects.sort {
-            if $0.pinned == $1.pinned || !usePins {
-                return $0.name < $1.name
-            }
-            return $0.pinned && !$1.pinned
-        }
-    }
-    
-    mutating func setProject(_ project: ProjectData) {
-        let index = projects.firstIndex(where: { $0.path == project.path })
-        if let index = index {
-            projects[index] = project
-        }
-        save()
-    }
-    
-    func getRealVersion(_ version: UnityVersion) -> UnityVersion {
-        return versions.first(where: { version.version == $0.version })!
-    }
+    var id: String { return uuid }
 }

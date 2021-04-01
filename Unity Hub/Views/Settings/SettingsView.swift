@@ -41,8 +41,8 @@ struct SettingsView: View {
                 }
                 Divider()
                 Section(header: Text("All Panels").font(.title)) {
-                    ToggleSetting(label: "Show File Location", toggle: $settings.hub.alwaysShowLocation, isFirst: true)
-                    ToggleSetting(label: "Show File Size", toggle: $settings.hub.showFileSizes, isLast: true)
+                    ToggleSetting(label: "Show File Location", toggle: $settings.hub.showLocation, isFirst: true)
+                    ToggleSetting(label: "Show File Size", toggle: $settings.hub.showFileSize, isLast: true)
                 }
             }
             .padding()

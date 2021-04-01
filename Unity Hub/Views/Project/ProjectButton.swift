@@ -23,6 +23,7 @@ struct ProjectButton: View {
     @State private var showWarning: Bool = false
 
     @State private var showSheet: Bool = false
+    @State private var showPopover: Bool = false
     @State private var activeSheet: ActiveSheet?
     
     @State private var fileSize: String = ""
@@ -46,7 +47,6 @@ struct ProjectButton: View {
     }
         
     enum ActiveSheet: Identifiable {
-        case emoji
         case advancedSettings
         
         var id: Int {
@@ -66,6 +66,7 @@ struct ProjectButton: View {
         
         return HStack {
             emojiArea(emojiBinding: emojiBinding)
+                .popover(isPresented: $showPopover) { EmojiPicker(action: { emojiBinding.wrappedValue = $0 }) }
             Button(action: openProject) {
                 titleArea()
                 if settings.hub.usePins && projectData.pinned {
@@ -74,7 +75,7 @@ struct ProjectButton: View {
                         .rotationEffect(Angle(degrees: 45))
                 }
                 Spacer()
-                if settings.hub.showFileSizes {
+                if settings.hub.showFileSize {
                     LoadingText(text: $fileSize)
                         .padding(.trailing, 8)
                 }
@@ -113,7 +114,7 @@ struct ProjectButton: View {
     func emojiArea(emojiBinding: Binding<String>) -> some View {
         Group {
             if settings.hub.useEmoji {
-                Button(action: selectEmoji) {
+                Button(action: { showPopover.toggle() }) {
                     Text(emojiBinding.wrappedValue)
                         .font(.system(size: 32))
                         .padding(.leading, 16)
@@ -125,7 +126,7 @@ struct ProjectButton: View {
     
     func titleArea() -> some View {
         VStack(alignment: .leading) {
-            if !settings.hub.alwaysShowLocation {
+            if !settings.hub.showLocation {
                 Text(projectData.name)
                     .font(.system(size: 12, weight: .semibold))
                     .help(projectData.path)
@@ -144,7 +145,7 @@ struct ProjectButton: View {
             Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: projectData.path) })
             if settings.hub.useEmoji {
                 Divider()
-                Button("Select Emoji", action: selectEmoji)
+                Button("Select Emoji", action: { showPopover.toggle() })
                 if !settings.hub.usePins {
                     Divider()
                 }
@@ -166,7 +167,6 @@ struct ProjectButton: View {
     func sheetView(item: ActiveSheet, emoji: Binding<String>, version: Binding<UnityVersion>) -> some View {
         Group {
             switch item {
-            case .emoji: EmojiPickerSheet(action: { emoji.wrappedValue = $0 })
             case .advancedSettings: AdvancedProjectSettingsSheet()
             }
         }
@@ -177,18 +177,13 @@ struct ProjectButton: View {
         showVersionWarning = false
         
         if settings.hub.versions.contains(projectData.version) {
-            let result =  "\(settings.hub.getRealVersion(projectData.version).path)/Unity.app/Contents/MacOS/Unity -projectPath \"\(projectData.path)\""
+            let result =  "\(settings.getRealVersion(projectData.version).path)/Unity.app/Contents/MacOS/Unity -projectPath \"\(projectData.path)\""
             return result
         }
         
         showWarning = true
         showVersionWarning = true
         return nil
-    }
-    
-    func selectEmoji() {
-        activeSheet = .emoji
-        showSheet.toggle()
     }
     
     func openProject() {
@@ -208,7 +203,7 @@ struct ProjectButton: View {
     
     func togglePin() {
         projectData.pinned.toggle()
-        settings.save()
+        settings.wrap()
         updateList.toggle()
     }
     

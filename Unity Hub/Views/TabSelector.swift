@@ -13,7 +13,7 @@ struct TabSelector: View {
     var body: some View {
         switch item {
         case .projects: ProjectPanel()
-        case .installs: InstalledVersionPanel()
+        case .installs: VersionPanel()
         }
     }
 }

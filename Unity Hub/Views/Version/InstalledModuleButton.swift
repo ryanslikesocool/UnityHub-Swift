@@ -34,7 +34,7 @@ struct InstalledModuleButton: View {
                 Text(name)
             }
             Spacer()
-            if settings.hub.showFileSizes {
+            if settings.hub.showFileSize {
                 LoadingText(text: $fileSize)
                     .padding(.trailing, 8)
             }

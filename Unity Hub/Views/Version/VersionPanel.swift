@@ -8,7 +8,7 @@
 import SwiftUI
 import AppKit
 
-struct InstalledVersionPanel: View {
+struct VersionPanel: View {
     @EnvironmentObject var settings: HubSettings
     
     @State private var showInstaller: Bool = false
@@ -27,7 +27,7 @@ struct InstalledVersionPanel: View {
             }
         }
         .navigationTitle("Installs")
-        .onAppear(perform: getAllVersions)
+        .onAppear(perform: settings.getAllVersions)
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Button(action: locateVersion) {
@@ -51,10 +51,6 @@ struct InstalledVersionPanel: View {
         }
     }
     
-    func getAllVersions() {
-        settings.hub.getAllVersions()
-    }
-    
     func locateVersion() {
         NSOpenPanel.openFolder { result in
             if case let .success(path) = result {
@@ -62,7 +58,7 @@ struct InstalledVersionPanel: View {
                     settings.hub.customInstallLocations.append(path)
                 }
                 
-                getAllVersions()
+                settings.getAllVersions()
             }
         }
     }
@@ -82,7 +78,7 @@ struct InstalledVersionPanel: View {
                 let _ = shell("rm -rf \(version.path)")
             }
             settings.hub.versions.removeAll(where: { $0.version == version.version })
-            settings.save()
+            settings.wrap()
         }
         installToRemove = nil
     }

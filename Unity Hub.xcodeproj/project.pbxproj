@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF040BF72611E4B2006CD508 /* ModuleJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF040BF62611E4B2006CD508 /* ModuleJSONDecoder.swift */; };
 		AF08B5442524309700E7D16B /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF08B5432524309600E7D16B /* VisualEffectView.swift */; };
 		AF146CAF25622B990032343F /* VersionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF146CAE25622B990032343F /* VersionSheet.swift */; };
 		AF146CB325622BA30032343F /* ModuleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF146CB225622BA30032343F /* ModuleSheet.swift */; };
@@ -16,11 +15,11 @@
 		AF16EDF7251AEF4000C939AA /* TabSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16EDF6251AEF4000C939AA /* TabSelector.swift */; };
 		AF16FF24251B8CAD00C8A2A9 /* InstallSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16FF23251B8CAD00C8A2A9 /* InstallSheet.swift */; };
 		AF16FF27251B8EA500C8A2A9 /* UnityVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */; };
-		AF34E221251AF91F00192E53 /* InstalledVersionPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E220251AF91F00192E53 /* InstalledVersionPanel.swift */; };
+		AF34E221251AF91F00192E53 /* VersionPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E220251AF91F00192E53 /* VersionPanel.swift */; };
 		AF34E226251AFD2D00192E53 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E225251AFD2D00192E53 /* SettingsView.swift */; };
 		AF34E22B251AFE5300192E53 /* HubSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF34E22A251AFE5300192E53 /* HubSettings.swift */; };
 		AF4D2104251EBA220029101C /* Smile in Frameworks */ = {isa = PBXBuildFile; productRef = AF4D2103251EBA220029101C /* Smile */; };
-		AF59FEA5251EBB4A0093D284 /* EmojiPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF59FEA4251EBB4A0093D284 /* EmojiPickerSheet.swift */; };
+		AF59FEA5251EBB4A0093D284 /* EmojiPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF59FEA4251EBB4A0093D284 /* EmojiPicker.swift */; };
 		AF5A94D0251BF9E3002FA410 /* DownloadInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5A94CF251BF9E3002FA410 /* DownloadInfo.swift */; };
 		AF66EBEE251AE3900088EC84 /* UnityHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF66EBED251AE3900088EC84 /* UnityHubApp.swift */; };
 		AF66EBF0251AE3900088EC84 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF66EBEF251AE3900088EC84 /* ContentView.swift */; };
@@ -38,6 +37,7 @@
 		AFB1C3AD251B492900F8E3D8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3AC251B492900F8E3D8 /* String+Extension.swift */; };
 		AFB1C3B0251B633C00F8E3D8 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3AF251B633C00F8E3D8 /* Shell.swift */; };
 		AFBB9A4F25260B000004F78B /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBB9A4E25260B000004F78B /* Color+Extension.swift */; };
+		AFC0AF412615029A0039FFEC /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC0AF402615029A0039FFEC /* Array+Extension.swift */; };
 		AFC23C5825257E0700F5FE4B /* PrereleaseTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */; };
 		AFDFD24E25F51D1200E4F9D0 /* SlidableModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDFD24925F51D1100E4F9D0 /* SlidableModifier.swift */; };
 		AFDFD24F25F51D1200E4F9D0 /* Slot.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDFD24A25F51D1100E4F9D0 /* Slot.swift */; };
@@ -47,9 +47,9 @@
 		AFEB9956261188EC006E4E91 /* HubData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB9955261188EC006E4E91 /* HubData.swift */; };
 		AFEB995826118940006E4E91 /* ProjectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB995726118940006E4E91 /* ProjectData.swift */; };
 		AFEB995B2611A6A3006E4E91 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB995A2611A6A3006E4E91 /* URL+Extension.swift */; };
-		AFEB996F2611ADCF006E4E91 /* HubDataDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB996E2611ADCF006E4E91 /* HubDataDecoder.swift */; };
-		AFEB99722611B03D006E4E91 /* ProjectDataDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB99712611B03D006E4E91 /* ProjectDataDecoder.swift */; };
-		AFEB99742611B1F0006E4E91 /* UnityVersionDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB99732611B1F0006E4E91 /* UnityVersionDecoder.swift */; };
+		AFEB996F2611ADCF006E4E91 /* HubDataWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB996E2611ADCF006E4E91 /* HubDataWrapper.swift */; };
+		AFEB99722611B03D006E4E91 /* ProjectDataWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB99712611B03D006E4E91 /* ProjectDataWrapper.swift */; };
+		AFEB99742611B1F0006E4E91 /* UnityVersionWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB99732611B1F0006E4E91 /* UnityVersionWrapper.swift */; };
 		AFEB99762611C194006E4E91 /* LoadingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB99752611C194006E4E91 /* LoadingText.swift */; };
 		AFFDD8B3251B08EB000AE12C /* InstalledVersionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */; };
 		AFFE8EA325F9AE420086F887 /* LocationSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE8EA225F9AE420086F887 /* LocationSetting.swift */; };
@@ -71,7 +71,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		AF040BF62611E4B2006CD508 /* ModuleJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleJSONDecoder.swift; sourceTree = "<group>"; };
 		AF08B5432524309600E7D16B /* VisualEffectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		AF146CAE25622B990032343F /* VersionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionSheet.swift; sourceTree = "<group>"; };
 		AF146CB225622BA30032343F /* ModuleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleSheet.swift; sourceTree = "<group>"; };
@@ -82,10 +81,10 @@
 		AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityVersion.swift; sourceTree = "<group>"; };
 		AF219E72252C5FF6008CE04C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		AF219E74252C5FF6008CE04C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		AF34E220251AF91F00192E53 /* InstalledVersionPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledVersionPanel.swift; sourceTree = "<group>"; };
+		AF34E220251AF91F00192E53 /* VersionPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionPanel.swift; sourceTree = "<group>"; };
 		AF34E225251AFD2D00192E53 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AF34E22A251AFE5300192E53 /* HubSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubSettings.swift; sourceTree = "<group>"; };
-		AF59FEA4251EBB4A0093D284 /* EmojiPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerSheet.swift; sourceTree = "<group>"; };
+		AF59FEA4251EBB4A0093D284 /* EmojiPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPicker.swift; sourceTree = "<group>"; };
 		AF5A94CF251BF9E3002FA410 /* DownloadInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadInfo.swift; sourceTree = "<group>"; };
 		AF66EBEA251AE3900088EC84 /* Unity Hub S.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Unity Hub S.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF66EBED251AE3900088EC84 /* UnityHubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityHubApp.swift; sourceTree = "<group>"; };
@@ -106,6 +105,7 @@
 		AFB1C3AC251B492900F8E3D8 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		AFB1C3AF251B633C00F8E3D8 /* Shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
 		AFBB9A4E25260B000004F78B /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		AFC0AF402615029A0039FFEC /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrereleaseTag.swift; sourceTree = "<group>"; };
 		AFDFD24925F51D1100E4F9D0 /* SlidableModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlidableModifier.swift; sourceTree = "<group>"; };
 		AFDFD24A25F51D1100E4F9D0 /* Slot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slot.swift; sourceTree = "<group>"; };
@@ -115,9 +115,9 @@
 		AFEB9955261188EC006E4E91 /* HubData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubData.swift; sourceTree = "<group>"; };
 		AFEB995726118940006E4E91 /* ProjectData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectData.swift; sourceTree = "<group>"; };
 		AFEB995A2611A6A3006E4E91 /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
-		AFEB996E2611ADCF006E4E91 /* HubDataDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubDataDecoder.swift; sourceTree = "<group>"; };
-		AFEB99712611B03D006E4E91 /* ProjectDataDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataDecoder.swift; sourceTree = "<group>"; };
-		AFEB99732611B1F0006E4E91 /* UnityVersionDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityVersionDecoder.swift; sourceTree = "<group>"; };
+		AFEB996E2611ADCF006E4E91 /* HubDataWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubDataWrapper.swift; sourceTree = "<group>"; };
+		AFEB99712611B03D006E4E91 /* ProjectDataWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataWrapper.swift; sourceTree = "<group>"; };
+		AFEB99732611B1F0006E4E91 /* UnityVersionWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityVersionWrapper.swift; sourceTree = "<group>"; };
 		AFEB99752611C194006E4E91 /* LoadingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingText.swift; sourceTree = "<group>"; };
 		AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledVersionButton.swift; sourceTree = "<group>"; };
 		AFFE8EA225F9AE420086F887 /* LocationSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSetting.swift; sourceTree = "<group>"; };
@@ -145,6 +145,14 @@
 				AF219E74252C5FF6008CE04C /* SwiftUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AF3C26CD2615A3DA0005B10E /* Popovers */ = {
+			isa = PBXGroup;
+			children = (
+				AF59FEA4251EBB4A0093D284 /* EmojiPicker.swift */,
+			);
+			path = Popovers;
 			sourceTree = "<group>";
 		};
 		AF66EBE1251AE3900088EC84 = {
@@ -205,7 +213,7 @@
 				AF75222325F9D0EB00549E0E /* SearchBar.swift */,
 				AF66EC01251AE57D0088EC84 /* SVGShapes.swift */,
 				AF16EDF6251AEF4000C939AA /* TabSelector.swift */,
-				AF08B5432524309600E7D16B /* VisualEffectView.swift */,
+				AF3C26CD2615A3DA0005B10E /* Popovers */,
 				AFD0D1CC25F50CC200373759 /* Project */,
 				AFD0D1CB25F50CB300373759 /* Version */,
 				AF9F946125F14C7100539C3A /* Settings */,
@@ -218,7 +226,7 @@
 		AFC933F32527F6BB00E5ECDE /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				AFEB99702611AEA3006E4E91 /* Decoders */,
+				AFEB99702611AEA3006E4E91 /* Wrappers */,
 				AF34E22A251AFE5300192E53 /* HubSettings.swift */,
 				AFEB9955261188EC006E4E91 /* HubData.swift */,
 				AF5A94CF251BF9E3002FA410 /* DownloadInfo.swift */,
@@ -234,7 +242,6 @@
 			isa = PBXGroup;
 			children = (
 				AFEAC8062525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift */,
-				AF59FEA4251EBB4A0093D284 /* EmojiPickerSheet.swift */,
 				AF16FF23251B8CAD00C8A2A9 /* InstallSheet.swift */,
 				AFAEFA1325F1B4690010B492 /* InstallModuleSheet.swift */,
 				AF146CAE25622B990032343F /* VersionSheet.swift */,
@@ -246,6 +253,8 @@
 		AFC933F72527F70B00E5ECDE /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				AF08B5432524309600E7D16B /* VisualEffectView.swift */,
+				AFC0AF402615029A0039FFEC /* Array+Extension.swift */,
 				AFBB9A4E25260B000004F78B /* Color+Extension.swift */,
 				AFA0862B251B1CFB00B1B985 /* NSOpenPanel+Extension.swift */,
 				AFB1C3AF251B633C00F8E3D8 /* Shell.swift */,
@@ -260,7 +269,7 @@
 		AFD0D1CB25F50CB300373759 /* Version */ = {
 			isa = PBXGroup;
 			children = (
-				AF34E220251AF91F00192E53 /* InstalledVersionPanel.swift */,
+				AF34E220251AF91F00192E53 /* VersionPanel.swift */,
 				AFFDD8B2251B08EB000AE12C /* InstalledVersionButton.swift */,
 				AFAEFA1825F1CCC50010B492 /* InstalledModuleButton.swift */,
 				AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */,
@@ -287,15 +296,14 @@
 			path = SwipeCell;
 			sourceTree = "<group>";
 		};
-		AFEB99702611AEA3006E4E91 /* Decoders */ = {
+		AFEB99702611AEA3006E4E91 /* Wrappers */ = {
 			isa = PBXGroup;
 			children = (
-				AFEB996E2611ADCF006E4E91 /* HubDataDecoder.swift */,
-				AFEB99712611B03D006E4E91 /* ProjectDataDecoder.swift */,
-				AFEB99732611B1F0006E4E91 /* UnityVersionDecoder.swift */,
-				AF040BF62611E4B2006CD508 /* ModuleJSONDecoder.swift */,
+				AFEB996E2611ADCF006E4E91 /* HubDataWrapper.swift */,
+				AFEB99712611B03D006E4E91 /* ProjectDataWrapper.swift */,
+				AFEB99732611B1F0006E4E91 /* UnityVersionWrapper.swift */,
 			);
-			path = Decoders;
+			path = Wrappers;
 			sourceTree = "<group>";
 		};
 		AFFE8EAC25F9C1210086F887 /* Sidebar */ = {
@@ -392,11 +400,11 @@
 				AFFE8EAA25F9B4230086F887 /* ToggleSetting.swift in Sources */,
 				AFA0862C251B1CFB00B1B985 /* NSOpenPanel+Extension.swift in Sources */,
 				AFAEFA1425F1B4690010B492 /* InstallModuleSheet.swift in Sources */,
-				AF040BF72611E4B2006CD508 /* ModuleJSONDecoder.swift in Sources */,
 				AF5A94D0251BF9E3002FA410 /* DownloadInfo.swift in Sources */,
 				AFDFD24E25F51D1200E4F9D0 /* SlidableModifier.swift in Sources */,
 				AFEB99762611C194006E4E91 /* LoadingText.swift in Sources */,
 				AF66EBF0251AE3900088EC84 /* ContentView.swift in Sources */,
+				AFC0AF412615029A0039FFEC /* Array+Extension.swift in Sources */,
 				AF34E226251AFD2D00192E53 /* SettingsView.swift in Sources */,
 				AFDFD24F25F51D1200E4F9D0 /* Slot.swift in Sources */,
 				AFB1C3A3251B325000F8E3D8 /* UnityModule.swift in Sources */,
@@ -410,13 +418,13 @@
 				AF16FF24251B8CAD00C8A2A9 /* InstallSheet.swift in Sources */,
 				AFAEFA1925F1CCC50010B492 /* InstalledModuleButton.swift in Sources */,
 				AFFDD8B3251B08EB000AE12C /* InstalledVersionButton.swift in Sources */,
-				AFEB996F2611ADCF006E4E91 /* HubDataDecoder.swift in Sources */,
+				AFEB996F2611ADCF006E4E91 /* HubDataWrapper.swift in Sources */,
 				AF16FF27251B8EA500C8A2A9 /* UnityVersion.swift in Sources */,
 				AFEB99542611856D006E4E91 /* CGFloat+Extension.swift in Sources */,
 				AFEB995B2611A6A3006E4E91 /* URL+Extension.swift in Sources */,
-				AFEB99742611B1F0006E4E91 /* UnityVersionDecoder.swift in Sources */,
-				AFEB99722611B03D006E4E91 /* ProjectDataDecoder.swift in Sources */,
-				AF59FEA5251EBB4A0093D284 /* EmojiPickerSheet.swift in Sources */,
+				AFEB99742611B1F0006E4E91 /* UnityVersionWrapper.swift in Sources */,
+				AFEB99722611B03D006E4E91 /* ProjectDataWrapper.swift in Sources */,
+				AF59FEA5251EBB4A0093D284 /* EmojiPicker.swift in Sources */,
 				AF34E22B251AFE5300192E53 /* HubSettings.swift in Sources */,
 				AF146CB325622BA30032343F /* ModuleSheet.swift in Sources */,
 				AFB1C3A9251B459600F8E3D8 /* ProjectButton.swift in Sources */,
@@ -425,7 +433,7 @@
 				AF75222425F9D0EB00549E0E /* SearchBar.swift in Sources */,
 				AF08B5442524309700E7D16B /* VisualEffectView.swift in Sources */,
 				AFDFD25125F51D1200E4F9D0 /* Extensions.swift in Sources */,
-				AF34E221251AF91F00192E53 /* InstalledVersionPanel.swift in Sources */,
+				AF34E221251AF91F00192E53 /* VersionPanel.swift in Sources */,
 				AFB1C3AD251B492900F8E3D8 /* String+Extension.swift in Sources */,
 				AF16EDE8251AEC1700C939AA /* SidebarItem.swift in Sources */,
 				AF66EC02251AE57D0088EC84 /* SVGShapes.swift in Sources */,

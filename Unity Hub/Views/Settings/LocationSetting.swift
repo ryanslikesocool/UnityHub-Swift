@@ -66,7 +66,7 @@ struct LocationSetting: View {
             if (result != nil) {
                 location = result!.path.replacingOccurrences(of: #" "#, with: #"\ "#)
                 assignAction(location)
-                settings.save()
+                settings.wrap()
             }
         }
     }

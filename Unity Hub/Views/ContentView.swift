@@ -18,15 +18,15 @@ struct ContentView: View {
             .listStyle(SidebarListStyle())
             .toolbar {
                 ToolbarItem(placement: .navigation) {
-                    Button(action: toggleSidebar, label: {
+                    Button(action: toggleSidebar) {
                         Image(systemName: "sidebar.left")
-                    })
+                    }
                 }
             }
         }
     }
-    
+
     func toggleSidebar() {
-            NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
+        NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
     }
 }
