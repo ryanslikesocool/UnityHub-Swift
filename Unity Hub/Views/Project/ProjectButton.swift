@@ -33,7 +33,7 @@ struct ProjectButton: View {
             image: { Image(systemName: .pinIcon).frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
             title: { EmptyView().embedInAnyView() },
             action: { togglePin() },
-            style: .init(background: .orange, slotHeight: .swipeActionButtonSize)
+            style: .init(background: .orange, slotHeight: .listItemHeight)
         )] : []
     }
 
@@ -42,7 +42,7 @@ struct ProjectButton: View {
             image: { Image(systemName: .trashIcon).frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
             title: { EmptyView().embedInAnyView() },
             action: { deleteAction(projectData) },
-            style: .init(background: .red, slotHeight: .swipeActionButtonSize)
+            style: .init(background: .red, slotHeight: .listItemHeight)
         )]
     }
         
@@ -71,7 +71,7 @@ struct ProjectButton: View {
                 titleArea()
                 if settings.hub.usePins && projectData.pinned {
                     Image(systemName: .pinIcon)
-                        .font(.system(size: 10, weight: .semibold))
+                        .font(.system(size: 13, weight: .semibold))
                         .rotationEffect(Angle(degrees: 45))
                 }
                 Spacer()

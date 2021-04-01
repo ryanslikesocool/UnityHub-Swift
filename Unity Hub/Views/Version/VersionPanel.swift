@@ -19,7 +19,7 @@ struct VersionPanel: View {
     var body: some View {
         List(settings.hub.versions) { version in
             VStack {
-                InstalledVersionButton(version: version, deleteAction: prepareForDeletion)
+                VersionButton(version: version, deleteAction: prepareForDeletion)
                 
                 if version != settings.hub.versions.last ?? UnityVersion.null {
                     Divider()

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InstalledModuleButton: View {
+struct ModuleButton: View {
     @EnvironmentObject var settings: HubSettings
 
     let version: UnityVersion

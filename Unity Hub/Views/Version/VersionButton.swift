@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InstalledVersionButton: View {
+struct VersionButton: View {
     @EnvironmentObject var settings: HubSettings
     
     @State var version: UnityVersion
@@ -25,7 +25,7 @@ struct InstalledVersionButton: View {
         image: { Image(systemName: "star.fill").frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
         title: { EmptyView().embedInAnyView() },
         action: { settings.setDefaultVersion(version) },
-        style: .init(background: .yellow, slotHeight: 64)
+        style: .init(background: .yellow, slotHeight: .listItemHeight)
     )]
     }
 
@@ -33,7 +33,7 @@ struct InstalledVersionButton: View {
         image: { Image(systemName: .trashIcon).frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
         title: { EmptyView().embedInAnyView() },
         action: { deleteAction(version) },
-        style: .init(background: .red, slotHeight: 64)
+        style: .init(background: .red, slotHeight: .listItemHeight)
     )]
     }
 
@@ -42,17 +42,16 @@ struct InstalledVersionButton: View {
             Button(action: { displayFoldout.toggle() }) {
                 mainButton()
             }
-            .frame(minWidth: 64, maxWidth: .infinity, minHeight: 40, maxHeight: 40)
+            .frame(minWidth: 64, maxWidth: .infinity, minHeight: .listItemHeight, maxHeight: .listItemHeight)
             .contentShape(Rectangle())
             
             if displayFoldout {
                 ForEach(version.installedModules) { module in
-                    InstalledModuleButton(version: version, module: module, deleteAction: prepareForDeletion)
+                    ModuleButton(version: version, module: module, deleteAction: prepareForDeletion)
                 }
                 .onDelete(perform: prepareForDeletion)
             }
         }
-        .padding(.vertical, 12)
         .buttonStyle(PlainButtonStyle())
         .onAppear {
             getVersionSize()
@@ -82,7 +81,7 @@ struct InstalledVersionButton: View {
             }
             if settings.isDefaultVersion(version) {
                 Image(systemName: "star.fill")
-                    .font(.system(size: 10, weight: .semibold))
+                    .font(.system(size: 13, weight: .semibold))
                     .padding(.horizontal, 4)
             }
             Spacer()
