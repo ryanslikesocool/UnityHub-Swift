@@ -20,6 +20,7 @@ struct HubDataWrapper: Codable {
     var usePins: Bool?
     var showLocation: Bool?
     var showFileSize: Bool?
+    var useSmallSidebar: Bool?
     var showSidebarCount: Bool?
 
     var defaultVersion: UnityVersionWrapper?
@@ -40,6 +41,7 @@ struct HubDataWrapper: Codable {
         usePins = original.usePins
         showLocation = original.showLocation
         showFileSize = original.showFileSize
+        useSmallSidebar = original.useSmallSidebar
         showSidebarCount = original.showSidebarCount
         
         defaultVersion = UnityVersionWrapper(original: original.defaultVersion)
@@ -71,6 +73,7 @@ struct HubDataWrapper: Codable {
         result.usePins = usePins ?? true
         result.showLocation = showLocation ?? false
         result.showFileSize = showFileSize ?? false
+        result.useSmallSidebar = useSmallSidebar ?? false
         result.showSidebarCount = showSidebarCount ?? true
         
         result.defaultVersion = defaultVersion?.unwrap() ?? .null

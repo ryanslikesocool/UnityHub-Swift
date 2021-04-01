@@ -23,6 +23,7 @@ struct HubData {
     var usePins: Bool
     var showLocation: Bool
     var showFileSize: Bool
+    var useSmallSidebar: Bool
     var showSidebarCount: Bool
 
     var defaultVersion: UnityVersion
@@ -47,6 +48,7 @@ struct HubData {
         self.usePins = true
         self.showLocation = false
         self.showFileSize = false
+        self.useSmallSidebar = false
         self.showSidebarCount = true
 
         self.defaultVersion = .null

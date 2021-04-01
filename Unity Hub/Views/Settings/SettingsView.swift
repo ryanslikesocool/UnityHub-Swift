@@ -20,6 +20,7 @@ struct SettingsView: View {
                     HStack {
                         Text("Made with ❤️ by")
                         Link("Ryan Boyer", destination: URL(string: "http://ryanjboyer.com")!)
+                            .padding(.leading, -4)
                     }
                     .padding(.top, -6)
                     .padding(.bottom, 8)
@@ -32,7 +33,10 @@ struct SettingsView: View {
                 }
                 Divider()
                 Section(header: Text("Sidebar").font(.title)) {
-                    ToggleSetting(label: "Show Item Count", toggle: $settings.hub.showSidebarCount, isFirst: true, isLast: true)
+                    ToggleSetting(label: "Use Small Sidebar", toggle: $settings.hub.useSmallSidebar, isFirst: true)
+                        .disabled(true)
+                    ToggleSetting(label: "Show Item Count", toggle: $settings.hub.showSidebarCount, isLast: true)
+                        .disabled(settings.hub.useSmallSidebar)
                 }
                 Divider()
                 Section(header: Text("Project Panel").font(.title)) {
