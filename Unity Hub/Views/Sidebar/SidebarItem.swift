@@ -23,7 +23,7 @@ extension SidebarItem {
     func asSymbol() -> String {
         switch self {
         case .projects: return "cube.fill"
-        case .installs: return "list.dash"
+        case .installs: return "list.triangle"
         }
     }
     

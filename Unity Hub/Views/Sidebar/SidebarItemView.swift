@@ -19,9 +19,9 @@ struct SidebarItemView: View {
         NavigationLink(destination: TabSelector(item: item), tag: item, selection: $selectedItem) {
             HStack {
                 Image(systemName: item.asSymbol())
-                    .font(.system(size: 12, weight: .black))
+                    .font(.system(size: 13, weight: .semibold))
                 Text(item.asText())
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(.system(size: 13, weight: .semibold))
                 Spacer()
                 if settings.hub.showSidebarCount {
                     Text(item.asSubtitleText(settings: settings))

@@ -16,11 +16,11 @@ struct ContentView: View {
                 SidebarItemView(enabled: true, item: item, selectedItem: $selectedItem)
             }
             .listStyle(SidebarListStyle())
-            .toolbar {
-                ToolbarItem(placement: .navigation) {
-                    Button(action: toggleSidebar) {
-                        Image(systemName: "sidebar.left")
-                    }
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                Button(action: toggleSidebar) {
+                    Image(systemName: "sidebar.left")
                 }
             }
         }
