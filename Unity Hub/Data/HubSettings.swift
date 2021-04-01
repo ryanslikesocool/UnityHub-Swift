@@ -10,10 +10,7 @@ import SwiftUI
 
 class HubSettings: ObservableObject {
     let hubSubFolder: String = #"/Contents/MacOS/Unity\ Hub"#
-        
-    var hubCommandBase: String {
-        return "\(hub.hubLocation)\(hubSubFolder) -- --headless"
-    }
+    var hubCommandBase: String { return "\(hub.hubLocation)\(hubSubFolder) -- --headless" }
     
     @Published var hub: HubData
     
@@ -132,5 +129,15 @@ extension HubSettings {
     
     func getRealVersion(_ version: UnityVersion) -> UnityVersion {
         return hub.versions.first(where: { version.version == $0.version })!
+    }
+    
+    func setVersionDefaultLocation() {
+        let command = "\(hubCommandBase) ip -s \(hub.installLocation)"
+        DispatchQueue.global(qos: .background).async {
+            let result = shell(command)
+            DispatchQueue.main.async {
+                print(result)
+            }
+        }
     }
 }

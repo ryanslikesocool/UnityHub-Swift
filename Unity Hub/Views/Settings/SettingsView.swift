@@ -28,7 +28,10 @@ struct SettingsView: View {
                 Divider()
                 Section(header: Text("Locations").font(.title)) {
                     LocationSetting(label: "Unity Hub Location", symbol: "folder", prompt: "Choose Unity Hub.app", isDirectory: false, assignAction: { settings.hub.hubLocation = $0 }, location: settings.hub.hubLocation, isFirst: true)
-                    LocationSetting(label: "Default Editor Location", symbol: "folder", prompt: "Choose the default editor location", isDirectory: true, assignAction: { settings.hub.installLocation = $0 }, location: settings.hub.installLocation)
+                    LocationSetting(label: "Default Editor Location", symbol: "folder", prompt: "Choose the default editor location", isDirectory: true, assignAction: {
+                        settings.hub.installLocation = $0
+                        settings.setVersionDefaultLocation()
+                    }, location: settings.hub.installLocation)
                     LocationSetting(label: "Default Project Location", symbol: "folder", prompt: "Choose the default project location", isDirectory: true, assignAction: { settings.hub.projectLocation = $0 }, location: settings.hub.projectLocation, isLast: true)
                 }
                 Divider()

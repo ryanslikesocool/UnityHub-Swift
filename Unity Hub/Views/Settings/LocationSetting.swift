@@ -43,7 +43,7 @@ struct LocationSetting: View {
                 Spacer()
             }
             .padding(.top, isFirst ? -4 : 0)
-            Text(location)
+            Text(location.replacingOccurrences(of: #"\"#, with: ""))
                 .font(.system(size: 11, weight: .semibold, design: .monospaced))
                 .opacity(0.75)
                 .padding(.top, -4)
