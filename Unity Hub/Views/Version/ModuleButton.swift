@@ -20,7 +20,7 @@ struct ModuleButton: View {
         image: { Image(systemName: .trashIcon).frame(width: .swipeActionSmallIconSize, height: .swipeActionSmallIconSize).embedInAnyView() },
         title: { EmptyView().embedInAnyView() },
         action: { deleteAction(module) },
-        style: .init(background: .red, slotHeight: 20)
+        style: .init(background: .red, slotHeight: .smallListItemHeight)
     )]
     }
 
@@ -48,7 +48,8 @@ struct ModuleButton: View {
                 .frame(width: 16)
                 .padding(.trailing, 16)
         }
-        .padding(.horizontal, 32)
+        .padding(.leading, 32)
+        .frame(height: .smallListItemHeight)
         .contentShape(Rectangle())
         .onSwipe(trailing: trailingSwipeActions)
         .onAppear {

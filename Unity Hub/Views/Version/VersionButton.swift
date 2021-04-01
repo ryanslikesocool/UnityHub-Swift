@@ -37,8 +37,8 @@ struct VersionButton: View {
     )]
     }
 
-    var body: some View {
-        VStack {
+    var body: some View {        
+        return VStack {
             Button(action: { displayFoldout.toggle() }) {
                 mainButton()
             }
@@ -47,6 +47,8 @@ struct VersionButton: View {
             
             if displayFoldout {
                 ForEach(version.installedModules) { module in
+                    Divider()
+                        .padding(.leading, 32)
                     ModuleButton(version: version, module: module, deleteAction: prepareForDeletion)
                 }
                 .onDelete(perform: prepareForDeletion)

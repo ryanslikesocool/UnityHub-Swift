@@ -28,7 +28,7 @@ struct UnityVersion {
     static let versionRegex = try! NSRegularExpression(pattern: #"^(\d+)\.(\d+)\.(\d+)([a|b|f|p|c])(\d+)"#)
     static let null = UnityVersion("0.0.0a0")
 
-    var installedModules: [UnityModule] { return modules.filter { $0.selected }.map { UnityModule(rawValue: $0.id) ?? .none }}
+    var installedModules: [UnityModule] { return modules.filter { $0.selected && (UnityModule(rawValue: $0.id) != Optional.none) }.map { UnityModule(rawValue: $0.id) ?? .none }}
 
     init() {
         self.version = "0.0.0a0"
@@ -169,7 +169,7 @@ extension UnityVersion {
         for module in modules {
             if module.selected, let unityModule = UnityModule(rawValue: module.id) {
                 let index = unityModules.firstIndex(where: { $0.getPlatform() == unityModule.getPlatform() })
-                if index == nil {
+                if index == nil && unityModule != .none {
                     unityModules.append(unityModule)
                 }
             }
