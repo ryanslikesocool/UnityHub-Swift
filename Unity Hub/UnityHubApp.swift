@@ -14,7 +14,7 @@ struct UnityHubApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .frame(minWidth: 700, maxWidth: .infinity, minHeight: 400, maxHeight: .infinity)
+                .frame(minWidth: 700, maxWidth: .infinity, minHeight: 350, maxHeight: .infinity)
                 .environmentObject(settings)
                 .onAppear(perform: { settings.getAllVersions() })
         }
@@ -23,7 +23,7 @@ struct UnityHubApp: App {
 
         Settings {
             SettingsView()
-                .frame(width: 320, height: 424)
+                .frame(width: 320, height: 374)
                 .environmentObject(settings)
                 .navigationTitle("Settings")
         }
