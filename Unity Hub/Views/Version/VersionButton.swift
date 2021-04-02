@@ -71,7 +71,7 @@ struct VersionButton: View {
         })
         .sheet(isPresented: $showInstallSheet) { InstallModuleSheet(selectedVersion: version) }
         .alert(isPresented: $showRemovalSheet) { alertPanel() }
-        .onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
+        //.onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
     }
     
     func mainButton() -> some View {

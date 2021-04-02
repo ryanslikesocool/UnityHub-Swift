@@ -106,7 +106,7 @@ struct ProjectButton: View {
             }
         }
         .sheet(item: $activeSheet) { sheetView(item: $0, emoji: emojiBinding, version: versionBinding) }
-        .onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
+        //.onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
         .alert(isPresented: $showVersionWarning) {
             Alert(title: Text("Missing Unity Version"), message: Text("The Unity version last used to open this project (\(projectData.version.version)) is missing.  Please reinstall it or redownload the version."), dismissButton: .default(Text("Ok")))
         }

@@ -46,12 +46,12 @@ struct ModuleButton: View {
                 .labelsHidden()
                 .menuStyle(BorderlessButtonMenuStyle())
                 .frame(width: 16)
-                .padding(.trailing, 16)
+                .padding(.trailing, 40)
         }
         .padding(.leading, 32)
         .frame(height: .smallListItemHeight)
         .contentShape(Rectangle())
-        .onSwipe(trailing: trailingSwipeActions)
+        //.onSwipe(trailing: trailingSwipeActions)
         .onAppear {
             if settings.hub.showFileSize && (module.fileSize == "" || module.fileSize == ".") {
                 getModuleSize()
