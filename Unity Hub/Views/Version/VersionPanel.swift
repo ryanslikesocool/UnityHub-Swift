@@ -19,10 +19,12 @@ struct VersionPanel: View {
     var body: some View {
         GeometryReader { geometry in
             let sizeBinding = Binding(get: { return geometry.size.width }, set: { _ in })
-            
+
             List(settings.hub.versions) { version in
+                let versionBinding = Binding(get: { return version }, set: { settings.hub.versions.setElement($0, where: { $0.version == version.version }) })
+
                 VStack {
-                    VersionButton(viewWidth: sizeBinding, version: version, deleteAction: prepareForDeletion)
+                    VersionButton(viewWidth: sizeBinding, version: versionBinding, deleteAction: prepareForDeletion)
                 
                     if version != settings.hub.versions.last ?? UnityVersion.null {
                         Divider()

@@ -33,8 +33,8 @@ struct ModuleButton: View {
             }
             Spacer()
             if settings.hub.showFileSize {
-                let sizeBinding = Binding(get: { return module.fileSize ?? "" }, set: { module.fileSize = $0 })
-                
+                let sizeBinding = Binding(get: { module.fileSize ?? "" }, set: { module.fileSize = $0 })
+
                 LoadingText(text: sizeBinding)
                     .padding(.trailing, 8)
             }
@@ -51,14 +51,14 @@ struct ModuleButton: View {
         .padding(.leading, 32)
         .frame(height: .smallListItemHeight)
         .contentShape(Rectangle())
-        //.onSwipe(trailing: trailingSwipeActions)
+        // .onSwipe(trailing: trailingSwipeActions)
         .onAppear {
-            if settings.hub.showFileSize && (module.fileSize == "" || module.fileSize == ".") {
+            if settings.hub.showFileSize && (module.fileSize == nil || module.fileSize == "" || module.fileSize == ".") {
                 getModuleSize()
             }
         }
         .onChange(of: settings.hub.showFileSize, perform: { toggle in
-            if toggle, module.fileSize == "" || module.fileSize == "." {
+            if toggle, module.fileSize == nil || module.fileSize == "" || module.fileSize == "." {
                 getModuleSize()
             }
         })

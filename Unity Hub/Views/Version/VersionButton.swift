@@ -12,7 +12,7 @@ struct VersionButton: View {
     
     @Binding var viewWidth: CGFloat
     
-    @State var version: UnityVersion
+    @Binding var version: UnityVersion
     let deleteAction: (UnityVersion) -> Void
 
     @State private var installing: Bool = false
@@ -48,7 +48,7 @@ struct VersionButton: View {
             
             if displayFoldout {
                 ForEach(version.installedModules) { module in
-                    let moduleBinding = Binding(get: { module }, set: { version.modules.setElement($0, where: { $0.module == module.module }) })
+                    let moduleBinding = Binding(get: { return module }, set: { version.modules.setElement($0, where: { $0.module == module.module }) })
                     
                     Divider()
                         .padding(.leading, 32)
@@ -71,7 +71,7 @@ struct VersionButton: View {
         })
         .sheet(isPresented: $showInstallSheet) { InstallModuleSheet(selectedVersion: version) }
         .alert(isPresented: $showRemovalSheet) { alertPanel() }
-        //.onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
+        // .onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
     }
     
     func mainButton() -> some View {
