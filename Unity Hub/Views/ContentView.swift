@@ -31,7 +31,7 @@ struct ContentView: View {
                 }
             }
             .listStyle(SidebarListStyle())
-            //.frame(width: SidebarState.small.rawValue)
+            // .frame(width: SidebarState.small.rawValue)
         }
         .toolbar {
             ToolbarItem(placement: .navigation) {
@@ -49,19 +49,19 @@ struct ContentView: View {
         NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
     }
 
-    /*func handleSidebarSize(_ size: CGSize) {
-        print(size.width)
-        if size.width == 0 {
-            toggleSidebar()
-        } else if size.width < SidebarState.small.rawValue {
-            sidebarState = .small
-        } else if size.width < SidebarState.between.rawValue {
-            sidebarState = .small
-        } else {
-            sidebarState = .normal
-        }
-    }*/
-    
+    /* func handleSidebarSize(_ size: CGSize) {
+         print(size.width)
+         if size.width == 0 {
+             toggleSidebar()
+         } else if size.width < SidebarState.small.rawValue {
+             sidebarState = .small
+         } else if size.width < SidebarState.between.rawValue {
+             sidebarState = .small
+         } else {
+             sidebarState = .normal
+         }
+     } */
+
     func normalSidebarIcon(item: SidebarItem) -> some View {
         HStack {
             Image(systemName: item.asSymbol())
@@ -77,7 +77,7 @@ struct ContentView: View {
         }
         .frame(height: 24)
     }
-    
+
     func smallSidebarIcon(item: SidebarItem) -> some View {
         HStack {
             Spacer()

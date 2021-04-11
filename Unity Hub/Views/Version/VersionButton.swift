@@ -89,7 +89,7 @@ struct VersionButton: View {
         HStack {
             if !installing {
                 SVGShapes.UnityCube()
-                    .frame(width: 32, height: 32)
+                    .frame(width: 28, height: 28)
                     .padding(.leading, 16)
             } else {
                 ProgressView()

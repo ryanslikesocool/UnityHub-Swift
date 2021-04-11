@@ -45,17 +45,17 @@ struct VersionPanel: View {
                 }
             }
             .onAppear(perform: settings.getAllVersions)
-            .sheet(isPresented: $showInstaller) { InstallVersionSheet() }
-            .alert(isPresented: $showRemovalSheet) {
-                Alert(
-                    title: Text("Uninstall Unity \(installToRemove!.version)"),
-                    message: Text("Are you sure you want to uninstall Unity version \(installToRemove!.version)?"),
-                    primaryButton: .cancel(Text("Cancel")),
-                    secondaryButton: .destructive(Text("Uninstall")) { deleteItems(install: installToRemove) }
-                )
-            }
         }
         .animation(.interactiveSpring())
+        .sheet(isPresented: $showInstaller) { InstallVersionSheet() }
+        .alert(isPresented: $showRemovalSheet) {
+            Alert(
+                title: Text("Uninstall Unity \(installToRemove!.version)"),
+                message: Text("Are you sure you want to uninstall Unity version \(installToRemove!.version)?"),
+                primaryButton: .cancel(Text("Cancel")),
+                secondaryButton: .destructive(Text("Uninstall")) { deleteItems(install: installToRemove) }
+            )
+        }
     }
     
     func locateVersion() {

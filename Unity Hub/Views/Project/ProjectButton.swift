@@ -103,6 +103,7 @@ struct ProjectButton: View {
                 .frame(width: 16, height: 48)
                 .padding(.trailing, 40)
         }
+        .frame(width: viewWidth, height: .listItemHeight)
         .contentShape(Rectangle())
         .contextMenu { dropDownMenu() }
         .onAppear {
@@ -118,16 +119,15 @@ struct ProjectButton: View {
                 project.fileSize = ""
             }
         }
-        .sheet(item: $activeSheet) { sheetView(item: $0, emoji: emojiBinding, version: versionBinding) }
-        .alert(isPresented: $showVersionWarning) {
-            Alert(title: Text("Missing Unity Version"), message: Text("The Unity version last used to open this project (\(project.version.version)) is missing.  Please reinstall it or redownload the version."), dismissButton: .default(Text("Ok")))
-        }
         .onChange(of: settings.hub.showFileSize) { toggle in
             if toggle, sizeEmpty || sizeLoading {
                 getProjectSize()
             }
         }
-        .frame(width: viewWidth, height: .listItemHeight)
+        .sheet(item: $activeSheet) { sheetView(item: $0, emoji: emojiBinding, version: versionBinding) }
+        .alert(isPresented: $showVersionWarning) {
+            Alert(title: Text("Missing Unity Version"), message: Text("The Unity version last used to open this project (\(project.version.version)) is missing.  Please reinstall it or redownload the version."), dismissButton: .default(Text("Ok")))
+        }
         // .onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
         /* .trackingMouse { location, delta in
              print(delta)
@@ -244,6 +244,19 @@ struct ProjectButton: View {
             DispatchQueue.main.async {
                 project.fileSize = size
             }
+        }
+    }
+    
+    func moveFile(newName: String) {
+        var components = project.path.components(separatedBy: "/")
+        _ = components.removeLast()
+        var newPath = components.joined(separator: "/")
+        newPath.append("/\(newName)")
+        
+        do {
+            try FileManager.default.moveItem(atPath: project.path, toPath: newPath)
+        } catch {
+            print(error.localizedDescription)
         }
     }
 }

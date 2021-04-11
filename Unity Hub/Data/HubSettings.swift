@@ -13,7 +13,8 @@ class HubSettings: ObservableObject {
     var hubCommandBase: String { return "\(hub.hubLocation)\(hubSubFolder) -- --headless" }
     
     @Published var hub: HubData
-    
+    @Published var availableVersions: [UnityVersion] = []
+
     init() {
         hub = HubData.load()
         UserDefaults.standard.set(1, forKey: "NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints")
@@ -101,6 +102,27 @@ extension HubSettings {
         version.modules.setElement(module, where: { $0.id == module.id })
         hub.versions.setElement(version, where: { $0.version == version.version })
         wrap()
+    }
+    
+    func getAvailableVersions() {
+        DispatchQueue.global(qos: .background).async {
+            var versions: [UnityVersion] = []
+
+            let command = "\(self.hubCommandBase) e -r"
+            let result = shell(command)
+            let results = result.components(separatedBy: "\n")
+            
+            for result in results {
+                let version = result.components(separatedBy: " ").first
+                if let version = version, version != "", !self.hub.versions.contains(where: { $0.version == version }) {
+                    versions.append(UnityVersion(version))
+                }
+            }
+
+            DispatchQueue.main.async {
+                self.availableVersions = versions
+            }
+        }
     }
 }
 
