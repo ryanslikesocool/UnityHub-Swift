@@ -16,7 +16,7 @@ struct ProjectButton: View {
     
     @Binding var viewWidth: CGFloat
 
-    @Binding var projectData: ProjectData
+    @Binding var project: ProjectData
     @Binding var updateList: Bool
         
     var deleteAction: (ProjectData) -> Void
@@ -28,6 +28,9 @@ struct ProjectButton: View {
     @State private var showPopover: Bool = false
     @State private var activeSheet: ActiveSheet?
         
+    var sizeEmpty: Bool { return project.fileSize == "" }
+    var sizeLoading: Bool { return project.fileSize == "." }
+
     private var leadingSwipeActions: [Slot] {
         return settings.hub.usePins ? [Slot(
             image: { Image(systemName: .pinIcon).frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
@@ -41,7 +44,7 @@ struct ProjectButton: View {
         return [Slot(
             image: { Image(systemName: .trashIcon).frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
             title: { EmptyView().embedInAnyView() },
-            action: { deleteAction(projectData) },
+            action: { deleteAction(project) },
             style: .init(background: .red, slotHeight: .listItemHeight)
         )]
     }
@@ -56,12 +59,12 @@ struct ProjectButton: View {
     
     var body: some View {
         let versionBinding = Binding(
-            get: { self.projectData.version },
-            set: { self.projectData.version = $0 }
+            get: { self.project.version },
+            set: { self.project.version = $0 }
         )
         let emojiBinding = Binding(
-            get: { self.projectData.emoji },
-            set: { self.projectData.emoji = $0 }
+            get: { self.project.emoji },
+            set: { self.project.emoji = $0 }
         )
         
         return HStack {
@@ -71,14 +74,14 @@ struct ProjectButton: View {
                 titleArea()
             }
             .buttonStyle(PlainButtonStyle())
-            if settings.hub.usePins && projectData.pinned {
+            if settings.hub.usePins && project.pinned {
                 Image(systemName: .pinIcon)
                     .font(.system(size: 13, weight: .semibold))
                     .rotationEffect(Angle(degrees: 45))
             }
             Spacer()
             if settings.hub.showFileSize {
-                LoadingText(text: $projectData.fileSize)
+                LoadingText(text: $project.fileSize)
                     .padding(.trailing, 8)
             }
             if showWarning {
@@ -88,7 +91,7 @@ struct ProjectButton: View {
             Menu {
                 ForEach(settings.hub.versions) { version in
                     Button("Unity \(version.version)") {
-                        projectData.version = version
+                        project.version = version
                     }
                 }
             } label: { Text("Unity \(versionBinding.wrappedValue.version)") }
@@ -98,20 +101,25 @@ struct ProjectButton: View {
         }
         .contentShape(Rectangle())
         .onAppear {
-            if settings.hub.showFileSize && (projectData.fileSize == "" || projectData.fileSize == ".") {
+            if settings.hub.showFileSize, sizeEmpty || sizeLoading {
                 getProjectSize()
             }
-            if !settings.hub.versions.contains(where: { $0.version == projectData.version.version }) {
+            if !settings.hub.versions.contains(where: { $0.version == project.version.version }) {
                 showWarning = true
+            }
+        }
+        .onDisappear {
+            if sizeLoading {
+                project.fileSize = ""
             }
         }
         .sheet(item: $activeSheet) { sheetView(item: $0, emoji: emojiBinding, version: versionBinding) }
         //.onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
         .alert(isPresented: $showVersionWarning) {
-            Alert(title: Text("Missing Unity Version"), message: Text("The Unity version last used to open this project (\(projectData.version.version)) is missing.  Please reinstall it or redownload the version."), dismissButton: .default(Text("Ok")))
+            Alert(title: Text("Missing Unity Version"), message: Text("The Unity version last used to open this project (\(project.version.version)) is missing.  Please reinstall it or redownload the version."), dismissButton: .default(Text("Ok")))
         }
         .onChange(of: settings.hub.showFileSize) { toggle in
-            if toggle, projectData.fileSize == "" || projectData.fileSize == "." {
+            if toggle, sizeEmpty || sizeLoading {
                 getProjectSize()
             }
         }
@@ -137,23 +145,23 @@ struct ProjectButton: View {
     func titleArea() -> some View {
         VStack(alignment: .leading) {
             if !settings.hub.showLocation {
-                Text(projectData.name)
+                Text(project.name)
                     .font(.system(size: 12, weight: .semibold))
-                    .help(projectData.localPath)
+                    .help(project.localPath)
             } else {
-                Text(projectData.name)
+                Text(project.name)
                     .font(.system(size: 12, weight: .semibold))
-                Text(projectData.localPath)
+                Text(project.localPath)
                     .font(.system(size: 10, weight: .regular))
                     .opacity(0.5)
-                    .help(projectData.path)
+                    .help(project.path)
             }
         }
     }
     
     func dropDownMenu() -> some View {
         Menu {
-            Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: projectData.path) })
+            Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: project.path) })
             if settings.hub.useEmoji {
                 Divider()
                 Button("Select Emoji", action: { showPopover.toggle() })
@@ -168,7 +176,7 @@ struct ProjectButton: View {
                 Button("Toggle Pin", action: togglePin)
                 Divider()
             }
-            Button("Remove Project", action: { deleteAction(projectData) })
+            Button("Remove Project", action: { deleteAction(project) })
         } label: {}
             .menuStyle(BorderlessButtonMenuStyle())
             .frame(width: 16, height: 48)
@@ -187,8 +195,8 @@ struct ProjectButton: View {
         showWarning = false
         showVersionWarning = false
         
-        if settings.hub.versions.contains(projectData.version) {
-            let result = "\(settings.getRealVersion(projectData.version).path)/Unity.app/Contents/MacOS/Unity -projectPath \"\(projectData.path)\""
+        if let version = settings.getRealVersion(project.version), settings.hub.versions.contains(project.version) {
+            let result = "\(version.path)/Unity.app/Contents/MacOS/Unity -projectPath \"\(project.path)\""
             return result
         }
         
@@ -205,6 +213,7 @@ struct ProjectButton: View {
         } else {
             showVersionWarning = true
         }
+        NSApp.hide(nil)
     }
         
     func openAdvancedSettings() {
@@ -213,16 +222,16 @@ struct ProjectButton: View {
     }
     
     func togglePin() {
-        projectData.pinned.toggle()
+        project.pinned.toggle()
         settings.wrap()
         settings.sortProjects()
         updateList.toggle()
     }
     
     func getProjectSize() {
-        projectData.fileSize = "."
+        project.fileSize = "."
         DispatchQueue.global(qos: .background).async {
-            let url = URL(fileURLWithPath: projectData.path)
+            let url = URL(fileURLWithPath: project.path)
             var size = ""
             do {
                 size = try url.sizeOnDisk() ?? ""
@@ -231,7 +240,7 @@ struct ProjectButton: View {
             }
             
             DispatchQueue.main.async {
-                projectData.fileSize = size
+                project.fileSize = size
             }
         }
     }

@@ -27,7 +27,7 @@ struct ProjectPanel: View {
                 )
             
                 VStack {
-                    ProjectButton(viewWidth: sizeBinding, projectData: dataBinding, updateList: $updateList, deleteAction: prepareForDeletion)
+                    ProjectButton(viewWidth: sizeBinding, project: dataBinding, updateList: $updateList, deleteAction: prepareForDeletion)
 
                     if project != (settings.hub.projects.last ?? ProjectData.null) {
                         Divider()
@@ -78,7 +78,7 @@ struct ProjectPanel: View {
     func locateProject() {
         NSOpenPanel.openFolder { result in
             if case let .success(path) = result {
-                if !settings.hasProjectAtPath(path), ProjectData.isValidProjectPath(path) {
+                if settings.getProjectAtPath(path) == nil, ProjectData.isProjectPathValid(path) {
                     settings.hub.projects.append(ProjectData(path: path))
                     settings.wrap()
                 }

@@ -22,7 +22,7 @@ struct VersionButton: View {
     @State private var showRemovalSheet: Bool = false
     @State private var moduleToRemove: ModuleJSON? = nil
     
-    private var leadingSwipeActions: [Slot] { return displayFoldout ? [] : [Slot(
+    /*private var leadingSwipeActions: [Slot] { return displayFoldout ? [] : [Slot(
         image: { Image(systemName: "star.fill").frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
         title: { EmptyView().embedInAnyView() },
         action: { settings.setDefaultVersion(version) },
@@ -36,10 +36,13 @@ struct VersionButton: View {
         action: { deleteAction(version) },
         style: .init(background: .red, slotHeight: .listItemHeight)
     )]
-    }
+    }*/
+    
+    var sizeEmpty: Bool { return version.fileSize == "" }
+    var sizeLoading: Bool { return version.fileSize == "." }
     
     var body: some View {
-        return VStack {
+        VStack {
             Button(action: { displayFoldout.toggle() }) {
                 mainButton()
             }
@@ -47,8 +50,9 @@ struct VersionButton: View {
             .contentShape(Rectangle())
             
             if displayFoldout {
-                ForEach(version.installedModules) { module in
-                    let moduleBinding = Binding(get: { return module }, set: { version.modules.setElement($0, where: { $0.module == module.module }) })
+                ForEach(version.modules) { module in
+                    let moduleBinding = Binding(get: { return module },
+                                                set: { version.modules.setElement($0, where: { $0.module == module.module }) })
                     
                     Divider()
                         .padding(.leading, 32)
@@ -60,18 +64,23 @@ struct VersionButton: View {
         .frame(width: viewWidth)
         .buttonStyle(PlainButtonStyle())
         .onAppear {
-            if settings.hub.showFileSize && (version.fileSize == "" || version.fileSize == ".") {
+            if settings.hub.showFileSize, sizeEmpty {
                 getVersionSize()
             }
         }
         .onChange(of: settings.hub.showFileSize, perform: { toggle in
-            if toggle, version.fileSize == "" || version.fileSize == "." {
+            if toggle, sizeEmpty {
                 getVersionSize()
             }
         })
+        .onDisappear {
+            if sizeLoading {
+                version.fileSize = ""
+            }
+        }
         .sheet(isPresented: $showInstallSheet) { InstallModuleSheet(selectedVersion: version) }
         .alert(isPresented: $showRemovalSheet) { alertPanel() }
-        // .onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
+        //.onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
     }
     
     func mainButton() -> some View {
@@ -124,7 +133,7 @@ struct VersionButton: View {
                 LoadingText(text: $version.fileSize)
                     .padding(.trailing, 8)
             }
-            ForEach(version.installedModules) { item in
+            ForEach(version.modules) { item in
                 if let icon = item.module.getIcon() {
                     icon
                         .frame(width: 16, height: 16)
@@ -159,7 +168,7 @@ struct VersionButton: View {
     }
     
     func prepareForDeletion(offsets: IndexSet) {
-        prepareForDeletion(module: version.installedModules[offsets.first!])
+        prepareForDeletion(module: version.modules[offsets.first!])
     }
     
     func prepareForDeletion(module: ModuleJSON) {

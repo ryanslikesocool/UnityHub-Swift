@@ -19,7 +19,7 @@ struct UnityVersion {
     var lts: Bool
     var path: String
     var modules: [ModuleJSON]
-    
+
     var fileSize: String = ""
 
     var localPath: String {
@@ -35,8 +35,6 @@ struct UnityVersion {
     // c: china
     static let versionRegex = try! NSRegularExpression(pattern: #"^(\d+)\.(\d+)\.(\d+)([a|b|f|p|c])(\d+)"#)
     static let null = UnityVersion("0.0.0a0")
-
-    var installedModules: [ModuleJSON] { return modules.filter { $0.selected && (UnityModule(rawValue: $0.id) != Optional.none) } }
 
     init() {
         self.version = "0.0.0a0"
@@ -114,54 +112,6 @@ struct UnityVersion {
     }
 }
 
-// MARK: - Validation
-
-extension UnityVersion {
-    func isCorrectChannel(channelChar: String) -> Bool {
-        var correct: Bool = false
-        UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { match, _, _ in
-            guard let match = match else { return }
-            correct = String(version[Range(match.range(at: 4), in: version) ?? (version.startIndex ..< version.endIndex)]) == channelChar
-        }
-        return correct
-    }
-
-    func isValid() -> Bool {
-        var valid: Bool = false
-        UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { match, _, _ in
-            guard let match = match else { return }
-            valid = match.numberOfRanges == 6
-        }
-        return valid
-    }
-
-    static func validateEditor(path: String) -> Bool {
-        do {
-            var format = PropertyListSerialization.PropertyListFormat.xml
-            let plistData = try Data(contentsOf: URL(fileURLWithPath: "\(path)/Unity.app/Contents/Info.plist"))
-            if let plistDictionary = try PropertyListSerialization.propertyList(from: plistData, options: .mutableContainersAndLeaves, format: &format) as? [String: AnyObject] {
-                if let bundleID = plistDictionary["CFBundleIdentifier"] as? String {
-                    if !bundleID.contains("com.unity3d.UnityEditor") {
-                        print("Invalid bundle identifier")
-                        return false
-                    }
-                } else {
-                    print("No bundle identifier")
-                    return false
-                }
-            } else {
-                print("No valid plist")
-                return false
-            }
-        } catch {
-            print(error.localizedDescription)
-            return false
-        }
-
-        return true
-    }
-}
-
 // MARK: - Modules
 
 extension UnityVersion {
@@ -177,7 +127,7 @@ extension UnityVersion {
         for module in modules {
             if module.selected, let unityModule = UnityModule(rawValue: module.id) {
                 let index = unityModules.firstIndex(where: { $0.getPlatform() == unityModule.getPlatform() })
-                if index == nil && unityModule != .none {
+                if index == nil, unityModule != .none {
                     unityModules.append(unityModule)
                 }
             }
@@ -229,5 +179,55 @@ extension UnityVersion: Hashable {}
 extension UnityVersion: Identifiable {
     var id: String {
         return version
+    }
+}
+
+extension UnityVersion: Validatable {
+    mutating func validate() -> Bool {
+        return isVersionValid() && UnityVersion.isEditorValid(path: path)
+    }
+
+    func isCorrectChannel(channelChar: String) -> Bool {
+        var correct: Bool = false
+        UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { match, _, _ in
+            guard let match = match else { return }
+            correct = String(version[Range(match.range(at: 4), in: version) ?? (version.startIndex ..< version.endIndex)]) == channelChar
+        }
+        return correct
+    }
+
+    func isVersionValid() -> Bool {
+        var valid: Bool = false
+        UnityVersion.versionRegex.enumerateMatches(in: version, options: [], range: NSRange(0 ..< version.count)) { match, _, _ in
+            guard let match = match else { return }
+            valid = match.numberOfRanges == 6
+        }
+        return valid
+    }
+
+    static func isEditorValid(path: String) -> Bool {
+        do {
+            var format = PropertyListSerialization.PropertyListFormat.xml
+            let plistData = try Data(contentsOf: URL(fileURLWithPath: "\(path)/Unity.app/Contents/Info.plist"))
+            if let plistDictionary = try PropertyListSerialization.propertyList(from: plistData, options: .mutableContainersAndLeaves, format: &format) as? [String: AnyObject] {
+                if let bundleID = plistDictionary["CFBundleIdentifier"] as? String {
+                    if !bundleID.contains("com.unity3d.UnityEditor") {
+                        print("Invalid bundle identifier")
+                        return false
+                    }
+                } else {
+                    print("No bundle identifier")
+                    return false
+                }
+            } else {
+                print("No valid plist")
+                return false
+            }
+        } catch {
+            print(error.localizedDescription)
+            return false
+        }
+
+        return true
     }
 }

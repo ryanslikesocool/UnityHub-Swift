@@ -48,7 +48,7 @@ extension HubSettings {
             for item in items {
                 let path = "\(path)/\(item)"
                 if fm.fileExists(atPath: path, isDirectory: &isDir) {
-                    if isDir.boolValue, UnityVersion.validateEditor(path: path) {
+                    if isDir.boolValue, UnityVersion.isEditorValid(path: path) {
                         hub.versions.append(UnityVersion(item, path: path))
                     }
                 }
@@ -62,7 +62,7 @@ extension HubSettings {
                 let items = try fm.contentsOfDirectory(atPath: location)
                  
                 if items.contains("Unity.app") {
-                    if isDir.boolValue, UnityVersion.validateEditor(path: location) {
+                    if isDir.boolValue, UnityVersion.isEditorValid(path: location) {
                         let components = location.components(separatedBy: "/")
                         hub.versions.append(UnityVersion(components.last!, path: location))
                     }
@@ -114,6 +114,10 @@ extension HubSettings {
         return false
     }
     
+    func getProjectAtPath(_ path: String) -> ProjectData? {
+        return hub.projects.first(where: { $0.path == path })
+    }
+    
     func sortProjects() {
         hub.projects.sort {
             if $0.pinned == $1.pinned || !hub.usePins {
@@ -128,8 +132,8 @@ extension HubSettings {
         wrap()
     }
     
-    func getRealVersion(_ version: UnityVersion) -> UnityVersion {
-        return hub.versions.first(where: { version.version == $0.version })!
+    func getRealVersion(_ version: UnityVersion) -> UnityVersion? {
+        return hub.versions.first(where: { version.version == $0.version })
     }
     
     func setVersionDefaultLocation() {

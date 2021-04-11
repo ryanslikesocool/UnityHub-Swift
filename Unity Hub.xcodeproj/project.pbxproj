@@ -30,6 +30,8 @@
 		AF66EBF5251AE3910088EC84 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF66EBF4251AE3910088EC84 /* Preview Assets.xcassets */; };
 		AF66EC02251AE57D0088EC84 /* SVGShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF66EC01251AE57D0088EC84 /* SVGShapes.swift */; };
 		AF75222425F9D0EB00549E0E /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF75222325F9D0EB00549E0E /* SearchBar.swift */; };
+		AF8721AA2622D233003A70D4 /* Validatable+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8721A92622D233003A70D4 /* Validatable+Protocol.swift */; };
+		AF8721AD2622DA3A003A70D4 /* Sizeable+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8721AC2622DA3A003A70D4 /* Sizeable+Protocol.swift */; };
 		AFA0862C251B1CFB00B1B985 /* NSOpenPanel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA0862B251B1CFB00B1B985 /* NSOpenPanel+Extension.swift */; };
 		AFAEFA1425F1B4690010B492 /* InstallModuleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAEFA1325F1B4690010B492 /* InstallModuleSheet.swift */; };
 		AFAEFA1925F1CCC50010B492 /* ModuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAEFA1825F1CCC50010B492 /* ModuleButton.swift */; };
@@ -101,6 +103,8 @@
 		AF66EBFA251AE3910088EC84 /* Unity_Hub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Unity_Hub.entitlements; sourceTree = "<group>"; };
 		AF66EC01251AE57D0088EC84 /* SVGShapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGShapes.swift; sourceTree = "<group>"; };
 		AF75222325F9D0EB00549E0E /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		AF8721A92622D233003A70D4 /* Validatable+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Validatable+Protocol.swift"; sourceTree = "<group>"; };
+		AF8721AC2622DA3A003A70D4 /* Sizeable+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sizeable+Protocol.swift"; sourceTree = "<group>"; };
 		AFA0862B251B1CFB00B1B985 /* NSOpenPanel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSOpenPanel+Extension.swift"; sourceTree = "<group>"; };
 		AFAEFA1325F1B4690010B492 /* InstallModuleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallModuleSheet.swift; sourceTree = "<group>"; };
 		AFAEFA1825F1CCC50010B492 /* ModuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleButton.swift; sourceTree = "<group>"; };
@@ -191,6 +195,7 @@
 		AF66EBEC251AE3900088EC84 /* Unity Hub */ = {
 			isa = PBXGroup;
 			children = (
+				AF8721AB2622DA30003A70D4 /* Protocols */,
 				AF66EBFA251AE3910088EC84 /* Unity_Hub.entitlements */,
 				AF66EBF9251AE3910088EC84 /* Info.plist */,
 				AF66EBED251AE3900088EC84 /* UnityHubApp.swift */,
@@ -209,6 +214,15 @@
 				AF66EBF4251AE3910088EC84 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AF8721AB2622DA30003A70D4 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				AF8721A92622D233003A70D4 /* Validatable+Protocol.swift */,
+				AF8721AC2622DA3A003A70D4 /* Sizeable+Protocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		AF9F946125F14C7100539C3A /* Settings */ = {
@@ -413,6 +427,7 @@
 				AFAEFA1425F1B4690010B492 /* InstallModuleSheet.swift in Sources */,
 				AF5A94D0251BF9E3002FA410 /* DownloadInfo.swift in Sources */,
 				AFDFD24E25F51D1200E4F9D0 /* SlidableModifier.swift in Sources */,
+				AF8721AA2622D233003A70D4 /* Validatable+Protocol.swift in Sources */,
 				AFEB99762611C194006E4E91 /* LoadingText.swift in Sources */,
 				AF66EBF0251AE3900088EC84 /* ContentView.swift in Sources */,
 				AFC0AF412615029A0039FFEC /* Array+Extension.swift in Sources */,
@@ -442,6 +457,7 @@
 				AFB1C3A9251B459600F8E3D8 /* ProjectButton.swift in Sources */,
 				AF16EDEF251AED6100C939AA /* ProjectPanel.swift in Sources */,
 				AFC23C5825257E0700F5FE4B /* PrereleaseTag.swift in Sources */,
+				AF8721AD2622DA3A003A70D4 /* Sizeable+Protocol.swift in Sources */,
 				AF75222425F9D0EB00549E0E /* SearchBar.swift in Sources */,
 				AF08B5442524309700E7D16B /* VisualEffectView.swift in Sources */,
 				AFDFD25125F51D1200E4F9D0 /* Extensions.swift in Sources */,

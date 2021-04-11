@@ -20,7 +20,9 @@ struct ModuleJSON: Codable {
     var checksum: String?
     
     var fileSize: String? = ""
-    var module: UnityModule { return UnityModule(rawValue: self.id) ?? .none }
+    var module: UnityModule { return UnityModule(rawValue: id) ?? .none }
+    
+    var path: String? { return module.getInstallPath() }
     
     init() {
         self.id = ""
@@ -40,7 +42,7 @@ struct ModuleJSON: Codable {
         do {
             let url = URL(fileURLWithPath: "\(unityPath)/modules.json")
             let data: Data = try Data(contentsOf: url)
-            return try! JSONDecoder().decode([ModuleJSON].self, from: data)
+            return try! JSONDecoder().decode([ModuleJSON].self, from: data).filter { $0.selected && (UnityModule(rawValue: $0.id) != Optional.none) }
         } catch {
             print(error.localizedDescription)
             return []
@@ -65,20 +67,7 @@ struct ModuleJSON: Codable {
     }
     
     static func removeModule(_ version: UnityVersion, module: ModuleJSON, settings: HubSettings) {
-        if let index = version.modules.firstIndex(where: { $0 == module }) {
-            var module = version.modules[index]
-            if module.selected, let installPath = module.module.getInstallPath() {
-                DispatchQueue.global(qos: .background).async {
-                    _ = shell("rm -rf \(version.path)\(installPath)")
-                
-                    DispatchQueue.main.async {
-                        module.selected = false
-                        settings.setModule(version, module)
-                        ModuleJSON.saveModules(version)
-                    }
-                }
-            }
-        }
+        removeModule(version, moduleType: module.module, settings: settings)
     }
     
     static func saveModules(_ version: UnityVersion) {

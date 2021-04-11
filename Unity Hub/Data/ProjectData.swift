@@ -63,7 +63,7 @@ struct ProjectData {
         return path == other.path
     }
     
-    static func isValidProjectPath(_ path: String) -> Bool {
+    static func isProjectPathValid(_ path: String) -> Bool {
         let fm = FileManager.default
         
         if !fm.fileExists(atPath: path) {
@@ -90,3 +90,30 @@ extension ProjectData: Identifiable {
 }
 
 extension ProjectData: Equatable {}
+
+extension ProjectData: Validatable {
+    mutating func validate() -> Bool {
+        let isPathValid = isProjectPathValid(path)
+        if isPathValid {
+            version = getVersion()
+        }
+        return isPathValid
+    }
+    
+    func isProjectPathValid(_ path: String) -> Bool {
+        let fm = FileManager.default
+        
+        if !fm.fileExists(atPath: path) {
+            return false
+        }
+                    
+        do {
+            let items = try fm.contentsOfDirectory(atPath: path)
+            return items.contains("Assets") && items.contains("ProjectSettings")
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        return false
+    }
+}

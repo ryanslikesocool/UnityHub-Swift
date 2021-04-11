@@ -14,13 +14,16 @@ struct ModuleButton: View {
     @Binding var module: ModuleJSON
     let deleteAction: (ModuleJSON) -> Void
 
-    private var trailingSwipeActions: [Slot] { return [Slot(
-        image: { Image(systemName: .trashIcon).frame(width: .swipeActionSmallIconSize, height: .swipeActionSmallIconSize).embedInAnyView() },
-        title: { EmptyView().embedInAnyView() },
-        action: { deleteAction(module) },
-        style: .init(background: .red, slotHeight: .smallListItemHeight)
-    )]
-    }
+    /* private var trailingSwipeActions: [Slot] { return [Slot(
+         image: { Image(systemName: .trashIcon).frame(width: .swipeActionSmallIconSize, height: .swipeActionSmallIconSize).embedInAnyView() },
+         title: { EmptyView().embedInAnyView() },
+         action: { deleteAction(module) },
+         style: .init(background: .red, slotHeight: .smallListItemHeight)
+     )]
+     } */
+    
+    var sizeEmpty: Bool { return module.fileSize == "" || module.fileSize == nil }
+    var sizeLoading: Bool { return module.fileSize == "." }
 
     var body: some View {
         HStack {
@@ -53,19 +56,24 @@ struct ModuleButton: View {
         .contentShape(Rectangle())
         // .onSwipe(trailing: trailingSwipeActions)
         .onAppear {
-            if settings.hub.showFileSize && (module.fileSize == nil || module.fileSize == "" || module.fileSize == ".") {
+            if settings.hub.showFileSize, sizeEmpty {
                 getModuleSize()
             }
         }
         .onChange(of: settings.hub.showFileSize, perform: { toggle in
-            if toggle, module.fileSize == nil || module.fileSize == "" || module.fileSize == "." {
+            if toggle, sizeEmpty {
                 getModuleSize()
             }
         })
+        .onDisappear {
+            if sizeLoading {
+                module.fileSize = ""
+            }
+        }
     }
 
     func getModuleSize() {
-        if let path = module.module.getInstallPath() {
+        if let path = module.path {
             module.fileSize = "."
             DispatchQueue.global(qos: .background).async {
                 let url = URL(fileURLWithPath: "\(version.path)\(path)")

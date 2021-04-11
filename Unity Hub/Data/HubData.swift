@@ -64,8 +64,8 @@ struct HubData {
             let data = try Data(contentsOf: fileLocation)
             let wrapper = HubDataWrapper(data: data)
             var hubData = wrapper.unwrap()
-            verifyData(&hubData)
             hubData.wrap()
+            _ = hubData.validate()
             return hubData
         } catch {
             print(error.localizedDescription)
@@ -76,17 +76,6 @@ struct HubData {
         }
     }
     
-    static func verifyData(_ data: inout HubData) {
-        let fm = FileManager.default
-        
-        let projectCopy = data.projects
-        for project in projectCopy {
-            if !fm.fileExists(atPath: project.path) {
-                data.projects.removeElement(project)
-            }
-        }
-    }
-    
     func wrap() {
         HubDataWrapper.wrap(self)
     }
@@ -94,4 +83,24 @@ struct HubData {
 
 extension HubData: Identifiable {
     var id: String { return uuid }
+}
+
+extension HubData: Validatable {
+    mutating func validate() -> Bool {
+        for var project in projects {
+            if !project.validate() {
+                projects.removeElement(project)
+            } else {
+                projects.setElement(project, where: { $0.path == project.path })
+            }
+        }
+        for var version in versions {
+            if !version.validate() {
+                versions.removeElement(version)
+            } else {
+                versions.setElement(version, where: { $0.version == version.version })
+            }
+        }
+        return true
+    }
 }

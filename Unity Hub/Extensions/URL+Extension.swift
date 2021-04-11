@@ -37,5 +37,5 @@ extension URL {
         return byteCount
     }
 
-    private static let byteCountFormatter = ByteCountFormatter()
+    static let byteCountFormatter = ByteCountFormatter()
 }
