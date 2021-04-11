@@ -172,9 +172,7 @@ extension UnityVersion: Comparable {
     }
 }
 
-extension UnityVersion: Equatable {}
-
-extension UnityVersion: Hashable {}
+extension UnityVersion: Equatable, Hashable {}
 
 extension UnityVersion: Identifiable {
     var id: String {

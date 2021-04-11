@@ -20,19 +20,18 @@ struct VersionPanel: View {
         GeometryReader { geometry in
             let sizeBinding = Binding(get: { return geometry.size.width }, set: { _ in })
 
-            List(settings.hub.versions) { version in
-                let versionBinding = Binding(get: { return version }, set: { settings.hub.versions.setElement($0, where: { $0.version == version.version }) })
-
-                VStack {
+            List {
+                ForEach(settings.hub.versions) { version in
+                    let versionBinding = Binding(get: { return version }, set: { settings.hub.versions.setElement($0, where: { $0.version == version.version }) })
+                    
                     VersionButton(viewWidth: sizeBinding, version: versionBinding, deleteAction: prepareForDeletion)
-                
+                        .padding(.vertical, -4)
                     if version != settings.hub.versions.last ?? UnityVersion.null {
                         Divider()
                     }
                 }
             }
             .navigationTitle("Installs")
-            .onAppear(perform: settings.getAllVersions)
             .toolbar {
                 ToolbarItem(placement: .automatic) {
                     Button(action: locateVersion) {
@@ -45,6 +44,7 @@ struct VersionPanel: View {
                     }
                 }
             }
+            .onAppear(perform: settings.getAllVersions)
             .sheet(isPresented: $showInstaller) { InstallVersionSheet() }
             .alert(isPresented: $showRemovalSheet) {
                 Alert(

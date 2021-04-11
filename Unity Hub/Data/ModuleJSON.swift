@@ -80,6 +80,4 @@ struct ModuleJSON: Codable {
     }
 }
 
-extension ModuleJSON: Hashable {}
-
-extension ModuleJSON: Identifiable {}
+extension ModuleJSON: Hashable, Identifiable {}

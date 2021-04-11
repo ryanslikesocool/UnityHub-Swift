@@ -96,10 +96,15 @@ struct ProjectButton: View {
                 }
             } label: { Text("Unity \(versionBinding.wrappedValue.version)") }
                 .frame(width: 128)
-            dropDownMenu()
-                .padding(.trailing, 24)
+            Menu {
+                dropDownMenu()
+            } label: {}
+                .menuStyle(BorderlessButtonMenuStyle())
+                .frame(width: 16, height: 48)
+                .padding(.trailing, 40)
         }
         .contentShape(Rectangle())
+        .contextMenu { dropDownMenu() }
         .onAppear {
             if settings.hub.showFileSize, sizeEmpty || sizeLoading {
                 getProjectSize()
@@ -114,7 +119,6 @@ struct ProjectButton: View {
             }
         }
         .sheet(item: $activeSheet) { sheetView(item: $0, emoji: emojiBinding, version: versionBinding) }
-        //.onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
         .alert(isPresented: $showVersionWarning) {
             Alert(title: Text("Missing Unity Version"), message: Text("The Unity version last used to open this project (\(project.version.version)) is missing.  Please reinstall it or redownload the version."), dismissButton: .default(Text("Ok")))
         }
@@ -124,6 +128,7 @@ struct ProjectButton: View {
             }
         }
         .frame(width: viewWidth, height: .listItemHeight)
+        // .onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
         /* .trackingMouse { location, delta in
              print(delta)
          } */
@@ -160,7 +165,7 @@ struct ProjectButton: View {
     }
     
     func dropDownMenu() -> some View {
-        Menu {
+        Group {
             Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: project.path) })
             if settings.hub.useEmoji {
                 Divider()
@@ -177,10 +182,7 @@ struct ProjectButton: View {
                 Divider()
             }
             Button("Remove Project", action: { deleteAction(project) })
-        } label: {}
-            .menuStyle(BorderlessButtonMenuStyle())
-            .frame(width: 16, height: 48)
-            .padding(.trailing, 16)
+        }
     }
     
     func sheetView(item: ActiveSheet, emoji: Binding<String>, version: Binding<UnityVersion>) -> some View {

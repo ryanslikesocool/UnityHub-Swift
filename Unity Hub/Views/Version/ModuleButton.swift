@@ -21,7 +21,7 @@ struct ModuleButton: View {
          style: .init(background: .red, slotHeight: .smallListItemHeight)
      )]
      } */
-    
+
     var sizeEmpty: Bool { return module.fileSize == "" || module.fileSize == nil }
     var sizeLoading: Bool { return module.fileSize == "." }
 
@@ -42,10 +42,7 @@ struct ModuleButton: View {
                     .padding(.trailing, 8)
             }
 
-            Menu {
-                Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: "\(version.path)\(module.module.getInstallPath()!)") })
-                Button("Uninstall Module", action: { deleteAction(module) })
-            } label: {}
+            Menu { dropDownMenu() } label: {}
                 .labelsHidden()
                 .menuStyle(BorderlessButtonMenuStyle())
                 .frame(width: 16)
@@ -54,7 +51,6 @@ struct ModuleButton: View {
         .padding(.leading, 32)
         .frame(height: .smallListItemHeight)
         .contentShape(Rectangle())
-        // .onSwipe(trailing: trailingSwipeActions)
         .onAppear {
             if settings.hub.showFileSize, sizeEmpty {
                 getModuleSize()
@@ -69,6 +65,16 @@ struct ModuleButton: View {
             if sizeLoading {
                 module.fileSize = ""
             }
+        }
+        //.contextMenu { dropDownMenu() } // doesn't work because VersionButton's menu overrides it
+        // .onSwipe(trailing: trailingSwipeActions)
+    }
+
+    func dropDownMenu() -> some View {
+        Group {
+            Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: "\(version.path)\(module.path!)") })
+            Divider()
+            Button("Uninstall Module", action: { deleteAction(module) })
         }
     }
 

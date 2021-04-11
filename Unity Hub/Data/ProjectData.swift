@@ -81,15 +81,13 @@ struct ProjectData {
     }
 }
 
-extension ProjectData: Codable {}
+extension ProjectData: Codable, Equatable {}
 
 extension ProjectData: Identifiable {
     var id: String {
         return path
     }
 }
-
-extension ProjectData: Equatable {}
 
 extension ProjectData: Validatable {
     mutating func validate() -> Bool {

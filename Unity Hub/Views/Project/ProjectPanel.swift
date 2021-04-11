@@ -18,27 +18,24 @@ struct ProjectPanel: View {
     
     var body: some View {
         GeometryReader { geometry in
-            let sizeBinding = Binding(get: { return geometry.size.width }, set: { _ in })
+            let sizeBinding = Binding(get: { geometry.size.width }, set: { _ in })
 
-            List(settings.hub.projects.filter { searchText.isEmpty ? true : $0.name.lowercased().contains(searchText.lowercased()) }) { project in
-                let dataBinding = Binding(
-                    get: { project },
-                    set: { settings.setProject($0) }
-                )
-            
-                VStack {
+            List {
+                ForEach(settings.hub.projects.filter { searchText.isEmpty ? true : $0.name.lowercased().contains(searchText.lowercased()) }) { project in
+                    let dataBinding = Binding(
+                        get: { project },
+                        set: { settings.setProject($0) }
+                    )
+                
                     ProjectButton(viewWidth: sizeBinding, project: dataBinding, updateList: $updateList, deleteAction: prepareForDeletion)
-
-                    if project != (settings.hub.projects.last ?? ProjectData.null) {
+                        .padding(.vertical, -4)
+                    if project != settings.hub.projects.last ?? ProjectData.null {
                         Divider()
                     }
                 }
             }
             .navigationTitle("Projects")
-            .onChange(of: settings.hub.usePins) { _ in
-                updateList.toggle()
-            }
-            .onChange(of: settings.hub.showFileSize) { _ in
+            .onChange(of: settings.hub.usePins || settings.hub.showFileSize) { _ in
                 updateList.toggle()
             }
             .toolbar {

@@ -22,21 +22,21 @@ struct VersionButton: View {
     @State private var showRemovalSheet: Bool = false
     @State private var moduleToRemove: ModuleJSON? = nil
     
-    /*private var leadingSwipeActions: [Slot] { return displayFoldout ? [] : [Slot(
-        image: { Image(systemName: "star.fill").frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
-        title: { EmptyView().embedInAnyView() },
-        action: { settings.setDefaultVersion(version) },
-        style: .init(background: .yellow, slotHeight: .listItemHeight)
-    )]
-    }
+    /* private var leadingSwipeActions: [Slot] { return displayFoldout ? [] : [Slot(
+         image: { Image(systemName: "star.fill").frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
+         title: { EmptyView().embedInAnyView() },
+         action: { settings.setDefaultVersion(version) },
+         style: .init(background: .yellow, slotHeight: .listItemHeight)
+     )]
+     }
 
-    private var trailingSwipeActions: [Slot] { return displayFoldout ? [] : [Slot(
-        image: { Image(systemName: .trashIcon).frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
-        title: { EmptyView().embedInAnyView() },
-        action: { deleteAction(version) },
-        style: .init(background: .red, slotHeight: .listItemHeight)
-    )]
-    }*/
+     private var trailingSwipeActions: [Slot] { return displayFoldout ? [] : [Slot(
+         image: { Image(systemName: .trashIcon).frame(width: .swipeActionLargeIconSize, height: .swipeActionLargeIconSize).embedInAnyView() },
+         title: { EmptyView().embedInAnyView() },
+         action: { deleteAction(version) },
+         style: .init(background: .red, slotHeight: .listItemHeight)
+     )]
+     } */
     
     var sizeEmpty: Bool { return version.fileSize == "" }
     var sizeLoading: Bool { return version.fileSize == "." }
@@ -48,15 +48,17 @@ struct VersionButton: View {
             }
             .frame(height: .listItemHeight)
             .contentShape(Rectangle())
-            
+            .contextMenu { dropDownMenu() }
+
             if displayFoldout {
                 ForEach(version.modules) { module in
-                    let moduleBinding = Binding(get: { return module },
+                    let moduleBinding = Binding(get: { module },
                                                 set: { version.modules.setElement($0, where: { $0.module == module.module }) })
                     
                     Divider()
                         .padding(.leading, 32)
                     ModuleButton(version: version, module: moduleBinding, deleteAction: prepareForDeletion)
+                        .padding(.vertical, -4)
                 }
                 // .onDelete(perform: prepareForDeletion)
             }
@@ -80,7 +82,7 @@ struct VersionButton: View {
         }
         .sheet(isPresented: $showInstallSheet) { InstallModuleSheet(selectedVersion: version) }
         .alert(isPresented: $showRemovalSheet) { alertPanel() }
-        //.onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
+        // .onSwipe(leading: leadingSwipeActions, trailing: trailingSwipeActions)
     }
     
     func mainButton() -> some View {
@@ -141,10 +143,7 @@ struct VersionButton: View {
                 }
             }
             Menu {
-                Button("Install Additional Modules", action: installModuleSheet)
-                Button(settings.hub.defaultVersion == version ? "Unset as Default Version" : "Set as Default Version", action: { settings.setDefaultVersion(version) })
-                Button("Reveal in Finder", action: { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: version.path) })
-                Button("Uninstall Version", action: { deleteAction(version) })
+                dropDownMenu()
             } label: {}
                 .labelsHidden()
                 .menuStyle(BorderlessButtonMenuStyle())
@@ -152,6 +151,18 @@ struct VersionButton: View {
                 .padding(.trailing, 16)
         }
         .padding(.trailing, 24)
+    }
+    
+    func dropDownMenu() -> some View {
+        Group {
+            Button("Reveal in Finder") { NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: version.path) }
+            Divider()
+            Button(settings.hub.defaultVersion == version ? "Unset as Default Version" : "Set as Default Version") { settings.setDefaultVersion(version) }
+            Button("Install Additional Modules") { installModuleSheet() }
+            Button("Open Bug Reporter") { openBugReporter() }
+            Divider()
+            Button("Uninstall Version") { deleteAction(version) }
+        }
     }
     
     func alertPanel() -> Alert {
@@ -197,6 +208,13 @@ struct VersionButton: View {
             DispatchQueue.main.async {
                 version.fileSize = size
             }
+        }
+    }
+    
+    func openBugReporter() {
+        let command = "open -a \(version.path)/Unity\\ Bug\\ Reporter.app"
+        DispatchQueue.global(qos: .background).async {
+            _ = shell(command)
         }
     }
 }
