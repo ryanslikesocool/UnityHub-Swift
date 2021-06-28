@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var settings: HubSettings
+    @EnvironmentObject var settings: AppState
 
     @State private var selectedItem: SidebarItem? = .projects
     @State private var sidebarState: SidebarState = .normal

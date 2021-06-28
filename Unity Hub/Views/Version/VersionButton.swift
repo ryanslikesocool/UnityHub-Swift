@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct VersionButton: View {
-    @EnvironmentObject var settings: HubSettings
+    @EnvironmentObject var settings: AppState
     
     @Binding var viewWidth: CGFloat
     

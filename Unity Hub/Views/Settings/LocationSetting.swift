@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LocationSetting: View {
-    @EnvironmentObject var settings: HubSettings
+    @EnvironmentObject var settings: AppState
 
     let label: String
     let symbol: String

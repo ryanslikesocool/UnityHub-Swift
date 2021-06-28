@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ToggleSetting: View {
-    @EnvironmentObject var settings: HubSettings
+    @EnvironmentObject var settings: AppState
 
     let label: String
     

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ModuleButton: View {
-    @EnvironmentObject var settings: HubSettings
+    @EnvironmentObject var settings: AppState
 
     let version: UnityVersion
     @Binding var module: ModuleJSON

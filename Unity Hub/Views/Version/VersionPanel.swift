@@ -9,7 +9,7 @@ import AppKit
 import SwiftUI
 
 struct VersionPanel: View {
-    @EnvironmentObject var settings: HubSettings
+    @EnvironmentObject var settings: AppState
     
     @State private var showInstaller: Bool = false
     

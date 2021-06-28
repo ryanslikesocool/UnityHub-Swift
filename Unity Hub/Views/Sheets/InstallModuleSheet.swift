@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InstallModuleSheet: View {
-    @EnvironmentObject var settings: HubSettings
+    @EnvironmentObject var settings: AppState
     @Environment(\.presentationMode) var presentationMode
 
     @State var selectedVersion: UnityVersion

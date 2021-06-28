@@ -9,23 +9,26 @@ import SwiftUI
 
 @main
 struct UnityHubApp: App {
-    var settings = HubSettings()
+	var settings = AppState()
 
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-                .frame(minWidth: 700, maxWidth: .infinity, minHeight: 350, maxHeight: .infinity)
-                .environmentObject(settings)
-                .onAppear(perform: { settings.getAllVersions() })
-        }
-        .windowStyle(TitleBarWindowStyle())
-        .windowToolbarStyle(UnifiedWindowToolbarStyle())
+	var body: some Scene {
+		WindowGroup {
+			ContentView()
+				.frame(minWidth: 750, minHeight: 400)
+				.environmentObject(settings)
+				.onAppear(perform: { settings.getAllVersions() })
+		}
+		.windowStyle(TitleBarWindowStyle())
+		.windowToolbarStyle(UnifiedWindowToolbarStyle())
+		.commands {
+			AppInfoCommands()
+		}
 
-        Settings {
-            SettingsView()
-                .frame(width: 320, height: 374)
-                .environmentObject(settings)
-                .navigationTitle("Settings")
-        }
-    }
+		Settings {
+			SettingsView()
+				.frame(width: 320, height: 374)
+				.environmentObject(settings)
+				.navigationTitle("Settings")
+		}
+	}
 }

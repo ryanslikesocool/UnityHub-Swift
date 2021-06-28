@@ -12,7 +12,7 @@ import Foundation
 import SwiftUI
 
 struct ProjectButton: View {
-    @EnvironmentObject var settings: HubSettings
+    @EnvironmentObject var settings: AppState
     
     @Binding var viewWidth: CGFloat
 

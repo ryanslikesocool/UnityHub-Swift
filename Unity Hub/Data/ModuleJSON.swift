@@ -49,7 +49,7 @@ struct ModuleJSON: Codable {
         }
     }
     
-    static func removeModule(_ version: UnityVersion, moduleType: UnityModule, settings: HubSettings) {
+    static func removeModule(_ version: UnityVersion, moduleType: UnityModule, settings: AppState) {
         if let index = version.modules.firstIndex(where: { $0.id == moduleType.rawValue }) {
             var module = version.modules[index]
             if module.selected, let installPath = moduleType.getInstallPath() {
@@ -66,7 +66,7 @@ struct ModuleJSON: Codable {
         }
     }
     
-    static func removeModule(_ version: UnityVersion, module: ModuleJSON, settings: HubSettings) {
+    static func removeModule(_ version: UnityVersion, module: ModuleJSON, settings: AppState) {
         removeModule(version, moduleType: module.module, settings: settings)
     }
     

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class HubSettings: ObservableObject {
+class AppState: ObservableObject {
     let hubSubFolder: String = #"/Contents/MacOS/Unity\ Hub"#
     var hubCommandBase: String { return "\(hub.hubLocation)\(hubSubFolder) -- --headless" }
     
@@ -25,7 +25,7 @@ class HubSettings: ObservableObject {
     }
 }
 
-extension HubSettings {
+extension AppState {
     var lastestVersionInstalled: UnityVersion? {
         if hub.versions.count == 0 {
             return nil
@@ -126,7 +126,7 @@ extension HubSettings {
     }
 }
 
-extension HubSettings {    
+extension AppState {    
     func hasProjectAtPath(_ path: String) -> Bool {
         for project in hub.projects {
             if project.path == path {

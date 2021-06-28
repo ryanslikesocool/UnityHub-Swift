@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectPanel: View {
-    @EnvironmentObject var settings: HubSettings
+    @EnvironmentObject var settings: AppState
     
     @State private var updateList: Bool = false
     @State private var showRemovalSheet: Bool = false
