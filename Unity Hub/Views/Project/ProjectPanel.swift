@@ -38,6 +38,7 @@ struct ProjectPanel: View {
             .onChange(of: settings.hub.usePins || settings.hub.showFileSize) { _ in
                 updateList.toggle()
             }
+			.animation(.interactiveSpring())
             .toolbar {
                 ToolbarItem(placement: .automatic) {
                     SearchBar(text: $searchText)
@@ -60,7 +61,6 @@ struct ProjectPanel: View {
                 settings.sortProjects()
             }
         }
-        .animation(.interactiveSpring())
     }
     
     func removalAlert() -> Alert {

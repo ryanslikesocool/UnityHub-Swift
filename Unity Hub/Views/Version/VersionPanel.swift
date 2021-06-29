@@ -31,6 +31,7 @@ struct VersionPanel: View {
                     }
                 }
             }
+			.animation(.interactiveSpring())
             .navigationTitle("Installs")
             .toolbar {
                 ToolbarItem(placement: .automatic) {
@@ -46,7 +47,6 @@ struct VersionPanel: View {
             }
             .onAppear(perform: settings.getAllVersions)
         }
-        .animation(.interactiveSpring())
         .sheet(isPresented: $showInstaller) { InstallVersionSheet() }
         .alert(isPresented: $showRemovalSheet) {
             Alert(

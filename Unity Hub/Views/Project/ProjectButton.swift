@@ -95,7 +95,7 @@ struct ProjectButton: View {
                     }
                 }
             } label: { Text("Unity \(versionBinding.wrappedValue.version)") }
-                .frame(width: 128)
+                .frame(width: 136)
             Menu {
                 dropDownMenu()
             } label: {}
