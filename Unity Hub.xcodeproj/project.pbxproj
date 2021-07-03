@@ -34,6 +34,8 @@
 		AF8721AA2622D233003A70D4 /* Validatable+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8721A92622D233003A70D4 /* Validatable+Protocol.swift */; };
 		AF8721AD2622DA3A003A70D4 /* Sizeable+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8721AC2622DA3A003A70D4 /* Sizeable+Protocol.swift */; };
 		AFA0862C251B1CFB00B1B985 /* NSOpenPanel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA0862B251B1CFB00B1B985 /* NSOpenPanel+Extension.swift */; };
+		AFAA5C9B2690695E00133C13 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAA5C9A2690695E00133C13 /* View+Extension.swift */; };
+		AFAA5C9D2690698A00133C13 /* Bool+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAA5C9C2690698A00133C13 /* Bool+Extension.swift */; };
 		AFAEFA1425F1B4690010B492 /* InstallModuleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAEFA1325F1B4690010B492 /* InstallModuleSheet.swift */; };
 		AFAEFA1925F1CCC50010B492 /* ModuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAEFA1825F1CCC50010B492 /* ModuleButton.swift */; };
 		AFB1C3A3251B325000F8E3D8 /* UnityModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3A2251B325000F8E3D8 /* UnityModule.swift */; };
@@ -45,9 +47,6 @@
 		AFBFACC026163F79009DA68B /* EmojiPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBFACBF26163F79009DA68B /* EmojiPickerButton.swift */; };
 		AFC0AF412615029A0039FFEC /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC0AF402615029A0039FFEC /* Array+Extension.swift */; };
 		AFC23C5825257E0700F5FE4B /* PrereleaseTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */; };
-		AFDFD24E25F51D1200E4F9D0 /* SlidableModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDFD24925F51D1100E4F9D0 /* SlidableModifier.swift */; };
-		AFDFD24F25F51D1200E4F9D0 /* Slot.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDFD24A25F51D1100E4F9D0 /* Slot.swift */; };
-		AFDFD25125F51D1200E4F9D0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDFD24D25F51D1100E4F9D0 /* Extensions.swift */; };
 		AFEAC8072525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEAC8062525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift */; };
 		AFEB99542611856D006E4E91 /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB99532611856D006E4E91 /* CGFloat+Extension.swift */; };
 		AFEB9956261188EC006E4E91 /* HubData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB9955261188EC006E4E91 /* HubData.swift */; };
@@ -108,6 +107,8 @@
 		AF8721A92622D233003A70D4 /* Validatable+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Validatable+Protocol.swift"; sourceTree = "<group>"; };
 		AF8721AC2622DA3A003A70D4 /* Sizeable+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sizeable+Protocol.swift"; sourceTree = "<group>"; };
 		AFA0862B251B1CFB00B1B985 /* NSOpenPanel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSOpenPanel+Extension.swift"; sourceTree = "<group>"; };
+		AFAA5C9A2690695E00133C13 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		AFAA5C9C2690698A00133C13 /* Bool+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Extension.swift"; sourceTree = "<group>"; };
 		AFAEFA1325F1B4690010B492 /* InstallModuleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallModuleSheet.swift; sourceTree = "<group>"; };
 		AFAEFA1825F1CCC50010B492 /* ModuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleButton.swift; sourceTree = "<group>"; };
 		AFB1C3A2251B325000F8E3D8 /* UnityModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityModule.swift; sourceTree = "<group>"; };
@@ -119,9 +120,6 @@
 		AFBFACBF26163F79009DA68B /* EmojiPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerButton.swift; sourceTree = "<group>"; };
 		AFC0AF402615029A0039FFEC /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		AFC23C5725257E0700F5FE4B /* PrereleaseTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrereleaseTag.swift; sourceTree = "<group>"; };
-		AFDFD24925F51D1100E4F9D0 /* SlidableModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlidableModifier.swift; sourceTree = "<group>"; };
-		AFDFD24A25F51D1100E4F9D0 /* Slot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slot.swift; sourceTree = "<group>"; };
-		AFDFD24D25F51D1100E4F9D0 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		AFEAC8062525D9D6009C4AB2 /* AdvancedProjectSettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedProjectSettingsSheet.swift; sourceTree = "<group>"; };
 		AFEB99532611856D006E4E91 /* CGFloat+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extension.swift"; sourceTree = "<group>"; };
 		AFEB9955261188EC006E4E91 /* HubData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubData.swift; sourceTree = "<group>"; };
@@ -152,7 +150,6 @@
 		AF219E71252C5FF6008CE04C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AFDFD24825F51D1100E4F9D0 /* SwipeCell */,
 				AF219E72252C5FF6008CE04C /* WidgetKit.framework */,
 				AF219E74252C5FF6008CE04C /* SwiftUI.framework */,
 			);
@@ -305,6 +302,8 @@
 				AFEB99532611856D006E4E91 /* CGFloat+Extension.swift */,
 				AFEB995A2611A6A3006E4E91 /* URL+Extension.swift */,
 				AF3C26D72615DF4C0005B10E /* TrackingAreaView.swift */,
+				AFAA5C9A2690695E00133C13 /* View+Extension.swift */,
+				AFAA5C9C2690698A00133C13 /* Bool+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -327,16 +326,6 @@
 				AFB1C3A8251B459600F8E3D8 /* ProjectButton.swift */,
 			);
 			path = Project;
-			sourceTree = "<group>";
-		};
-		AFDFD24825F51D1100E4F9D0 /* SwipeCell */ = {
-			isa = PBXGroup;
-			children = (
-				AFDFD24925F51D1100E4F9D0 /* SlidableModifier.swift */,
-				AFDFD24A25F51D1100E4F9D0 /* Slot.swift */,
-				AFDFD24D25F51D1100E4F9D0 /* Extensions.swift */,
-			);
-			path = SwipeCell;
 			sourceTree = "<group>";
 		};
 		AFEB99702611AEA3006E4E91 /* Wrappers */ = {
@@ -428,6 +417,7 @@
 			files = (
 				AFBFACC026163F79009DA68B /* EmojiPickerButton.swift in Sources */,
 				AFFE8EA725F9B3830086F887 /* UserDefaults+Extension.swift in Sources */,
+				AFAA5C9D2690698A00133C13 /* Bool+Extension.swift in Sources */,
 				AFEB995826118940006E4E91 /* ProjectData.swift in Sources */,
 				AF3C26D42615CD4F0005B10E /* SwipeActionButton.swift in Sources */,
 				AF146CAF25622B990032343F /* VersionSheet.swift in Sources */,
@@ -437,13 +427,11 @@
 				AFA0862C251B1CFB00B1B985 /* NSOpenPanel+Extension.swift in Sources */,
 				AFAEFA1425F1B4690010B492 /* InstallModuleSheet.swift in Sources */,
 				AF5A94D0251BF9E3002FA410 /* DownloadInfo.swift in Sources */,
-				AFDFD24E25F51D1200E4F9D0 /* SlidableModifier.swift in Sources */,
 				AF8721AA2622D233003A70D4 /* Validatable+Protocol.swift in Sources */,
 				AFEB99762611C194006E4E91 /* LoadingText.swift in Sources */,
 				AF66EBF0251AE3900088EC84 /* ContentView.swift in Sources */,
 				AFC0AF412615029A0039FFEC /* Array+Extension.swift in Sources */,
 				AF34E226251AFD2D00192E53 /* SettingsView.swift in Sources */,
-				AFDFD24F25F51D1200E4F9D0 /* Slot.swift in Sources */,
 				AF3C26D82615DF4C0005B10E /* TrackingAreaView.swift in Sources */,
 				AFB1C3A3251B325000F8E3D8 /* UnityModule.swift in Sources */,
 				AFFE8EA325F9AE420086F887 /* LocationSetting.swift in Sources */,
@@ -468,11 +456,11 @@
 				AF146CB325622BA30032343F /* ModuleSheet.swift in Sources */,
 				AFB1C3A9251B459600F8E3D8 /* ProjectButton.swift in Sources */,
 				AF16EDEF251AED6100C939AA /* ProjectPanel.swift in Sources */,
+				AFAA5C9B2690695E00133C13 /* View+Extension.swift in Sources */,
 				AFC23C5825257E0700F5FE4B /* PrereleaseTag.swift in Sources */,
 				AF8721AD2622DA3A003A70D4 /* Sizeable+Protocol.swift in Sources */,
 				AF75222425F9D0EB00549E0E /* SearchBar.swift in Sources */,
 				AF08B5442524309700E7D16B /* VisualEffectView.swift in Sources */,
-				AFDFD25125F51D1200E4F9D0 /* Extensions.swift in Sources */,
 				AF34E221251AF91F00192E53 /* VersionPanel.swift in Sources */,
 				AFB1C3AD251B492900F8E3D8 /* String+Extension.swift in Sources */,
 				AF16EDE8251AEC1700C939AA /* SidebarItem.swift in Sources */,
@@ -618,7 +606,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = RyanBoyer.UnityHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -644,7 +632,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = RyanBoyer.UnityHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
