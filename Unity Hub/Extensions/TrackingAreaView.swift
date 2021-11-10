@@ -1,10 +1,3 @@
-//
-//  TrackingAreaView.swift
-//  Unity Hub S
-//
-//  Created by RyanBoyer on 4/1/21.
-//
-
 import AppKit
 import Foundation
 import SwiftUI

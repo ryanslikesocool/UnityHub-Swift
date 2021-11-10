@@ -1,10 +1,4 @@
-//
-//  URL+Extension.swift
-//  Unity Hub S
-//
-//  Created by RyanBoyer on 3/29/21.
-//
-
+import AppKit
 import Foundation
 
 extension URL {
@@ -18,8 +12,8 @@ extension URL {
     func directoryTotalAllocatedSize(includingSubfolders: Bool = false) throws -> Int? {
         guard try isDirectoryAndReachable() else { return nil }
         if includingSubfolders {
-            guard
-                let urls = FileManager.default.enumerator(at: self, includingPropertiesForKeys: nil)?.allObjects as? [URL] else { return nil }
+            guard let urls = FileManager.default.enumerator(at: self, includingPropertiesForKeys: nil)?.allObjects as? [URL] else { return nil }
+
             return try urls.lazy.reduce(0) {
                 (try $1.resourceValues(forKeys: [.totalFileAllocatedSizeKey]).totalFileAllocatedSize ?? 0) + $0
             }
@@ -38,4 +32,30 @@ extension URL {
     }
 
     static let byteCountFormatter = ByteCountFormatter()
+}
+
+extension URL {
+    func showInFinder() {
+        if hasDirectoryPath {
+            NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: path)
+        } else {
+            showInFinderAndSelectLastComponent(of: self)
+        }
+    }
+
+    fileprivate func showInFinderAndSelectLastComponent(of url: URL) {
+        NSWorkspace.shared.activateFileViewerSelecting([url])
+    }
+
+    static var homeDirectory: URL { FileManager.default.homeDirectoryForCurrentUser }
+}
+
+extension URL: Unwrappable {
+    init(unwrap any: Any?, _ default: URL) {
+        if let str = any as? String {
+            self = URL(string: str) ?? `default`
+        } else {
+            self = any as? URL ?? `default`
+        }
+    }
 }

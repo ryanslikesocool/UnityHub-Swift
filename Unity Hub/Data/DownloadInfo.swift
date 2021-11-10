@@ -1,10 +1,3 @@
-//
-//  Releases.swift
-//  Unity Hub
-//
-//  Created by Ryan Boyer on 9/23/20.
-//
-
 import Foundation
 
 class Release {

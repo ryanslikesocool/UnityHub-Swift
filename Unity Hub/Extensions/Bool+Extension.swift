@@ -1,10 +1,3 @@
-//
-//  Bool+Extension.swift
-//  Unity Hub S
-//
-//  Created by RyanBoyer on 7/3/21.
-//
-
 import Foundation
 
 extension Bool {
@@ -13,5 +6,11 @@ extension Bool {
 			return true
 		}
 		return false
+	}
+}
+
+extension Bool: Unwrappable {
+	init(unwrap any: Any?, _ default: Bool = false) {
+		self = any as? Bool ?? `default`
 	}
 }

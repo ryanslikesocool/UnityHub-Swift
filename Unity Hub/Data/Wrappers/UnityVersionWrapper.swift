@@ -1,10 +1,3 @@
-//
-//  UnityVersionDecoder.swift
-//  Unity Hub S
-//
-//  Created by RyanBoyer on 3/29/21.
-//
-
 import Foundation
 
 struct UnityVersionWrapper: Codable {

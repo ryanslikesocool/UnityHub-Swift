@@ -1,10 +1,3 @@
-//
-//  Array+Extension.swift
-//  MessagingApp
-//
-//  Created by Ryan Boyer on 3/30/21.
-//
-
 import Foundation
 
 extension Array where Element: Equatable {

@@ -1,15 +1,8 @@
-//
-//  NSOpenPanel.swift
-//  Unity Hub
-//
-//  Created by Ryan Boyer on 9/23/20.
-//
-
-import Foundation
 import AppKit
+import Foundation
 
 extension NSOpenPanel {
-    static func openFolder(completion: @escaping (_ result: Result<String, Error>) -> ()) {
+    static func openFolder(completion: @escaping (_ result: Result<String, Error>) -> Void) {
         let panel = NSOpenPanel()
         panel.allowsMultipleSelection = false
         panel.canChooseFiles = false
@@ -21,6 +14,16 @@ extension NSOpenPanel {
                 completion(.failure(
                     NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to get folder location"])
                 ))
+            }
+        }
+    }
+
+    static func openFolder(success: @escaping (String) -> Void, failure: @escaping (Error) -> Void) {
+        openFolder { result in
+            if case let .success(path) = result {
+                success(path)
+            } else if case let .failure(error) = result {
+                failure(error)
             }
         }
     }

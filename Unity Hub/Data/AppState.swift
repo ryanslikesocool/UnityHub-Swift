@@ -1,10 +1,3 @@
-//
-//  HubSettings.swift
-//  Unity Hub
-//
-//  Created by Ryan Boyer on 9/22/20.
-//
-
 import Foundation
 import SwiftUI
 

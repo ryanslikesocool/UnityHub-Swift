@@ -1,10 +1,3 @@
-//
-//  CGFloat+Extension.swift
-//  Unity Hub S
-//
-//  Created by RyanBoyer on 3/28/21.
-//
-
 import Foundation
 
 extension CGFloat {

@@ -1,10 +1,3 @@
-//
-//  Colors.swift
-//  Unity Hub
-//
-//  Created by Ryan Boyer on 10/1/20.
-//
-
 import Foundation
 import SwiftUI
 

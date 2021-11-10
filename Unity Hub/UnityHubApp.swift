@@ -1,34 +1,25 @@
-//
-//  AppDelegate.swift
-//  Unity Hub
-//
-//  Created by Ryan Boyer on 9/22/20.
-//
-
 import SwiftUI
 
 @main
 struct UnityHubApp: App {
-	var settings = AppState()
-
+	@NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+	@StateObject var settings: AppSettings = .shared
+	
 	var body: some Scene {
 		WindowGroup {
 			ContentView()
-				.frame(minWidth: 750, minHeight: 400)
 				.environmentObject(settings)
-				.onAppear(perform: { settings.getAllVersions() })
 		}
-		.windowStyle(TitleBarWindowStyle())
-		.windowToolbarStyle(UnifiedWindowToolbarStyle())
+		.windowStyle(.titleBar)
+		.windowToolbarStyle(.unified)
 		.commands {
-			AppInfoCommands()
+			UniversalCommands()
 		}
 
 		Settings {
 			SettingsView()
-				.frame(width: 320, height: 374)
+				.frame(width: 384, height: 256)
 				.environmentObject(settings)
-				.navigationTitle("Settings")
 		}
 	}
 }

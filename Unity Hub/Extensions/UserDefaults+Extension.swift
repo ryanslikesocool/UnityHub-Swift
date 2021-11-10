@@ -1,10 +1,3 @@
-//
-//  UserDefaults+Extension.swift
-//  Unity Hub S
-//
-//  Created by RyanBoyer on 3/10/21.
-//
-
 import Foundation
 
 extension UserDefaults {
