@@ -12,7 +12,17 @@ struct UnityVersionV2: Identifiable, CustomStringConvertible {
 	var description: String { "\(major).\(minor).\(patch)\(channel)\(iteration)" }
 	var id: String { description }
 
-	init(_ string: String) {
-		
+	//init(_ string: String) {
+	//
+	//}
+}
+
+extension UnityVersionV2 {
+	enum Channel: String {
+		case alpha = "a"
+		case beta = "b"
+		case final = "f"
+		case patch = "p"
+		case china = "c"
 	}
 }

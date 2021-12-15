@@ -15,7 +15,7 @@ struct ModuleJSON: Codable {
     var fileSize: String? = ""
     var module: UnityModule { return UnityModule(rawValue: id) ?? .none }
     
-    var path: String? { return module.getInstallPath() }
+    var path: String? { module.installPath }
     
     init() {
         self.id = ""
@@ -45,13 +45,13 @@ struct ModuleJSON: Codable {
     static func removeModule(_ version: UnityVersion, moduleType: UnityModule, settings: AppState) {
         if let index = version.modules.firstIndex(where: { $0.id == moduleType.rawValue }) {
             var module = version.modules[index]
-            if module.selected, let installPath = moduleType.getInstallPath() {
-                DispatchQueue.global(qos: .background).async {
+            if module.selected, let installPath = moduleType.installPath {
+				Async.background {
                     _ = shell("rm -rf \(version.path)\(installPath)")
                     
-                    DispatchQueue.main.async {
+					Async.main {
                         module.selected = false
-                        settings.setModule(version, module)
+                        //settings.setModule(version, module)
                         ModuleJSON.saveModules(version)
                     }
                 }

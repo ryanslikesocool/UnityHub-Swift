@@ -1,51 +1,40 @@
 import Foundation
 
-protocol PlistFile: ObservableObject {
-    static var fileName: String { get }
-    static var fileDirectory: URL { get }
-    static var filePath: URL { get }
-
-    static func load() -> Self
-    func save()
-
-	init()
-    init(dictionary: [String: Any])
-    func saveToDictionary() -> [String: Any]
+protocol PlistFile: PlistDictionary {
+	init?(url: URL)
+	func save(to url: URL)
 }
 
 extension PlistFile {
-    static func load() -> Self {
-        do {
-            let plistData = try Data(contentsOf: filePath)
-            let dictionary = try PropertyListSerialization.propertyList(from: plistData, options: [.mutableContainersAndLeaves], format: .none) as! [String: Any]
-            return Self(dictionary: dictionary)
-        } catch {
-            print("Could not read plist at \(filePath).  Creating a new one with default values.  Error: \(error)")
-            let result = Self()
-            result.save()
-            return result
-        }
-    }
-
-    func save() {
-        if !FileManager.default.fileExists(atPath: Self.fileDirectory.path) {
-            do {
-                try FileManager.default.createDirectory(atPath: Self.fileDirectory.path, withIntermediateDirectories: true)
-            } catch {
-                print("Could not create directory at \(Self.fileDirectory.path).  Error: \(error)")
-            }
-        }
-        if !FileManager.default.fileExists(atPath: Self.filePath.path) {
-            FileManager.default.createFile(atPath: Self.filePath.path, contents: nil)
-        }
-
-        do {
-            let dictionary = saveToDictionary()
-            let data = try PropertyListSerialization.data(fromPropertyList: dictionary, format: .xml, options: 0)
-            try data.write(to: Self.filePath)
-			print("Saved file of type '\(Self.self)' to path '\(Self.filePath)'")
+	init?(url: URL) {
+		do {
+			let plistData = try Data(contentsOf: url)
+			let dictionary = try PropertyListSerialization.propertyList(from: plistData, options: [.mutableContainersAndLeaves], format: .none) as! [String: Any]
+			self.init(dictionary: dictionary)
 		} catch {
-            print("Couldn't save settings file to \(Self.fileName)", error)
-        }
-    }
+			return nil
+		}
+	}
+
+	func save(to url: URL) {
+		let fileManager = FileManager.default
+
+		do {
+			var isDirectory: ObjCBool = true
+			let folder = url.deletingLastPathComponent()
+			if !fileManager.fileExists(atPath: folder.path, isDirectory: &isDirectory) {
+				try fileManager.createDirectory(at: folder, withIntermediateDirectories: true, attributes: nil)
+			}
+
+			if !fileManager.fileExists(atPath: url.path) {
+				fileManager.createFile(atPath: url.path, contents: nil, attributes: nil)
+			}
+
+			let dictionary = saveToDictionary()
+			let data = try PropertyListSerialization.data(fromPropertyList: dictionary, format: .xml, options: 0)
+			try data.write(to: url)
+		} catch {
+			print("Couldn't save file to \(url)", error)
+		}
+	}
 }

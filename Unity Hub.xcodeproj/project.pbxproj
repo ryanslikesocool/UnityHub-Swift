@@ -15,9 +15,9 @@
 		AF66EBEE251AE3900088EC84 /* UnityHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF66EBED251AE3900088EC84 /* UnityHubApp.swift */; };
 		AF66EBF0251AE3900088EC84 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF66EBEF251AE3900088EC84 /* ContentView.swift */; };
 		AF66EBF2251AE3910088EC84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF66EBF1251AE3910088EC84 /* Assets.xcassets */; };
+		AF90D66F276121C100B3367B /* SettingsView.Panel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF90D66E276121C100B3367B /* SettingsView.Panel.swift */; };
 		AFA0862C251B1CFB00B1B985 /* NSOpenPanel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA0862B251B1CFB00B1B985 /* NSOpenPanel+Extension.swift */; };
 		AFAA5C9B2690695E00133C13 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAA5C9A2690695E00133C13 /* View+Extension.swift */; };
-		AFAA5C9D2690698A00133C13 /* Bool+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAA5C9C2690698A00133C13 /* Bool+Extension.swift */; };
 		AFB1C3A3251B325000F8E3D8 /* UnityModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3A2251B325000F8E3D8 /* UnityModule.swift */; };
 		AFB1C3A6251B357A00F8E3D8 /* ModuleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3A5251B357A00F8E3D8 /* ModuleJSON.swift */; };
 		AFB1C3AD251B492900F8E3D8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB1C3AC251B492900F8E3D8 /* String+Extension.swift */; };
@@ -32,29 +32,22 @@
 		AFD0DC92272C4BDD00E49010 /* ColorScheme+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DC8D272C4BDD00E49010 /* ColorScheme+Extension.swift */; };
 		AFD0DC93272C4BDD00E49010 /* UUID+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DC8E272C4BDD00E49010 /* UUID+Extension.swift */; };
 		AFD0DC94272C4BDD00E49010 /* Timer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DC8F272C4BDD00E49010 /* Timer+Extension.swift */; };
-		AFD0DC95272C4BDD00E49010 /* Float+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DC90272C4BDD00E49010 /* Float+Extension.swift */; };
 		AFD0DC98272C4C1500E49010 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = AFD0DC97272C4C1500E49010 /* Introspect */; };
 		AFD0DC9A272C4C5000E49010 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AFD0DC99272C4C5000E49010 /* Credits.rtf */; };
-		AFD0DC9D272C4C7400E49010 /* CursorKit in Frameworks */ = {isa = PBXBuildFile; productRef = AFD0DC9C272C4C7400E49010 /* CursorKit */; };
 		AFD0DC9F272C4CE100E49010 /* UniversalCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DC9E272C4CE100E49010 /* UniversalCommands.swift */; };
 		AFD0DCA3272C4D5000E49010 /* WindowAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DCA1272C4D5000E49010 /* WindowAccessor.swift */; };
 		AFD0DCA4272C4D5000E49010 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DCA2272C4D5000E49010 /* Toolbar.swift */; };
 		AFD0DCA7272C4D7000E49010 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DCA6272C4D7000E49010 /* AppSettings.swift */; };
-		AFD0DCA9272C4DFD00E49010 /* AppSettings_General.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DCA8272C4DFD00E49010 /* AppSettings_General.swift */; };
+		AFD0DCA9272C4DFD00E49010 /* AppSettings.General.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DCA8272C4DFD00E49010 /* AppSettings.General.swift */; };
 		AFD0DCAB272C4E4500E49010 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DCAA272C4E4500E49010 /* AppDelegate.swift */; };
 		AFD0DCAE272C4FC200E49010 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DCAD272C4FC200E49010 /* SettingsView.swift */; };
-		AFD0DCB0272C4FDE00E49010 /* SettingsView_General.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DCAF272C4FDE00E49010 /* SettingsView_General.swift */; };
-		AFD0DCB4272C5A9100E49010 /* AppSettings_RecentProjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DCB3272C5A9100E49010 /* AppSettings_RecentProjects.swift */; };
+		AFD0DCB4272C5A9100E49010 /* AppSettings.RecentProjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DCB3272C5A9100E49010 /* AppSettings.RecentProjects.swift */; };
 		AFD0DCB7272C5AF300E49010 /* ProjectDataV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DCB6272C5AF300E49010 /* ProjectDataV2.swift */; };
 		AFD0DCBA272C5B3A00E49010 /* UnityVersionV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DCB9272C5B3A00E49010 /* UnityVersionV2.swift */; };
 		AFD0DCBC272C5B5000E49010 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0DCBB272C5B5000E49010 /* Version.swift */; };
+		AFEB260D2761218500DAB0A3 /* SettingsView.Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB260C2761218500DAB0A3 /* SettingsView.Components.swift */; };
 		AFEB99542611856D006E4E91 /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB99532611856D006E4E91 /* CGFloat+Extension.swift */; };
-		AFEB9956261188EC006E4E91 /* HubData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB9955261188EC006E4E91 /* HubData.swift */; };
-		AFEB995826118940006E4E91 /* ProjectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB995726118940006E4E91 /* ProjectData.swift */; };
 		AFEB995B2611A6A3006E4E91 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB995A2611A6A3006E4E91 /* URL+Extension.swift */; };
-		AFEB996F2611ADCF006E4E91 /* HubDataWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB996E2611ADCF006E4E91 /* HubDataWrapper.swift */; };
-		AFEB99722611B03D006E4E91 /* ProjectDataWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB99712611B03D006E4E91 /* ProjectDataWrapper.swift */; };
-		AFEB99742611B1F0006E4E91 /* UnityVersionWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEB99732611B1F0006E4E91 /* UnityVersionWrapper.swift */; };
 		AFFE8EA725F9B3830086F887 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE8EA625F9B3830086F887 /* UserDefaults+Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -84,9 +77,9 @@
 		AF66EBF1251AE3910088EC84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF66EBF9251AE3910088EC84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF66EBFA251AE3910088EC84 /* Unity_Hub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Unity_Hub.entitlements; sourceTree = "<group>"; };
+		AF90D66E276121C100B3367B /* SettingsView.Panel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.Panel.swift; sourceTree = "<group>"; };
 		AFA0862B251B1CFB00B1B985 /* NSOpenPanel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSOpenPanel+Extension.swift"; sourceTree = "<group>"; };
 		AFAA5C9A2690695E00133C13 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
-		AFAA5C9C2690698A00133C13 /* Bool+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Extension.swift"; sourceTree = "<group>"; };
 		AFB1C3A2251B325000F8E3D8 /* UnityModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityModule.swift; sourceTree = "<group>"; };
 		AFB1C3A5251B357A00F8E3D8 /* ModuleJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleJSON.swift; sourceTree = "<group>"; };
 		AFB1C3AC251B492900F8E3D8 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -101,27 +94,21 @@
 		AFD0DC8D272C4BDD00E49010 /* ColorScheme+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ColorScheme+Extension.swift"; sourceTree = "<group>"; };
 		AFD0DC8E272C4BDD00E49010 /* UUID+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UUID+Extension.swift"; sourceTree = "<group>"; };
 		AFD0DC8F272C4BDD00E49010 /* Timer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Timer+Extension.swift"; sourceTree = "<group>"; };
-		AFD0DC90272C4BDD00E49010 /* Float+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Float+Extension.swift"; sourceTree = "<group>"; };
 		AFD0DC99272C4C5000E49010 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		AFD0DC9E272C4CE100E49010 /* UniversalCommands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalCommands.swift; sourceTree = "<group>"; };
 		AFD0DCA1272C4D5000E49010 /* WindowAccessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowAccessor.swift; sourceTree = "<group>"; };
 		AFD0DCA2272C4D5000E49010 /* Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
 		AFD0DCA6272C4D7000E49010 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
-		AFD0DCA8272C4DFD00E49010 /* AppSettings_General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings_General.swift; sourceTree = "<group>"; };
+		AFD0DCA8272C4DFD00E49010 /* AppSettings.General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.General.swift; sourceTree = "<group>"; };
 		AFD0DCAA272C4E4500E49010 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AFD0DCAD272C4FC200E49010 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		AFD0DCAF272C4FDE00E49010 /* SettingsView_General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView_General.swift; sourceTree = "<group>"; };
-		AFD0DCB3272C5A9100E49010 /* AppSettings_RecentProjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings_RecentProjects.swift; sourceTree = "<group>"; };
+		AFD0DCB3272C5A9100E49010 /* AppSettings.RecentProjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.RecentProjects.swift; sourceTree = "<group>"; };
 		AFD0DCB6272C5AF300E49010 /* ProjectDataV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataV2.swift; sourceTree = "<group>"; };
 		AFD0DCB9272C5B3A00E49010 /* UnityVersionV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityVersionV2.swift; sourceTree = "<group>"; };
 		AFD0DCBB272C5B5000E49010 /* Version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
+		AFEB260C2761218500DAB0A3 /* SettingsView.Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.Components.swift; sourceTree = "<group>"; };
 		AFEB99532611856D006E4E91 /* CGFloat+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extension.swift"; sourceTree = "<group>"; };
-		AFEB9955261188EC006E4E91 /* HubData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubData.swift; sourceTree = "<group>"; };
-		AFEB995726118940006E4E91 /* ProjectData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectData.swift; sourceTree = "<group>"; };
 		AFEB995A2611A6A3006E4E91 /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
-		AFEB996E2611ADCF006E4E91 /* HubDataWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubDataWrapper.swift; sourceTree = "<group>"; };
-		AFEB99712611B03D006E4E91 /* ProjectDataWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataWrapper.swift; sourceTree = "<group>"; };
-		AFEB99732611B1F0006E4E91 /* UnityVersionWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnityVersionWrapper.swift; sourceTree = "<group>"; };
 		AFFE8EA625F9B3830086F887 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,7 +118,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF4D2104251EBA220029101C /* Smile in Frameworks */,
-				AFD0DC9D272C4C7400E49010 /* CursorKit in Frameworks */,
 				AFD0DC98272C4C1500E49010 /* Introspect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,18 +201,15 @@
 		AFC933F32527F6BB00E5ECDE /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				AFD0DCB8272C5B2F00E49010 /* Editor */,
-				AFD0DCB5272C5AEA00E49010 /* Project */,
-				AFD0DCA5272C4D6300E49010 /* Settings */,
-				AFEB99702611AEA3006E4E91 /* Wrappers */,
 				AF34E22A251AFE5300192E53 /* AppState.swift */,
-				AFEB9955261188EC006E4E91 /* HubData.swift */,
-				AFD0DCBB272C5B5000E49010 /* Version.swift */,
 				AF5A94CF251BF9E3002FA410 /* DownloadInfo.swift */,
 				AFB1C3A5251B357A00F8E3D8 /* ModuleJSON.swift */,
 				AFB1C3A2251B325000F8E3D8 /* UnityModule.swift */,
 				AF16FF26251B8EA500C8A2A9 /* UnityVersion.swift */,
-				AFEB995726118940006E4E91 /* ProjectData.swift */,
+				AFD0DCBB272C5B5000E49010 /* Version.swift */,
+				AFD0DCB8272C5B2F00E49010 /* Editor */,
+				AFD0DCB5272C5AEA00E49010 /* Project */,
+				AFD0DCA5272C4D6300E49010 /* Settings */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -236,11 +219,9 @@
 			children = (
 				AFC0AF402615029A0039FFEC /* Array+Extension.swift */,
 				AFD0DC8C272C4BDD00E49010 /* Async.swift */,
-				AFAA5C9C2690698A00133C13 /* Bool+Extension.swift */,
 				AFEB99532611856D006E4E91 /* CGFloat+Extension.swift */,
 				AFBB9A4E25260B000004F78B /* Color+Extension.swift */,
 				AFD0DC8D272C4BDD00E49010 /* ColorScheme+Extension.swift */,
-				AFD0DC90272C4BDD00E49010 /* Float+Extension.swift */,
 				AFA0862B251B1CFB00B1B985 /* NSOpenPanel+Extension.swift */,
 				AFB1C3AF251B633C00F8E3D8 /* Shell.swift */,
 				AFB1C3AC251B492900F8E3D8 /* String+Extension.swift */,
@@ -267,8 +248,8 @@
 			isa = PBXGroup;
 			children = (
 				AFD0DCA6272C4D7000E49010 /* AppSettings.swift */,
-				AFD0DCA8272C4DFD00E49010 /* AppSettings_General.swift */,
-				AFD0DCB3272C5A9100E49010 /* AppSettings_RecentProjects.swift */,
+				AFD0DCA8272C4DFD00E49010 /* AppSettings.General.swift */,
+				AFD0DCB3272C5A9100E49010 /* AppSettings.RecentProjects.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -277,7 +258,8 @@
 			isa = PBXGroup;
 			children = (
 				AFD0DCAD272C4FC200E49010 /* SettingsView.swift */,
-				AFD0DCAF272C4FDE00E49010 /* SettingsView_General.swift */,
+				AFEB260C2761218500DAB0A3 /* SettingsView.Components.swift */,
+				AF90D66E276121C100B3367B /* SettingsView.Panel.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -296,16 +278,6 @@
 				AFD0DCB9272C5B3A00E49010 /* UnityVersionV2.swift */,
 			);
 			path = Editor;
-			sourceTree = "<group>";
-		};
-		AFEB99702611AEA3006E4E91 /* Wrappers */ = {
-			isa = PBXGroup;
-			children = (
-				AFEB996E2611ADCF006E4E91 /* HubDataWrapper.swift */,
-				AFEB99712611B03D006E4E91 /* ProjectDataWrapper.swift */,
-				AFEB99732611B1F0006E4E91 /* UnityVersionWrapper.swift */,
-			);
-			path = Wrappers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,7 +300,6 @@
 			packageProductDependencies = (
 				AF4D2103251EBA220029101C /* Smile */,
 				AFD0DC97272C4C1500E49010 /* Introspect */,
-				AFD0DC9C272C4C7400E49010 /* CursorKit */,
 			);
 			productName = "Unity Hub";
 			productReference = AF66EBEA251AE3900088EC84 /* Unity Hub S.app */;
@@ -361,7 +332,6 @@
 			packageReferences = (
 				AF4D2102251EBA220029101C /* XCRemoteSwiftPackageReference "Smile" */,
 				AFD0DC96272C4C1500E49010 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
-				AFD0DC9B272C4C7400E49010 /* XCRemoteSwiftPackageReference "CursorKit" */,
 			);
 			productRefGroup = AF66EBEB251AE3900088EC84 /* Products */;
 			projectDirPath = "";
@@ -393,16 +363,14 @@
 				AFD0DC8B272C4BCA00E49010 /* SettingsPage.swift in Sources */,
 				AFD0DCBC272C5B5000E49010 /* Version.swift in Sources */,
 				AFD0DCAB272C4E4500E49010 /* AppDelegate.swift in Sources */,
-				AFAA5C9D2690698A00133C13 /* Bool+Extension.swift in Sources */,
-				AFEB995826118940006E4E91 /* ProjectData.swift in Sources */,
 				AFD0DC88272C4BB800E49010 /* PlistDictionary.swift in Sources */,
+				AF90D66F276121C100B3367B /* SettingsView.Panel.swift in Sources */,
 				AFD0DC92272C4BDD00E49010 /* ColorScheme+Extension.swift in Sources */,
-				AFD0DCA9272C4DFD00E49010 /* AppSettings_General.swift in Sources */,
-				AFD0DCB4272C5A9100E49010 /* AppSettings_RecentProjects.swift in Sources */,
-				AFEB9956261188EC006E4E91 /* HubData.swift in Sources */,
+				AFD0DCA9272C4DFD00E49010 /* AppSettings.General.swift in Sources */,
+				AFD0DCB4272C5A9100E49010 /* AppSettings.RecentProjects.swift in Sources */,
 				AFD0DCA4272C4D5000E49010 /* Toolbar.swift in Sources */,
 				AFB1C3A6251B357A00F8E3D8 /* ModuleJSON.swift in Sources */,
-				AFD0DC95272C4BDD00E49010 /* Float+Extension.swift in Sources */,
+				AFEB260D2761218500DAB0A3 /* SettingsView.Components.swift in Sources */,
 				AFD0DCAE272C4FC200E49010 /* SettingsView.swift in Sources */,
 				AFD0DC87272C4BB800E49010 /* Unwrappable.swift in Sources */,
 				AFA0862C251B1CFB00B1B985 /* NSOpenPanel+Extension.swift in Sources */,
@@ -414,19 +382,15 @@
 				AFD0DCBA272C5B3A00E49010 /* UnityVersionV2.swift in Sources */,
 				AFD0DC93272C4BDD00E49010 /* UUID+Extension.swift in Sources */,
 				AFB1C3A3251B325000F8E3D8 /* UnityModule.swift in Sources */,
-				AFD0DCB0272C4FDE00E49010 /* SettingsView_General.swift in Sources */,
 				AF66EBEE251AE3900088EC84 /* UnityHubApp.swift in Sources */,
 				AFD0DC89272C4BB800E49010 /* PlistFile.swift in Sources */,
 				AFBB9A4F25260B000004F78B /* Color+Extension.swift in Sources */,
 				AFB1C3B0251B633C00F8E3D8 /* Shell.swift in Sources */,
 				AFD0DC9F272C4CE100E49010 /* UniversalCommands.swift in Sources */,
 				AFD0DCB7272C5AF300E49010 /* ProjectDataV2.swift in Sources */,
-				AFEB996F2611ADCF006E4E91 /* HubDataWrapper.swift in Sources */,
 				AF16FF27251B8EA500C8A2A9 /* UnityVersion.swift in Sources */,
 				AFEB99542611856D006E4E91 /* CGFloat+Extension.swift in Sources */,
 				AFEB995B2611A6A3006E4E91 /* URL+Extension.swift in Sources */,
-				AFEB99742611B1F0006E4E91 /* UnityVersionWrapper.swift in Sources */,
-				AFEB99722611B03D006E4E91 /* ProjectDataWrapper.swift in Sources */,
 				AF34E22B251AFE5300192E53 /* AppState.swift in Sources */,
 				AFAA5C9B2690695E00133C13 /* View+Extension.swift in Sources */,
 				AFD0DCA3272C4D5000E49010 /* WindowAccessor.swift in Sources */,
@@ -573,6 +537,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.DevelopedWithLove.UnityHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -597,6 +562,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.DevelopedWithLove.UnityHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -632,24 +598,16 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onmyway133/Smile";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.1.0;
+				kind = revision;
+				revision = 2afe344d17f30dee646ef4c54a6926b6dd021e7d;
 			};
 		};
 		AFD0DC96272C4C1500E49010 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.3;
-			};
-		};
-		AFD0DC9B272C4C7400E49010 /* XCRemoteSwiftPackageReference "CursorKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ryanslikesocool/CursorKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				kind = revision;
+				revision = 72a509c93166540c0adf8323fd2652daade7f9f6;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -664,11 +622,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AFD0DC96272C4C1500E49010 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
-		};
-		AFD0DC9C272C4C7400E49010 /* CursorKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AFD0DC9B272C4C7400E49010 /* XCRemoteSwiftPackageReference "CursorKit" */;
-			productName = CursorKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

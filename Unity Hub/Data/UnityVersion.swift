@@ -119,7 +119,7 @@ extension UnityVersion {
 
         for module in modules {
             if module.selected, let unityModule = UnityModule(rawValue: module.id) {
-                let index = unityModules.firstIndex(where: { $0.getPlatform() == unityModule.getPlatform() })
+                let index = unityModules.firstIndex(where: { $0.platform == unityModule.platform })
                 if index == nil, unityModule != .none {
                     unityModules.append(unityModule)
                 }
@@ -173,7 +173,7 @@ extension UnityVersion: Identifiable {
     }
 }
 
-extension UnityVersion: Validatable {
+extension UnityVersion {
     mutating func validate() -> Bool {
         return isVersionValid() && UnityVersion.isEditorValid(path: path)
     }

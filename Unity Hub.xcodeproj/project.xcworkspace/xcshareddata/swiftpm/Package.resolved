@@ -2,21 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "CursorKit",
-        "repositoryURL": "https://github.com/ryanslikesocool/CursorKit.git",
-        "state": {
-          "branch": null,
-          "revision": "2683f4828fa82c9dc37e32a22268be519b76f7da",
-          "version": "1.0.0"
-        }
-      },
-      {
         "package": "Smile",
         "repositoryURL": "https://github.com/onmyway133/Smile",
         "state": {
           "branch": null,
-          "revision": "40604722a7a56f735124e069fcbb58307637744b",
-          "version": "2.1.0"
+          "revision": "2afe344d17f30dee646ef4c54a6926b6dd021e7d",
+          "version": null
         }
       },
       {
@@ -24,8 +15,8 @@
         "repositoryURL": "https://github.com/siteline/SwiftUI-Introspect.git",
         "state": {
           "branch": null,
-          "revision": "2e09be8af614401bc9f87d40093ec19ce56ccaf2",
-          "version": "0.1.3"
+          "revision": "72a509c93166540c0adf8323fd2652daade7f9f6",
+          "version": null
         }
       }
     ]

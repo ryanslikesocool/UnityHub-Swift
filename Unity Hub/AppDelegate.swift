@@ -5,7 +5,8 @@ import SwiftUI
 final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSWindow.allowsAutomaticWindowTabbing = false
-        AppDelegate.setAppearance(from: EditorSettings.shared.general.appearance.rawValue)
+
+		AppDelegate.setAppearance(from: AppSettings.shared.general.appearance.rawValue)
     }
 
     static func setAppearance(from string: String) {
@@ -19,8 +20,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     static func closeWindow(_ window: NSWindow) {
-        Async.main {
-            window.close()
-        }
+        window.close()
+    }
+
+    static func bringWindowToFront(_ window: NSWindow) {
+        NSApp.activate(ignoringOtherApps: true)
+        window.orderFrontRegardless()
     }
 }

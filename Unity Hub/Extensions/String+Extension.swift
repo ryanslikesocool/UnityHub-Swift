@@ -7,9 +7,3 @@ extension String {
         }
     }
 }
-
-extension String: Unwrappable {
-	init(unwrap any: Any?, _ default: String = "") {
-		self = any as? String ?? `default`
-	}
-}

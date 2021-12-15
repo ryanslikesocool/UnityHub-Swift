@@ -1,9 +1,9 @@
 import Foundation
 
-final class AppSettings: PlistFile {
-    static let shared: AppSettings = load()
+final class AppSettings: ObservableObject, PlistFile {
+	static let shared: AppSettings = .init(url: AppSettings.filePath) ?? .init()
 
-    @Published var general: AppSettings_General = .init() { didSet { save() }}
+    @Published var general: General = .init() { didSet { save() }}
 }
 
 extension AppSettings {
@@ -11,8 +11,13 @@ extension AppSettings {
     static var fileDirectory: URL { FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!.appendingPathComponent("UnityHub", isDirectory: true) }
     static var filePath: URL { fileDirectory.appendingPathComponent(fileName, isDirectory: false) }
 
+    func save() {
+        save(to: AppSettings.filePath)
+    }
+
     convenience init(dictionary: [String: Any]) {
-		general = .init(dictionary["General"]) ?? general
+		self.init()
+		general = .init(any: dictionary["General"])
     }
 
     func saveToDictionary() -> [String: Any] {

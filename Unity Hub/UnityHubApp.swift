@@ -8,6 +8,7 @@ struct UnityHubApp: App {
 	var body: some Scene {
 		WindowGroup {
 			ContentView()
+				.frame(width: 1000, height: 600)
 				.environmentObject(settings)
 		}
 		.windowStyle(.titleBar)
