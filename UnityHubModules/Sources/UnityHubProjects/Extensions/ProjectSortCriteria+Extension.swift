@@ -6,15 +6,27 @@ extension Sequence<ProjectMetadata> {
 		return switch criteria {
 			case .name:
 				sorted(by: { lhs, rhs in
-					Self.comparePinned(lhs: lhs, rhs: rhs) && Self.compare(\.name, lhs: lhs, rhs: rhs, order: order)
+					if lhs.pinned != rhs.pinned {
+						Self.comparePinned(lhs: lhs, rhs: rhs)
+					} else {
+						Self.compare(\.name, lhs: lhs, rhs: rhs, order: order)
+					}
 				})
 			case .editorVersion:
 				sorted(by: { lhs, rhs in
-					Self.comparePinned(lhs: lhs, rhs: rhs) && Self.compare(\.editorVersion, lhs: lhs, rhs: rhs, order: order, nilIsFirst: true)
+					if lhs.pinned != rhs.pinned {
+						Self.comparePinned(lhs: lhs, rhs: rhs)
+					} else {
+						Self.compare(\.editorVersion, lhs: lhs, rhs: rhs, order: order, nilIsFirst: true)
+					}
 				})
 			case .lastOpened:
 				sorted(by: { lhs, rhs in
-					Self.comparePinned(lhs: lhs, rhs: rhs) && Self.compare(\.lastOpened, lhs: lhs, rhs: rhs, order: order, nilIsFirst: true)
+					if lhs.pinned != rhs.pinned {
+						Self.comparePinned(lhs: lhs, rhs: rhs)
+					} else {
+						Self.compare(\.lastOpened, lhs: lhs, rhs: rhs, order: order, nilIsFirst: true)
+					}
 				})
 		}
 	}

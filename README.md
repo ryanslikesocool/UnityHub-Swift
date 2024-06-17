@@ -1,15 +1,17 @@
-# Unity Hub Swift
-Unity Hub, rebuilt for macOS with SwiftUI
+# Unity Hub (Swift)
+A Unity Hub alternative, built natively for macOS.
 
 ## Features
 (The official app doesn't have features tagged with ✨!)
+- ✨ Fully native UI (no Electron!)
+- ✨ Add project icons for quick identification
+- ✨ View useful project information without opening them
+- ✨ Enhanced project search
+
 - Find Unity versions with default and custom locations
 - Get installed modules per Unity version via modules.json
 - Load projects, added via manual location
 - Install Unity versions and modules (requires official [Unity Hub](https://unity3d.com/get-unity/download) for CLI tools)
-- ✨ Emoji tags for projects (emoji picker powered by [Smile](https://github.com/onmyway133/Smile))
-- ✨ Pinned projects
-- Project search
 - Unity version tags (alpha, beta, LTS)
 - Default Unity version for new projects
 - Version uninstall

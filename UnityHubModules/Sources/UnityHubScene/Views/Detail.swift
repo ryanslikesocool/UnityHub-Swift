@@ -1,6 +1,7 @@
 import SwiftUI
-import UnityHubProjects
 import UnityHubInstallations
+import UnityHubProjects
+import UnityHubResources
 
 struct Detail: View {
 	@Binding var sidebarSelection: SidebarItem
@@ -9,8 +10,7 @@ struct Detail: View {
 		switch sidebarSelection {
 			case .projects: ProjectsView()
 			case .installations: InstallationsView()
-			case .learn: LearnDetailView()
-			case .community: CommunityDetailView()
+			case .resources: ResourcesView()
 		}
 	}
 }

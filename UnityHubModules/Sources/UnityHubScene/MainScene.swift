@@ -21,5 +21,5 @@ public struct MainScene: Scene {
 
 public extension MainScene {
 	static let windowTitle: String = "Unity Hub"
-	static let windowID: String = "UnityHub.Launcher"
+	static let windowID: String = "com.DevelopedWithLove.UnityHub.Main"
 }

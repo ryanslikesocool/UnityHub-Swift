@@ -3,7 +3,7 @@ import SwiftUI
 
 struct CopyrightSection: View {
 	var body: some View {
-		VStack {
+		VStack(alignment: .leading) {
 			Text(AppInformation.copyright ?? "© 2021 Ryan Boyer")
 				.font(.caption)
 				.foregroundStyle(.secondary)
@@ -18,6 +18,5 @@ struct CopyrightSection: View {
 			Image("heart.pixel.fill")
 				.foregroundStyle(Color("developedwithlove.red"))
 		}
-		.multilineTextAlignment(.center)
 	}
 }

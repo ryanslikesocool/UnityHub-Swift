@@ -29,8 +29,7 @@ struct CustomSplitView<Sidebar: View, Detail: View>: NSViewControllerRepresentab
 
 extension CustomSplitView {
 	final class _ViewController: NSSplitViewController {
-		private static var splitViewIdentifier: String { "com.developedwithlove.restorationId:customSplitViewController" }
-		private static var toolbarIdentifier: String { "com.developedwithlove.toolbar" }
+		private static var splitViewIdentifier: String { "com.DevelopedWithLove.RestorationID:CustomSplitViewController" }
 
 		private let sidebarViewController: NSHostingController<Sidebar>
 		private let detailViewController: NSHostingController<Detail>

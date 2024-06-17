@@ -1,8 +1,7 @@
 enum SidebarItem: UInt8 {
 	case projects
 	case installations
-	case learn
-	case community
+	case resources
 }
 
 // MARK: - Hashable
@@ -26,8 +25,7 @@ extension SidebarItem: CustomStringConvertible {
 		switch self {
 			case .projects: "Projects"
 			case .installations: "Installations"
-			case .learn: "Learn"
-			case .community: "Community"
+			case .resources: "Resources"
 		}
 	}
 }
@@ -39,8 +37,7 @@ extension SidebarItem {
 		switch self {
 			case .projects: "cube"
 			case .installations: "square.and.arrow.down"
-			case .learn: "graduationcap"
-			case .community: "person.3"
+			case .resources: "info.circle"
 		}
 	}
 }
