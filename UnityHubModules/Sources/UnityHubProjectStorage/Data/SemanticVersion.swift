@@ -68,14 +68,12 @@ extension SemanticVersion: Identifiable {
 
 extension SemanticVersion: Comparable {
 	public static func < (lhs: Self, rhs: Self) -> Bool {
-		if lhs.major == rhs.major {
-			if lhs.minor == rhs.minor {
-				lhs.patch < rhs.patch
-			} else {
-				lhs.minor < rhs.minor
-			}
-		} else {
+		if lhs.major != rhs.major {
 			lhs.major < rhs.major
+		} else if lhs.minor != rhs.minor {
+			lhs.minor < rhs.minor
+		} else {
+			lhs.patch < rhs.patch
 		}
 	}
 }

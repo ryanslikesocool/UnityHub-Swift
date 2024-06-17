@@ -22,9 +22,9 @@ extension ProjectInfoView {
 								.foregroundStyle(.tertiary)
 								.font(.title3)
 						}
-					.aspectRatio(1, contentMode: .fit)
-					.frame(height: 32)
+						.aspectRatio(1, contentMode: .fit)
 				}
+				.frame(height: 32)
 				.padding(-4)
 
 				Text(project.name)

@@ -41,10 +41,10 @@ struct ProjectListItem: View {
 private extension ProjectListItem {
 	var content: some View {
 		HStack {
-			projectIcon
-
 			Button(action: openProjectAction) {
 				HStack {
+					projectIcon
+
 					VStack(alignment: .leading, spacing: 2) {
 						projectName
 
@@ -67,18 +67,15 @@ private extension ProjectListItem {
 
 	@ViewBuilder var projectIcon: some View {
 		if infoVisibility.contains(.icon) {
-			ProjectIconButton(project: $project) {
-				Circle()
-					.stroke(lineWidth: 1)
-					.foregroundStyle(.separator)
-					.overlay {
-						Image(systemName: "plus")
-							.foregroundStyle(.tertiary)
-							.font(.title3)
-					}
-					.aspectRatio(1, contentMode: .fit)
-					.frame(height: 32)
+			Group {
+				if project.icon != .blank {
+					UserIconView(project.icon)
+				} else {
+					Color.clear
+				}
 			}
+			.aspectRatio(1, contentMode: .fit)
+			.frame(height: 32)
 		}
 	}
 

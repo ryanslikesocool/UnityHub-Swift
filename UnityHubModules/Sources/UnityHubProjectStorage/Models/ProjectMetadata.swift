@@ -11,7 +11,7 @@ public struct ProjectMetadata {
 
 	public private(set) var name: String
 	public private(set) var developer: String?
-	public var embedded: Embedded
+	public var embedded: Embedded { didSet { saveEmbeddedMetadata() } }
 
 	public var editorVersion: UnityEditorVersion?
 
@@ -82,6 +82,36 @@ private extension ProjectMetadata {
 	static let projectSettingsFilePath: String = "ProjectSettings/ProjectSettings.asset"
 }
 
+// MARK: -
+
+private extension ProjectMetadata {
+	func saveEmbeddedMetadata() {
+		let data: Data
+		do {
+			data = try JSONEncoder.shared
+				.withOutputFormatting([.prettyPrinted, .sortedKeys])
+				.encode(embedded)
+		} catch {
+			Logger.module.error("""
+			Failed to encode \(Embedded.self) to data:
+			\(error.localizedDescription)
+			""")
+			return
+		}
+
+		let url: URL = relativeURL(path: Embedded.fileName)
+
+		do {
+			try data.write(to: url)
+		} catch {
+			Logger.module.error("""
+			Failed to write data to \(url.path(percentEncoded: false)):
+			\(error.localizedDescription)
+			""")
+		}
+	}
+}
+
 // MARK: - Lazy
 
 private extension ProjectMetadata {
@@ -92,7 +122,7 @@ private extension ProjectMetadata {
 	}
 
 	mutating func validateProjectSettings() {
-		guard let lines = getProjectSettings()  else {
+		guard let lines = getProjectSettings() else {
 			return
 		}
 
@@ -101,7 +131,7 @@ private extension ProjectMetadata {
 	}
 
 	mutating func validateEmbeddedMetadata() {
-		guard let embedded = getEmbeddedMetadata()  else {
+		guard let embedded = getEmbeddedMetadata() else {
 			return
 		}
 
@@ -109,7 +139,7 @@ private extension ProjectMetadata {
 	}
 
 	mutating func validateEditorVersion() {
-		guard let editorVersion = getEditorVersion()  else {
+		guard let editorVersion = getEditorVersion() else {
 			return
 		}
 

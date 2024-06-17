@@ -97,14 +97,12 @@ extension UnityEditorVersion: Identifiable {
 
 extension UnityEditorVersion: Comparable {
 	public static func < (lhs: Self, rhs: Self) -> Bool {
-		if lhs.semantic == rhs.semantic {
-			if lhs.channel == rhs.channel {
-				lhs.iteration < rhs.iteration
-			} else {
-				lhs.channel < rhs.channel
-			}
-		} else {
+		if lhs.semantic != rhs.semantic {
 			lhs.semantic < rhs.semantic
+		} else if lhs.channel != rhs.channel {
+			lhs.channel < rhs.channel
+		} else {
+			lhs.iteration < rhs.iteration
 		}
 	}
 }

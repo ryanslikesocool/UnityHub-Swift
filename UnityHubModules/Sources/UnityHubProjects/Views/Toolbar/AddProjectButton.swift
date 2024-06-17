@@ -5,7 +5,10 @@ import UnityHubProjectStorage
 import UnityHubSettingsStorage
 
 struct AddProjectButton: View {
+	@Environment(\.dismiss) private var dismiss
+
 	@State private var isPresentingFileImporter: Bool = false
+	@State private var isPresentingInvalidProjectWarning: Bool = false
 
 	var body: some View {
 		Menu(
@@ -22,6 +25,9 @@ struct AddProjectButton: View {
 			allowedContentTypes: [.folder],
 			onCompletion: onCompleteImport
 		)
+		.alert("Missing Project", isPresented: $isPresentingInvalidProjectWarning, actions: { }, message: {
+			Text("The directory does not contain a valid project, and cannot be added to the list.")
+		})
 	}
 }
 
@@ -64,7 +70,7 @@ private extension AddProjectButton {
 					} catch ProjectCache.AddProjectError.projectAlreadyExists {
 						fatalError("\(Self.self).\(#function)@\(ProjectCache.AddProjectError.projectAlreadyExists) is not implemented")
 					} catch ProjectCache.AddProjectError.invalidUnityProject {
-						fatalError("\(Self.self).\(#function)@\(ProjectCache.AddProjectError.invalidUnityProject) is not implemented")
+						isPresentingInvalidProjectWarning = true
 					} catch {
 						preconditionFailure("""
 						Caught unknown error \(type(of: error)):
