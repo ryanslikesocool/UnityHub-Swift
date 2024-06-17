@@ -13,19 +13,9 @@ extension ProjectInfoView {
 
 		var body: some ToolbarContent {
 			ToolbarItemGroup {
-				ProjectIconButton(project: $project) {
-					Circle()
-						.stroke(lineWidth: 1)
-						.foregroundStyle(.separator)
-						.overlay {
-							Image(systemName: "plus")
-								.foregroundStyle(.tertiary)
-								.font(.title3)
-						}
-						.aspectRatio(1, contentMode: .fit)
-				}
-				.frame(height: 32)
-				.padding([.leading, .bottom, .top], -8)
+				ProjectIcon(project: $project)
+					.frame(height: 32)
+					.padding([.leading, .bottom, .top], -8)
 
 				Text(project.name)
 					.font(.headline)

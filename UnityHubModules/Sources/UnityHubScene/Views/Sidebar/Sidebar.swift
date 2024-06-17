@@ -1,13 +1,14 @@
 import SwiftUI
 
 struct Sidebar: View {
+//	@State private var isCompact: Bool = false
+
 	@Binding var selection: SidebarItem
 
-	private static let sidebarBreakpoint: CGFloat = 130
+//	private var sidebarWidth: CGFloat { isCompact ? 96 : 160 }
+//	private static let sidebarBreakpoint: CGFloat = 130
 
 	var body: some View {
-		// compact width = 96
-
 //		GeometryReader { geometry in
 		NavigationStack {
 			List(selection: $selection) {
