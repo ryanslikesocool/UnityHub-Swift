@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "serializationkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ryanslikesocool/SerializationKit",
+      "state" : {
+        "branch" : "main",
+        "revision" : "9b8ea74365acf4beaa8dad9e6d0ef07da0aaef67"
+      }
+    },
+    {
+      "identity" : "yams",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jpsim/Yams.git",
+      "state" : {
+        "revision" : "9234124cff5e22e178988c18d8b95a8ae8007f76",
+        "version" : "5.1.2"
+      }
+    }
+  ],
+  "version" : 2
+}
