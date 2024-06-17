@@ -1,6 +1,9 @@
 import SwiftUI
+import UnityHubProjectStorage
 
-public struct LauncherScene: Scene {
+public struct MainScene: Scene {
+	@State private var projectCache: ProjectCache = .shared
+
 	public init() { }
 
 	public var body: some Scene {
@@ -14,7 +17,7 @@ public struct LauncherScene: Scene {
 
 // MARK: - Constants
 
-public extension LauncherScene {
+public extension MainScene {
 	static let windowTitle: String = "Unity Hub"
 	static let windowID: String = "UnityHub.Launcher"
 }

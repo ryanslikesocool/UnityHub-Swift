@@ -1,16 +1,17 @@
 import SwiftUI
+import UnityHubCommon
 import UnityHubProjectStorage
 import UnityHubSettingsStorage
 
 struct ProjectList: View {
 	@Bindable private var appSettings: AppSettings = .shared
-	@Bindable private var projectListState: ProjectListState = .shared
+	@Bindable private var projectCache: ProjectCache = .shared
 
 	@State private var searchQuery: String = ""
 	@State private var searchTokens: [ProjectSearchToken] = []
 
-	private var projectSearchResults: [ProjectInfo] {
-		var result: [ProjectInfo] = Array(projectListState.projects.values)
+	private var projectSearchResults: [ProjectMetadata] {
+		var result: [ProjectMetadata] = projectCache.projects
 
 		if !searchQuery.isEmpty {
 			result = result.filter { project in
@@ -30,7 +31,7 @@ struct ProjectList: View {
 							continue
 						// TODO: implement
 						default:
-							result = result.filter { $0.editorVersion == editorVersion }
+							result = result.filter(by: \.editorVersion, equals: editorVersion)
 					}
 			}
 		}
@@ -38,7 +39,7 @@ struct ProjectList: View {
 		return result
 	}
 
-	private var projects: [ProjectInfo] {
+	private var projects: [ProjectMetadata] {
 		projectSearchResults
 			.sorted(
 				by: appSettings.projects.sortCriteria,
@@ -48,9 +49,9 @@ struct ProjectList: View {
 
 	var body: some View {
 		List(projects) { project in
-			let binding = Binding<ProjectInfo>(
+			let binding = Binding<ProjectMetadata>(
 				get: { project },
-				set: { projectListState.projects[$0.url] = $0 }
+				set: { projectCache[$0.url] = $0 }
 			)
 
 			ProjectListItem(binding)

@@ -5,25 +5,27 @@ import UserIcon
 struct ProjectIconButton<BlankView: View>: View {
 	typealias BlankProvider = () -> BlankView
 
-	@Binding private var project: ProjectInfo
+	@Binding private var project: ProjectMetadata
 	@State private var isPresentingSheet: Bool = false
 	private let blank: BlankProvider
 
-	init(project: Binding<ProjectInfo>, @ViewBuilder blank: @escaping BlankProvider) {
+	init(project: Binding<ProjectMetadata>, @ViewBuilder blank: @escaping BlankProvider) {
 		_project = project
 		self.blank = blank
 	}
 
 	var body: some View {
 		Button(action: { isPresentingSheet = true }) {
-			if project.icon == .blank && BlankView.self != EmptyView.self {
-				blank()
-			} else {
-				UserIconView(project.icon)
+			Group {
+				if project.icon == .blank && BlankView.self != EmptyView.self {
+					blank()
+				} else {
+					UserIconView(project.icon)
+				}
 			}
 		}
 		.buttonStyle(.plain)
-		.frame(height: 36)
+		.scaledToFit()
 		.sheet(isPresented: $isPresentingSheet, content: sheetContent)
 	}
 }
@@ -54,7 +56,7 @@ private extension ProjectIconButton {
 extension ProjectIconButton
 	where BlankView == EmptyView
 {
-	init(project: Binding<ProjectInfo>) {
+	init(project: Binding<ProjectMetadata>) {
 		self.init(project: project, blank: EmptyView.init)
 	}
 }

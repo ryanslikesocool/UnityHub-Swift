@@ -7,14 +7,14 @@ import UserIcon
 
 struct ProjectListItem: View {
 	@Environment(\.projectInfoVisibility) private var infoVisibility
-	@Environment(\.removeProject) private var removeProject
+	@Environment(\.openProject) private var openProject
 
 	@State private var isHovering: Bool = false
 	@State private var isPresentingDetails: Bool = false
 
-	@Binding private var project: ProjectInfo
+	@Binding private var project: ProjectMetadata
 
-	init(_ project: Binding<ProjectInfo>) {
+	init(_ project: Binding<ProjectMetadata>) {
 		_project = project
 	}
 
@@ -22,12 +22,16 @@ struct ProjectListItem: View {
 		content
 			.padding(4)
 			.frame(minHeight: 24)
-			.onHover { value in isHovering = value }
+			.onHover { value in
+				withAnimation(.interactiveSpring) {
+					isHovering = value
+				}
+			}
 			.contextMenu {
 				contextMenu
 			}
 			.sheet(isPresented: $isPresentingDetails) {
-				ProjectDetails($project)
+				ProjectInfoView($project)
 			}
 	}
 }
@@ -39,9 +43,7 @@ private extension ProjectListItem {
 		HStack {
 			projectIcon
 
-			Button(action: {
-				// TODO: implement
-			}) {
+			Button(action: openProjectAction) {
 				HStack {
 					VStack(alignment: .leading, spacing: 2) {
 						projectName
@@ -66,13 +68,16 @@ private extension ProjectListItem {
 	@ViewBuilder var projectIcon: some View {
 		if infoVisibility.contains(.icon) {
 			ProjectIconButton(project: $project) {
-				Image(systemName: "plus")
-					.frame(maxWidth: .infinity, maxHeight: .infinity)
-					.foregroundStyle(.secondary)
-					.font(.title)
-					.overlay(.separator, in: .circle)
-					.opacity(isHovering ? 1 : 0)
+				Circle()
+					.stroke(lineWidth: 1)
+					.foregroundStyle(.separator)
+					.overlay {
+						Image(systemName: "plus")
+							.foregroundStyle(.tertiary)
+							.font(.title3)
+					}
 					.aspectRatio(1, contentMode: .fit)
+					.frame(height: 32)
 			}
 		}
 	}
@@ -95,7 +100,7 @@ private extension ProjectListItem {
 
 	@ViewBuilder var projectPath: some View {
 		if infoVisibility.contains(.location) {
-			Text(project.path)
+			Text(project.url.abbreviatingWithTildeInPath)
 		}
 	}
 
@@ -133,9 +138,13 @@ private extension ProjectListItem {
 
 private extension ProjectListItem {
 	func removeProjectAction() {
+		ProjectCache.shared.removeProject(at: project.url)
+	}
+
+	func openProjectAction() {
 		do {
-			try removeProject(project.url)
-		} catch let RemoveProjectActionError.missingRequiredObject(objectType) {
+			try openProject(project.url)
+		} catch let OpenProjectActionError.missingRequiredObject(objectType) {
 			preconditionFailure(missingObject: objectType)
 		} catch {
 			Logger.module.debug("""

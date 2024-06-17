@@ -6,7 +6,7 @@ struct Detail: View {
 
 	var body: some View {
 		switch sidebarSelection {
-			case .projects: ProjectsDetailView()
+			case .projects: ProjectsView()
 			case .installations: InstallationsDetailView()
 			case .learn: LearnDetailView()
 			case .community: CommunityDetailView()

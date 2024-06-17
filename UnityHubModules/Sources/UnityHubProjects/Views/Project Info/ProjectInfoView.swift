@@ -4,10 +4,10 @@ import UnityHubProjectStorage
 import UnityHubSettingsStorage
 import UserIcon
 
-struct ProjectDetails: View {
-	@Binding private var project: ProjectInfo
+struct ProjectInfoView: View {
+	@Binding private var project: ProjectMetadata
 
-	init(_ project: Binding<ProjectInfo>) {
+	init(_ project: Binding<ProjectMetadata>) {
 		_project = project
 	}
 
@@ -28,17 +28,17 @@ struct ProjectDetails: View {
 
 // MARK: - Supporting Views
 
-private extension ProjectDetails {
+private extension ProjectInfoView {
 	@ViewBuilder var formContent: some View {
 		Section {
 			LocationLabel(project.url)
 			EditorVersionLabel(project.editorVersion)
-			FileSizeLabel(project: project)
+			FileSizeLabel(at: project.url)
 		}
 
 		Section {
-			LabeledContent("Name", value: "Unknown")
-			LabeledContent("Developer", value: "Unknown")
+			LabeledContent("Name", value: project.name)
+			LabeledContent("Developer", value: project.developer ?? "Unknown")
 		}
 	}
 }

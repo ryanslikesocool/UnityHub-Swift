@@ -2,9 +2,9 @@ import SwiftUI
 import UnityHubProjectStorage
 import UnityHubSettingsStorage
 
-public struct ProjectsDetailView: View {
+public struct ProjectsView: View {
 	@Bindable private var appSettings: AppSettings = .shared
-	@Bindable private var projectListState: ProjectListState = .shared
+	@Bindable private var projectCache: ProjectCache = .shared
 
 	public init() { }
 
@@ -17,9 +17,6 @@ public struct ProjectsDetailView: View {
 			}
 
 			.projectInfoVisibility(appSettings.projects.infoVisibility)
-			.addProjectAction(appSettings: appSettings, projectListState: projectListState)
-			.removeProjectAction(appSettings: appSettings, projectListState: projectListState)
-			.isRunningFileSizeTaskAction(projectListState: projectListState)
-			.recalcualteFileSize(projectListState: projectListState)
+			.openProjectAction(appSettings: appSettings, projectCache: projectCache)
 	}
 }

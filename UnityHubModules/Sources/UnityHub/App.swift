@@ -1,12 +1,12 @@
 import SwiftUI
 import UnityHubAbout
-import UnityHubLauncher
+import UnityHubScene
 import UnityHubSettings
 
 @main
 struct App: SwiftUI.App {
 	var body: some Scene {
-		LauncherScene()
+		MainScene()
 		AboutScene()
 		SettingsScene()
 	}

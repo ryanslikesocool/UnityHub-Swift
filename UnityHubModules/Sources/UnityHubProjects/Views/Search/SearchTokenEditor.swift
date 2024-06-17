@@ -3,7 +3,7 @@ import UnityHubProjectStorage
 import UnityHubSettingsStorage
 
 struct SearchTokenEditor: View {
-	@Bindable private var projectListState: ProjectListState = .shared
+	@Bindable private var projectCache: ProjectCache = .shared
 
 	@Binding private var selection: ProjectSearchToken
 
@@ -39,7 +39,7 @@ private extension SearchTokenEditor {
 			get: { value },
 			set: { selection = .editorVersion($0) }
 		)
-		let projectEditorVersions = projectListState.projectEditorVersions
+		let projectEditorVersions = projectCache.projectEditorVersions
 
 		// NOTE: `Section` and `Divider` don't work in token pickers
 		// FB13914296
@@ -54,7 +54,7 @@ private extension SearchTokenEditor {
 			Divider()
 
 //			Section {
-			ForEach(projectListState.projectEditorVersions) { version in
+			ForEach(projectEditorVersions) { version in
 				Text(version.description).tag(version)
 			}
 //			}

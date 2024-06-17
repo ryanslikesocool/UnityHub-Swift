@@ -1,5 +1,7 @@
 import SwiftUI
 
+// MARK: - Sorted
+
 public extension Sequence {
 	func sorted<T: Comparable>(
 		by keyPath: KeyPath<Element, T>
@@ -64,6 +66,32 @@ public extension Sequence {
 			reversed()
 		} else {
 			Array(self)
+		}
+	}
+
+	func sorted(
+		by areInIncreasingOrder: (Element, Element) throws -> Bool,
+		order: SortOrder
+	) rethrows -> [Element] {
+		switch order {
+			case .forward: try sorted(by: areInIncreasingOrder)
+			case .reverse: try sorted(by: { try !areInIncreasingOrder($0, $1) })
+		}
+	}
+}
+
+// MARK: - Filter
+
+public extension Sequence {
+	func filter<T: Equatable>(by keyPath: KeyPath<Element, T>, equals value: T) -> [Element] {
+		filter { element in
+			element[keyPath: keyPath] == value
+		}
+	}
+
+	func filter<T: Equatable>(by keyPath: KeyPath<Element, T?>, equals value: T) -> [Element] {
+		filter { element in
+			element[keyPath: keyPath] == value
 		}
 	}
 }

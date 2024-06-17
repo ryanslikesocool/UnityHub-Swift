@@ -1,7 +1,7 @@
 import SwiftUI
 import UnityHubProjectStorage
 
-extension ProjectDetails {
+extension ProjectInfoView {
 	struct EditorVersionLabel: View {
 		private let editorVersion: UnityEditorVersion?
 

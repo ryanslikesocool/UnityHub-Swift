@@ -1,10 +1,10 @@
 import OSLog
 import SwiftUI
 import UnityHubCommon
+import UnityHubProjectStorage
 import UnityHubSettingsStorage
 
 struct AddProjectButton: View {
-	@Environment(\.addProject) private var addProject
 	@State private var isPresentingFileImporter: Bool = false
 
 	var body: some View {
@@ -59,28 +59,19 @@ private extension AddProjectButton {
 				""")
 			case let .success(url):
 				DispatchQueue.main.async {
-					processURL(url)
+					do {
+						try ProjectCache.shared.addProject(at: url)
+					} catch ProjectCache.AddProjectError.projectAlreadyExists {
+						fatalError("\(Self.self).\(#function)@\(ProjectCache.AddProjectError.projectAlreadyExists) is not implemented")
+					} catch ProjectCache.AddProjectError.invalidUnityProject {
+						fatalError("\(Self.self).\(#function)@\(ProjectCache.AddProjectError.invalidUnityProject) is not implemented")
+					} catch {
+						preconditionFailure("""
+						Caught unknown error \(type(of: error)):
+						\(error.localizedDescription)
+						""")
+					}
 				}
-		}
-	}
-
-	func processURL(_ url: URL) {
-		do {
-			try addProject(at: url)
-			// might want to put project in search field
-		} catch let AddProjectActionError.missingRequiredObject(objectType) {
-			preconditionFailure(missingObject: objectType)
-		} catch AddProjectActionError.projectAlreadyExists {
-			// TODO: jump to and highlight existing project
-			// or just put project in search field
-			// might want to show toast
-		} catch AddProjectActionError.invalidUnityProject {
-			// TODO: display issue
-		} catch {
-			Logger.module.error("""
-			Failed to add project at \(url.path(percentEncoded: false)):
-			\(error.localizedDescription)
-			""")
 		}
 	}
 }

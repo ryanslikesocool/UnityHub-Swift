@@ -16,20 +16,19 @@ let package = Package(
 		.package(url: "https://github.com/ryanslikesocool/MoreWindows.git", from: "0.1.0"),
 		.package(url: "https://github.com/ryanslikesocool/SerializationKit.git", branch: "main"),
 		.package(url: "https://github.com/ryanslikesocool/UserIcon.git", branch: "main"),
-		.package(url: "https://github.com/jpsim/Yams.git", from: "5.1.2"),
 	],
 	targets: [
 		.target(
 			name: "UnityHub",
 			dependencies: [
-				"UnityHubLauncher",
+				"UnityHubScene",
 				"UnityHubAbout",
 				"UnityHubSettings",
 			]
 		),
 
 		.target(
-			name: "UnityHubLauncher",
+			name: "UnityHubScene",
 			dependencies: [
 				"UnityHubProjects",
 			]
@@ -83,7 +82,6 @@ let package = Package(
 				"SerializationKit",
 				"MoreWindows",
 				"UserIcon",
-				"Yams",
 			]
 		),
 	]
