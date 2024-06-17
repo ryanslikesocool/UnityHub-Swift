@@ -1,8 +1,8 @@
 import SwiftUI
-import UnityHubProjectStorage
+import UnityHubStorage
 
 extension ProjectInfoView {
-	struct Header: View {
+	struct Toolbar: ToolbarContent {
 		@Environment(\.dismiss) private var dismiss
 
 		@Binding private var project: ProjectMetadata
@@ -11,8 +11,8 @@ extension ProjectInfoView {
 			_project = project
 		}
 
-		var body: some View {
-			HStack(spacing: 12) {
+		var body: some ToolbarContent {
+			ToolbarItemGroup {
 				ProjectIconButton(project: $project) {
 					Circle()
 						.stroke(lineWidth: 1)
@@ -25,17 +25,15 @@ extension ProjectInfoView {
 						.aspectRatio(1, contentMode: .fit)
 				}
 				.frame(height: 32)
-				.padding(-4)
+				.padding([.leading, .bottom, .top], -8)
 
 				Text(project.name)
-					.font(.title3.weight(.bold))
-
-				Spacer()
-
-				Button("Done", role: .cancel) { dismiss() }
-					.controlSize(.large)
+					.font(.headline)
 			}
-			.padding()
+
+			ToolbarItemGroup(placement: .cancellationAction) {
+				Button("Done", role: .cancel) { dismiss() }
+			}
 		}
 	}
 }

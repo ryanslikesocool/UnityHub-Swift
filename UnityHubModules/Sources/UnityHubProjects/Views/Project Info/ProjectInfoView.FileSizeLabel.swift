@@ -1,8 +1,7 @@
 import OSLog
 import SwiftUI
 import UnityHubCommon
-import UnityHubProjectStorage
-import UnityHubSettingsStorage
+import UnityHubStorage
 import UserIcon
 
 extension ProjectInfoView {

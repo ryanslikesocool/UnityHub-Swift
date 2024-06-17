@@ -1,6 +1,5 @@
 import SwiftUI
-import UnityHubProjectStorage
-import UnityHubSettingsStorage
+import UnityHubStorage
 
 struct OpenProjectAction {
 	private let appSettings: AppSettings?

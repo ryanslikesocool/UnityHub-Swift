@@ -5,11 +5,8 @@ public struct AboutScene: Scene {
 	public init() { }
 
 	public var body: some Scene {
-		About {
-			AppInfoSection()
-			AcknowledgementsSection()
-			CopyrightSection()
-		}
-		.aboutWindowOptions(.none)
+		About(content: ContentView.init)
+//			.aboutWindowLayout(.custom)
+			.aboutWindowOptions(.none)
 	}
 }

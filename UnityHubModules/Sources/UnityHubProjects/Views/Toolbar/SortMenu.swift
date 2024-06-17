@@ -1,5 +1,5 @@
 import SwiftUI
-import UnityHubSettingsStorage
+import UnityHubStorage
 
 struct SortMenu: View {
 	@Binding var criteria: ProjectSortCriteria

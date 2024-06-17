@@ -1,4 +1,4 @@
-import UnityHubProjectStorage
+import UnityHubStorage
 
 enum ProjectSearchToken {
 	case isPinned(Bool)

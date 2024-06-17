@@ -1,5 +1,5 @@
 import SwiftUI
-import UnityHubProjectStorage
+import UnityHubStorage
 
 extension ProjectInfoView {
 	struct EditorVersionLabel: View {

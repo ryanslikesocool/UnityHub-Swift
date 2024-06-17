@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AcknowledgementsSection: View {
 	var body: some View {
-		VStack {
+		VStack(spacing: 4) {
 			Text("Powered By")
 				.font(.headline)
 

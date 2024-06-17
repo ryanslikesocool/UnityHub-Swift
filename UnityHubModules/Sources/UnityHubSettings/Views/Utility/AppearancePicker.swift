@@ -1,5 +1,5 @@
 import SwiftUI
-import UnityHubSettingsStorage
+import UnityHubStorage
 
 struct AppearancePicker: View {
 	@Binding private var selection: AppAppearance

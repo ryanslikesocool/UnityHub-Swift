@@ -50,21 +50,21 @@ extension UnityEditorVersion.Channel: CustomStringConvertible {
 // MARK: - Constants
 
 public extension UnityEditorVersion.Channel {
-	/// Equivalent to ``UnityEditorVersion.Channel.release``.
+	/// Equivalent to ``UnityEditorVersion/Channel/release``.
 	static let final: Self = .release
 
-	/// Equivalent to ``UnityEditorVersion.Channel.alpha``.
+	/// Equivalent to ``UnityEditorVersion/Channel/alpha``.
 	static let a: Self = .alpha
 
-	/// Equivalent to ``UnityEditorVersion.Channel.beta``.
+	/// Equivalent to ``UnityEditorVersion/Channel/beta``.
 	static let b: Self = .beta
 
-	/// Equivalent to ``UnityEditorVersion.Channel.release``.
+	/// Equivalent to ``UnityEditorVersion/Channel/release``.
 	static let f: Self = .release
 
-	/// Equivalent to ``UnityEditorVersion.Channel.patch``.
+	/// Equivalent to ``UnityEditorVersion/Channel/patch``.
 	static let p: Self = .patch
 
-	/// Equivalent to ``UnityEditorVersion.Channel.china``.
+	/// Equivalent to ``UnityEditorVersion/Channel/china``.
 	static let c: Self = .china
 }

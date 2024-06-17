@@ -1,7 +1,6 @@
 import SwiftUI
 import UnityHubCommon
-import UnityHubProjectStorage
-import UnityHubSettingsStorage
+import UnityHubStorage
 
 struct ProjectList: View {
 	@Bindable private var appSettings: AppSettings = .shared

@@ -1,5 +1,5 @@
 import SwiftUI
-import UnityHubProjectStorage
+import UnityHubStorage
 import UserIcon
 
 struct ProjectIconButton<BlankView: View>: View {

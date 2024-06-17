@@ -1,5 +1,5 @@
 import SwiftUI
-import UnityHubSettingsStorage
+import UnityHubStorage
 
 struct ProjectInfoVisibilityMenu: View {
 	@Binding var selection: ProjectInfoVisibility.Mask

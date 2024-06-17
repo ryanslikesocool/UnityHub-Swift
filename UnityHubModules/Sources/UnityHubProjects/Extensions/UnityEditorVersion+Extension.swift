@@ -1,4 +1,4 @@
-import UnityHubProjectStorage
+import UnityHubStorage
 
 extension UnityEditorVersion {
 	static let search_any: Self = .zero

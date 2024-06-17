@@ -1,5 +1,5 @@
 import SwiftUI
-import UnityHubSettingsStorage
+import UnityHubStorage
 
 protocol AppSettingsCategoryView: View {
 	associatedtype Content: View

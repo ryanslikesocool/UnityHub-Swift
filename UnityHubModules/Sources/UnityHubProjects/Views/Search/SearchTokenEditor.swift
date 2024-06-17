@@ -1,6 +1,5 @@
 import SwiftUI
-import UnityHubProjectStorage
-import UnityHubSettingsStorage
+import UnityHubStorage
 
 struct SearchTokenEditor: View {
 	@Bindable private var projectCache: ProjectCache = .shared

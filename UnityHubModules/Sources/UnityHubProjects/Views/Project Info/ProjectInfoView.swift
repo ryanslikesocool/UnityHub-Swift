@@ -1,10 +1,11 @@
 import SwiftUI
 import UnityHubCommon
-import UnityHubProjectStorage
-import UnityHubSettingsStorage
+import UnityHubStorage
 import UserIcon
 
 struct ProjectInfoView: View {
+	@Environment(\.dismiss) private var dismiss
+
 	@Binding private var project: ProjectMetadata
 
 	init(_ project: Binding<ProjectMetadata>) {
@@ -12,16 +13,13 @@ struct ProjectInfoView: View {
 	}
 
 	var body: some View {
-		VStack(spacing: 0) {
-			Header(project: $project)
-
-			Divider()
-
-			Form {
-				formContent
-			}
-			.formStyle(.grouped)
-			.scrollDisabled(true)
+		Form {
+			formContent
+		}
+		.formStyle(.grouped)
+		.scrollDisabled(true)
+		.toolbar {
+			Toolbar(project: $project)
 		}
 	}
 }

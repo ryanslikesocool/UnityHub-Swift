@@ -1,8 +1,7 @@
 import OSLog
 import SwiftUI
 import UnityHubCommon
-import UnityHubProjectStorage
-import UnityHubSettingsStorage
+import UnityHubStorage
 
 struct AddProjectButton: View {
 	@Environment(\.dismiss) private var dismiss

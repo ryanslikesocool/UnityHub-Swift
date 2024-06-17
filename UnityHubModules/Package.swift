@@ -31,6 +31,7 @@ let package = Package(
 			name: "UnityHubScene",
 			dependencies: [
 				"UnityHubProjects",
+				"UnityHubInstallations",
 			]
 		),
 
@@ -51,14 +52,29 @@ let package = Package(
 		// MARK: - Detail
 
 		.target(
+			name: "UnityHubInstallations",
+			dependencies: [
+				"UnityHubCommon",
+				"UnityHubStorage",
+			]
+		),
+
+		.target(
 			name: "UnityHubProjects",
 			dependencies: [
 				"UnityHubCommon",
-				"UnityHubProjectStorage",
+				"UnityHubStorage",
 			]
 		),
 
 		// MARK: - Storage
+
+		.target(
+			name: "UnityHubStorage",
+			dependencies: [
+				"UnityHubProjectStorage",
+			]
+		),
 
 		.target(
 			name: "UnityHubProjectStorage",

@@ -1,5 +1,5 @@
 import SwiftUI
-import UnityHubProjectStorage
+import UnityHubStorage
 
 public struct UnityEditorVersionView: View {
 	private let value: UnityEditorVersion

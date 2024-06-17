@@ -1,6 +1,5 @@
 import Foundation
-import UnityHubProjectStorage
-import UnityHubSettingsStorage
+import UnityHubStorage
 
 extension Sequence<ProjectMetadata> {
 	func sorted(by criteria: ProjectSortCriteria, order: SortOrder = .forward) -> [ProjectMetadata] {

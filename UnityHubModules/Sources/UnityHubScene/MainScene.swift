@@ -1,5 +1,6 @@
 import SwiftUI
-import UnityHubProjectStorage
+import UnityHubStorage
+import MoreWindows
 
 public struct MainScene: Scene {
 	@State private var projectCache: ProjectCache = .shared
@@ -12,6 +13,7 @@ public struct MainScene: Scene {
 				.frame(minWidth: 750, minHeight: 400)
 		}
 		.windowToolbarStyle(.unified)
+		.windowID(Self.windowID)
 	}
 }
 

@@ -1,5 +1,5 @@
 import SwiftUI
-import UnityHubProjectStorage
+import UnityHubStorage
 
 public struct UnityEditorVersionBadgeView: View {
 	private let text: String?

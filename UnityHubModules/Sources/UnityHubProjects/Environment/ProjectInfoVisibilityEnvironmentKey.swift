@@ -1,5 +1,5 @@
 import SwiftUI
-import UnityHubSettingsStorage
+import UnityHubStorage
 
 private enum ProjectInfoVisibilityEnvironmentKey: EnvironmentKey {
 	static let defaultValue: ProjectInfoVisibility.Mask = .all

@@ -1,5 +1,5 @@
 import SwiftUI
-import UnityHubSettingsStorage
+import UnityHubStorage
 
 struct GeneralCategoryTab: AppSettingsCategoryView {
 	typealias Label = SwiftUI.Label<Text, Image>

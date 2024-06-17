@@ -1,5 +1,5 @@
 import SwiftUI
-import UnityHubSettingsStorage
+import UnityHubStorage
 
 public struct SettingsScene: Scene {
 	@Bindable private var appSettings: AppSettings = .shared

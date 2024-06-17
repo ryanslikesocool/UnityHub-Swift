@@ -1,6 +1,5 @@
 import SwiftUI
-import UnityHubProjectStorage
-import UnityHubSettingsStorage
+import UnityHubStorage
 
 public struct ProjectsView: View {
 	@Bindable private var appSettings: AppSettings = .shared
@@ -11,9 +10,11 @@ public struct ProjectsView: View {
 	public var body: some View {
 		ProjectList()
 			.toolbar {
-				AddProjectButton()
-				ProjectInfoVisibilityMenu(selection: $appSettings.projects.infoVisibility)
-				SortMenu(criteria: $appSettings.projects.sortCriteria, order: $appSettings.projects.sortOrder)
+				ToolbarItemGroup(placement: .confirmationAction) {
+					AddProjectButton()
+					ProjectInfoVisibilityMenu(selection: $appSettings.projects.infoVisibility)
+					SortMenu(criteria: $appSettings.projects.sortCriteria, order: $appSettings.projects.sortOrder)
+				}
 			}
 
 			.projectInfoVisibility(appSettings.projects.infoVisibility)
