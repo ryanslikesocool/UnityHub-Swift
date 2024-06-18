@@ -9,6 +9,8 @@ public struct ResourcesView: View {
 
 			Link("Unity Blog", destination: URL(string: "https://blog.unity.com")!)
 
+			Link("Release Archive", destination: URL(string: "https://unity.com/releases/editor/archive")!)
+
 			Link("Discussions", destination: URL(string: "https://discussions.unity.com")!)
 
 			Link("Forums", destination: URL(string: "https://forum.unity.com")!)

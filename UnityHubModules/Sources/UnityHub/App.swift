@@ -1,6 +1,6 @@
 import SwiftUI
 import UnityHubAbout
-import UnityHubScene
+import UnityHubMain
 import UnityHubSettings
 
 @main

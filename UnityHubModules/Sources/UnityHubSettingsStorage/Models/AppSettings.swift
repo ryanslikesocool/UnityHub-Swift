@@ -44,7 +44,7 @@ extension AppSettings: Codable {
 // MARK: - Constants
 
 public extension AppSettings {
-	static let fileName: String = "Settings.plist"
+	static let fileName: String = "settings.plist"
 
 	static var fileURL: URL {
 		URL.applicationSupportDirectory

@@ -1,4 +1,5 @@
 import SwiftUI
+import UnityHubCommonViews
 
 extension ProjectInfoView {
 	struct LocationLabel: View {
@@ -11,9 +12,8 @@ extension ProjectInfoView {
 		var body: some View {
 			LabeledContent("Location") {
 				HStack {
-					Text(url.abbreviatingWithTildeInPath)
+					URLLabel(url)
 						.help(url.abbreviatingWithTildeInPath)
-						.monospaced()
 						.lineLimit(1)
 						.textSelection(.disabled)
 						.frame(maxWidth: 320)

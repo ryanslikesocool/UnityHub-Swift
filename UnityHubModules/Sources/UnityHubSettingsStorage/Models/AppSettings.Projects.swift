@@ -9,11 +9,13 @@ public extension AppSettings {
 		public var infoVisibility: ProjectInfoVisibility.Mask
 		public var sortCriteria: ProjectSortCriteria
 		public var sortOrder: SortOrder
+		public var quitAfterOpening: Bool
 
 		init() {
 			infoVisibility = .all
 			sortCriteria = .lastOpened
 			sortOrder = .reverse
+			quitAfterOpening = false
 		}
 	}
 }
@@ -25,6 +27,7 @@ public extension AppSettings.Projects {
 		case infoVisibility
 		case sortCriteria
 		case sortOrder
+		case quitAfterOpening
 	}
 
 	init(from decoder: any Decoder) throws {
@@ -35,6 +38,7 @@ public extension AppSettings.Projects {
 		infoVisibility = try container.decodeIfPresent(forKey: .infoVisibility) ?? infoVisibility
 		sortCriteria = try container.decodeIfPresent(forKey: .sortCriteria) ?? sortCriteria
 		sortOrder = try container.decodeIfPresent(forKey: .sortOrder) ?? sortOrder
+		quitAfterOpening = try container.decodeIfPresent(forKey: .quitAfterOpening) ?? quitAfterOpening
 	}
 
 	func encode(to encoder: any Encoder) throws {
@@ -43,5 +47,6 @@ public extension AppSettings.Projects {
 		try container.encode(infoVisibility, forKey: .infoVisibility)
 		try container.encode(sortCriteria, forKey: .sortCriteria)
 		try container.encode(sortOrder, forKey: .sortOrder)
+		try container.encode(quitAfterOpening, forKey: .quitAfterOpening)
 	}
 }

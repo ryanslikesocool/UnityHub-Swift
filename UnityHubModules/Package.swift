@@ -21,14 +21,14 @@ let package = Package(
 		.target(
 			name: "UnityHub",
 			dependencies: [
-				"UnityHubScene",
+				"UnityHubMain",
 				"UnityHubAbout",
 				"UnityHubSettings",
 			]
 		),
 
 		.target(
-			name: "UnityHubScene",
+			name: "UnityHubMain",
 			dependencies: [
 				"UnityHubProjects",
 				"UnityHubInstallations",
@@ -52,18 +52,31 @@ let package = Package(
 
 		// MARK: - Detail
 
-		.target(name: "UnityHubResources"),
+		.target(
+			name: "UnityHubResources",
+			dependencies: [
+				"UnityHubCommonViews",
+			]
+		),
 
 		.target(
 			name: "UnityHubInstallations",
 			dependencies: [
-				"UnityHubCommon",
-				"UnityHubStorage",
+				"UnityHubCommonViews",
 			]
 		),
 
 		.target(
 			name: "UnityHubProjects",
+			dependencies: [
+				"UnityHubCommonViews",
+			]
+		),
+
+		// MARK: -
+
+		.target(
+			name: "UnityHubCommonViews",
 			dependencies: [
 				"UnityHubCommon",
 				"UnityHubStorage",
@@ -81,6 +94,13 @@ let package = Package(
 
 		.target(
 			name: "UnityHubProjectStorage",
+			dependencies: [
+				"UnityHubInstallationsStorage",
+			]
+		),
+
+		.target(
+			name: "UnityHubInstallationsStorage",
 			dependencies: [
 				"UnityHubSettingsStorage",
 			]

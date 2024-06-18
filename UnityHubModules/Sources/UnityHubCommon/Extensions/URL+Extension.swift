@@ -11,18 +11,7 @@ public extension URL {
 }
 
 public extension URL {
-	var isValidUnityProject: Bool {
-		let fileManager: FileManager = FileManager.default
-		return
-			fileManager.directoryExists(at: self) &&
-			fileManager.directoryExists(at: appending(path: "Assets", directoryHint: .isDirectory)) &&
-			fileManager.directoryExists(at: appending(path: "Packages", directoryHint: .isDirectory)) &&
-			fileManager.directoryExists(at: appending(path: "ProjectSettings", directoryHint: .isDirectory))
-	}
-}
-
-public extension URL {
-	private func isDirectoryAndReachable() throws -> Bool {
+	func isDirectoryAndReachable() throws -> Bool {
 		guard try resourceValues(forKeys: [.isDirectoryKey]).isDirectory == true else {
 			return false
 		}
@@ -51,13 +40,11 @@ public extension URL {
 		guard let size = try directoryTotalAllocatedSize(includingSubfolders: true) else {
 			return nil
 		}
-		URL.byteCountFormatter.countStyle = .file
-		guard let byteCount = URL.byteCountFormatter.string(for: size) else {
+		ByteCountFormatter.shared.countStyle = .file
+		guard let byteCount = ByteCountFormatter.shared.string(for: size) else {
 			return nil
 		}
 
 		return byteCount
 	}
-
-	private static let byteCountFormatter = ByteCountFormatter()
 }

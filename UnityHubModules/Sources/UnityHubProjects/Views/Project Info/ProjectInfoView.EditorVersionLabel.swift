@@ -1,4 +1,5 @@
 import SwiftUI
+import UnityHubCommonViews
 import UnityHubStorage
 
 extension ProjectInfoView {
@@ -12,7 +13,7 @@ extension ProjectInfoView {
 		var body: some View {
 			LabeledContent("Editor Version") {
 				if let editorVersion {
-					UnityEditorVersionView(editorVersion)
+					UnityEditorVersionLabel(editorVersion)
 				} else {
 					Text("Unknown")
 						.foregroundStyle(.secondary)

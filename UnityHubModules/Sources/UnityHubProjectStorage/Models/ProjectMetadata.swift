@@ -1,6 +1,7 @@
 import OSLog
 import SwiftUI
 import UnityHubCommon
+import UnityHubInstallationsStorage
 import UnityHubSettingsStorage
 import UserIcon
 
@@ -13,12 +14,14 @@ public struct ProjectMetadata {
 	public private(set) var developer: String?
 	public var embedded: Embedded { didSet { saveEmbeddedMetadata() } }
 
-	public var editorVersion: UnityEditorVersion?
+	public var editorVersion: UnityEditorVersion? { getEditorVersion() }
 
 	public var icon: UserIcon {
 		get { embedded.icon }
 		set { embedded.icon = newValue }
 	}
+
+	public var exists: Bool { (try? url.checkResourceIsReachable()) ?? false }
 
 	public init(url: URL) {
 		self.url = url
@@ -26,6 +29,16 @@ public struct ProjectMetadata {
 		lastOpened = nil
 
 		name = url.lastPathComponent
+		embedded = Embedded()
+
+		validateLazyData()
+	}
+
+	init(copy oldValue: borrowing Self, with newURL: URL) {
+		url = newURL
+		pinned = oldValue.pinned
+		lastOpened = oldValue.lastOpened
+		name = newURL.lastPathComponent
 		embedded = Embedded()
 
 		validateLazyData()
@@ -118,7 +131,6 @@ private extension ProjectMetadata {
 	mutating func validateLazyData() {
 		validateProjectSettings()
 		validateEmbeddedMetadata()
-		validateEditorVersion()
 	}
 
 	mutating func validateProjectSettings() {
@@ -136,14 +148,6 @@ private extension ProjectMetadata {
 		}
 
 		self.embedded = embedded
-	}
-
-	mutating func validateEditorVersion() {
-		guard let editorVersion = getEditorVersion() else {
-			return
-		}
-
-		self.editorVersion = editorVersion
 	}
 }
 

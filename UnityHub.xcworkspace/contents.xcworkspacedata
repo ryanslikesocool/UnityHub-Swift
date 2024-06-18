@@ -13,4 +13,10 @@
    <FileRef
       location = "group:/Users/ryanboyer/Documents/Xcode Projects/UnityHub-Swift/UnityHub.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:LICENSE.md">
+   </FileRef>
+   <FileRef
+      location = "group:README.md">
+   </FileRef>
 </Workspace>
