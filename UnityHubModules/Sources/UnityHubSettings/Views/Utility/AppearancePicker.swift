@@ -10,12 +10,12 @@ struct AppearancePicker: View {
 
 	var body: some View {
 		Picker("Appearance", selection: $selection) {
+			Text("Automatic").tag(AppAppearance.automatic)
+
 			Section {
 				Text("Light").tag(AppAppearance.light)
 				Text("Dark").tag(AppAppearance.dark)
 			}
-
-			Text("Automatic").tag(AppAppearance.automatic)
 		}
 	}
 }

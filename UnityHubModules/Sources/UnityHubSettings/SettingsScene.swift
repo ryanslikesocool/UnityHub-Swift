@@ -9,8 +9,9 @@ public struct SettingsScene: Scene {
 	public var body: some Scene {
 		Settings {
 			TabView {
-				GeneralCategoryTab(model: $appSettings.general)
-				ProjectsCategoryTab(model: $appSettings.projects)
+				GeneralTab(model: $appSettings.general)
+				ProjectsTab(model: $appSettings.projects)
+				InstallationsTab(model: $appSettings.installations)
 			}
 			.formStyle(.grouped)
 			.fixedSize()

@@ -4,15 +4,15 @@ import SwiftUI
 import UnityHubCommon
 
 @Observable
-public final class AppSettings: GlobalFile {
-	public static let shared: AppSettings = AppSettings.load()
-
+public final class AppSettings {
 	public var general: General { didSet { save() } }
 	public var projects: Projects { didSet { save() } }
+	public var installations: Installations { didSet { save() } }
 
 	public init() {
 		general = General()
 		projects = Projects()
+		installations = Installations()
 	}
 }
 
@@ -22,6 +22,7 @@ extension AppSettings: Codable {
 	public enum CodingKeys: CodingKey {
 		case general
 		case projects
+		case installations
 	}
 
 	public convenience init(from decoder: any Decoder) throws {
@@ -31,6 +32,7 @@ extension AppSettings: Codable {
 
 		general = try container.decodeIfPresent(forKey: .general) ?? general
 		projects = try container.decodeIfPresent(forKey: .projects) ?? projects
+		installations = try container.decodeIfPresent(forKey: .installations) ?? installations
 	}
 
 	public func encode(to encoder: any Encoder) throws {
@@ -38,15 +40,18 @@ extension AppSettings: Codable {
 
 		try container.encode(general, forKey: .general)
 		try container.encode(projects, forKey: .projects)
+		try container.encode(installations, forKey: .installations)
 	}
 }
 
-// MARK: - Constants
+// MARK: - GlobalFile
 
-public extension AppSettings {
-	static let fileName: String = "settings.plist"
+extension AppSettings: GlobalFile {
+	public static let shared: AppSettings = AppSettings.load()
 
-	static var fileURL: URL {
+	public static let fileName: String = "settings.plist"
+
+	public static var fileURL: URL {
 		URL.applicationSupportDirectory
 			.appending(component: Bundle.main.bundleIdentifier!, directoryHint: .isDirectory)
 			.appending(component: fileName, directoryHint: .notDirectory)

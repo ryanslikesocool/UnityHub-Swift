@@ -1,4 +1,5 @@
 import SwiftUI
+import UnityHubCommonViews
 
 struct Sidebar: View {
 //	@State private var isCompact: Bool = false
@@ -12,9 +13,9 @@ struct Sidebar: View {
 //		GeometryReader { geometry in
 		NavigationStack {
 			List(selection: $selection) {
-				SidebarLink("Projects", systemImage: "cube", item: .projects)
-				SidebarLink("Installations", systemImage: "square.and.arrow.down", item: .installations)
-				SidebarLink("Resources", systemImage: "info.circle", item: .resources)
+				SidebarLink(item: .projects, label: Label.projects)
+				SidebarLink(item: .installations, label: Label.installations)
+				SidebarLink(item: .resources, label: Label.resources)
 			}
 			.listStyle(.sidebar)
 		}

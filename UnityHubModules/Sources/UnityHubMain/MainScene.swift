@@ -14,6 +14,10 @@ public struct MainScene: Scene {
 		}
 		.windowToolbarStyle(.unified)
 		.windowID(Self.windowID)
+		.commands {
+			CommandGroup(replacing: .undoRedo) { }
+			CommandGroup(replacing: .systemServices) { }
+		}
 	}
 }
 

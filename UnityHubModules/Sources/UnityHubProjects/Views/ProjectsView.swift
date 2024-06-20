@@ -12,18 +12,20 @@ public struct ProjectsView: View {
 		ProjectList()
 			.toolbar {
 				ToolbarItemGroup(placement: .confirmationAction) {
-					AddProjectButton()
-					ProjectInfoVisibilityMenu(selection: $appSettings.projects.infoVisibility)
+					AddProjectList()
 					SortMenu(criteria: $appSettings.projects.sortCriteria, order: $appSettings.projects.sortOrder)
+					InfoVisibilityMenu(selection: $appSettings.projects.infoVisibility)
 				}
 			}
 			.dropDestination(for: URL.self, action: onDropURLs)
 
 			/// cannot combine event receivers into a single `.background`
 			/// for some reason, `EmptyView` works if done this way
-			.background(content: ImportProjectReceiver.init)
+			.background(content: LocateProjectReceiver.init)
 			.background(content: RemoveProjectReceiver.init)
 			.background(content: InvalidProjectReceiver.init)
+			.background(content: DisplayInfoSheetReceiver.init)
+			.background(content: MissingProjectReceiver.init)
 	}
 }
 

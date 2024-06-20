@@ -5,7 +5,7 @@ public extension ProjectCache {
 		/// Thrown when a project is missing from the cache.
 		case missing(URL)
 
-		/// Thrown when a URL does not contain a valid Unity project.
+		/// Thrown when a URL does not point to a valid Unity project.
 		case invalid
 
 		/// Thrown when the project cache already contains a project URL.

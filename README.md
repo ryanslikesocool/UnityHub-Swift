@@ -2,15 +2,22 @@
 A Unity Hub alternative, built natively for macOS.
 
 ## Features
-(The official app doesn't have features tagged with ✨!)
+(Unity's version doesn't have features marked with ✨!)
 ✨ Fully native UI and technology (no Electron!), loads instantly
 ✨ Smaller visual footprint
 ✨ Add custom project icons for quick identification
 ✨ View useful project information without opening in Unity
-✨ Enhanced project search
-✨ Open projects without adding them to the list
-✨ Automatically quit after opening a project
+✨ Enhanced searching
 ✨ Quickly add multiple projects at once
+✨ Quick links to Unity documentation
+
+
+# TODO
+✨ Improved background mode options
+✨ Automatically quit after opening a project
+✨ Smarter editor installation
+✨ Single module uninstall
+
 
 - Find Unity versions with default and custom locations
 - Get installed modules per Unity version via modules.json
@@ -18,8 +25,6 @@ A Unity Hub alternative, built natively for macOS.
 - Install Unity versions and modules (requires official [Unity Hub](https://unity3d.com/get-unity/download) for CLI tools)
 - Default Unity version for new projects
 - Version uninstall
-- ✨ Single module uninstall
-- ✨ File size display for projects, versions, and modules
 
 ![Projects view](images/Projects.png) 
 ![Installs view](images/Installs.png) 
@@ -31,3 +36,6 @@ A Unity Hub alternative, built natively for macOS.
 - Open Info.plist, located in the Contents folder, with Xcode
 - Add a new property, titled `LSUIElement` and set the value to `YES`
 - If Unity Hub is open, quit it and make sure it's not in the dock
+
+## Known Issues
+- The app cannot be sandboxed because of command line usage

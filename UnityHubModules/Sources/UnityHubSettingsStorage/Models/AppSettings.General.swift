@@ -6,9 +6,11 @@ public extension AppSettings {
 		public static let category: AppSettingsCategory = .general
 
 		public var appearance: AppAppearance { didSet { NSApp.appearance = appearance.nsAppearance } }
+		public var dialogSuppression: DialogSuppression
 
 		init() {
 			appearance = .automatic
+			dialogSuppression = .none
 		}
 	}
 }
@@ -18,6 +20,7 @@ public extension AppSettings {
 public extension AppSettings.General {
 	private enum CodingKeys: CodingKey {
 		case appearance
+		case dialogSuppression
 	}
 
 	init(from decoder: any Decoder) throws {
@@ -26,6 +29,7 @@ public extension AppSettings.General {
 		self.init()
 
 		appearance = try container.decodeIfPresent(forKey: .appearance) ?? appearance
+		dialogSuppression = try container.decodeIfPresent(forKey: .dialogSuppression) ?? dialogSuppression
 
 		// apply
 		let appearance = self.appearance
@@ -38,5 +42,6 @@ public extension AppSettings.General {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encode(appearance, forKey: .appearance)
+		try container.encode(dialogSuppression, forKey: .dialogSuppression)
 	}
 }

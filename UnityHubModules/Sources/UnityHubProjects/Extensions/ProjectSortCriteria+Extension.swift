@@ -9,7 +9,11 @@ extension Sequence<ProjectMetadata> {
 					if lhs.pinned != rhs.pinned {
 						Self.comparePinned(lhs: lhs, rhs: rhs)
 					} else {
-						Self.compare(\.name, lhs: lhs, rhs: rhs, order: order)
+						Self.compare(
+							lhs: lhs.name ?? lhs.url.lastPathComponent,
+							rhs: rhs.name ?? rhs.url.lastPathComponent,
+							order: order
+						)
 					}
 				})
 			case .editorVersion:

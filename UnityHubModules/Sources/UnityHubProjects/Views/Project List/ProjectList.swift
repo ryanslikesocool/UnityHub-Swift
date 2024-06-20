@@ -1,5 +1,6 @@
 import SwiftUI
 import UnityHubCommon
+import UnityHubCommonViews
 import UnityHubStorage
 
 struct ProjectList: View {
@@ -7,55 +8,15 @@ struct ProjectList: View {
 	@Bindable private var projectCache: ProjectCache = .shared
 
 	@State private var searchQuery: String = ""
-	@State private var searchTokens: [ProjectSearchToken] = []
-
-	private var filteredProjects: [ProjectMetadata] {
-		var result: [ProjectMetadata] = projectCache.projects
-
-		if !searchQuery.isEmpty {
-			result = result.filter { project in
-				project.name.localizedStandardContains(searchQuery)
-			}
-		}
-
-		for token in searchTokens {
-			switch token {
-				case let .isPinned(pinState):
-					result = result.filter { $0.pinned == pinState }
-				case let .editorVersion(editorVersion):
-					switch editorVersion {
-						case .search_any:
-							continue
-						case .search_missing:
-							continue
-						// TODO: implement
-						default:
-							result = result.filter(by: \.editorVersion, equals: editorVersion)
-					}
-			}
-		}
-
-		return result
-			.sorted(
-				by: appSettings.projects.sortCriteria,
-				order: appSettings.projects.sortOrder
-			)
-	}
+	@State private var searchTokens: [SearchToken] = []
 
 	var body: some View {
-		lazy var filteredProjects = self.filteredProjects
-
-		Group {
-			if projectCache.projects.isEmpty {
-				noProjects
-			} else if filteredProjects.isEmpty {
-				noSearchResults
-			} else {
-				list
-			}
-		}
-		.frame(maxWidth: .infinity, maxHeight: .infinity)
-
+		CacheListView(
+			items: $projectCache.projects,
+			itemFilter: filterFunction,
+			item: Item.init,
+			noItems: noProjects
+		)
 		.searchable(text: $searchQuery, editableTokens: $searchTokens, token: SearchTokenEditor.init)
 		.searchSuggestions { SearchTokenSuggestions(searchTokens) }
 	}
@@ -64,55 +25,63 @@ struct ProjectList: View {
 // MARK: - Supporting Views
 
 private extension ProjectList {
-	var list: some View {
-		List(filteredProjects) { project in
-			let binding = Binding<ProjectMetadata>(
-				get: { project },
-				set: { projectCache[$0.url] = $0 }
-			)
-
-			Item(binding)
-				.swipeActions(edge: .leading, allowsFullSwipe: true) {
-					Button("Pin", systemImage: "pin") {
-						binding.wrappedValue.pinned.toggle()
-					}
-					.tint(.orange)
-				}
-				.swipeActions(edge: .trailing) {
-					Button("Remove", systemImage: "trash") {
-						Event.removeProject(binding.wrappedValue.url)
-					}
-					.tint(.red)
-				}
-		}
-	}
-
-	var noProjects: some View {
+	func noProjects() -> some View {
 		VStack {
-			Group {
-				Image(systemName: "cube")
-					.font(.largeTitle)
-				Text("No Projects")
-					.font(.title3)
-			}
-			.foregroundStyle(.tertiary)
+			Label("No Projects", systemImage: Constant.Symbol.cube)
+				.labelStyle(.large)
 
 			Text("Drop a project or")
 				.foregroundStyle(.secondary)
-			Button("Select", systemImage: "square.and.arrow.down") {
-				Event.importProject.send(.add)
-			}
+			Button(
+				action: {
+					Event.locateProject(.add)
+				},
+				label: Label.locate
+			)
 			.controlSize(.large)
 		}
 	}
+}
 
-	var noSearchResults: some View {
-		VStack {
-			Image(systemName: "magnifyingglass")
-				.font(.largeTitle)
-			Text("No search results")
-				.font(.title3)
+// MARK: - Functions
+
+private extension ProjectList {
+	func filterFunction(projects: [ProjectMetadata]) -> [ProjectMetadata] {
+		var result: [ProjectMetadata] = projects
+
+		if !searchQuery.isEmpty {
+			result = result.filter { project in
+				(project.name ?? project.url.lastPathComponent).localizedStandardContains(searchQuery)
+			}
 		}
-		.foregroundStyle(.tertiary)
+
+		for token in searchTokens {
+			switch token {
+				case let .pinned(state): filterPinned(state: state)
+				case let .editorVersion(editorVersion): filterEditorVersion(editorVersion: editorVersion)
+			}
+		}
+
+		return result
+			.sorted(
+				by: appSettings.projects.sortCriteria,
+				order: appSettings.projects.sortOrder
+			)
+
+		func filterPinned(state: Bool) {
+			result = result.filter { $0.pinned == state }
+		}
+
+		func filterEditorVersion(editorVersion: UnityEditorVersion) {
+			switch editorVersion {
+				case .search_any:
+					return
+				case .search_missing:
+					// TODO: implement
+					return
+				default:
+					result = result.filter(by: \.editorVersion, equals: editorVersion)
+			}
+		}
 	}
 }

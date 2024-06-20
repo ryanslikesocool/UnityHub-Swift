@@ -6,10 +6,11 @@ public struct AboutScene: Scene {
 
 	public var body: some Scene {
 		About {
-			AppInfoSection()
-				.appInfoSectionStyle(.custom)
-				.frame(width: 350, height: 200)
+			AcknowledgementsSection()
+			VStack {
+				CopyrightSection()
+				DevelopedWithLoveSection()
+			}
 		}
-		.aboutWindowLayout(.custom)
 	}
 }

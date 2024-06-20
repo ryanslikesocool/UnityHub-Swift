@@ -5,9 +5,7 @@ import UnityHubCommon
 import UnityHubInstallationsStorage
 
 @Observable
-public final class ProjectCache: GlobalFile {
-	public static let shared: ProjectCache = ProjectCache.load()
-
+public final class ProjectCache {
 	public var projects: [ProjectMetadata]
 
 	public var projectEditorVersions: [UnityEditorVersion] {
@@ -41,15 +39,54 @@ extension ProjectCache: Codable {
 	}
 }
 
-// MARK: - Constants
+// MARK: - GlobalFile
 
-public extension ProjectCache {
-	static let fileName: String = "projects.plist"
+extension ProjectCache: GlobalFile {
+	public static let shared: ProjectCache = ProjectCache.load()
 
-	static var fileURL: URL {
+	public static let fileName: String = "projects.plist"
+
+	public static var fileURL: URL {
 		URL.applicationSupportDirectory
 			.appending(component: Bundle.main.bundleIdentifier!, directoryHint: .isDirectory)
 			.appending(component: fileName, directoryHint: .notDirectory)
+	}
+}
+
+// MARK: - Validation
+
+public extension ProjectCache {
+	func validateProjectURLConflict(_ url: URL) throws {
+		if projects.contains(where: { $0.url == url }) {
+			throw ProjectError.alreadyExists
+		}
+	}
+
+	func validateProjectContent(at url: URL) throws {
+		let fileManager: FileManager = FileManager.default
+		/// don't validate `/Packages` since the package manager was only introduced "recently"
+		guard
+			try url.isDirectory(),
+			fileManager.directoryExists(at: url),
+			fileManager.directoryExists(at: url, appending: "Assets"),
+			fileManager.directoryExists(at: url, appending: "ProjectSettings")
+		else {
+			throw ProjectError.invalid
+		}
+	}
+}
+
+// MARK: - Internal
+
+private extension ProjectCache {
+	func _addProject(at url: URL, transform: ((inout ProjectMetadata) -> Void)? = nil) {
+		var project = ProjectMetadata(url: url)
+		transform?(&project)
+		projects.append(project)
+	}
+
+	func _removeProject(at url: URL) {
+		projects.removeAll(where: { $0.url == url })
 	}
 }
 
@@ -73,17 +110,16 @@ public extension ProjectCache {
 	}
 
 	func addProject(at url: URL) throws {
-		try validateProjectURLAvailable(url)
-		try validateProjectIsValid(at: url)
+		try validateProjectURLConflict(url)
+		try validateProjectContent(at: url)
 
-		let project = ProjectMetadata(url: url)
-		projects.append(project)
+		_addProject(at: url)
 
 		save()
 	}
 
 	func removeProject(at url: URL) {
-		projects.removeAll(where: { $0.url == url })
+		_removeProject(at: url)
 
 		save()
 	}
@@ -93,51 +129,35 @@ public extension ProjectCache {
 			throw ProjectError.missing(oldURL)
 		}
 
-		try validateProjectIsValid(at: newURL)
+		try validateProjectContent(at: newURL)
 
 		// TODO: improve edge case handling
 		/// what if `newURL` contains a project, but actual project is different from `oldURL`?
 		/// can we identify a project with a persistent ID?
 		do {
-			try validateProjectURLAvailable(newURL)
+			try validateProjectURLConflict(newURL)
 		} catch {
 			/// if `newURL` is already occupied, don't add it
 			return
 		}
 
-		removeProject(at: oldURL)
+		_removeProject(at: oldURL)
 
-		/// don't use ``add(projectAt:)``.  we don't want to perform validation steps again.
-		var newProject = ProjectMetadata(url: newURL)
-		newProject.pinned = oldProject.pinned
-		newProject.lastOpened = oldProject.lastOpened
-		projects.append(newProject)
+		_addProject(at: newURL) { newProject in
+			newProject.pinned = oldProject.pinned
+			newProject.lastOpened = oldProject.lastOpened
+		}
 
 		save()
 	}
 
 	func openProject(at url: URL) throws {
-		try validateProjectIsValid(at: url)
+		try validateProjectContent(at: url)
+
+		self[url]?.lastOpened = .now
 
 		print("\(Self.self).\(#function) is not implemented")
-	}
 
-	func validateProjectURLAvailable(_ url: URL) throws {
-		if projects.contains(where: { $0.url == url }) {
-			throw ProjectError.alreadyExists
-		}
-	}
-
-	func validateProjectIsValid(at url: URL) throws {
-		let fileManager: FileManager = FileManager.default
-		guard
-			try url.isDirectoryAndReachable(),
-			fileManager.directoryExists(at: url),
-			fileManager.directoryExists(at: url, appending: "Assets"),
-			fileManager.directoryExists(at: url, appending: "Packages"),
-			fileManager.directoryExists(at: url, appending: "ProjectSettings")
-		else {
-			throw ProjectError.invalid
-		}
+		save()
 	}
 }

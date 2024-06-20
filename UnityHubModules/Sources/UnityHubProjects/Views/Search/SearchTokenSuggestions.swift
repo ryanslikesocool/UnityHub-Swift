@@ -1,24 +1,35 @@
 import SwiftUI
+import UnityHubCommon
+import UnityHubStorage
 
 struct SearchTokenSuggestions: View {
-	private let tokens: [ProjectSearchToken]
+	@Bindable private var projectCache: ProjectCache = .shared
 
-	init(_ tokens: [ProjectSearchToken]) {
+	private let tokens: [SearchToken]
+
+	init(_ tokens: [SearchToken]) {
 		self.tokens = tokens
 	}
 
 	var body: some View {
-		if !tokens.contains(where: { $0.kind == .isPinned }) {
-			Text("Pinned").searchCompletion(
-				ProjectSearchToken.isPinned(true)
-			)
-		}
+		if projectCache.projects.count > 1 {
+			if
+				projectCache.projects.contains(where: { $0.pinned }),
+				!tokens.contains(where: { $0.kind == .pinned })
+			{
+				Label.pinned().searchCompletion(
+					SearchToken.pinned(true)
+				)
+			}
 
-		if !tokens.contains(where: { $0.kind == .editorVersion }) {
-			// TODO: only show if more than one install across all projects
-			Text("Editor Version").searchCompletion(
-				ProjectSearchToken.editorVersion(.zero)
-			)
+			if
+				projectCache.projectEditorVersions.count > 1,
+				!tokens.contains(where: { $0.kind == .editorVersion })
+			{
+				Text("Editor Version").searchCompletion(
+					SearchToken.editorVersion(.zero)
+				)
+			}
 		}
 	}
 }

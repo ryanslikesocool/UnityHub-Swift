@@ -11,15 +11,19 @@ public extension URL {
 }
 
 public extension URL {
-	func isDirectoryAndReachable() throws -> Bool {
-		guard try resourceValues(forKeys: [.isDirectoryKey]).isDirectory == true else {
-			return false
-		}
-		return try checkResourceIsReachable()
+	func isApplication() throws -> Bool {
+		try resourceValues(forKeys: [.isApplicationKey]).isApplication == true
+	}
+
+	func isDirectory() throws -> Bool {
+		try resourceValues(forKeys: [.isDirectoryKey]).isDirectory == true
 	}
 
 	private func directoryTotalAllocatedSize(includingSubfolders: Bool = false) throws -> Int? {
-		guard try isDirectoryAndReachable() else {
+		guard
+			try isDirectory(),
+			try checkResourceIsReachable()
+		else {
 			return nil
 		}
 		if includingSubfolders {

@@ -10,7 +10,7 @@ public struct ProjectMetadata {
 	public var pinned: Bool
 	public var lastOpened: Date?
 
-	public private(set) var name: String
+	public private(set) var name: String?
 	public private(set) var developer: String?
 	public var embedded: Embedded { didSet { saveEmbeddedMetadata() } }
 
@@ -80,25 +80,33 @@ extension ProjectMetadata: Codable {
 
 		try container.encode(url, forKey: .url)
 		try container.encode(pinned, forKey: .pinned)
-		try container.encode(lastOpened, forKey: .lastOpened)
+		try container.encodeIfPresent(lastOpened, forKey: .lastOpened)
 	}
 }
 
 // MARK: - Constants
 
-private extension ProjectMetadata {
+extension ProjectMetadata {
+	static let assetsFilePath: String = "Assets"
+	static let projectSettingsPath: String = "ProjectSettings"
+
 	static let editorVersionKey: String = "m_EditorVersion"
 	static let productNameKey: String = "productName"
 	static let companyNameKey: String = "companyName"
 
-	static let projectVersionFilePath: String = "ProjectSettings/ProjectVersion.txt"
-	static let projectSettingsFilePath: String = "ProjectSettings/ProjectSettings.asset"
+	static let projectVersionFilePath: String = "\(projectSettingsPath)/ProjectVersion.txt"
+	static let projectSettingsFilePath: String = "\(projectSettingsPath)/ProjectSettings.asset"
 }
 
 // MARK: -
 
 private extension ProjectMetadata {
 	func saveEmbeddedMetadata() {
+		guard exists else {
+			// fail silently if project is missing
+			return
+		}
+
 		let data: Data
 		do {
 			data = try JSONEncoder.shared

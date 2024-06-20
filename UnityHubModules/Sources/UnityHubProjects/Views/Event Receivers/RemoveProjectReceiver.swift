@@ -4,8 +4,7 @@ import UnityHubCommon
 import UnityHubStorage
 
 struct RemoveProjectReceiver: View {
-	@AppStorage("SupressProjectRemovalDialog") private var supressProjectRemovalDialog: Bool = false
-
+	@Bindable private var appSettings: AppSettings = .shared
 	@Bindable private var projectCache: ProjectCache = .shared
 
 	@State private var isPresentingDialog: Bool = false
@@ -15,33 +14,33 @@ struct RemoveProjectReceiver: View {
 		EmptyView()
 			.onReceive(Event.removeProject) { value in
 				url = value
-				isPresentingDialog = true
+				if appSettings.general.dialogSuppression[.projectRemoval] {
+					confirmRemoval()
+				} else {
+					isPresentingDialog = true
+				}
 			}
 			.confirmationDialog(
 				"Remove Project?",
 				isPresented: $isPresentingDialog,
 				actions: {
-					Button("Remove", systemImage: "trash", role: .destructive, action: onConfirmRemoval)
+					Button(role: .destructive, action: confirmRemoval, label: Label.remove)
 				}, message: {
 					Text("The project files will remain on your disk.")
 				}
 			)
-			.dialogSuppressionToggle(isSuppressed: $supressProjectRemovalDialog)
+			.dialogSuppressionToggle(isSuppressed: $appSettings.general.dialogSuppression[.projectRemoval])
 	}
 }
 
 // MARK: - Functions
 
 private extension RemoveProjectReceiver {
-	func onConfirmRemoval() {
-		projectCache.removeProject(at: receiveURL())
-	}
-
-	func receiveURL() -> URL {
+	func confirmRemoval() {
 		guard let url else {
 			preconditionFailure(missingObject: URL.self)
 		}
 		self.url = nil
-		return url
+		projectCache.removeProject(at: url)
 	}
 }

@@ -47,6 +47,7 @@ let package = Package(
 			name: "UnityHubSettings",
 			dependencies: [
 				"UnityHubStorage",
+				"UnityHubCommonViews",
 			]
 		),
 

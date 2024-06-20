@@ -15,10 +15,12 @@ struct HorizontalSheetUserIconEditorStyle: UserIconEditorStyle {
 		.toolbar  {
 			ToolbarItem {
 				makeKindPicker(view: configuration.kindPicker)
+					.padding(-8)
 			}
 
 			ToolbarItem(placement: .cancellationAction) {
 				Button("Done", role: .cancel) { dismiss() }
+					.controlSize(.large)
 			}
 		}
 	}

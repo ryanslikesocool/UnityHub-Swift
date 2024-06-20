@@ -1,39 +1,26 @@
 import SwiftUI
+import UnityHubCommon
 import UnityHubStorage
 import UserIcon
 
 extension ProjectList.Item {
 	struct Icon: View {
-		@Bindable private var appSettings: AppSettings = .shared
+		@Binding private var icon: UserIcon
 
-		@Binding private var project: ProjectMetadata
-
-		init(_ project: Binding<ProjectMetadata>) {
-			_project = project
+		init(_ icon: Binding<UserIcon>) {
+			_icon = icon
 		}
 
 		var body: some View {
 			Group {
-				if project.exists {
-					if appSettings.projects.infoVisibility.contains(.icon) {
-						if project.icon != .blank {
-							UserIconView(project.icon)
-						} else {
-							Color.clear
-						}
-					}
+				if icon != .blank {
+					UserIconView(icon)
 				} else {
-					MissingIcon($project)
+					Color.clear
 				}
 			}
 			.aspectRatio(1, contentMode: .fit)
-			.frame(width: Self.size)
+			.frame(width: Constant.ListItem.height)
 		}
 	}
-}
-
-// MARK: - Constants
-
-extension ProjectList.Item.Icon {
-	static let size: CGFloat = 32
 }

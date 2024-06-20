@@ -1,6 +1,7 @@
 public enum AppSettingsCategory: UInt8 {
 	case general
 	case projects
+	case installations
 }
 
 // MARK: - Hashable
@@ -24,6 +25,7 @@ extension AppSettingsCategory: CustomStringConvertible {
 		switch self {
 			case .general: "General"
 			case .projects: "Projects"
+			case .installations: "Installations"
 		}
 	}
 }
@@ -35,6 +37,7 @@ public extension AppSettingsCategory {
 		switch self {
 			case .general: "gearshape"
 			case .projects: "cube"
+			case .installations: "tray"
 		}
 	}
 }

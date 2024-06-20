@@ -10,8 +10,6 @@ extension ProjectList {
 		@Bindable private var appSettings: AppSettings = .shared
 		@Bindable private var projectCache: ProjectCache = .shared
 
-		@State private var isPresentingDetails: Bool = false
-
 		@Binding private var project: ProjectMetadata
 
 		init(_ project: Binding<ProjectMetadata>) {
@@ -19,15 +17,17 @@ extension ProjectList {
 		}
 
 		var body: some View {
-			content
-				.padding(4)
-				.frame(minHeight: 24)
-				.contextMenu {
-					contextMenu
+			Button(action: openProject) {
+				ListItem {
+					buttonLabel
 				}
-				.sheet(isPresented: $isPresentingDetails) {
-					ProjectInfoView($project)
-				}
+			}
+			.buttonStyle(.plain)
+			.contextMenu(menuItems: contextMenuContent)
+			.swipeActions(edge: .leading, allowsFullSwipe: true) {
+				Toggle(isOn: $project.pinned, label: Label.pin)
+					.tint(.orange)
+			}
 		}
 	}
 }
@@ -35,53 +35,65 @@ extension ProjectList {
 // MARK: - Supporting Views
 
 private extension ProjectList.Item {
-	var content: some View {
-		HStack {
-			Button(action: onOpenProject) {
-				ButtonLabel($project)
-			}
-			.buttonStyle(.plain)
+	@ViewBuilder var buttonLabel: some View {
+		if appSettings.projects.infoVisibility.contains(.icon) {
+			Icon($project.icon)
+		}
 
-			editorVersion
+		VStack(alignment: .leading, spacing: 1) {
+			NameLabel(project)
+
+			if appSettings.projects.infoVisibility.contains(.location) {
+				URLLabel(project.url)
+					.urlLabelStyle(.listItem)
+			}
+		}
+
+		Spacer()
+
+		if project.exists {
+			if appSettings.projects.infoVisibility.contains(.lastOpened) {
+				LastOpenedLabel(date: project.lastOpened)
+			}
+			EditorVersionLabel(project.editorVersion)
+		} else {
+			MissingObjectButton {
+				Event.missingProject(project.url)
+			}
 		}
 	}
 
-	@ViewBuilder var editorVersion: some View {
-		if
-			appSettings.projects.infoVisibility.contains(.editorVersion),
-			let editorVersion = project.editorVersion
-		{
-			UnityEditorVersionLabel(editorVersion)
-		}
-	}
-}
+	func contextMenuContent() -> some View {
+		Group {
+			Section {
+				Button.info {
+					Event.displayInfoSheet(project.url)
+				}
 
-// MARK: - Context Menu
+				Toggle(isOn: $project.pinned, label: Label.pin)
 
-private extension ProjectList.Item {
-	@ViewBuilder var contextMenu: some View {
-		Section {
-			Button("Details", systemImage: "info") { isPresentingDetails = true }
-				.keyboardShortcut("i")
-		}
-
-		Section {
-			Button("Show in Finder", action: project.url.showInFinder)
-		}
-
-		Section {
-			Button("Remove", systemImage: "trash", role: .destructive) {
-				Event.removeProject(project.url)
+				Button.showInFinder(destination: project.url)
 			}
-			.keyboardShortcut(.delete)
+
+			Section {
+				Button(
+					role: .destructive,
+					action: {
+						Event.removeProject(project.url)
+					},
+					label: Label.remove
+				)
+				.keyboardShortcut(.delete)
+			}
 		}
+		.labelStyle(.titleAndIcon)
 	}
 }
 
 // MARK: - Functions
 
 private extension ProjectList.Item {
-	func onOpenProject() {
+	func openProject() {
 		do {
 			try projectCache.openProject(at: project.url)
 		} catch ProjectCache.ProjectError.invalid {

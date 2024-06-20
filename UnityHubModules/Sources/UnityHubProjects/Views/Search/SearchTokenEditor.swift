@@ -1,18 +1,15 @@
 import SwiftUI
+import UnityHubCommon
 import UnityHubStorage
 
 struct SearchTokenEditor: View {
 	@Bindable private var projectCache: ProjectCache = .shared
 
-	@Binding private var selection: ProjectSearchToken
-
-	init(selection: Binding<ProjectSearchToken>) {
-		_selection = selection
-	}
+	@Binding var selection: SearchToken
 
 	var body: some View {
 		switch selection {
-			case let .isPinned(value): isPinnedEditor(value: value)
+			case let .pinned(value): pinnedEditor(value: value)
 			case let .editorVersion(value): editorVersionEditor(value: value)
 		}
 	}
@@ -21,19 +18,23 @@ struct SearchTokenEditor: View {
 // MARK: - Supporting Views
 
 private extension SearchTokenEditor {
-	private func isPinnedEditor(value: Bool) -> some View {
+	func pinnedEditor(value: Bool) -> some View {
 		let binding = Binding<Bool>(
 			get: { value },
-			set: { selection = .isPinned($0) }
+			set: { selection = .pinned($0) }
 		)
 
-		return Picker("Pinned", selection: binding) {
-			Text("Is").tag(true)
-			Text("Is Not").tag(false)
-		}
+		return Picker(
+			selection: binding,
+			content: {
+				Text("Is").tag(true)
+				Text("Is Not").tag(false)
+			},
+			label: Label.pinned
+		)
 	}
 
-	private func editorVersionEditor(value: UnityEditorVersion) -> some View {
+	func editorVersionEditor(value: UnityEditorVersion) -> some View {
 		let binding = Binding<UnityEditorVersion>(
 			get: { value },
 			set: { selection = .editorVersion($0) }

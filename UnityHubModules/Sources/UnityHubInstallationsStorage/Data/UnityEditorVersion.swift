@@ -1,3 +1,4 @@
+import Foundation
 import RegexBuilder
 
 /// A Unity editor version number.
@@ -108,6 +109,15 @@ extension UnityEditorVersion: Identifiable {
 	public var id: String { description }
 }
 
+// MARK: - Decodable
+
+extension UnityEditorVersion: Decodable {
+	public init(from decoder: any Decoder) throws {
+		let container = try decoder.singleValueContainer()
+		self = try Self(container.decode(String.self)) ?? .zero
+	}
+}
+
 // MARK: - Comparable
 
 extension UnityEditorVersion: Comparable {
@@ -156,5 +166,31 @@ public extension UnityEditorVersion {
 		(major == 5 && minor == 6)
 			|| ((2017 ... 2019).contains(major) && minor == 4)
 			|| ((2020 ... 2022).contains(major) && minor == 3)
+	}
+
+	var isPrerelease: Bool {
+		channel == .alpha || channel == .beta
+	}
+}
+
+public extension UnityEditorVersion {
+	private var documentationVersionInfix: String {
+		if major <= 5 {
+			"\(major)\(minor)0"
+		} else {
+			"\(major).\(minor)"
+		}
+	}
+
+	private static let documentationPrefix: String = "https://docs.unity3d.com/"
+	private static let documentationManualSuffix: String = "/Documentation/Manual/index.html"
+	private static let documentationScriptReferenceSuffix: String = "/Documentation/ScriptReference/index.html"
+
+	var manualURL: URL {
+		URL(string: "\(Self.documentationPrefix)\(documentationVersionInfix)\(Self.documentationManualSuffix)")!
+	}
+
+	var scriptReferenceURL: URL {
+		URL(string: "\(Self.documentationPrefix)\(documentationVersionInfix)\(Self.documentationScriptReferenceSuffix)")!
 	}
 }

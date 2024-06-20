@@ -3,20 +3,13 @@ import SwiftUI
 
 struct CopyrightSection: View {
 	var body: some View {
-		VStack(alignment: .leading) {
-			Text(AppInformation.copyright ?? "© 2021 Ryan Boyer")
-				.font(.caption)
-				.foregroundStyle(.secondary)
-
-			Text("""
-			Developed With Love
-			Colorado, USA
-			""")
-			.font(.caption.monospaced())
-			.foregroundStyle(.tertiary)
-
-			Image("heart.pixel.fill")
-				.foregroundStyle(Color("developedwithlove.red"))
+		VStack {
+			Section {
+				Text("Unity Hub (Swift) © 2021 Ryan Boyer")
+				Text("Unity, Unity Hub © Unity Technologies Inc.")
+			}
+			.font(.caption)
+			.foregroundStyle(.secondary)
 		}
 	}
 }
