@@ -26,5 +26,7 @@ public extension Label<Text, Image> {
 
 	static func projects() -> Self { Self("Projects", systemImage: Constant.Symbol.cube) }
 	static func installations() -> Self { Self("Installations", systemImage: Constant.Symbol.tray) }
-	static func resources() -> Self { Self("Resources", systemImage: "info.circle") }
+	static func resources() -> Self { Self("Resources", systemImage: Constant.Symbol.info_circle) }
+
+	static func menu() -> Self { Self("Menu", image: Constant.Symbol.ellipsis_vertical) }
 }

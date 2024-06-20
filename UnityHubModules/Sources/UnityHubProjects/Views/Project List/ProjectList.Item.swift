@@ -18,12 +18,10 @@ extension ProjectList {
 
 		var body: some View {
 			Button(action: openProject) {
-				ListItem {
-					buttonLabel
-				}
+				ListItem(content: labelContent, menu: contextMenu)
 			}
 			.buttonStyle(.plain)
-			.contextMenu(menuItems: contextMenuContent)
+			.contextMenu(menuItems: contextMenu)
 			.swipeActions(edge: .leading, allowsFullSwipe: true) {
 				Toggle(isOn: $project.pinned, label: Label.pin)
 					.tint(.orange)
@@ -35,10 +33,13 @@ extension ProjectList {
 // MARK: - Supporting Views
 
 private extension ProjectList.Item {
-	@ViewBuilder var buttonLabel: some View {
+	@ViewBuilder func labelContent() -> some View {
 		if appSettings.projects.infoVisibility.contains(.icon) {
 			Icon($project.icon)
 		}
+
+		Spacer()
+			.frame(width: 8)
 
 		VStack(alignment: .leading, spacing: 1) {
 			NameLabel(project)
@@ -63,30 +64,8 @@ private extension ProjectList.Item {
 		}
 	}
 
-	func contextMenuContent() -> some View {
-		Group {
-			Section {
-				Button.info {
-					Event.displayInfoSheet(project.url)
-				}
-
-				Toggle(isOn: $project.pinned, label: Label.pin)
-
-				Button.showInFinder(destination: project.url)
-			}
-
-			Section {
-				Button(
-					role: .destructive,
-					action: {
-						Event.removeProject(project.url)
-					},
-					label: Label.remove
-				)
-				.keyboardShortcut(.delete)
-			}
-		}
-		.labelStyle(.titleAndIcon)
+	private func contextMenu() -> some View {
+		ContextMenu($project)
 	}
 }
 

@@ -3,11 +3,9 @@ import UnityHubCommonViews
 import UnityHubStorage
 
 struct InstallationsTab: AppSettingsCategoryView {
-	typealias Label = SwiftUI.Label<Text, Image>
-
 	@Binding var model: AppSettings.Installations
 
-	var content: some View {
+	func content() -> some View {
 		Group {
 			URLPicker(
 				selection: $model.installationLocation,
@@ -26,5 +24,9 @@ struct InstallationsTab: AppSettingsCategoryView {
 			)
 		}
 		.urlPickerStyle(.section)
+	}
+
+	func label() -> some View {
+		SwiftUI.Label.installations()
 	}
 }

@@ -2,11 +2,9 @@ import SwiftUI
 import UnityHubStorage
 
 struct ProjectsTab: AppSettingsCategoryView {
-	typealias Label = SwiftUI.Label<Text, Image>
-
 	@Binding var model: AppSettings.Projects
 
-	var content: some View {
+	func content() -> some View {
 		Section {
 			Picker(selection: $model.projectBackgroundMode) {
 				Text("None").tag(ProjectBackgroundMode.none)
@@ -20,5 +18,9 @@ struct ProjectsTab: AppSettingsCategoryView {
 				Text("After opening a project, this action will be performed.")
 			}
 		}
+	}
+
+	func label() -> some View {
+		SwiftUI.Label.projects()
 	}
 }

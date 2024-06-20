@@ -27,8 +27,10 @@ public enum Constant {
 		public static let cloud: String = "cloud"
 		public static let gearShape: String = "gearshape"
 		public static let ant: String = "ant"
+		public static let ellipsis: String = "ellipsis"
 
 		public static let finder: String = "finder"
+		public static let ellipsis_vertical: String = "ellipsis.vertical"
 		public static let rectangle_portrait_and_arrow_left: String = "rectangle.portrait.and.arrow.left"
 	}
 

@@ -1,13 +1,12 @@
 import SwiftUI
 import UnityHubCommon
+import UnityHubCommonViews
 import UnityHubStorage
 
 struct GeneralTab: AppSettingsCategoryView {
-	typealias Label = SwiftUI.Label<Text, Image>
-
 	@Binding var model: AppSettings.General
 
-	var content: some View {
+	func content() -> some View {
 		AppearancePicker($model.appearance)
 
 		Section{
@@ -20,5 +19,9 @@ struct GeneralTab: AppSettingsCategoryView {
 				Text(#"Reset all warnings that were marked "Don't ask again"."#)
 			}
 		}
+	}
+
+	func label() -> some View {
+		SwiftUI.Label("General", systemImage: Constant.Symbol.gearShape)
 	}
 }

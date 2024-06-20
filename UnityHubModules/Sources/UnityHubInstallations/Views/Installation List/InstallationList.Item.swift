@@ -12,17 +12,8 @@ extension InstallationList {
 		}
 
 		var body: some View {
-			ListItem {
-				VStack(alignment: .leading, spacing: 1) {
-					VersionLabel(installation.version)
-
-					URLLabel(installation.url)
-						.urlLabelStyle(.listItem)
-				}
-
-				Spacer()
-			}
-			.contextMenu(menuItems: contextMenuContent)
+			ListItem(content: labelContent, menu: contextMenu)
+				.contextMenu(menuItems: contextMenu)
 		}
 	}
 }
@@ -30,28 +21,18 @@ extension InstallationList {
 // MARK: - Supporting Views
 
 private extension InstallationList.Item {
-	func contextMenuContent() -> some View {
-		Group {
-			Section {
-				Button.info {
-					print("\(Self.self).\(#function) is not implemented")
-				}
+	@ViewBuilder func labelContent() -> some View {
+		VStack(alignment: .leading, spacing: 1) {
+			VersionLabel(installation.version)
 
-				Button.showInFinder(destination: installation.url)
-			}
-
-			if let version = installation.version {
-				Section {
-					Link(destination: version.manualURL, label: Label.manual)
-					Link(destination: version.scriptReferenceURL, label: Label.scriptReference)
-				}
-			}
-
-			Section {
-				Button(role: .destructive, action: { Event.removeInstallation(installation.url) }, label: Label.uninstall)
-					.keyboardShortcut(.delete)
-			}
+			URLLabel(installation.url)
+				.urlLabelStyle(.listItem)
 		}
-		.labelStyle(.titleAndIcon)
+
+		Spacer()
+	}
+
+	func contextMenu() -> some View {
+		ContextMenu(installation)
 	}
 }

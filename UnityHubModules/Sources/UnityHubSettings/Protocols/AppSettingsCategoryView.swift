@@ -8,26 +8,18 @@ protocol AppSettingsCategoryView: View {
 
 	var model: Model { get set }
 
-	@ViewBuilder var content: Content { get }
+	@ViewBuilder func content() -> Content
 
-	@ViewBuilder var label: Label { get }
+	@ViewBuilder func label() -> Label
 }
 
 // MARK: - Default Implementation
 
 extension AppSettingsCategoryView {
 	var body: some View {
-		Form {
-			content
-		}
-		.onChange(of: model) { AppSettings.shared.save() }
-		.tabItem { label }
-		.tag(Model.category)
-	}
-}
-
-extension AppSettingsCategoryView where Label == SwiftUI.Label<Text, Image> {
-	var label: Label {
-		SwiftUI.Label(Model.category.description, systemImage: Model.category.systemImageName)
+		Form(content: content)
+			.onChange(of: model, AppSettings.shared.save)
+			.tabItem(label)
+			.tag(Model.category)
 	}
 }

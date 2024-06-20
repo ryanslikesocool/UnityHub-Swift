@@ -64,3 +64,9 @@ private extension InstallationMetadata {
 		return try PropertyListDecoder.shared.decode(SimpleInfoPlist.self, from: data)
 	}
 }
+
+public extension InstallationMetadata {
+	var exists: Bool {
+		(try? url.checkResourceIsReachable()) ?? false
+	}
+}
