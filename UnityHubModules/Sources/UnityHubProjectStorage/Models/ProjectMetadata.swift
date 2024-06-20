@@ -21,8 +21,6 @@ public struct ProjectMetadata {
 		set { embedded.icon = newValue }
 	}
 
-	public var exists: Bool { (try? url.checkResourceIsReachable()) ?? false }
-
 	public init(url: URL) {
 		self.url = url
 		pinned = false
@@ -102,7 +100,7 @@ extension ProjectMetadata {
 
 private extension ProjectMetadata {
 	func saveEmbeddedMetadata() {
-		guard exists else {
+		guard url.exists else {
 			// fail silently if project is missing
 			return
 		}
@@ -135,7 +133,7 @@ private extension ProjectMetadata {
 
 // MARK: - Lazy
 
-private extension ProjectMetadata {
+public extension ProjectMetadata {
 	mutating func validateLazyData() {
 		validateProjectSettings()
 		validateEmbeddedMetadata()

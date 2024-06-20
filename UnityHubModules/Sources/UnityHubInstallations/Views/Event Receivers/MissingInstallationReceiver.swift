@@ -7,10 +7,7 @@ struct MissingInstallationReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.missingInstallation) { url in
-				self.url = url
-				self.isPresentingDialog = true
-			}
+			.onReceive(Event.missingInstallation, perform: receiveEvent)
 			.confirmationDialog(
 				"Missing Project",
 				isPresented: $isPresentingDialog,
@@ -29,17 +26,22 @@ struct MissingInstallationReceiver: View {
 // MARK: - Functions
 
 private extension MissingInstallationReceiver {
+	func receiveEvent(value: URL) {
+		url = value
+		isPresentingDialog = true
+	}
+
 	func removeInstallation() {
-		let url = receiveValue()
+		let url = consumeValue()
 		Event.removeInstallation(url)
 	}
 
 	func locateInstallation() {
-		let url = receiveValue()
+		let url = consumeValue()
 		Event.locateInstallation(.replace(url))
 	}
 
-	func receiveValue() -> URL {
+	func consumeValue() -> URL {
 		guard let url else {
 			preconditionFailure(missingObject: URL.self)
 		}

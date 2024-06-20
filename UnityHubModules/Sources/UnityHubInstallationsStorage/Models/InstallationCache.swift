@@ -59,8 +59,11 @@ extension InstallationCache {
 		}
 	}
 
-	func validateInstallationContent(at url: URL) throws {
+	public static func validateInstallationContent(at url: URL) throws {
 		let fileManager: FileManager = FileManager.default
+		guard url.exists else {
+			throw InstallationError.missingInstallationAtURL(url)
+		}
 		guard
 			try url.isApplication(),
 			fileManager.fileExists(at: url, appending: InstallationMetadata.infoPlistPath)
@@ -93,7 +96,23 @@ public extension InstallationCache {
 				preconditionFailure("Cannot remove object via subscript.")
 			}
 			guard let index = installations.firstIndex(where: { $0.url == url }) else {
-				Logger.module.warning("Missing project at \(url.path(percentEncoded: false))")
+				Logger.module.warning("Missing installation at \(url.path(percentEncoded: false)).")
+				return
+			}
+			installations[index] = newValue
+
+			save()
+		}
+	}
+
+	subscript(version: UnityEditorVersion) -> InstallationMetadata? {
+		get { installations.first(where: { $0.version == version }) }
+		set {
+			guard let newValue else {
+				preconditionFailure("Cannot remove object via subscript.")
+			}
+			guard let index = installations.firstIndex(where: { $0.version == version }) else {
+				Logger.module.warning("Missing installation with version \(version).")
 				return
 			}
 			installations[index] = newValue
@@ -104,7 +123,7 @@ public extension InstallationCache {
 
 	func addInstallation(at url: URL) throws {
 		try validateInstallationURLConflict(url)
-		try validateInstallationContent(at: url)
+		try Self.validateInstallationContent(at: url)
 
 		_addInstallation(at: url)
 
@@ -118,7 +137,7 @@ public extension InstallationCache {
 	}
 
 	func changeInstallationURL(from oldURL: URL, to newURL: URL) throws {
-		try validateInstallationContent(at: newURL)
+		try Self.validateInstallationContent(at: newURL)
 
 		// TODO: improve edge case handling
 		/// what if `newURL` contains a project, but actual project is different from `oldURL`?
@@ -135,5 +154,9 @@ public extension InstallationCache {
 		_addInstallation(at: newURL)
 
 		save()
+	}
+
+	func getInstallation(for version: UnityEditorVersion) -> InstallationMetadata? {
+		installations.first(where: { $0.version == version })
 	}
 }

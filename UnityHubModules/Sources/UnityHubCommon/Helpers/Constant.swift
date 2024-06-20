@@ -13,6 +13,7 @@ public enum Constant {
 		public static let magnifyingGlass: String = "magnifyingglass"
 		public static let trash: String = "trash"
 		public static let plus: String = "plus"
+		public static let minus: String = "minus"
 		public static let eye: String = "eye"
 		public static let arrow_up_arrow_down: String = "arrow.up.arrow.down"
 		public static let arrow_clockwise: String = "arrow.clockwise"
@@ -28,6 +29,9 @@ public enum Constant {
 		public static let gearShape: String = "gearshape"
 		public static let ant: String = "ant"
 		public static let ellipsis: String = "ellipsis"
+		public static let arrow_up_forward: String = "arrow.up.forward"
+		public static let list_bullet: String = "list.bullet"
+		public static let checkmark: String = "checkmark"
 
 		public static let finder: String = "finder"
 		public static let ellipsis_vertical: String = "ellipsis.vertical"

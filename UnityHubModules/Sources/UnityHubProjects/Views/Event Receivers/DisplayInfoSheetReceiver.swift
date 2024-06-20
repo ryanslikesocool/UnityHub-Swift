@@ -10,11 +10,19 @@ struct DisplayInfoSheetReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.displayInfoSheet) { projectURL = $0 }
+			.onReceive(Event.displayInfoSheet, perform: receiveEvent)
 			.sheet(item: $projectURL) { url in
 				if let binding = Binding($projectCache[url]) {
 					ProjectInfoSheet(binding)
 				}
 			}
+	}
+}
+
+// MARK: - Functions
+
+private extension DisplayInfoSheetReceiver {
+	func receiveEvent(value: URL) {
+		projectURL = value
 	}
 }

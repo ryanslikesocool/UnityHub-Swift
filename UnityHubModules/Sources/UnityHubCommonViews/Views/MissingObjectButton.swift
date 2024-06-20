@@ -13,7 +13,7 @@ public struct MissingObjectButton: View {
 	public var body: some View {
 		Button(action: action) {
 			Image(systemName: Constant.Symbol.exclamationMark_triangle_fill)
-				.symbolEffect(.pulse.wholeSymbol, options: .repeating)
+//				.symbolEffect(.pulse.wholeSymbol, options: .repeating) // increases engery usage a lot for some reason?
 				.symbolRenderingMode(.monochrome)
 				.font(.title2)
 				.frame(width: Constant.ListItem.height - 16, height: Constant.ListItem.height - 4)

@@ -17,7 +17,7 @@ extension ProjectList {
 		}
 
 		var body: some View {
-			Button(action: openProject) {
+			OpenProjectButton(at: project.url) {
 				ListItem(content: labelContent, menu: contextMenu)
 			}
 			.buttonStyle(.plain)
@@ -26,6 +26,7 @@ extension ProjectList {
 				Toggle(isOn: $project.pinned, label: Label.pin)
 					.tint(.orange)
 			}
+			.onAppear { project.validateLazyData() }
 		}
 	}
 }
@@ -34,8 +35,11 @@ extension ProjectList {
 
 private extension ProjectList.Item {
 	@ViewBuilder func labelContent() -> some View {
+		let exists: Bool = project.url.exists
+
 		if appSettings.projects.infoVisibility.contains(.icon) {
 			Icon($project.icon)
+				.onAppear { project.validateEmbeddedMetadata() }
 		}
 
 		Spacer()
@@ -44,7 +48,10 @@ private extension ProjectList.Item {
 		VStack(alignment: .leading, spacing: 1) {
 			NameLabel(project)
 
-			if appSettings.projects.infoVisibility.contains(.location) {
+			if
+				appSettings.projects.infoVisibility.contains(.location),
+				exists
+			{
 				URLLabel(project.url)
 					.urlLabelStyle(.listItem)
 			}
@@ -52,7 +59,7 @@ private extension ProjectList.Item {
 
 		Spacer()
 
-		if project.exists {
+		if exists {
 			if appSettings.projects.infoVisibility.contains(.lastOpened) {
 				LastOpenedLabel(date: project.lastOpened)
 			}
@@ -66,22 +73,5 @@ private extension ProjectList.Item {
 
 	private func contextMenu() -> some View {
 		ContextMenu($project)
-	}
-}
-
-// MARK: - Functions
-
-private extension ProjectList.Item {
-	func openProject() {
-		do {
-			try projectCache.openProject(at: project.url)
-		} catch ProjectCache.ProjectError.invalid {
-			Event.invalidProject()
-		} catch {
-			preconditionFailure("""
-			Caught an unexpected error:
-			\(error.localizedDescription)
-			""")
-		}
 	}
 }

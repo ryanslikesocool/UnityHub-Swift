@@ -7,15 +7,12 @@ struct MissingProjectReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.missingProject) { url in
-				self.url = url
-				self.isPresentingDialog = true
-			}
+			.onReceive(Event.missingProject, perform: receiveEvent)
 			.confirmationDialog(
 				"Missing Project",
 				isPresented: $isPresentingDialog,
 				actions: {
-					Button(action: removeProject, label: Label.remove)
+					Button(role: .cancel, action: removeProject, label: Label.remove)
 					Button(action: locateProject, label: Label.locate)
 				},
 				message: {
@@ -29,17 +26,22 @@ struct MissingProjectReceiver: View {
 // MARK: - Functions
 
 private extension MissingProjectReceiver {
+	func receiveEvent(value: URL) {
+		url = value
+		isPresentingDialog = true
+	}
+
 	func removeProject() {
-		let url = receiveValue()
+		let url = consumeValue()
 		Event.removeProject(url)
 	}
 
 	func locateProject() {
-		let url = receiveValue()
+		let url = consumeValue()
 		Event.locateProject(.replace(url))
 	}
 
-	func receiveValue() -> URL {
+	func consumeValue() -> URL {
 		guard let url else {
 			preconditionFailure(missingObject: URL.self)
 		}

@@ -11,19 +11,12 @@ struct RemoveInstallationReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.removeInstallation) { url in
-				self.url = url
-				if appSettings.general.dialogSuppression[.installationRemoval] {
-					confirmRemoval()
-				} else {
-					isPresentingDialog = true
-				}
-			}
+			.onReceive(Event.removeInstallation, perform: receiveEvent)
 			.confirmationDialog(
 				"Uninstall Editor",
 				isPresented: $isPresentingDialog,
 				actions: {
-					Button(role: .destructive, action: confirmRemoval, label: Label.uninstall)
+					Button(role: .destructive, action: confirmRemoval, label: Label.remove)
 				},
 				message: {
 					Text("Do you want to uninstall this editor version?")
@@ -37,12 +30,31 @@ struct RemoveInstallationReceiver: View {
 // MARK: - Functions
 
 private extension RemoveInstallationReceiver {
+	func receiveEvent(value: URL) {
+		url = value
+
+		if
+			!value.exists
+			|| appSettings.general.dialogSuppression[.installationRemoval]
+		{
+			confirmRemoval()
+		} else {
+			isPresentingDialog = true
+		}
+	}
+
 	func confirmRemoval() {
+		let url = consumeValue()
+
+		InstallationCache.shared.removeInstallation(at: url)
+		print("\(Self.self).\(#function) is not implemented")
+	}
+
+	func consumeValue() -> URL {
 		guard let url else {
 			preconditionFailure(missingObject: URL.self)
 		}
 		self.url = nil
-
-		print("\(Self.self).\(#function) is not implemented")
+		return url
 	}
 }

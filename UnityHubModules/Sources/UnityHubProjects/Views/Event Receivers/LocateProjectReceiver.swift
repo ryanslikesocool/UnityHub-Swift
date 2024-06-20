@@ -11,10 +11,7 @@ struct LocateProjectReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.locateProject) { value in
-				completion = value
-				isPresentingDialog = true
-			}
+			.onReceive(Event.locateProject, perform: receiveEvent)
 			.fileImporter(
 				isPresented: $isPresentingDialog,
 				allowedContentTypes: [.folder],
@@ -39,6 +36,11 @@ extension LocateProjectReceiver {
 // MARK: - Functions
 
 private extension LocateProjectReceiver {
+	func receiveEvent(value: Completion) {
+		self.completion = value
+		isPresentingDialog = true
+	}
+
 	func onFileImporterComplete(result: Result<URL, Error>) {
 		switch result {
 			case let .failure(error):
@@ -51,10 +53,7 @@ private extension LocateProjectReceiver {
 	}
 
 	func finalizeImport(at url: URL) {
-		guard let completion else {
-			preconditionFailure(missingObject: Completion.self)
-		}
-		self.completion = nil
+		let completion = consumeValue()
 
 		do {
 			switch completion {
@@ -63,15 +62,20 @@ private extension LocateProjectReceiver {
 				case let .replace(oldURL):
 					try projectCache.changeProjectURL(from: oldURL, to: url)
 			}
-		} catch ProjectCache.ProjectError.invalid {
+		} catch ProjectError.invalid {
 			Event.invalidProject()
-		} catch ProjectCache.ProjectError.alreadyExists {
+		} catch ProjectError.alreadyExists {
 			// TODO: automatically add project to search field
 		} catch {
-			preconditionFailure("""
-			Caught an unexpected error:
-			\(error.localizedDescription)
-			""")
+			preconditionFailure(unexpectedError: error)
 		}
+	}
+
+	func consumeValue() -> Completion {
+		guard let completion else {
+			preconditionFailure(missingObject: Completion.self)
+		}
+		self.completion = nil
+		return completion
 	}
 }

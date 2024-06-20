@@ -37,9 +37,8 @@ struct UserMenu: View {
 						}
 
 						Link(
-							"Report a Bug",
-							systemImage: Constant.Symbol.ant,
-							destination: URL(string: "https://github.com/ryanslikesocool/UnityHub-Swift/issues")!
+							destination: URL(string: "https://github.com/ryanslikesocool/UnityHub-Swift/issues")!,
+							label: Label.reportBug
 						)
 					}
 

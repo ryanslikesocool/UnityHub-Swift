@@ -11,13 +11,10 @@ A Unity Hub alternative, built natively for macOS.
 ✨ Quickly add multiple projects at once
 ✨ Quick links to Unity documentation
 
-
 # TODO
 ✨ Improved background mode options
-✨ Automatically quit after opening a project
 ✨ Smarter editor installation
 ✨ Single module uninstall
-
 
 - Find Unity versions with default and custom locations
 - Get installed modules per Unity version via modules.json
@@ -38,4 +35,4 @@ A Unity Hub alternative, built natively for macOS.
 - If Unity Hub is open, quit it and make sure it's not in the dock
 
 ## Known Issues
-- The app cannot be sandboxed because of command line usage
+- The app cannot be sandboxed due to command line usage

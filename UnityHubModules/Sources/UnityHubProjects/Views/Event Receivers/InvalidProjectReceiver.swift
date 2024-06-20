@@ -10,9 +10,7 @@ struct InvalidProjectReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.invalidProject) {
-				isPresentingDialog = true
-			}
+			.onReceive(Event.invalidProject, perform: receiveEvent)
 			.alert(
 				"Invalid Project",
 				isPresented: $isPresentingDialog,
@@ -21,5 +19,13 @@ struct InvalidProjectReceiver: View {
 					Text("The directory does not contain a valid project.")
 				}
 			)
+	}
+}
+
+// MARK: - Functions
+
+private extension InvalidProjectReceiver {
+	func receiveEvent() {
+		isPresentingDialog = true
 	}
 }

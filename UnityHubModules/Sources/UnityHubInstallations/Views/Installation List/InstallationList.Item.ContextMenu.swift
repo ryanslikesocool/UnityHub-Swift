@@ -12,6 +12,8 @@ extension InstallationList.Item {
 		}
 
 		var body: some View {
+			let exists: Bool = installation.url.exists
+
 			Group {
 				Section {
 					Button.info {
@@ -20,17 +22,29 @@ extension InstallationList.Item {
 
 					Button.showInFinder(destination: installation.url)
 				}
+				.disabled(!exists)
 
-				if let version = installation.version {
-					Section {
+				Section {
+					if let version = installation.version {
 						Link(destination: version.manualURL, label: Label.manual)
 						Link(destination: version.scriptReferenceURL, label: Label.scriptReference)
 					}
+
+					let bugReporterURL = installation.bugReporterURL
+					Button(
+						action: { NSWorkspace.shared.open(bugReporterURL) },
+						label: Label.reportBug
+					)
+					.disabled(!bugReporterURL.exists)
 				}
 
 				Section {
-					Button(role: .destructive, action: { Event.removeInstallation(installation.url) }, label: Label.uninstall)
-						.keyboardShortcut(.delete)
+					Button(
+						role: .destructive,
+						action: { Event.removeInstallation(installation.url) },
+						label: exists ? Label.uninstall : Label.remove
+					)
+					.keyboardShortcut(.delete)
 				}
 			}
 			.labelStyle(.titleAndIcon)

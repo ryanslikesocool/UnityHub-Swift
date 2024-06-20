@@ -5,6 +5,8 @@ import UnityHubStorage
 
 extension InstallationList {
 	struct Item: View {
+		@Bindable private var appSettings: AppSettings = .shared
+
 		@Binding private var installation: InstallationMetadata
 
 		init(_ installation: Binding<InstallationMetadata>) {
@@ -14,6 +16,7 @@ extension InstallationList {
 		var body: some View {
 			ListItem(content: labelContent, menu: contextMenu)
 				.contextMenu(menuItems: contextMenu)
+				.onAppear { installation.validateLazyData() }
 		}
 	}
 }
@@ -22,14 +25,27 @@ extension InstallationList {
 
 private extension InstallationList.Item {
 	@ViewBuilder func labelContent() -> some View {
+		let exists: Bool = installation.url.exists
+
 		VStack(alignment: .leading, spacing: 1) {
 			VersionLabel(installation.version)
 
-			URLLabel(installation.url)
-				.urlLabelStyle(.listItem)
+			if
+				appSettings.installations.infoVisibility.contains(.location),
+				exists
+			{
+				URLLabel(installation.url)
+					.urlLabelStyle(.listItem)
+			}
 		}
 
 		Spacer()
+
+		if !exists {
+			MissingObjectButton {
+				Event.missingInstallation(installation.url)
+			}
+		}
 	}
 
 	func contextMenu() -> some View {

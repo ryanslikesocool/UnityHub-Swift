@@ -11,10 +11,7 @@ struct LocateInstallationReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.locateInstallation) { completion in
-				isPresentingDialog = true
-				self.completion = completion
-			}
+			.onReceive(Event.locateInstallation, perform: receiveEvent)
 			.fileImporter(
 				isPresented: $isPresentingDialog,
 				allowedContentTypes: [.application],
@@ -37,6 +34,11 @@ extension LocateInstallationReceiver {
 // MARK: - Functions
 
 private extension LocateInstallationReceiver {
+	func receiveEvent(value: Completion) {
+		completion = value
+		isPresentingDialog = true
+	}
+
 	func onFileImporterComplete(result: Result<URL, Error>) {
 		switch result {
 			case let .failure(error):
@@ -49,10 +51,7 @@ private extension LocateInstallationReceiver {
 	}
 
 	func finalizeImport(at url: URL) {
-		guard let completion else {
-			preconditionFailure(missingObject: Completion.self)
-		}
-		self.completion = nil
+		let completion = consumeValue()
 
 		do {
 			switch completion {
@@ -61,15 +60,20 @@ private extension LocateInstallationReceiver {
 				case let .replace(oldURL):
 					try installationCache.changeInstallationURL(from: oldURL, to: url)
 			}
-		} catch InstallationCache.InstallationError.invalid {
+		} catch InstallationError.invalid {
 			Event.invalidEditor()
-		} catch InstallationCache.InstallationError.alreadyExists {
+		} catch InstallationError.alreadyExists {
 			// TODO: automatically add installation to search field
 		} catch {
-			preconditionFailure("""
-			Caught an unexpected error:
-			\(error.localizedDescription)
-			""")
+			preconditionFailure(unexpectedError: error)
 		}
+	}
+
+	func consumeValue() -> Completion {
+		guard let completion else {
+			preconditionFailure(missingObject: Completion.self)
+		}
+		self.completion = nil
+		return completion
 	}
 }

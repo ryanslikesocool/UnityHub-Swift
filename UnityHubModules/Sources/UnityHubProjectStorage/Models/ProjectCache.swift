@@ -62,7 +62,7 @@ public extension ProjectCache {
 		}
 	}
 
-	func validateProjectContent(at url: URL) throws {
+	static func validateProjectContent(at url: URL) throws {
 		let fileManager: FileManager = FileManager.default
 		/// don't validate `/Packages` since the package manager was only introduced "recently"
 		guard
@@ -111,7 +111,7 @@ public extension ProjectCache {
 
 	func addProject(at url: URL) throws {
 		try validateProjectURLConflict(url)
-		try validateProjectContent(at: url)
+		try Self.validateProjectContent(at: url)
 
 		_addProject(at: url)
 
@@ -129,7 +129,7 @@ public extension ProjectCache {
 			throw ProjectError.missing(oldURL)
 		}
 
-		try validateProjectContent(at: newURL)
+		try Self.validateProjectContent(at: newURL)
 
 		// TODO: improve edge case handling
 		/// what if `newURL` contains a project, but actual project is different from `oldURL`?
@@ -151,13 +151,51 @@ public extension ProjectCache {
 		save()
 	}
 
-	func openProject(at url: URL) throws {
-		try validateProjectContent(at: url)
+	func openProject(at url: URL, with someVersion: UnityEditorVersion?) throws {
+		let version: UnityEditorVersion = try unwrapVersion()
 
-		self[url]?.lastOpened = .now
+		try Self.validateProjectContent(at: url)
 
-		print("\(Self.self).\(#function) is not implemented")
+		guard var installation = InstallationCache.shared[version] else {
+			throw InstallationError.missingInstallationForVersion(version)
+		}
+		try InstallationCache.validateInstallationContent(at: installation.url)
+		installation.validateLazyData()
+		InstallationCache.shared[version] = installation
 
-		save()
+		let installationPath: String = installation.executableURL.path(percentEncoded: true)
+		let arguments: String = "-projectPath"
+		let projectPath: String = url.path(percentEncoded: true)
+
+		let command: String = "\(installationPath) \(arguments) \(projectPath)"
+			.replacingOccurrences(of: "%20", with: #"\ "#)
+
+		Task {
+			do {
+				try shell(command)
+			} catch {
+				throw ShellError(error)
+			}
+
+			await MainActor.run {
+				self[url]?.lastOpened = .now
+
+				save()
+			}
+		}
+
+		func unwrapVersion() throws -> UnityEditorVersion {
+			if let someVersion {
+				return someVersion
+			} else {
+				guard let project = self[url] else {
+					throw ProjectError.missing(url)
+				}
+				guard let projectEditorVersion = project.editorVersion else {
+					throw ProjectError.unknownEditorVersion
+				}
+				return projectEditorVersion
+			}
+		}
 	}
 }

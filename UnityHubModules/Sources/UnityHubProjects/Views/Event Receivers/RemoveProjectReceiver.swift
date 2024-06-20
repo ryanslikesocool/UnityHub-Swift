@@ -12,14 +12,7 @@ struct RemoveProjectReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.removeProject) { value in
-				url = value
-				if appSettings.general.dialogSuppression[.projectRemoval] {
-					confirmRemoval()
-				} else {
-					isPresentingDialog = true
-				}
-			}
+			.onReceive(Event.removeProject, perform: receiveEvent)
 			.confirmationDialog(
 				"Remove Project?",
 				isPresented: $isPresentingDialog,
@@ -36,11 +29,28 @@ struct RemoveProjectReceiver: View {
 // MARK: - Functions
 
 private extension RemoveProjectReceiver {
+	func receiveEvent(value: URL) {
+		url = value
+		if
+			!value.exists
+			|| appSettings.general.dialogSuppression[.projectRemoval]
+		{
+			confirmRemoval()
+		} else {
+			isPresentingDialog = true
+		}
+	}
+
 	func confirmRemoval() {
+		let url = consumeValue()
+		projectCache.removeProject(at: url)
+	}
+
+	func consumeValue() -> URL {
 		guard let url else {
 			preconditionFailure(missingObject: URL.self)
 		}
 		self.url = nil
-		projectCache.removeProject(at: url)
+		return url
 	}
 }

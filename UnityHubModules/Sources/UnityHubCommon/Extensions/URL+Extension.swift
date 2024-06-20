@@ -8,6 +8,10 @@ public extension URL {
 	var abbreviatingWithTildeInPath: String {
 		(path(percentEncoded: false) as NSString).abbreviatingWithTildeInPath
 	}
+
+	var exists: Bool {
+		(try? checkResourceIsReachable()) ?? false
+	}
 }
 
 public extension URL {
