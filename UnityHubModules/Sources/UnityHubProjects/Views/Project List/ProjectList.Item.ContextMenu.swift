@@ -15,40 +15,37 @@ extension ProjectList.Item {
 
 		var body: some View {
 			Group {
-				Group {
-					Section {
-						let hasInstallationVersion: Bool = installations.installations.contains(where: { installation in
-							installation.version == project.editorVersion
-						})
+				Section {
+					let hasInstallationVersion: Bool = installations.installations.contains(where: { installation in
+						installation.version == project.editorVersion
+					})
 
-						ProjectList.OpenProjectButton(at: project.url, label: Label.open)
-							.disabled(!hasInstallationVersion)
+					ProjectList.OpenProjectButton(at: project.url, label: Label.open)
+						.disabled(!hasInstallationVersion)
 
-						openWithMenu
-					}
-
-					Section {
-						Button.info {
-							Event.displayInfoSheet(project.url)
-						}
-
-						Toggle(isOn: $project.pinned, label: Label.pin)
-
-						Button.showInFinder(destination: project.url)
-					}
+					openWithMenu
 				}
-				.disabled(!project.url.exists)
 
 				Section {
-					Button(
-						role: .destructive,
-						action: { Event.removeProject(project.url) },
-						label: Label.remove
-					)
-					.keyboardShortcut(.delete)
+					Button.info {
+						Event.displayInfoSheet(project.url)
+					}
+
+					Toggle(isOn: $project.pinned, label: Label.pin)
+
+					Button.showInFinder(destination: project.url)
 				}
 			}
-			.labelStyle(.titleAndIcon)
+			.disabled(!project.url.exists)
+
+			Section {
+				Button(
+					role: .destructive,
+					action: { Event.removeProject(project.url) },
+					label: Label.remove
+				)
+				.keyboardShortcut(.delete)
+			}
 		}
 	}
 }
