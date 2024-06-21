@@ -1,14 +1,13 @@
-import OSLog
 import SwiftUI
 import UnityHubCommon
 import UnityHubStorage
 
-struct AddProjectList: View {
+struct AddInstallationList: View {
 	var body: some View {
 		Menu(
 			content: {
-				Button.createProject()
-				Button.locateProject()
+				Button.downloadInstallation()
+				Button.locateInstallation()
 			},
 			label: Label.add
 		)

@@ -1,3 +1,4 @@
+import OSLog
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
@@ -16,32 +17,35 @@ struct ProjectList: View {
 			items: $projects.projects,
 			itemFilter: filterFunction,
 			item: Item.init,
-			noItems: noProjects
+			noItems: EmptyList.init
 		)
+		.dropDestination(for: URL.self, action: onDropURLs)
 		.searchable(text: $searchQuery, editableTokens: $searchTokens, token: SearchTokenEditor.init)
 		.searchSuggestions { SearchTokenSuggestions(searchTokens) }
-	}
-}
-
-// MARK: - Supporting Views
-
-private extension ProjectList {
-	func noProjects() -> some View {
-		EmptyListView {
-			Label("No Projects", systemImage: Constant.Symbol.cube)
-		} prompt: {
-			Text("Drop in a project or")
-			Button(
-				action: { Event.locateProject(.add) },
-				label: Label.locate
-			)
-		}
 	}
 }
 
 // MARK: - Functions
 
 private extension ProjectList {
+	func onDropURLs(urls: [URL], point: CGPoint) -> Bool {
+		var result: Bool = false
+		for url in urls {
+			do {
+				try projects.add(at: url)
+				result = true
+			} catch {
+				Logger.module.warning("""
+				Failed to import project at \(url.path(percentEncoded: false)) during a mass-import:
+				\(error.localizedDescription)
+				""")
+				continue
+			}
+		}
+
+		return result
+	}
+
 	func filterFunction(projects: [ProjectMetadata]) -> [ProjectMetadata] {
 		var result: [ProjectMetadata] = projects
 

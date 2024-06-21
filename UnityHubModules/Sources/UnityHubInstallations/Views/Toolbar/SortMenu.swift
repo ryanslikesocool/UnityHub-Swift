@@ -3,19 +3,16 @@ import UnityHubCommon
 import UnityHubCommonViews
 
 struct SortMenu: View {
-	@Binding private var order: SortOrder
-
-	init(order: Binding<SortOrder>) {
-		_order = order
-	}
+	@AppSetting(installation: \.sortOrder) private var sortOrder
 
 	var body: some View {
 		Menu(
 			content: {
-				SortOrderPicker("Order", selection: $order)
+				SortOrderPicker("Order", selection: $sortOrder)
 					.labelsHidden()
 			},
-			label: Label.sort
+			label: Label.sort,
+			primaryAction: { sortOrder = sortOrder.opposite }
 		)
 		.pickerStyle(.inline)
 	}

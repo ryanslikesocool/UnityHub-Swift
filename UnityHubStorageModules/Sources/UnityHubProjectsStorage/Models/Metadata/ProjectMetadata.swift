@@ -69,7 +69,7 @@ extension ProjectMetadata: Codable {
 
 		self.init(url: url)
 
-		pinned = try container.decodeIfPresent(forKey: .pinned) ?? false
+		pinned = try container.decodeIfPresent(forKey: .pinned) == true
 		lastOpened = try container.decodeIfPresent(forKey: .lastOpened)
 	}
 
@@ -100,7 +100,9 @@ extension ProjectMetadata {
 
 private extension ProjectMetadata {
 	func saveEmbeddedMetadata() {
-		guard url.exists else {
+		let fileManager: FileManager = .default
+
+		guard fileManager.fileExists(at: url) else {
 			// fail silently if project is missing
 			return
 		}

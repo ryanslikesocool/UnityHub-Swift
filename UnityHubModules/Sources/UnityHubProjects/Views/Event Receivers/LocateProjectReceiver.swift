@@ -59,9 +59,9 @@ private extension LocateProjectReceiver {
 		do {
 			switch completion {
 				case .add:
-					try projects.addProject(at: url)
+					try projects.add(at: url)
 				case let .replace(oldURL):
-					try projects.changeProjectURL(from: oldURL, to: url)
+					try projects.changeURL(from: oldURL, to: url)
 			}
 		} catch ProjectError.invalid {
 			Event.invalidProject()

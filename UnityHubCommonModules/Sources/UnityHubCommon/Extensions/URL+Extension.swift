@@ -8,15 +8,15 @@ public extension URL {
 	var abbreviatingWithTildeInPath: String {
 		(path(percentEncoded: false) as NSString).abbreviatingWithTildeInPath
 	}
-
-	var exists: Bool {
-		(try? checkResourceIsReachable()) ?? false
-	}
 }
 
 public extension URL {
 	func isApplication() throws -> Bool {
 		try resourceValues(forKeys: [.isApplicationKey]).isApplication == true
+	}
+
+	func isExecutable() throws -> Bool {
+		try resourceValues(forKeys: [.isExecutableKey]).isExecutable == true
 	}
 
 	func isDirectory() throws -> Bool {

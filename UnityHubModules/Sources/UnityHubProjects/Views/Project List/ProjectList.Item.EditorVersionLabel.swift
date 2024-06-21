@@ -16,8 +16,8 @@ extension ProjectList.Item {
 				UnityEditorVersionLabel(editorVersion)
 					.contextMenu {
 						Section {
-							Link(destination: editorVersion.manualURL, label: Label.manual)
-							Link(destination: editorVersion.scriptReferenceURL, label: Label.scriptReference)
+							Link(destination: Utility.Version.getManualURL(editorVersion), label: Label.manual)
+							Link(destination: Utility.Version.getScriptReferenceURL(editorVersion), label: Label.scriptReference)
 						}
 
 						Section {

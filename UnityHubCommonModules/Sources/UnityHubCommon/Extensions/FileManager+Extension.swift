@@ -17,4 +17,9 @@ public extension FileManager {
 		var bool: ObjCBool = false
 		return fileExists(atPath: url.path(percentEncoded: false), isDirectory: &bool) && bool.boolValue
 	}
+
+	func contentsOfDirectory(at url: URL) throws -> [URL] {
+		try contentsOfDirectory(atPath: url.path(percentEncoded: false))
+			.compactMap { URL(filePath: $0) }
+	}
 }

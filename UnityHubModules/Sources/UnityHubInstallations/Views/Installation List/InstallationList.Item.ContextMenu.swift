@@ -12,7 +12,8 @@ extension InstallationList.Item {
 		}
 
 		var body: some View {
-			let exists: Bool = installation.url.exists
+			let fileManager: FileManager = .default
+			let exists: Bool = fileManager.fileExists(at: installation.url)
 
 			Section {
 				Button.info {
@@ -24,17 +25,17 @@ extension InstallationList.Item {
 			.disabled(!exists)
 
 			Section {
-				if let version = installation.version {
-					Link(destination: version.manualURL, label: Label.manual)
-					Link(destination: version.scriptReferenceURL, label: Label.scriptReference)
+				if let version = (try? installation.version) {
+					Link(destination: Utility.Version.getManualURL(version), label: Label.manual)
+					Link(destination: Utility.Version.getScriptReferenceURL(version), label: Label.scriptReference)
 				}
 
-				let bugReporterURL = installation.bugReporterURL
+				let bugReporterURL = Utility.Installation.getBugReporterURL(appURL: installation.url)
 				Button(
 					action: { NSWorkspace.shared.open(bugReporterURL) },
 					label: Label.reportBug
 				)
-				.disabled(!bugReporterURL.exists)
+				.disabled(!fileManager.fileExists(at: bugReporterURL))
 			}
 
 			Section {

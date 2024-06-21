@@ -12,7 +12,7 @@ extension Sequence<ProjectMetadata> {
 						Self.compare(
 							lhs: lhs.name ?? lhs.url.lastPathComponent,
 							rhs: rhs.name ?? rhs.url.lastPathComponent,
-							order: order
+							order: order.opposite
 						)
 					}
 				})
@@ -21,7 +21,7 @@ extension Sequence<ProjectMetadata> {
 					if lhs.pinned != rhs.pinned {
 						Self.comparePinned(lhs: lhs, rhs: rhs)
 					} else {
-						Self.compare(\.editorVersion, lhs: lhs, rhs: rhs, order: order, nilIsFirst: true)
+						Self.compare(\.editorVersion, lhs: lhs, rhs: rhs, order: order.opposite, nilIsFirst: true)
 					}
 				})
 			case .lastOpened:
@@ -29,7 +29,7 @@ extension Sequence<ProjectMetadata> {
 					if lhs.pinned != rhs.pinned {
 						Self.comparePinned(lhs: lhs, rhs: rhs)
 					} else {
-						Self.compare(\.lastOpened, lhs: lhs, rhs: rhs, order: order, nilIsFirst: true)
+						Self.compare(\.lastOpened, lhs: lhs, rhs: rhs, order: order, nilIsFirst: order == .reverse)
 					}
 				})
 		}

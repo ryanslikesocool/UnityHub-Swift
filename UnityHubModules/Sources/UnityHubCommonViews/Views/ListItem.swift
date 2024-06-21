@@ -24,6 +24,7 @@ public struct ListItem<Content: View, Menu: View>: View {
 				content: menu,
 				label: {
 					Label.menu()
+						.labelStyle(.iconOnly)
 						.frame(width: 16, height: Constant.ListItem.height)
 						.contentShape(.rect)
 				}
@@ -31,7 +32,6 @@ public struct ListItem<Content: View, Menu: View>: View {
 			.buttonStyle(.plain)
 			.foregroundStyle(.tertiary)
 			.menuIndicator(.hidden)
-			.labelStyle(.iconOnly)
 		}
 		.padding(4)
 		.frame(minHeight: Constant.ListItem.height)

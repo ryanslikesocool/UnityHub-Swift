@@ -34,7 +34,8 @@ extension ProjectList {
 
 private extension ProjectList.Item {
 	@ViewBuilder func labelContent() -> some View {
-		let exists: Bool = project.url.exists
+		let fileManager: FileManager = .default
+		let exists: Bool = fileManager.directoryExists(at: project.url)
 
 		if infoVisibility.contains(.icon) {
 			Icon($project.icon)

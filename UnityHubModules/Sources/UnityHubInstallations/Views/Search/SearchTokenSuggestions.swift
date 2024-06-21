@@ -1,6 +1,6 @@
 import SwiftUI
-import UnityHubStorage
 import UnityHubCommonViews
+import UnityHubStorage
 
 struct SearchTokenSuggestions: View {
 	@Cache(InstallationCache.self) private var installations
@@ -14,7 +14,7 @@ struct SearchTokenSuggestions: View {
 	var body: some View {
 		if installations.installations.count > 1 {
 			if
-				installations.installations.contains(where: { $0.version?.isLTS ?? false }),
+				installations.installations.contains(where: { (try? $0.version)?.isLTS == true }),
 				!tokens.contains(where: { $0.kind == .lts })
 			{
 				Text("LTS").searchCompletion(
@@ -23,7 +23,7 @@ struct SearchTokenSuggestions: View {
 			}
 
 			if
-				installations.installations.contains(where: { $0.version?.isPrerelease ?? false }),
+				installations.installations.contains(where: { (try? $0.version)?.isPrerelease == true }),
 				!tokens.contains(where: { $0.kind == .prerelease })
 			{
 				Text("Prerelease").searchCompletion(

@@ -7,5 +7,6 @@ extension Event {
 	static let removeProject = Passthrough<URL>()
 	static let invalidProject = Passthrough<Void>()
 	static let missingProject = Passthrough<URL>()
-	static let displayInfoSheet = Passthrough<URL>()
+	static let displayProjectInfo = Passthrough<URL>()
+	static let createProject = Passthrough<Void>()
 }

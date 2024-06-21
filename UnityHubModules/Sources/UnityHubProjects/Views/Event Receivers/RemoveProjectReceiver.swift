@@ -32,8 +32,10 @@ struct RemoveProjectReceiver: View {
 private extension RemoveProjectReceiver {
 	func receiveEvent(value: URL) {
 		url = value
+		let fileManager: FileManager = .default
+
 		if
-			!value.exists
+			!fileManager.directoryExists(at: value)
 			|| dialogSuppression[.projectRemoval]
 		{
 			confirmRemoval()
@@ -44,7 +46,7 @@ private extension RemoveProjectReceiver {
 
 	func confirmRemoval() {
 		let url = consumeValue()
-		projects.removeProject(at: url)
+		projects.remove(at: url)
 	}
 
 	func consumeValue() -> URL {

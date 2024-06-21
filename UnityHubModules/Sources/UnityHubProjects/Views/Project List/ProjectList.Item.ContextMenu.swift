@@ -14,10 +14,12 @@ extension ProjectList.Item {
 		}
 
 		var body: some View {
+			let fileManager: FileManager = .default
+
 			Group {
 				Section {
 					let hasInstallationVersion: Bool = installations.installations.contains(where: { installation in
-						installation.version == project.editorVersion
+						(try? installation.version) == project.editorVersion
 					})
 
 					ProjectList.OpenProjectButton(at: project.url, label: Label.open)
@@ -28,7 +30,7 @@ extension ProjectList.Item {
 
 				Section {
 					Button.info {
-						Event.displayInfoSheet(project.url)
+						Event.displayProjectInfo(project.url)
 					}
 
 					Toggle(isOn: $project.pinned, label: Label.pin)
@@ -36,7 +38,7 @@ extension ProjectList.Item {
 					Button.showInFinder(destination: project.url)
 				}
 			}
-			.disabled(!project.url.exists)
+			.disabled(!fileManager.directoryExists(at: project.url))
 
 			Section {
 				Button(
@@ -55,7 +57,7 @@ private extension ProjectList.Item.ContextMenu {
 		Menu(
 			content: {
 				let versions = installations.installations
-					.compactMap(\.version)
+					.compactMap { try? $0.version }
 
 				ForEach(installations.uniqueMajorVersions, id: \.self) { majorVersion in
 					Section {

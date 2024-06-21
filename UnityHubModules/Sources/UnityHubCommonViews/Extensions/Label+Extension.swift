@@ -18,6 +18,7 @@ public extension Label<Text, Image> {
 	static func retry() -> Self { Self("Retry", systemImage: Constant.Symbol.arrow_clockwise) }
 	static func menu() -> Self { Self("Menu", image: Constant.Symbol.ellipsis_vertical) }
 	static func reportBug() -> Self { Self("Report a Bug", systemImage: Constant.Symbol.ant) }
+	static func add() -> Self { Self("Add", systemImage: Constant.Symbol.plus) }
 
 	static func pin() -> Self { Self("Pin", systemImage: Constant.Symbol.pin) }
 	static func pinned() -> Self { Self("Pinned", systemImage: Constant.Symbol.pin) }

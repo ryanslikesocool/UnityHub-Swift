@@ -34,8 +34,10 @@ private extension RemoveInstallationReceiver {
 	func receiveEvent(value: URL) {
 		url = value
 
+		let fileManager: FileManager = .default
+
 		if
-			!value.exists
+			!fileManager.fileExists(at: value)
 			|| dialogSuppression[.installationRemoval]
 		{
 			confirmRemoval()
@@ -47,7 +49,7 @@ private extension RemoveInstallationReceiver {
 	func confirmRemoval() {
 		let url = consumeValue()
 
-		installations.removeInstallation(at: url)
+		installations.remove(at: url)
 		print("\(Self.self).\(#function) is not implemented")
 	}
 

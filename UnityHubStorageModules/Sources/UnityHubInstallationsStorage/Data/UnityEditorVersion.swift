@@ -172,25 +172,3 @@ public extension UnityEditorVersion {
 		channel == .alpha || channel == .beta
 	}
 }
-
-public extension UnityEditorVersion {
-	private var documentationVersionInfix: String {
-		if major <= 5 {
-			"\(major)\(minor)0"
-		} else {
-			"\(major).\(minor)"
-		}
-	}
-
-	private static let documentationPrefix: String = "https://docs.unity3d.com/"
-	private static let documentationManualSuffix: String = "/Documentation/Manual/index.html"
-	private static let documentationScriptReferenceSuffix: String = "/Documentation/ScriptReference/index.html"
-
-	var manualURL: URL {
-		URL(string: "\(Self.documentationPrefix)\(documentationVersionInfix)\(Self.documentationManualSuffix)")!
-	}
-
-	var scriptReferenceURL: URL {
-		URL(string: "\(Self.documentationPrefix)\(documentationVersionInfix)\(Self.documentationScriptReferenceSuffix)")!
-	}
-}

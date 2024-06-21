@@ -1,13 +1,16 @@
 import Foundation
 import OSLog
 import UnityHubCommon
+import UnityHubSettingsStorage
 import UnityHubStorageCommon
 
 @Observable
 public final class InstallationCache {
 	public var installations: [InstallationMetadata]
 
-	public var uniqueMajorVersions: [SemanticVersion.Integer] { Set(installations.compactMap(\.version?.major)).sorted() }
+	public var uniqueMajorVersions: [SemanticVersion.Integer] { Set(
+		installations.compactMap { (try? $0.version)?.major }
+	).sorted() }
 
 	public init() {
 		installations = []
@@ -36,7 +39,14 @@ extension InstallationCache: Codable {
 	public func encode(to encoder: any Encoder) throws {
 		var container = encoder.singleValueContainer()
 
-		try container.encode(installations)
+		let defaultInstallationLocationPath: String = (LocationSettings.shared.installationLocation ?? Constant.Settings.Locations.defaultInstallationLocation)
+			.path()
+
+		try container.encode(
+			installations.filter { installation in
+				!installation.url.path().starts(with: defaultInstallationLocationPath)
+			}
+		)
 	}
 }
 
@@ -51,40 +61,74 @@ extension InstallationCache: CacheFile {
 // MARK: - Validation
 
 extension InstallationCache {
-	func validateInstallationURLConflict(_ url: URL) throws {
-		if installations.contains(where: { $0.url == url }) {
-			throw InstallationError.alreadyExists
-		}
+	func installationExists(at url: URL) -> Bool {
+		installations.contains(where: { $0.url == url })
 	}
 
-	public static func validateInstallationContent(at url: URL) throws {
-		let fileManager: FileManager = FileManager.default
-		guard url.exists else {
-			throw InstallationError.missingInstallationAtURL(url)
-		}
-		guard
-			try url.isApplication(),
-			fileManager.fileExists(at: url, appending: InstallationMetadata.infoPlistPath)
-		else {
-			throw InstallationError.invalid
+	func validateInstallationURLConflict(_ url: URL) throws {
+		if installationExists(at: url) {
+			throw InstallationError.alreadyExists
 		}
 	}
 }
 
-// MARK: - Internal
+// MARK: - Private
 
 private extension InstallationCache {
-	func _addInstallation(at url: URL) {
+	func _add(at url: URL) {
 		let installation = InstallationMetadata(url: url)
 		installations.append(installation)
 	}
 
-	func _removeInstallation(at url: URL) {
+	func _remove(at url: URL) {
 		installations.removeAll(where: { $0.url == url })
+	}
+
+	func readFromDefaultLocation() {
+		let location: URL = LocationSettings.shared.installationLocation ?? Constant.Settings.Locations.defaultInstallationLocation
+		let fileManager: FileManager = .default
+
+		let items: [URL]
+		do {
+			items = try fileManager.contentsOfDirectory(at: location)
+		} catch {
+			Logger.module.error("""
+			Failed to read contents of \(location.path(percentEncoded: false)):
+			\(error.localizedDescription)
+			""")
+			return
+		}
+
+		let applicationURLs: [URL] = items.compactMap { item in
+			guard (try? item.isDirectory()) == true else {
+				return nil
+			}
+
+			let subitems: [URL]
+			do {
+				subitems = try fileManager.contentsOfDirectory(at: item)
+			} catch {
+				Logger.module.warning("""
+				Failed to read contents of \(item.path(percentEncoded: false)):
+				\(error.localizedDescription)
+				""")
+				return nil
+			}
+
+			return subitems.first(where: { url in
+				(try? url.isApplication()) == true
+					&& (try? Utility.Installation.validateInstallation(appURL: url)) == true
+					&& !installationExists(at: url)
+			})
+		}
+
+		for url in applicationURLs {
+			_add(at: url)
+		}
 	}
 }
 
-// MARK: -
+// MARK: - Subscript
 
 public extension InstallationCache {
 	subscript(url: URL) -> InstallationMetadata? {
@@ -104,12 +148,12 @@ public extension InstallationCache {
 	}
 
 	subscript(version: UnityEditorVersion) -> InstallationMetadata? {
-		get { installations.first(where: { $0.version == version }) }
+		get { installations.first(where: { (try? $0.version) == version }) }
 		set {
 			guard let newValue else {
 				preconditionFailure("Cannot remove object via subscript.")
 			}
-			guard let index = installations.firstIndex(where: { $0.version == version }) else {
+			guard let index = installations.firstIndex(where: { (try? $0.version) == version }) else {
 				Logger.module.warning("Missing installation with version \(version).")
 				return
 			}
@@ -118,24 +162,28 @@ public extension InstallationCache {
 			save()
 		}
 	}
+}
 
-	func addInstallation(at url: URL) throws {
+// MARK: -
+
+public extension InstallationCache {
+	func add(at url: URL) throws {
 		try validateInstallationURLConflict(url)
-		try Self.validateInstallationContent(at: url)
+		try Utility.Installation.validateInstallation(appURL: url)
 
-		_addInstallation(at: url)
-
-		save()
-	}
-
-	func removeInstallation(at url: URL) {
-		_removeInstallation(at: url)
+		_add(at: url)
 
 		save()
 	}
 
-	func changeInstallationURL(from oldURL: URL, to newURL: URL) throws {
-		try Self.validateInstallationContent(at: newURL)
+	func remove(at url: URL) {
+		_remove(at: url)
+
+		save()
+	}
+
+	func changeURL(from oldURL: URL, to newURL: URL) throws {
+		try Utility.Installation.validateInstallation(appURL: newURL)
 
 		// TODO: improve edge case handling
 		/// what if `newURL` contains a project, but actual project is different from `oldURL`?
@@ -147,14 +195,14 @@ public extension InstallationCache {
 			return
 		}
 
-		_removeInstallation(at: oldURL)
+		_remove(at: oldURL)
 
-		_addInstallation(at: newURL)
+		_add(at: newURL)
 
 		save()
 	}
 
-	func getInstallation(for version: UnityEditorVersion) -> InstallationMetadata? {
-		installations.first(where: { $0.version == version })
+	func get(for version: UnityEditorVersion) -> InstallationMetadata? {
+		installations.first(where: { (try? $0.version) == version })
 	}
 }

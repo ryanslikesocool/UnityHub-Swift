@@ -1,11 +1,6 @@
 import SwiftUI
-import UnityHubCommonViews
-import UnityHubStorage
 
 public struct InstallationsView: View {
-	@AppSetting(installation: \.sortOrder) private var sortOrder
-	@AppSetting(installation: \.infoVisibility) private var infoVisibility
-
 	public init() { }
 
 	public var body: some View {
@@ -13,8 +8,8 @@ public struct InstallationsView: View {
 			.toolbar {
 				ToolbarItemGroup(placement: .confirmationAction) {
 					AddInstallationList()
-					SortMenu(order: $sortOrder)
-					InfoVisibilityMenu(selection: $infoVisibility)
+					SortMenu()
+					InfoVisibilityMenu()
 				}
 			}
 
@@ -23,5 +18,6 @@ public struct InstallationsView: View {
 			.background(content: LocateInstallationReceiver.init)
 			.background(content: RemoveInstallationReceiver.init)
 			.background(content: MissingInstallationReceiver.init)
+			.background(content: DownloadInstallationReceiver.init)
 	}
 }

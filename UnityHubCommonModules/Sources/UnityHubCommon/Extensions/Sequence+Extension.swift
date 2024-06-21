@@ -41,6 +41,21 @@ public extension Sequence {
 	}
 
 	func sorted<T: Comparable>(
+		by element: (Element) -> T?,
+		areInIncreasingOrder: (T, T) throws -> Bool,
+		nilIsFirst: Bool = false
+	) rethrows -> [Element] {
+		try sorted { lhs, rhs in
+			switch (element(lhs), element(rhs)) {
+				case let (.some(lhs), .some(rhs)): try areInIncreasingOrder(lhs, rhs)
+				case (.none, .some): nilIsFirst
+				case (.some, .none): !nilIsFirst
+				default: true
+			}
+		}
+	}
+
+	func sorted<T: Comparable>(
 		by keyPath: KeyPath<Element, T>,
 		order: SortOrder
 	) -> [Element] {
@@ -58,6 +73,17 @@ public extension Sequence {
 		switch order {
 			case .forward: sorted(by: keyPath, areInIncreasingOrder: <, nilIsFirst: nilIsFirst)
 			case .reverse: sorted(by: keyPath, areInIncreasingOrder: >, nilIsFirst: nilIsFirst)
+		}
+	}
+
+	func sorted<T: Comparable>(
+		by element: (Element) -> T?,
+		order: SortOrder,
+		nilIsFirst: Bool = false
+	) -> [Element] {
+		switch order {
+			case .forward: sorted(by: element, areInIncreasingOrder: <, nilIsFirst: nilIsFirst)
+			case .reverse: sorted(by: element, areInIncreasingOrder: >, nilIsFirst: nilIsFirst)
 		}
 	}
 

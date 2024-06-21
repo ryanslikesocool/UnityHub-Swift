@@ -1,16 +1,17 @@
 import SwiftUI
 import UnityHubCommon
+import UnityHubCommonViews
 import UnityHubStorage
 
 struct InfoVisibilityMenu: View {
-	@Binding var selection: ProjectInfoVisibility.Mask
+	@AppSetting(project: \.infoVisibility) private var infoVisibility
 
 	var body: some View {
 		Menu(
 			content: {
-				Toggle("Icon", isOn: $selection[.icon])
-				Toggle("Last Opened", isOn: $selection[.lastOpened])
-				Toggle("Location", isOn: $selection[.location])
+				Toggle("Icon", isOn: $infoVisibility[.icon])
+				Toggle("Last Opened", isOn: $infoVisibility[.lastOpened])
+				Toggle("Location", isOn: $infoVisibility[.location])
 			},
 			label: Label.visibility
 		)

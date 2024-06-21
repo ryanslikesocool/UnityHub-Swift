@@ -74,21 +74,21 @@ public extension ProjectCache {
 	}
 }
 
-// MARK: - Internal
+// MARK: - Private
 
 private extension ProjectCache {
-	func _addProject(at url: URL, transform: ((inout ProjectMetadata) -> Void)? = nil) {
+	func _add(at url: URL, transform: ((inout ProjectMetadata) -> Void)? = nil) {
 		var project = ProjectMetadata(url: url)
 		transform?(&project)
 		projects.append(project)
 	}
 
-	func _removeProject(at url: URL) {
+	func _remove(at url: URL) {
 		projects.removeAll(where: { $0.url == url })
 	}
 }
 
-// MARK: -
+// MARK: - Subscript
 
 public extension ProjectCache {
 	subscript(url: URL) -> ProjectMetadata? {
@@ -106,23 +106,27 @@ public extension ProjectCache {
 			save()
 		}
 	}
+}
 
-	func addProject(at url: URL) throws {
+// MARK: -
+
+public extension ProjectCache {
+	func add(at url: URL) throws {
 		try validateProjectURLConflict(url)
 		try Self.validateProjectContent(at: url)
 
-		_addProject(at: url)
+		_add(at: url)
 
 		save()
 	}
 
-	func removeProject(at url: URL) {
-		_removeProject(at: url)
+	func remove(at url: URL) {
+		_remove(at: url)
 
 		save()
 	}
 
-	func changeProjectURL(from oldURL: URL, to newURL: URL) throws {
+	func changeURL(from oldURL: URL, to newURL: URL) throws {
 		guard let oldProject = self[oldURL] else {
 			throw ProjectError.missing(oldURL)
 		}
@@ -139,9 +143,9 @@ public extension ProjectCache {
 			return
 		}
 
-		_removeProject(at: oldURL)
+		_remove(at: oldURL)
 
-		_addProject(at: newURL) { newProject in
+		_add(at: newURL) { newProject in
 			newProject.pinned = oldProject.pinned
 			newProject.lastOpened = oldProject.lastOpened
 		}
@@ -154,14 +158,12 @@ public extension ProjectCache {
 
 		try Self.validateProjectContent(at: url)
 
-		guard var installation = InstallationCache.shared[version] else {
+		guard let installation = InstallationCache.shared[version] else {
 			throw InstallationError.missingInstallationForVersion(version)
 		}
-		try InstallationCache.validateInstallationContent(at: installation.url)
-		installation.validateLazyData()
-		InstallationCache.shared[version] = installation
+		try Utility.Installation.validateInstallation(appURL: installation.url)
 
-		let installationPath: String = installation.executableURL.path(percentEncoded: true)
+		let installationPath: String = try Utility.Installation.getExecutableURL(appURL: installation.url).path(percentEncoded: true)
 		let arguments: String = "-projectPath"
 		let projectPath: String = url.path(percentEncoded: true)
 

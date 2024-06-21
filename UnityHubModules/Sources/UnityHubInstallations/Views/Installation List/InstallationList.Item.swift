@@ -16,7 +16,6 @@ extension InstallationList {
 		var body: some View {
 			ListItem(content: labelContent, menu: contextMenu)
 				.contextMenu(menuItems: contextMenu)
-				.onAppear { installation.validateLazyData() }
 		}
 	}
 }
@@ -25,10 +24,11 @@ extension InstallationList {
 
 private extension InstallationList.Item {
 	@ViewBuilder func labelContent() -> some View {
-		let exists: Bool = installation.url.exists
+		let fileManager: FileManager = .default
+		let exists: Bool = fileManager.fileExists(at: installation.url)
 
 		VStack(alignment: .leading, spacing: 1) {
-			VersionLabel(installation.version)
+			VersionLabel(try? installation.version)
 
 			if
 				infoVisiblity.contains(.location),

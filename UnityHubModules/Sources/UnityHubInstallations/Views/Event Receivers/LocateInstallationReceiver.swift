@@ -57,9 +57,9 @@ private extension LocateInstallationReceiver {
 		do {
 			switch completion {
 				case .add:
-					try installations.addInstallation(at: url)
+					try installations.add(at: url)
 				case let .replace(oldURL):
-					try installations.changeInstallationURL(from: oldURL, to: url)
+					try installations.changeURL(from: oldURL, to: url)
 			}
 		} catch InstallationError.invalid {
 			Event.invalidEditor()

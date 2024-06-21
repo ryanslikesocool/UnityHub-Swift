@@ -4,14 +4,14 @@ import UnityHubCommon
 import UnityHubCommonViews
 import UnityHubStorage
 
-struct DisplayInfoSheetReceiver: View {
+struct DisplayProjectInfoReceiver: View {
 	@Cache(ProjectCache.self) private var projects
 
 	@State private var projectURL: URL? = nil
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.displayInfoSheet, perform: receiveEvent)
+			.onReceive(Event.displayProjectInfo, perform: receiveEvent)
 			.sheet(item: $projectURL) { url in
 				if let binding = Binding($projects[url]) {
 					ProjectInfoSheet(binding)
@@ -22,7 +22,7 @@ struct DisplayInfoSheetReceiver: View {
 
 // MARK: - Functions
 
-private extension DisplayInfoSheetReceiver {
+private extension DisplayProjectInfoReceiver {
 	func receiveEvent(value: URL) {
 		projectURL = value
 	}
