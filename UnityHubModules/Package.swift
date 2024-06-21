@@ -15,6 +15,9 @@ let package = Package(
 	dependencies: [
 		.package(url: "https://github.com/ryanslikesocool/MoreWindows.git", from: "0.1.0"),
 		.package(url: "https://github.com/ryanslikesocool/UserIcon.git", branch: "main"),
+
+			.package(path: "../UnityHubCommonModules"),
+		.package(path: "../UnityHubStorageModules"),
 	],
 	targets: [
 		.target(
@@ -38,14 +41,13 @@ let package = Package(
 		.target(
 			name: "UnityHubAbout",
 			dependencies: [
-				"UnityHubCommon",
+				"UnityHubInclude",
 			]
 		),
 
 		.target(
 			name: "UnityHubSettings",
 			dependencies: [
-				"UnityHubStorage",
 				"UnityHubCommonViews",
 			]
 		),
@@ -73,53 +75,22 @@ let package = Package(
 			]
 		),
 
-		// MARK: -
-
 		.target(
 			name: "UnityHubCommonViews",
 			dependencies: [
-				"UnityHubCommon",
-				"UnityHubStorage",
-			]
-		),
-
-		// MARK: - Storage
-
-		.target(
-			name: "UnityHubStorage",
-			dependencies: [
-				"UnityHubProjectStorage",
-			]
-		),
-
-		.target(
-			name: "UnityHubProjectStorage",
-			dependencies: [
-				"UnityHubInstallationsStorage",
-			]
-		),
-
-		.target(
-			name: "UnityHubInstallationsStorage",
-			dependencies: [
-				"UnityHubSettingsStorage",
-			]
-		),
-
-		.target(
-			name: "UnityHubSettingsStorage",
-			dependencies: [
-				"UnityHubCommon",
+				"UnityHubInclude",
 			]
 		),
 
 		// MARK: - Common
 
 		.target(
-			name: "UnityHubCommon",
+			name: "UnityHubInclude",
 			dependencies: [
 				"MoreWindows",
 				"UserIcon",
+				.product(name: "UnityHubCommon", package: "UnityHubCommonModules"),
+				.product(name: "UnityHubStorage", package: "UnityHubStorageModules"),
 			]
 		),
 	]

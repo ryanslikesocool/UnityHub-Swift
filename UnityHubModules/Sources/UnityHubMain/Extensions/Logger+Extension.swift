@@ -1,5 +1,6 @@
 import OSLog
+import UnityHubInclude
 
 extension Logger {
-	@usableFromInline static let module: Logger = Logger(subsystem: Self.unityHubSubmodule, category: "UnityHubLauncher")
+	@usableFromInline static let module: Logger = Logger(category: "UnityHubLauncher")
 }

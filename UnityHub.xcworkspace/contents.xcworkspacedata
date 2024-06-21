@@ -8,6 +8,12 @@
       location = "group:../UserIcon">
    </FileRef>
    <FileRef
+      location = "group:UnityHubCommonModules">
+   </FileRef>
+   <FileRef
+      location = "group:UnityHubStorageModules">
+   </FileRef>
+   <FileRef
       location = "group:UnityHubModules">
    </FileRef>
    <FileRef

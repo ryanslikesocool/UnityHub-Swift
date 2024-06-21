@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF4FBFD32C260902005AF06F /* UnityHub in Frameworks */ = {isa = PBXBuildFile; productRef = AF4FBFD22C260902005AF06F /* UnityHub */; };
 		AF66EBF2251AE3910088EC84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF66EBF1251AE3910088EC84 /* Assets.xcassets */; };
-		AF7459842C1D187900171F99 /* UnityHub in Frameworks */ = {isa = PBXBuildFile; productRef = AF7459832C1D187900171F99 /* UnityHub */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,7 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF7459842C1D187900171F99 /* UnityHub in Frameworks */,
+				AF4FBFD32C260902005AF06F /* UnityHub in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,7 +95,7 @@
 			);
 			name = "Unity Hub";
 			packageProductDependencies = (
-				AF7459832C1D187900171F99 /* UnityHub */,
+				AF4FBFD22C260902005AF06F /* UnityHub */,
 			);
 			productName = "Unity Hub";
 			productReference = AF66EBEA251AE3900088EC84 /* Unity Hub.app */;
@@ -293,7 +293,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 336;
+				CURRENT_PROJECT_VERSION = 337;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 838RGQ32CA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -322,7 +322,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 336;
+				CURRENT_PROJECT_VERSION = 337;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 838RGQ32CA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -366,7 +366,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AF7459832C1D187900171F99 /* UnityHub */ = {
+		AF4FBFD22C260902005AF06F /* UnityHub */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UnityHub;
 		};
