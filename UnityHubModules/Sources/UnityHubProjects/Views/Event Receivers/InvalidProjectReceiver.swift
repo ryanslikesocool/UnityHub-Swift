@@ -2,10 +2,9 @@ import OSLog
 import SwiftUI
 import UnityHubCommon
 import UnityHubStorage
+import UnityHubCommonViews
 
 struct InvalidProjectReceiver: View {
-	@Bindable private var projectCache: ProjectCache = .shared
-
 	@State private var isPresentingDialog: Bool = false
 
 	var body: some View {

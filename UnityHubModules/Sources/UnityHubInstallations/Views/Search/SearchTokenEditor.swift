@@ -1,8 +1,9 @@
 import SwiftUI
+import UnityHubCommonViews
 import UnityHubStorage
 
 struct SearchTokenEditor: View {
-	@Bindable private var installationCache: InstallationCache = .shared
+	@Cache(InstallationCache.self) private var installations
 
 	@Binding private var selection: SearchToken
 
@@ -53,7 +54,7 @@ private extension SearchTokenEditor {
 		)
 
 		return Picker("Major Version", selection: binding) {
-			ForEach(installationCache.uniqueMajorVersions, id: \.self) { value in
+			ForEach(installations.uniqueMajorVersions, id: \.self) { value in
 				Text(value.description).tag(value)
 			}
 		}

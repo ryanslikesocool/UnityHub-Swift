@@ -1,10 +1,11 @@
 import OSLog
 import SwiftUI
 import UnityHubCommon
+import UnityHubCommonViews
 import UnityHubStorage
 
 struct LocateProjectReceiver: View {
-	@Bindable private var projectCache: ProjectCache = .shared
+	@Cache(ProjectCache.self) private var projects
 
 	@State private var isPresentingDialog: Bool = false
 	@State private var completion: Completion? = nil
@@ -37,7 +38,7 @@ extension LocateProjectReceiver {
 
 private extension LocateProjectReceiver {
 	func receiveEvent(value: Completion) {
-		self.completion = value
+		completion = value
 		isPresentingDialog = true
 	}
 
@@ -58,9 +59,9 @@ private extension LocateProjectReceiver {
 		do {
 			switch completion {
 				case .add:
-					try projectCache.addProject(at: url)
+					try projects.addProject(at: url)
 				case let .replace(oldURL):
-					try projectCache.changeProjectURL(from: oldURL, to: url)
+					try projects.changeProjectURL(from: oldURL, to: url)
 			}
 		} catch ProjectError.invalid {
 			Event.invalidProject()

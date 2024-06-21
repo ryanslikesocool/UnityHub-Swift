@@ -1,10 +1,13 @@
 import OSLog
 import SwiftUI
+import UnityHubCommonViews
 import UnityHubStorage
 
 public struct ProjectsView: View {
-	@Bindable private var appSettings: AppSettings = .shared
-	@Bindable private var projectCache: ProjectCache = .shared
+	@AppSetting(project: \.infoVisibility) private var infoVisibility
+	@AppSetting(project: \.sortCriteria) private var sortCriteria
+	@AppSetting(project: \.sortOrder) private var sortOrder
+	@Cache(ProjectCache.self) private var projects
 
 	public init() { }
 
@@ -13,8 +16,8 @@ public struct ProjectsView: View {
 			.toolbar {
 				ToolbarItemGroup(placement: .confirmationAction) {
 					AddProjectList()
-					SortMenu(criteria: $appSettings.projects.sortCriteria, order: $appSettings.projects.sortOrder)
-					InfoVisibilityMenu(selection: $appSettings.projects.infoVisibility)
+					SortMenu(criteria: $sortCriteria, order: $sortOrder)
+					InfoVisibilityMenu(selection: $infoVisibility)
 				}
 			}
 			.dropDestination(for: URL.self, action: onDropURLs)
@@ -36,7 +39,7 @@ private extension ProjectsView {
 		var result: Bool = false
 		for url in urls {
 			do {
-				try projectCache.addProject(at: url)
+				try projects.addProject(at: url)
 				result = true
 			} catch {
 				Logger.module.warning("""

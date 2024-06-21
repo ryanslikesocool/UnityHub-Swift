@@ -1,10 +1,11 @@
 import SwiftUI
 import UnityHubCommon
+import UnityHubCommonViews
 import UnityHubStorage
 
 struct RemoveInstallationReceiver: View {
-	@Bindable private var appSettings: AppSettings = .shared
-	@Bindable private var installationCache: InstallationCache = .shared
+	@AppSetting(general: \.dialogSuppression) private var dialogSuppression
+	@Cache(InstallationCache.self) private var installations
 
 	@State private var isPresentingDialog: Bool = false
 	@State private var url: URL? = nil
@@ -23,7 +24,7 @@ struct RemoveInstallationReceiver: View {
 				}
 			)
 			.dialogSeverity(.critical)
-			.dialogSuppressionToggle(isSuppressed: $appSettings.general.dialogSuppression[.installationRemoval])
+			.dialogSuppressionToggle(isSuppressed: $dialogSuppression[.installationRemoval])
 	}
 }
 
@@ -35,7 +36,7 @@ private extension RemoveInstallationReceiver {
 
 		if
 			!value.exists
-			|| appSettings.general.dialogSuppression[.installationRemoval]
+			|| dialogSuppression[.installationRemoval]
 		{
 			confirmRemoval()
 		} else {
@@ -46,7 +47,7 @@ private extension RemoveInstallationReceiver {
 	func confirmRemoval() {
 		let url = consumeValue()
 
-		InstallationCache.shared.removeInstallation(at: url)
+		installations.removeInstallation(at: url)
 		print("\(Self.self).\(#function) is not implemented")
 	}
 

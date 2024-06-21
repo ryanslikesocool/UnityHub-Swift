@@ -1,10 +1,11 @@
 import OSLog
 import SwiftUI
 import UnityHubCommon
+import UnityHubCommonViews
 import UnityHubStorage
 
 struct DisplayInfoSheetReceiver: View {
-	@Bindable private var projectCache: ProjectCache = .shared
+	@Cache(ProjectCache.self) private var projects
 
 	@State private var projectURL: URL? = nil
 
@@ -12,7 +13,7 @@ struct DisplayInfoSheetReceiver: View {
 		EmptyView()
 			.onReceive(Event.displayInfoSheet, perform: receiveEvent)
 			.sheet(item: $projectURL) { url in
-				if let binding = Binding($projectCache[url]) {
+				if let binding = Binding($projects[url]) {
 					ProjectInfoSheet(binding)
 				}
 			}

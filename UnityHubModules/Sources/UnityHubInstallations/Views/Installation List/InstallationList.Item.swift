@@ -5,7 +5,7 @@ import UnityHubStorage
 
 extension InstallationList {
 	struct Item: View {
-		@Bindable private var appSettings: AppSettings = .shared
+		@AppSetting(installation: \.infoVisibility) private var infoVisiblity
 
 		@Binding private var installation: InstallationMetadata
 
@@ -31,7 +31,7 @@ private extension InstallationList.Item {
 			VersionLabel(installation.version)
 
 			if
-				appSettings.installations.infoVisibility.contains(.location),
+				infoVisiblity.contains(.location),
 				exists
 			{
 				URLLabel(installation.url)

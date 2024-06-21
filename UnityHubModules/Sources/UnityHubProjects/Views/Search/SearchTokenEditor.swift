@@ -1,9 +1,10 @@
 import SwiftUI
 import UnityHubCommon
+import UnityHubCommonViews
 import UnityHubStorage
 
 struct SearchTokenEditor: View {
-	@Bindable private var projectCache: ProjectCache = .shared
+	@Cache(ProjectCache.self) private var projects
 
 	@Binding var selection: SearchToken
 
@@ -39,7 +40,7 @@ private extension SearchTokenEditor {
 			get: { value },
 			set: { selection = .editorVersion($0) }
 		)
-		let projectEditorVersions = projectCache.projectEditorVersions
+		let projectEditorVersions = projects.projectEditorVersions
 
 		// NOTE: `Section` and `Divider` don't work in token pickers
 		// FB13914296

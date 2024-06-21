@@ -1,10 +1,11 @@
 import OSLog
 import SwiftUI
 import UnityHubCommon
+import UnityHubCommonViews
 import UnityHubStorage
 
 struct LocateInstallationReceiver: View {
-	@Bindable private var installationCache: InstallationCache = .shared
+	@Cache(InstallationCache.self) private var installations
 
 	@State private var isPresentingDialog: Bool = false
 	@State private var completion: Completion? = nil
@@ -56,9 +57,9 @@ private extension LocateInstallationReceiver {
 		do {
 			switch completion {
 				case .add:
-					try installationCache.addInstallation(at: url)
+					try installations.addInstallation(at: url)
 				case let .replace(oldURL):
-					try installationCache.changeInstallationURL(from: oldURL, to: url)
+					try installations.changeInstallationURL(from: oldURL, to: url)
 			}
 		} catch InstallationError.invalid {
 			Event.invalidEditor()

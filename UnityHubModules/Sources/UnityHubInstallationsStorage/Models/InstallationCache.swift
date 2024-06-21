@@ -1,6 +1,5 @@
 import Foundation
 import OSLog
-import SerializationKit
 import UnityHubCommon
 
 @Observable
@@ -14,40 +13,38 @@ public final class InstallationCache {
 	}
 }
 
+// MARK: - Hashable
+
+public extension InstallationCache {
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(installations)
+	}
+}
+
 // MARK: - Codable
 
 extension InstallationCache: Codable {
-	enum CodingKeys: CodingKey {
-		case installations
-	}
-
 	public convenience init(from decoder: any Decoder) throws {
-		let container = try decoder.container(keyedBy: CodingKeys.self)
+		let container = try decoder.singleValueContainer()
 
 		self.init()
 
-		installations = try container.decodeIfPresent(forKey: .installations) ?? installations
+		installations = try container.decode()
 	}
 
 	public func encode(to encoder: any Encoder) throws {
-		var container = encoder.container(keyedBy: CodingKeys.self)
+		var container = encoder.singleValueContainer()
 
-		try container.encode(installations, forKey: .installations)
+		try container.encode(installations)
 	}
 }
 
 // MARK: - GlobalFile
 
-extension InstallationCache: GlobalFile {
+extension InstallationCache: CacheFile {
 	public static let shared: InstallationCache = InstallationCache.load()
 
-	public static let fileName: String = "installations.json"
-
-	public static var fileURL: URL {
-		URL.applicationSupportDirectory
-			.appending(path: Bundle.main.bundleIdentifier!, directoryHint: .isDirectory)
-			.appending(path: fileName, directoryHint: .notDirectory)
-	}
+	public static let fileName: String = "installations.plist"
 }
 
 // MARK: - Validation

@@ -7,8 +7,7 @@ import UserIcon
 
 extension ProjectList {
 	struct Item: View {
-		@Bindable private var appSettings: AppSettings = .shared
-		@Bindable private var projectCache: ProjectCache = .shared
+		@AppSetting(project: \.infoVisibility) private var infoVisibility
 
 		@Binding private var project: ProjectMetadata
 
@@ -37,7 +36,7 @@ private extension ProjectList.Item {
 	@ViewBuilder func labelContent() -> some View {
 		let exists: Bool = project.url.exists
 
-		if appSettings.projects.infoVisibility.contains(.icon) {
+		if infoVisibility.contains(.icon) {
 			Icon($project.icon)
 				.onAppear { project.validateEmbeddedMetadata() }
 		}
@@ -49,7 +48,7 @@ private extension ProjectList.Item {
 			NameLabel(project)
 
 			if
-				appSettings.projects.infoVisibility.contains(.location),
+				infoVisibility.contains(.location),
 				exists
 			{
 				URLLabel(project.url)
@@ -60,7 +59,7 @@ private extension ProjectList.Item {
 		Spacer()
 
 		if exists {
-			if appSettings.projects.infoVisibility.contains(.lastOpened) {
+			if infoVisibility.contains(.lastOpened) {
 				LastOpenedLabel(date: project.lastOpened)
 			}
 			EditorVersionLabel(project.editorVersion)

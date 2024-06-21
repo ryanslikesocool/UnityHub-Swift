@@ -1,9 +1,10 @@
 import SwiftUI
 import UnityHubCommon
+import UnityHubCommonViews
 import UnityHubStorage
 
 struct SearchTokenSuggestions: View {
-	@Bindable private var projectCache: ProjectCache = .shared
+	@Cache(ProjectCache.self) private var projects
 
 	private let tokens: [SearchToken]
 
@@ -12,9 +13,9 @@ struct SearchTokenSuggestions: View {
 	}
 
 	var body: some View {
-		if projectCache.projects.count > 1 {
+		if projects.projects.count > 1 {
 			if
-				projectCache.projects.contains(where: { $0.pinned }),
+				projects.projects.contains(where: { $0.pinned }),
 				!tokens.contains(where: { $0.kind == .pinned })
 			{
 				Label.pinned().searchCompletion(
@@ -23,7 +24,7 @@ struct SearchTokenSuggestions: View {
 			}
 
 			if
-				projectCache.projectEditorVersions.count > 1,
+				projects.projectEditorVersions.count > 1,
 				!tokens.contains(where: { $0.kind == .editorVersion })
 			{
 				Text("Editor Version").searchCompletion(

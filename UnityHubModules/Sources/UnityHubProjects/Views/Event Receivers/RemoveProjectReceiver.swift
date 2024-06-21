@@ -2,10 +2,11 @@ import OSLog
 import SwiftUI
 import UnityHubCommon
 import UnityHubStorage
+import UnityHubCommonViews
 
 struct RemoveProjectReceiver: View {
-	@Bindable private var appSettings: AppSettings = .shared
-	@Bindable private var projectCache: ProjectCache = .shared
+	@AppSetting(general: \.dialogSuppression) private var dialogSuppression
+	@Cache(ProjectCache.self) private var projects
 
 	@State private var isPresentingDialog: Bool = false
 	@State private var url: URL? = nil
@@ -22,7 +23,7 @@ struct RemoveProjectReceiver: View {
 					Text("The project files will remain on your disk.")
 				}
 			)
-			.dialogSuppressionToggle(isSuppressed: $appSettings.general.dialogSuppression[.projectRemoval])
+			.dialogSuppressionToggle(isSuppressed: $dialogSuppression[.projectRemoval])
 	}
 }
 
@@ -33,7 +34,7 @@ private extension RemoveProjectReceiver {
 		url = value
 		if
 			!value.exists
-			|| appSettings.general.dialogSuppression[.projectRemoval]
+			|| dialogSuppression[.projectRemoval]
 		{
 			confirmRemoval()
 		} else {
@@ -43,7 +44,7 @@ private extension RemoveProjectReceiver {
 
 	func confirmRemoval() {
 		let url = consumeValue()
-		projectCache.removeProject(at: url)
+		projects.removeProject(at: url)
 	}
 
 	func consumeValue() -> URL {

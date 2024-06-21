@@ -1,6 +1,5 @@
 import Foundation
 import OSLog
-import SerializationKit
 import UnityHubCommon
 import UnityHubInstallationsStorage
 
@@ -17,40 +16,38 @@ public final class ProjectCache {
 	}
 }
 
+// MARK: - Hashable
+
+public extension ProjectCache {
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(projects)
+	}
+}
+
 // MARK: - Codable
 
 extension ProjectCache: Codable {
-	private enum CodingKeys: CodingKey {
-		case projects
-	}
-
 	public convenience init(from decoder: any Decoder) throws {
-		let container = try decoder.container(keyedBy: CodingKeys.self)
+		let container = try decoder.singleValueContainer()
 
 		self.init()
 
-		projects = try container.decodeIfPresent(forKey: .projects) ?? projects
+		projects = try container.decode()
 	}
 
 	public func encode(to encoder: any Encoder) throws {
-		var container = encoder.container(keyedBy: CodingKeys.self)
+		var container = encoder.singleValueContainer()
 
-		try container.encode(projects.sorted(by: \.url), forKey: .projects)
+		try container.encode(projects.sorted(by: \.url))
 	}
 }
 
 // MARK: - GlobalFile
 
-extension ProjectCache: GlobalFile {
+extension ProjectCache: CacheFile {
 	public static let shared: ProjectCache = ProjectCache.load()
 
 	public static let fileName: String = "projects.plist"
-
-	public static var fileURL: URL {
-		URL.applicationSupportDirectory
-			.appending(component: Bundle.main.bundleIdentifier!, directoryHint: .isDirectory)
-			.appending(component: fileName, directoryHint: .notDirectory)
-	}
 }
 
 // MARK: - Validation

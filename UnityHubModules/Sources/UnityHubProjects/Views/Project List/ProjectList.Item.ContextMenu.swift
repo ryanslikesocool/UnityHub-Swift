@@ -5,7 +5,7 @@ import UnityHubStorage
 
 extension ProjectList.Item {
 	struct ContextMenu: View {
-		@Bindable private var installationsCache: InstallationCache = .shared
+		@Cache(InstallationCache.self) private var installations
 
 		@Binding private var project: ProjectMetadata
 
@@ -17,7 +17,7 @@ extension ProjectList.Item {
 			Group {
 				Group {
 					Section {
-						let hasInstallationVersion: Bool = installationsCache.installations.contains(where: { installation in
+						let hasInstallationVersion: Bool = installations.installations.contains(where: { installation in
 							installation.version == project.editorVersion
 						})
 
@@ -57,10 +57,10 @@ private extension ProjectList.Item.ContextMenu {
 	var openWithMenu: some View {
 		Menu(
 			content: {
-				let versions = installationsCache.installations
+				let versions = installations.installations
 					.compactMap(\.version)
 
-				ForEach(installationsCache.uniqueMajorVersions, id: \.self) { majorVersion in
+				ForEach(installations.uniqueMajorVersions, id: \.self) { majorVersion in
 					Section {
 						let versionsInMajor = versions
 							.filter { version in version.major == majorVersion }

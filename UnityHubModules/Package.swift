@@ -14,7 +14,6 @@ let package = Package(
 	],
 	dependencies: [
 		.package(url: "https://github.com/ryanslikesocool/MoreWindows.git", from: "0.1.0"),
-		.package(url: "https://github.com/ryanslikesocool/SerializationKit.git", branch: "main"),
 		.package(url: "https://github.com/ryanslikesocool/UserIcon.git", branch: "main"),
 	],
 	targets: [
@@ -119,7 +118,6 @@ let package = Package(
 		.target(
 			name: "UnityHubCommon",
 			dependencies: [
-				"SerializationKit",
 				"MoreWindows",
 				"UserIcon",
 			]

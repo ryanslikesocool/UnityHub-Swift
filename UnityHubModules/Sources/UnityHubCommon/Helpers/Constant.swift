@@ -1,6 +1,9 @@
 import SwiftUI
 
 public enum Constant {
+	public static let applicationSupportDirectory: URL = URL.applicationSupportDirectory
+		.appending(component: Bundle.main.bundleIdentifier!, directoryHint: .isDirectory)
+
 	public enum Symbol {
 		public static let cube: String = "cube"
 		public static let tray: String = "tray"
@@ -32,6 +35,7 @@ public enum Constant {
 		public static let arrow_up_forward: String = "arrow.up.forward"
 		public static let list_bullet: String = "list.bullet"
 		public static let checkmark: String = "checkmark"
+		public static let externalDrive: String = "externaldrive"
 
 		public static let finder: String = "finder"
 		public static let ellipsis_vertical: String = "ellipsis.vertical"

@@ -4,15 +4,15 @@ import UnityHubCommonViews
 import UnityHubStorage
 
 struct InstallationList: View {
-	@Bindable private var appSettings: AppSettings = .shared
-	@Bindable private var installationsCache: InstallationCache = .shared
+	@AppSetting(installation: \.sortOrder) private var sortOrder
+	@Cache(InstallationCache.self) private var installations
 
 	@State private var searchQuery: String = ""
 	@State private var searchTokens: [SearchToken] = []
 
 	var body: some View {
 		CacheListView(
-			items: $installationsCache.installations,
+			items: $installations.installations,
 			itemFilter: filterFunction,
 			item: Item.init,
 			noItems: noInstallations
@@ -26,19 +26,12 @@ struct InstallationList: View {
 
 private extension InstallationList {
 	func noInstallations() -> some View {
-		VStack {
+		EmptyListView {
 			Label("No Installations", systemImage: Constant.Symbol.tray)
-				.labelStyle(.large)
-
-			VStack {
-				Button(action: { Event.locateInstallation(.add) }, label: Label.locate)
-
-				Text("or")
-					.foregroundStyle(.secondary)
-
-				Button(action: { print("\(Self.self).\(#function) is not implemented") }, label: Label.download)
-			}
-			.controlSize(.large)
+		} prompt: {
+			Button(action: { Event.locateInstallation(.add) }, label: Label.locate)
+			Text("or")
+			Button(action: { print("\(Self.self).\(#function) is not implemented") }, label: Label.download)
 		}
 	}
 }
@@ -66,7 +59,7 @@ private extension InstallationList {
 		return result
 			.sorted(
 				by: \.version,
-				order: appSettings.installations.sortOrder
+				order: sortOrder
 			)
 	}
 }

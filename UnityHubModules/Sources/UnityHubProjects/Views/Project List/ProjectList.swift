@@ -4,15 +4,16 @@ import UnityHubCommonViews
 import UnityHubStorage
 
 struct ProjectList: View {
-	@Bindable private var appSettings: AppSettings = .shared
-	@Bindable private var projectCache: ProjectCache = .shared
+	@AppSetting(project: \.sortCriteria) private var sortCriteria
+	@AppSetting(project: \.sortOrder) private var sortOrder
+	@Cache(ProjectCache.self) private var projects
 
 	@State private var searchQuery: String = ""
 	@State private var searchTokens: [SearchToken] = []
 
 	var body: some View {
 		CacheListView(
-			items: $projectCache.projects,
+			items: $projects.projects,
 			itemFilter: filterFunction,
 			item: Item.init,
 			noItems: noProjects
@@ -26,19 +27,14 @@ struct ProjectList: View {
 
 private extension ProjectList {
 	func noProjects() -> some View {
-		VStack {
+		EmptyListView {
 			Label("No Projects", systemImage: Constant.Symbol.cube)
-				.labelStyle(.large)
-
-			Text("Drop a project or")
-				.foregroundStyle(.secondary)
+		} prompt: {
+			Text("Drop in a project or")
 			Button(
-				action: {
-					Event.locateProject(.add)
-				},
+				action: { Event.locateProject(.add) },
 				label: Label.locate
 			)
-			.controlSize(.large)
 		}
 	}
 }
@@ -64,8 +60,8 @@ private extension ProjectList {
 
 		return result
 			.sorted(
-				by: appSettings.projects.sortCriteria,
-				order: appSettings.projects.sortOrder
+				by: sortCriteria,
+				order: sortOrder
 			)
 
 		func filterPinned(state: Bool) {

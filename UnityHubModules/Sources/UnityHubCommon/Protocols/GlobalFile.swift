@@ -1,8 +1,7 @@
 import Foundation
 import OSLog
-import SerializationKit
 
-public protocol GlobalFile: Codable {
+public protocol GlobalFile: AnyObject, Observable, Hashable, Codable {
 	static var shared: Self { get }
 
 	static var fileURL: URL { get }

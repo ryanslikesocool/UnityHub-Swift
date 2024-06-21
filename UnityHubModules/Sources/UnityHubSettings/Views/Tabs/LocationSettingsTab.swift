@@ -1,15 +1,16 @@
 import SwiftUI
+import UnityHubCommon
 import UnityHubCommonViews
 import UnityHubStorage
 
-struct InstallationsTab: AppSettingsCategoryView {
-	@Binding var model: AppSettings.Installations
+struct LocationSettingsTab: SettingsCategoryView {
+	@Bindable var model: LocationSettings = .shared
 
-	func content() -> some View {
+	func makeContent() -> some View {
 		Group {
 			URLPicker(
 				selection: $model.installationLocation,
-				defaultValue: Model.defaultInstallationLocation,
+				defaultValue: Constant.Settings.Locations.defaultInstallationLocation,
 				allowedContentTypes: [.folder]
 			) {
 				Text("Installation Location")
@@ -19,14 +20,14 @@ struct InstallationsTab: AppSettingsCategoryView {
 			URLPicker(
 				"Download Location",
 				selection: $model.downloadLocation,
-				defaultValue: Model.defaultDownloadLocation,
+				defaultValue: Constant.Settings.Locations.defaultDownloadLocation,
 				allowedContentTypes: [.folder]
 			)
 		}
 		.urlPickerStyle(.section)
 	}
 
-	func label() -> some View {
-		SwiftUI.Label.installations()
+	func makeLabel() -> some View {
+		SwiftUI.Label("Locations", systemImage: Constant.Symbol.externalDrive)
 	}
 }

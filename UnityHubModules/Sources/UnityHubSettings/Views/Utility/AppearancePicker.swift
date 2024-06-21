@@ -2,20 +2,17 @@ import SwiftUI
 import UnityHubStorage
 
 struct AppearancePicker: View {
-	@Binding private var selection: AppAppearance
-
-	init(_ selection: Binding<AppAppearance>) {
-		_selection = selection
-	}
+	@Binding var selection: Appearance
 
 	var body: some View {
 		Picker("Appearance", selection: $selection) {
-			Text("Automatic").tag(AppAppearance.automatic)
+			Text("Automatic").tag(Appearance.automatic)
 
 			Section {
-				Text("Light").tag(AppAppearance.light)
-				Text("Dark").tag(AppAppearance.dark)
+				Text("Light").tag(Appearance.light)
+				Text("Dark").tag(Appearance.dark)
 			}
 		}
+		.onChange(of: selection, selection.apply)
 	}
 }
