@@ -32,9 +32,9 @@ private extension ProjectList.OpenProjectButton {
 		do {
 			try ProjectCache.shared.openProject(at: projectURL, with: editorVersion)
 		} catch ProjectError.invalid {
-			Event.invalidProject()
+			Event.Project.invalid()
 		} catch ProjectError.missing {
-			Event.missingProject(projectURL)
+			Event.Project.missing(projectURL)
 		} catch ProjectError.unknownEditorVersion {
 			fatalError("\(Self.self).\(#function) is not implemented")
 		} catch let InstallationError.missingInstallationForVersion(editorVersion) {

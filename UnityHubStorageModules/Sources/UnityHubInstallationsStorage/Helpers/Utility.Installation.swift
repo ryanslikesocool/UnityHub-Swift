@@ -1,5 +1,6 @@
 import Foundation
 import UnityHubCommon
+import UnityHubSettingsStorage
 
 public extension Utility {
 	enum Installation {
@@ -28,6 +29,11 @@ public extension Utility {
 			appURL
 				.appending(path: Constant.Installation.executableDirectoryPath, directoryHint: .isDirectory)
 				.appending(component: infoPlist.executable, directoryHint: .notDirectory)
+		}
+
+		public static func getDefaultInstallationURL() -> URL {
+			LocationSettings.shared.installationLocation
+				?? Constant.Settings.Locations.defaultInstallationLocation
 		}
 
 		public static func getExecutableURL(appURL: URL) throws -> URL {

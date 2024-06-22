@@ -12,7 +12,7 @@ struct RemoveInstallationReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.removeInstallation, perform: receiveEvent)
+			.onReceive(Event.Installation.remove, perform: receiveEvent)
 			.confirmationDialog(
 				"Uninstall Editor",
 				isPresented: $isPresentingDialog,

@@ -37,5 +37,6 @@ public extension Constant {
 		public static let finder: String = "finder"
 		public static let ellipsis_vertical: String = "ellipsis.vertical"
 		public static let rectangle_portrait_and_arrow_left: String = "rectangle.portrait.and.arrow.left"
+		public static let heart_pixel_fill: String = "heart.pixel.fill"
 	}
 }

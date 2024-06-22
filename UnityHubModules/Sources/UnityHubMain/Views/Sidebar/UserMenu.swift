@@ -1,7 +1,7 @@
 import AppKit
 import SwiftUI
-import UnityHubCommonViews
 import UnityHubCommon
+import UnityHubCommonViews
 
 struct UserMenu: View {
 	var body: some View {
@@ -10,7 +10,7 @@ struct UserMenu: View {
 				Button("Account Settings", systemImage: Constant.Symbol.gearShape) { }
 					.disabled(true)
 
-				Link(destination: URL(string: "https://cloud.unity.com/login")!) {
+				Link(destination: #URL("https://cloud.unity.com/login")) {
 					Label("Unity Cloud", systemImage: Constant.Symbol.cloud)
 				}
 
@@ -26,7 +26,7 @@ struct UserMenu: View {
 					Link(
 						"Account Help",
 						systemImage: Constant.Symbol.questionMark,
-						destination: URL(string: "https://support.unity.com/hc/en-us/sections/201104779-Accounts-UDN")!
+						destination: #URL("https://support.unity.com/hc/en-us/sections/201104779-Accounts-UDN")
 					)
 
 					Button(
@@ -37,7 +37,7 @@ struct UserMenu: View {
 					}
 
 					Link(
-						destination: URL(string: "https://github.com/ryanslikesocool/UnityHub-Swift/issues")!,
+						destination: #URL("https://github.com/ryanslikesocool/UnityHub-Swift/issues"),
 						label: Label.reportBug
 					)
 				}

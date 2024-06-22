@@ -30,7 +30,7 @@ extension ProjectList.Item {
 
 				Section {
 					Button.info {
-						Event.displayProjectInfo(project.url)
+						Event.Project.displayInfo(project.url)
 					}
 
 					Toggle(isOn: $project.pinned, label: Label.pin)
@@ -43,7 +43,7 @@ extension ProjectList.Item {
 			Section {
 				Button(
 					role: .destructive,
-					action: { Event.removeProject(project.url) },
+					action: { Event.Project.remove(project.url) },
 					label: Label.remove
 				)
 				.keyboardShortcut(.delete)

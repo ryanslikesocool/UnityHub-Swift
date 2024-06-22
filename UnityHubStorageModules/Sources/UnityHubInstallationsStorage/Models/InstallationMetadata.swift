@@ -1,9 +1,15 @@
 import Foundation
 import OSLog
 import UnityHubCommon
+import UnityHubSettingsStorage
 
 public struct InstallationMetadata {
 	public let url: URL
+
+	var isInDefaultLocation: Bool {
+		let defaultInstallationPath: String = Utility.Installation.getDefaultInstallationURL().path()
+		return !url.path().starts(with: defaultInstallationPath)
+	}
 
 	public var version: UnityEditorVersion? {
 		get throws { try Utility.Installation.getInfoPlist(appURL: url).bundleVersion }

@@ -41,7 +41,7 @@ extension InstallationList.Item {
 			Section {
 				Button(
 					role: .destructive,
-					action: { Event.removeInstallation(installation.url) },
+					action: { Event.Installation.remove(installation.url) },
 					label: exists ? Label.uninstall : Label.remove
 				)
 				.keyboardShortcut(.delete)

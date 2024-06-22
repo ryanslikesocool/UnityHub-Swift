@@ -12,7 +12,7 @@ struct LocateProjectReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.locateProject, perform: receiveEvent)
+			.onReceive(Event.Project.locate, perform: receiveEvent)
 			.fileImporter(
 				isPresented: $isPresentingDialog,
 				allowedContentTypes: [.folder],
@@ -64,7 +64,7 @@ private extension LocateProjectReceiver {
 					try projects.changeURL(from: oldURL, to: url)
 			}
 		} catch ProjectError.invalid {
-			Event.invalidProject()
+			Event.Project.invalid()
 		} catch ProjectError.alreadyExists {
 			// TODO: automatically add project to search field
 		} catch {

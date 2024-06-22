@@ -43,7 +43,7 @@ private extension InstallationList.Item {
 
 		if !exists {
 			MissingObjectButton {
-				Event.missingInstallation(installation.url)
+				Event.Installation.missing(installation.url)
 			}
 		}
 	}

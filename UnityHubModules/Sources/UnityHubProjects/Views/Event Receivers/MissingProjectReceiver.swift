@@ -7,7 +7,7 @@ struct MissingProjectReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.missingProject, perform: receiveEvent)
+			.onReceive(Event.Project.missing, perform: receiveEvent)
 			.confirmationDialog(
 				"Missing Project",
 				isPresented: $isPresentingDialog,
@@ -33,12 +33,12 @@ private extension MissingProjectReceiver {
 
 	func removeProject() {
 		let url = consumeValue()
-		Event.removeProject(url)
+		Event.Project.remove(url)
 	}
 
 	func locateProject() {
 		let url = consumeValue()
-		Event.locateProject(.replace(url))
+		Event.Project.locate(.replace(url))
 	}
 
 	func consumeValue() -> URL {

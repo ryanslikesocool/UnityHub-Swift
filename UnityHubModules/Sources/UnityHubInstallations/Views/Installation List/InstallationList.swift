@@ -4,6 +4,8 @@ import UnityHubCommonViews
 import UnityHubStorage
 
 struct InstallationList: View {
+	@Environment(\.scenePhase) private var scenePhase
+
 	@AppSetting(installation: \.sortOrder) private var sortOrder
 	@Cache(InstallationCache.self) private var installations
 
@@ -19,6 +21,8 @@ struct InstallationList: View {
 		)
 		.searchable(text: $searchQuery, editableTokens: $searchTokens, token: SearchTokenEditor.init)
 		.searchSuggestions { SearchTokenSuggestions(searchTokens) }
+		.onAppear(perform: installations.validateInstallations)
+		.onChange(of: scenePhase, installations.validateInstallations)
 	}
 }
 

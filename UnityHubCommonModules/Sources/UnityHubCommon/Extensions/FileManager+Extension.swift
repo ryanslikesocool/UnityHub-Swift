@@ -20,6 +20,6 @@ public extension FileManager {
 
 	func contentsOfDirectory(at url: URL) throws -> [URL] {
 		try contentsOfDirectory(atPath: url.path(percentEncoded: false))
-			.compactMap { URL(filePath: $0) }
+			.map { url.appending(component: $0) }
 	}
 }

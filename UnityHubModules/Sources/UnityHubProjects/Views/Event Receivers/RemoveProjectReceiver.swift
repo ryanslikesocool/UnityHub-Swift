@@ -13,7 +13,7 @@ struct RemoveProjectReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.removeProject, perform: receiveEvent)
+			.onReceive(Event.Project.remove, perform: receiveEvent)
 			.confirmationDialog(
 				"Remove Project?",
 				isPresented: $isPresentingDialog,

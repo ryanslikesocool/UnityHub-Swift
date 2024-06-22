@@ -12,7 +12,7 @@ struct LocateInstallationReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.locateInstallation, perform: receiveEvent)
+			.onReceive(Event.Installation.locate, perform: receiveEvent)
 			.fileImporter(
 				isPresented: $isPresentingDialog,
 				allowedContentTypes: [.application],
@@ -62,7 +62,7 @@ private extension LocateInstallationReceiver {
 					try installations.changeURL(from: oldURL, to: url)
 			}
 		} catch InstallationError.invalid {
-			Event.invalidEditor()
+			Event.Installation.invalid()
 		} catch InstallationError.alreadyExists {
 			// TODO: automatically add installation to search field
 		} catch {

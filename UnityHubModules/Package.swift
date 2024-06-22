@@ -16,7 +16,7 @@ let package = Package(
 		.package(url: "https://github.com/ryanslikesocool/MoreWindows.git", from: "0.1.0"),
 		.package(url: "https://github.com/ryanslikesocool/UserIcon.git", branch: "main"),
 
-			.package(path: "../UnityHubCommonModules"),
+		.package(path: "../UnityHubCommonModules"),
 		.package(path: "../UnityHubStorageModules"),
 	],
 	targets: [
@@ -41,7 +41,7 @@ let package = Package(
 		.target(
 			name: "UnityHubAbout",
 			dependencies: [
-				"UnityHubInclude",
+				"UnityHubCommonViews",
 			]
 		),
 

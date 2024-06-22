@@ -7,7 +7,7 @@ struct DownloadInstallationReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.downloadInstallation, perform: receiveEvent)
+			.onReceive(Event.Installation.download, perform: receiveEvent)
 			.alert(
 				"Not Implemented",
 				isPresented: $isPresentingSheet,

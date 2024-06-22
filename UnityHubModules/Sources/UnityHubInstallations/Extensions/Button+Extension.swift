@@ -5,7 +5,7 @@ import UnityHubCommonViews
 extension Button where Label == SwiftUI.Label<Text, Image> {
 	static func downloadInstallation() -> some View {
 		Button(
-			action: { Event.downloadInstallation() },
+			action: { Event.Installation.download() },
 			label: Label.download
 		)
 		.keyboardShortcut(Constant.Hotkey.new)
@@ -13,7 +13,7 @@ extension Button where Label == SwiftUI.Label<Text, Image> {
 
 	static func locateInstallation() -> some View {
 		Button(
-			action: { Event.locateInstallation(.add) },
+			action: { Event.Installation.locate(.add) },
 			label: Label.locate
 		)
 		.keyboardShortcut(Constant.Hotkey.open)

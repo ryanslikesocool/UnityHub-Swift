@@ -7,7 +7,7 @@ struct CreateProjectReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.createProject, perform: receiveEvent)
+			.onReceive(Event.Project.create, perform: receiveEvent)
 			.alert(
 				"Not Implemented",
 				isPresented: $isPresentingSheet,

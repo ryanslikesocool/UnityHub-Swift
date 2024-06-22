@@ -9,7 +9,7 @@ struct InvalidProjectReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.invalidProject, perform: receiveEvent)
+			.onReceive(Event.Project.invalid, perform: receiveEvent)
 			.alert(
 				"Invalid Project",
 				isPresented: $isPresentingDialog,

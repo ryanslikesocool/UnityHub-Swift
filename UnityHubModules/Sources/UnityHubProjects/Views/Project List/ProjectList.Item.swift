@@ -66,7 +66,7 @@ private extension ProjectList.Item {
 			EditorVersionLabel(project.editorVersion)
 		} else {
 			MissingObjectButton {
-				Event.missingProject(project.url)
+				Event.Project.missing(project.url)
 			}
 		}
 	}

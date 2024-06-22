@@ -7,7 +7,7 @@ public struct AboutScene: Scene {
 	public var body: some Scene {
 		About {
 			AcknowledgementsSection()
-			VStack {
+			VStack(spacing: 8) {
 				CopyrightSection()
 				DevelopedWithLoveSection()
 			}

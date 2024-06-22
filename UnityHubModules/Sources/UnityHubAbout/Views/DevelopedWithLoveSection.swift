@@ -1,18 +1,25 @@
 import SwiftUI
+import UnityHubCommon
+import UnityHubCommonViews
 
 struct DevelopedWithLoveSection: View {
-	var body: some View {
-		VStack {
-			Text("""
-			Developed With Love
-			Colorado, USA
-			""")
-			.font(.caption.monospaced())
-			.foregroundStyle(.tertiary)
-			.multilineTextAlignment(.center)
+	@Environment(\.openURL) private var openURL
 
-			Image("heart.pixel.fill")
-				.foregroundStyle(Color("developedwithlove.red"))
+	var body: some View {
+		Button(action: { openURL(Constant.Link.developedWithLove) }) {
+			VStack {
+				Text("""
+				Developed With Love
+				Colorado, USA
+				""")
+				.font(.caption.monospaced())
+				.foregroundStyle(.tertiary)
+				.multilineTextAlignment(.center)
+
+				Image(Constant.Symbol.heart_pixel_fill)
+					.foregroundStyle(Color(Constant.Color.developedWithLove_red))
+			}
 		}
+		.buttonStyle(.plain)
 	}
 }

@@ -11,7 +11,7 @@ struct DisplayProjectInfoReceiver: View {
 
 	var body: some View {
 		EmptyView()
-			.onReceive(Event.displayProjectInfo, perform: receiveEvent)
+			.onReceive(Event.Project.displayInfo, perform: receiveEvent)
 			.sheet(item: $projectURL) { url in
 				if let binding = Binding($projects[url]) {
 					ProjectInfoSheet(binding)
