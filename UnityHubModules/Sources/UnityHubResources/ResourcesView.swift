@@ -21,5 +21,8 @@ public struct ResourcesView: View {
 			RealLink("Unity Muse", destination: Constant.Link.unityMuse)
 		}
 		.frame(maxWidth: .infinity, maxHeight: .infinity)
+		.toolbar {
+			Spacer()
+		}
 	}
 }

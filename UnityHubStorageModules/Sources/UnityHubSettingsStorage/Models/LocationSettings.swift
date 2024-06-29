@@ -3,9 +3,9 @@ import UnityHubCommon
 
 @Observable
 public final class LocationSettings {
-	public var installationLocation: URL?
-	public var downloadLocation: URL?
-	public var officialHubLocation: URL?
+	public var installationLocation: URL? { didSet { save() } }
+	public var downloadLocation: URL? { didSet { save() } }
+	public var officialHubLocation: URL? { didSet { save() } }
 
 	public init() {
 		installationLocation = nil

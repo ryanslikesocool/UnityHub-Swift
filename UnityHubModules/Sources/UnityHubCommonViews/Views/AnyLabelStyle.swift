@@ -1,9 +1,9 @@
 import SwiftUI
 
-public struct _AnyViewStyle<Configuration: ViewStyleConfiguration>: ViewStyle {
-	private let _makeBody: (Configuration) -> AnyView
+public struct AnyLabelStyle: LabelStyle {
+	private let _makeBody: (LabelStyleConfiguration) -> AnyView
 
-	public init(_ style: some ViewStyle<Configuration>) {
+	public init(_ style: some LabelStyle) {
 		_makeBody = { configuration in
 			AnyView(style.makeBody(configuration: configuration))
 		}

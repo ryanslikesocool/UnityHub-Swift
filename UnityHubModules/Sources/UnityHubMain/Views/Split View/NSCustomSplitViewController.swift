@@ -6,20 +6,21 @@ final class NSCustomSplitViewController: NSSplitViewController {
 
 	init(
 		sidebar sidebarProvider: @escaping () -> some View,
-		detail detailProvider: @escaping () -> some View,
-		columnWidth: borrowing[CustomSplitViewColumn: CustomSplitViewColumnWidth]
+		default defaultProvider: @escaping () -> some View
 	) {
-		let sidebarViewController = NSHostingController(rootView: sidebarProvider())
-		let detailViewController = NSHostingController(rootView: detailProvider())
-
 		super.init(nibName: nil, bundle: nil)
 
-		setupController()
-		setupViews(
-			sidebar: sidebarViewController,
-			detail: detailViewController,
-			columnWidth: columnWidth
-		)
+		splitView.dividerStyle = .thin
+		splitView.autosaveName = Self.splitViewIdentifier
+		splitView.identifier = NSUserInterfaceItemIdentifier(rawValue: Self.splitViewIdentifier)
+
+		let sidebarViewController = NSHostingController(rootView: sidebarProvider())
+		let sidebarItem = NSSplitViewItem(sidebarWithViewController: sidebarViewController)
+		addSplitViewItem(sidebarItem)
+
+		let defaultViewController = NSHostingController(rootView: defaultProvider())
+		let defaultItem = NSSplitViewItem(viewController: defaultViewController)
+		addSplitViewItem(defaultItem)
 	}
 
 	@available(*, unavailable)
@@ -30,27 +31,7 @@ final class NSCustomSplitViewController: NSSplitViewController {
 
 // MARK: -
 
-private extension NSCustomSplitViewController {
-	func setupController() {
-		splitView.dividerStyle = .thin
-		splitView.autosaveName = Self.splitViewIdentifier
-		splitView.identifier = NSUserInterfaceItemIdentifier(rawValue: Self.splitViewIdentifier)
-	}
-
-	func setupViews(
-		sidebar sidebarViewController: some NSViewController,
-		detail detailViewController: some NSViewController,
-		columnWidth: [CustomSplitViewColumn: CustomSplitViewColumnWidth]
-	) {
-		let sidebarItem = NSSplitViewItem(sidebarWithViewController: sidebarViewController)
-		Self.applyWidth(columnWidth[.sidebar], to: sidebarItem)
-		addSplitViewItem(sidebarItem)
-
-		let detailItem = NSSplitViewItem(viewController: detailViewController)
-		Self.applyWidth(columnWidth[.detail], to: detailItem)
-		addSplitViewItem(detailItem)
-	}
-
+extension NSCustomSplitViewController {
 	static func applyWidth(_ value: CustomSplitViewColumnWidth?, to item: NSSplitViewItem) {
 		guard let value else {
 			return
@@ -63,9 +44,16 @@ private extension NSCustomSplitViewController {
 				item.canCollapse = min != max
 			case let (.some(min), .none):
 				item.minimumThickness = min
+				item.maximumThickness = NSSplitViewItem.unspecifiedDimension
+				item.canCollapse = true
 			case let (.none, .some(max)):
+				item.minimumThickness = NSSplitViewItem.unspecifiedDimension
 				item.maximumThickness = max
+				item.canCollapse = true
 			default:
+				item.minimumThickness = NSSplitViewItem.unspecifiedDimension
+				item.maximumThickness = NSSplitViewItem.unspecifiedDimension
+				item.canCollapse = true
 				break
 		}
 	}

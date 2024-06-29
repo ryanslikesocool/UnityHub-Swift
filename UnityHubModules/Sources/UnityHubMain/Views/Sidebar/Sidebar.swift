@@ -2,22 +2,23 @@ import SwiftUI
 import UnityHubCommonViews
 
 struct Sidebar: View {
+	@Environment(\.sidebarStyle) private var style
+
 	@Binding var selection: SidebarItem
 
 	var body: some View {
-		NavigationStack {
-			List(selection: $selection) {
-				SidebarLink(item: .projects, label: Label.projects)
-				SidebarLink(item: .installations, label: Label.installations)
-				SidebarLink(item: .resources, label: Label.resources)
-			}
-			.listStyle(.sidebar)
-		}
-		.toolbar {
-			ToolbarItem {
-				UserMenu()
-			}
-			ToolbarItem.sidebarTrackingSeparator(placement: .navigation)
-		}
+		style.makeBody(
+			configuration: SidebarStyleConfiguration(
+				selection: $selection,
+				links: [
+					SidebarLink(item: .projects, label: Label.projects),
+					SidebarLink(item: .installations, label: Label.installations),
+					SidebarLink(item: .resources, label: Label.resources),
+				],
+				userMenu: UserMenu()
+			)
+		)
+		.listStyle(.sidebar)
+		.scrollDisabled(true)
 	}
 }

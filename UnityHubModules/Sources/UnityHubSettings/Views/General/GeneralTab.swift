@@ -4,13 +4,15 @@ import UnityHubCommonViews
 import UnityHubStorage
 
 struct GeneralTab: SettingsCategoryView {
-	@Bindable var model: GeneralSettings = .shared
+	static let category: SettingsCategory = .general
 
 	func makeContent() -> some View {
-		AppearancePicker(selection: $model.appearance)
+		AppearancePicker()
+
+		CompactSidebarToggle()
 
 		Section {
-			DialogSuppressionResetButton(selection: $model.dialogSuppression)
+			DialogSuppressionResetButton()
 		}
 	}
 

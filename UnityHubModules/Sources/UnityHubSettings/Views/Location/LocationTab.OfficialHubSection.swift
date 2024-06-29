@@ -5,7 +5,7 @@ import UnityHubStorage
 
 extension LocationTab {
 	struct OfficialHubSection: View {
-		@Bindable var model: LocationSettings
+		@AppSetting(location: \.officialHubLocation) private var selection
 
 		var body: some View {
 			Section(content: content, header: header)
@@ -17,7 +17,7 @@ extension LocationTab {
 
 private extension LocationTab.OfficialHubSection {
 	@ViewBuilder func content() -> some View {
-		LocationPicker(selection: $model.officialHubLocation)
+		LocationPicker(selection: $selection)
 
 		// TODO: make value dynamic
 		HideApplicationToggle(isOn: .constant(true))

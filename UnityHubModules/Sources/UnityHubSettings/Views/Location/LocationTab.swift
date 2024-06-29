@@ -4,16 +4,16 @@ import UnityHubCommonViews
 import UnityHubStorage
 
 struct LocationTab: SettingsCategoryView {
-	@Bindable var model: LocationSettings = .shared
+	static let category: SettingsCategory = .locations
 
 	func makeContent() -> some View {
 		Group {
-			InstallationLocationPicker(selection: $model.installationLocation)
-			DownloadLocationPicker(selection: $model.downloadLocation)
+			InstallationLocationPicker()
+			DownloadLocationPicker()
 		}
 		.urlPickerStyle(.section)
 
-		OfficialHubSection(model: model)
+		OfficialHubSection()
 	}
 
 	func makeLabel() -> some View {

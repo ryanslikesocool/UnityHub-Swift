@@ -1,10 +1,11 @@
 import SwiftUI
 import UnityHubCommon
+import UnityHubCommonViews
 import UnityHubStorage
 
 extension GeneralTab {
 	struct DialogSuppressionResetButton: View {
-		@Binding var selection: DialogSuppression
+		@AppSetting(general: \.dialogSuppression) private var selection
 
 		var body: some View {
 			LabeledContent {

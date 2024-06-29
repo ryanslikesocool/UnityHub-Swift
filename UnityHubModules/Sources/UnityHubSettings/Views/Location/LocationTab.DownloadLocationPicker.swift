@@ -4,9 +4,9 @@ import UnityHubCommonViews
 
 extension LocationTab {
 	struct DownloadLocationPicker: View {
+		@AppSetting(location: \.downloadLocation) private var selection
+
 		@State private var error: LocationError? = nil
-		
-		@Binding var selection: URL?
 
 		var body: some View {
 			URLPicker(

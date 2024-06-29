@@ -1,9 +1,10 @@
 import SwiftUI
+import UnityHubCommonViews
 import UnityHubStorage
 
 extension GeneralTab {
 	struct AppearancePicker: View {
-		@Binding var selection: Appearance
+		@AppSetting(general: \.appearance) private var selection
 
 		var body: some View {
 			Picker("Appearance", selection: $selection) {

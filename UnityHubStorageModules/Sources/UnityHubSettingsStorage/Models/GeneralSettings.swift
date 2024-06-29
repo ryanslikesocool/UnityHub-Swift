@@ -3,14 +3,16 @@ import UnityHubCommon
 
 @Observable
 public final class GeneralSettings {
-	public var appearance: Appearance
-	public var dialogSuppression: DialogSuppression
-	public var backgroundMode: BackgroundMode
+	public var appearance: Appearance { didSet { save() } }
+	public var dialogSuppression: DialogSuppression { didSet { save() } }
+	public var backgroundMode: BackgroundMode { didSet { save() } }
+	public var compactSidebar: Bool { didSet { save() } }
 
 	public init() {
 		appearance = .automatic
 		dialogSuppression = .none
 		backgroundMode = .hide
+		compactSidebar = false
 	}
 }
 
@@ -21,6 +23,7 @@ public extension GeneralSettings {
 		hasher.combine(appearance)
 		hasher.combine(dialogSuppression)
 		hasher.combine(backgroundMode)
+		hasher.combine(compactSidebar)
 	}
 }
 
@@ -33,6 +36,7 @@ public extension GeneralSettings {
 		case appearance
 		case dialogSuppression
 		case backgroundMode
+		case compactSidebar
 	}
 
 	convenience init(from decoder: any Decoder) throws {
@@ -45,6 +49,7 @@ public extension GeneralSettings {
 		appearance = try container.decodeIfPresent(forKey: .appearance) ?? appearance
 		dialogSuppression = try container.decodeIfPresent(forKey: .dialogSuppression) ?? dialogSuppression
 		backgroundMode = try container.decodeIfPresent(forKey: .backgroundMode) ?? backgroundMode
+		compactSidebar = try container.decodeIfPresent(forKey: .compactSidebar) ?? compactSidebar
 	}
 
 	func encode(to encoder: any Encoder) throws {
@@ -53,6 +58,7 @@ public extension GeneralSettings {
 		try container.encode(appearance, forKey: .appearance)
 		try container.encode(dialogSuppression, forKey: .dialogSuppression)
 		try container.encode(backgroundMode, forKey: .backgroundMode)
+		try container.encode(compactSidebar, forKey: .compactSidebar)
 	}
 }
 

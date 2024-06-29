@@ -1,4 +1,5 @@
 import SwiftUI
+import UnityHubCommonViews
 
 struct SidebarLink<Label: View>: View {
 	typealias LabelProvider = () -> Label
@@ -18,8 +19,8 @@ struct SidebarLink<Label: View>: View {
 
 // MARK: - Init+
 
-extension SidebarLink 
-where Label == SwiftUI.Label<Text, Image>
+extension SidebarLink
+	where Label == SwiftUI.Label<Text, Image>
 {
 	init(_ title: some StringProtocol, systemImage name: String, item: SidebarItem) {
 		self.init(item: item, label: { Label(title, systemImage: name) })

@@ -6,50 +6,59 @@ import UnityHubCommonViews
 struct UserMenu: View {
 	var body: some View {
 		Menu("User", systemImage: Constant.Symbol.person) {
-			Section {
-				Button("Account Settings", systemImage: Constant.Symbol.gearShape) { }
-					.disabled(true)
+			content
+				.labelStyle(.automatic)
+		}
+	}
+}
 
-				RealLink(destination: Constant.Link.cloudLogin) {
-					Label("Unity Cloud", systemImage: Constant.Symbol.cloud)
-				}
+// MARK: - Supporting Views
 
-				Button("Manage Licenses", systemImage: Constant.Symbol.person) { }
-					.disabled(true)
+private extension UserMenu {
+	@ViewBuilder var content: some View {
+		Section {
+			Button("Account Settings", systemImage: Constant.Symbol.gearShape) { }
+				.disabled(true)
 
-				Button("Manage Organizations", systemImage: Constant.Symbol.person_3_sequence) { }
-					.disabled(true)
+			RealLink(destination: Constant.Link.cloudLogin) {
+				Label("Unity Cloud", systemImage: Constant.Symbol.cloud)
 			}
 
-			Section {
-				Menu("Troubleshooting", systemImage: Constant.Symbol.questionMark) {
-					RealLink(
-						"Account Help",
-						systemImage: Constant.Symbol.questionMark,
-						destination: Constant.Link.accountHelp
-					)
+			Button("Manage Licenses", systemImage: Constant.Symbol.person) { }
+				.disabled(true)
 
-					Button(
-						"Open Log Folder",
-						systemImage: Constant.Symbol.folder
-					) {
-						URL.applicationSupportDirectory.appending(path: "UnityHub/logs", directoryHint: .isDirectory).showInFinder()
-					}
+			Button("Manage Organizations", systemImage: Constant.Symbol.person_3_sequence) { }
+				.disabled(true)
+		}
 
-					RealLink(
-						destination: Constant.Link.bugReport,
-						label: Label.reportBug
-					)
+		Section {
+			Menu("Troubleshooting", systemImage: Constant.Symbol.questionMark) {
+				RealLink(
+					"Account Help",
+					systemImage: Constant.Symbol.questionMark,
+					destination: Constant.Link.accountHelp
+				)
+
+				Button(
+					"Open Log Folder",
+					systemImage: Constant.Symbol.folder
+				) {
+					URL.applicationSupportDirectory.appending(path: "UnityHub/logs", directoryHint: .isDirectory).showInFinder()
 				}
 
-				SettingsLink {
-					Label("Settings", image: Constant.Symbol.gearShape)
-				}
-				.keyboardShortcut(Constant.Hotkey.settings)
-
-				Button("Sign Out", image: Constant.Symbol.rectangle_portrait_and_arrow_left, role: .destructive) { }
-					.disabled(true)
+				RealLink(
+					destination: Constant.Link.bugReport,
+					label: Label.reportBug
+				)
 			}
+
+			SettingsLink {
+				Label("Settings", image: Constant.Symbol.gearShape)
+			}
+			.keyboardShortcut(Constant.Hotkey.settings)
+
+			Button("Sign Out", image: Constant.Symbol.rectangle_portrait_and_arrow_left, role: .destructive) { }
+				.disabled(true)
 		}
 	}
 }

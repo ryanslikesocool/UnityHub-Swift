@@ -5,9 +5,9 @@ import UnityHubStorage
 
 extension LocationTab {
 	struct InstallationLocationPicker: View {
-		@State private var error: LocationError? = nil
+		@AppSetting(location: \.installationLocation) private var selection
 
-		@Binding var selection: URL?
+		@State private var error: LocationError? = nil
 
 		var body: some View {
 			URLPicker(
