@@ -18,7 +18,7 @@ extension ProjectInfoSheet {
 			LabeledContent("Size") {
 				content
 			}
-			.task { await recalculateFileSize() }
+			.task { await recalculateFileSizeAsync() }
 		}
 	}
 }
@@ -33,11 +33,7 @@ private extension ProjectInfoSheet.FileSizeLabel {
 					.controlSize(.mini)
 			case .failed:
 				Button(
-					action: {
-						Task {
-							recalculateFileSize
-						}
-					},
+					action: recalculateFileSize,
 					label: Label.retry
 				)
 				.controlSize(.small)
@@ -51,7 +47,13 @@ private extension ProjectInfoSheet.FileSizeLabel {
 // MARK: - Functions
 
 private extension ProjectInfoSheet.FileSizeLabel {
-	func recalculateFileSize() async {
+	func recalculateFileSize() {
+		Task {
+			await recalculateFileSizeAsync()
+		}
+	}
+
+	func recalculateFileSizeAsync() async {
 		phase = .loading
 
 		let newFileSize: String?

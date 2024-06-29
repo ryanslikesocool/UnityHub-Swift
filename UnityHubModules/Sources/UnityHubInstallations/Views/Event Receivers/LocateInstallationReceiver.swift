@@ -8,7 +8,7 @@ struct LocateInstallationReceiver: View {
 	@Cache(InstallationCache.self) private var installations
 
 	@State private var isPresentingDialog: Bool = false
-	@State private var completion: Completion? = nil
+	@State private var completion: LocateEventCompletion? = nil
 
 	var body: some View {
 		EmptyView()
@@ -23,19 +23,10 @@ struct LocateInstallationReceiver: View {
 	}
 }
 
-// MARK: - Supporting Data
-
-extension LocateInstallationReceiver {
-	enum Completion {
-		case add
-		case replace(URL)
-	}
-}
-
 // MARK: - Functions
 
 private extension LocateInstallationReceiver {
-	func receiveEvent(value: Completion) {
+	func receiveEvent(value: LocateEventCompletion) {
 		completion = value
 		isPresentingDialog = true
 	}
@@ -70,9 +61,9 @@ private extension LocateInstallationReceiver {
 		}
 	}
 
-	func consumeValue() -> Completion {
+	func consumeValue() -> LocateEventCompletion {
 		guard let completion else {
-			preconditionFailure(missingObject: Completion.self)
+			preconditionFailure(missingObject: LocateEventCompletion.self)
 		}
 		self.completion = nil
 		return completion

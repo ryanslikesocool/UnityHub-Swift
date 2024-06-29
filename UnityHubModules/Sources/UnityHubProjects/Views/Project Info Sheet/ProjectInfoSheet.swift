@@ -1,5 +1,6 @@
 import SwiftUI
 import UnityHubCommon
+import UnityHubCommonViews
 import UnityHubStorage
 import UserIcon
 
@@ -11,13 +12,14 @@ struct ProjectInfoSheet: View {
 	}
 
 	var body: some View {
-		Form {
-			formContent
-		}
-		.formStyle(.grouped)
-		.scrollDisabled(true)
-		.toolbar {
-			Toolbar(project: $project)
+		Sheet {
+			Form {
+				formContent
+			}
+			.formStyle(.grouped)
+			.scrollDisabled(true)
+		} header: {
+			Header(project: $project)
 		}
 	}
 }
@@ -27,14 +29,14 @@ struct ProjectInfoSheet: View {
 private extension ProjectInfoSheet {
 	@ViewBuilder var formContent: some View {
 		Section {
-			LocationLabel(project.url)
-			FileSizeLabel(at: project.url)
+			LabeledContent("Name", value: project.name ?? project.url.lastPathComponent)
+			LabeledContent("Developer", value: project.developer ?? "Unknown")
+			EditorVersionLabel(project.editorVersion)
 		}
 
 		Section {
-			EditorVersionLabel(project.editorVersion)
-			LabeledContent("Name", value: project.name ?? project.url.lastPathComponent)
-			LabeledContent("Developer", value: project.developer ?? "Unknown")
+			LocationLabel(project.url)
+			FileSizeLabel(at: project.url)
 		}
 	}
 }

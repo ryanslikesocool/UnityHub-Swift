@@ -10,7 +10,7 @@ struct UserMenu: View {
 				Button("Account Settings", systemImage: Constant.Symbol.gearShape) { }
 					.disabled(true)
 
-				Link(destination: #URL("https://cloud.unity.com/login")) {
+				RealLink(destination: Constant.Link.cloudLogin) {
 					Label("Unity Cloud", systemImage: Constant.Symbol.cloud)
 				}
 
@@ -23,10 +23,10 @@ struct UserMenu: View {
 
 			Section {
 				Menu("Troubleshooting", systemImage: Constant.Symbol.questionMark) {
-					Link(
+					RealLink(
 						"Account Help",
 						systemImage: Constant.Symbol.questionMark,
-						destination: #URL("https://support.unity.com/hc/en-us/sections/201104779-Accounts-UDN")
+						destination: Constant.Link.accountHelp
 					)
 
 					Button(
@@ -36,8 +36,8 @@ struct UserMenu: View {
 						URL.applicationSupportDirectory.appending(path: "UnityHub/logs", directoryHint: .isDirectory).showInFinder()
 					}
 
-					Link(
-						destination: #URL("https://github.com/ryanslikesocool/UnityHub-Swift/issues"),
+					RealLink(
+						destination: Constant.Link.bugReport,
 						label: Label.reportBug
 					)
 				}

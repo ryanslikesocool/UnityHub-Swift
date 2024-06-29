@@ -133,7 +133,7 @@ private extension ProjectMetadata {
 	}
 }
 
-// MARK: - Lazy
+// MARK: - Validation
 
 public extension ProjectMetadata {
 	mutating func validateLazyData() {
@@ -142,7 +142,7 @@ public extension ProjectMetadata {
 	}
 
 	mutating func validateProjectSettings() {
-		guard let lines = getProjectSettings() else {
+		guard let lines: [String] = getProjectSettings() else {
 			return
 		}
 
@@ -157,7 +157,17 @@ public extension ProjectMetadata {
 
 		self.embedded = embedded
 	}
+
+	var directoryExists: Bool {
+		FileManager.default.directoryExists(at: url)
+	}
+
+	var installationExists: Bool {
+		InstallationCache.shared.contains(editorVersion)
+	}
 }
+
+// MARK: - Storage
 
 private extension ProjectMetadata {
 	func getProjectSettings() -> [String]? {
@@ -183,19 +193,16 @@ private extension ProjectMetadata {
 
 	func getEditorVersion() -> UnityEditorVersion? {
 		let url = relativeURL(path: Self.projectVersionFilePath)
-		let editorVersionString: String
+		let value: String?
+
 		do {
-			if let value = try MiniYaml.readValue(in: url, forKey: Self.editorVersionKey) {
-				editorVersionString = value
-			} else {
-				return nil
-			}
+			value = try MiniYaml.readValue(in: url, forKey: Self.editorVersionKey)
 		} catch {
 			Self.logReadError(description: "editor version", at: url, error: error)
-			return nil
+			value = nil
 		}
 
-		return UnityEditorVersion(editorVersionString)
+		return UnityEditorVersion(value)
 	}
 }
 
@@ -213,18 +220,18 @@ private extension ProjectMetadata {
 		url.appending(path: relativePath, directoryHint: directoryHint)
 	}
 
-	func readString(at relativePath: String) throws -> String {
+	func readData(at relativePath: String) throws -> Data {
+		let url: URL = relativeURL(path: relativePath, directoryHint: .notDirectory)
+		return try Data(contentsOf: url)
+	}
+
+	func readText(at relativePath: String) throws -> String {
 		let url: URL = relativeURL(path: relativePath, directoryHint: .notDirectory)
 		return try String(contentsOf: url)
 	}
 
 	func readLines(at relativePath: String) throws -> [String] {
-		let string = try readString(at: relativePath)
+		let string = try readText(at: relativePath)
 		return string.components(separatedBy: .newlines)
-	}
-
-	func readData(at relativePath: String) throws -> Data {
-		let url: URL = relativeURL(path: relativePath, directoryHint: .notDirectory)
-		return try Data(contentsOf: url)
 	}
 }

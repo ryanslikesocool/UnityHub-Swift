@@ -10,7 +10,11 @@ extension ProjectList {
 		private let editorVersion: UnityEditorVersion?
 		private let label: LabelProvider
 
-		init(at projectURL: URL, with editorVersion: UnityEditorVersion? = nil, @ViewBuilder label: @escaping LabelProvider) {
+		init(
+			at projectURL: URL,
+			with editorVersion: UnityEditorVersion? = nil,
+			@ViewBuilder label: @escaping LabelProvider
+		) {
 			self.projectURL = projectURL
 			self.editorVersion = editorVersion
 			self.label = label
@@ -38,7 +42,7 @@ private extension ProjectList.OpenProjectButton {
 		} catch ProjectError.unknownEditorVersion {
 			fatalError("\(Self.self).\(#function) is not implemented")
 		} catch let InstallationError.missingInstallationForVersion(editorVersion) {
-			fatalError("\(Self.self).\(#function) is not implemented")
+			Event.Installation.missingVersion(editorVersion)
 		} catch let error where error is ShellError {
 			fatalError("\(Self.self).\(#function) is not implemented")
 		} catch {

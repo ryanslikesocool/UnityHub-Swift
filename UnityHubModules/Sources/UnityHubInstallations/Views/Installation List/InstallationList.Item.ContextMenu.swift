@@ -26,11 +26,11 @@ extension InstallationList.Item {
 
 			Section {
 				if let version = (try? installation.version) {
-					Link(destination: Utility.Version.getManualURL(version), label: Label.manual)
-					Link(destination: Utility.Version.getScriptReferenceURL(version), label: Label.scriptReference)
+					RealLink(destination: Utility.Version.getManualURL(version), label: Label.manual)
+					RealLink(destination: Utility.Version.getScriptReferenceURL(version), label: Label.scriptReference)
 				}
 
-				let bugReporterURL = Utility.Installation.getBugReporterURL(appURL: installation.url)
+				let bugReporterURL = Utility.Application.Unity.getBugReporterURL(for: installation.url)
 				Button(
 					action: { NSWorkspace.shared.open(bugReporterURL) },
 					label: Label.reportBug

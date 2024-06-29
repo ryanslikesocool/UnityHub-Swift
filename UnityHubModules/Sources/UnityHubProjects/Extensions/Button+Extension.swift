@@ -9,6 +9,7 @@ extension Button where Label == SwiftUI.Label<Text, Image> {
 			label: Label.create
 		)
 		.keyboardShortcut(Constant.Hotkey.new)
+		.disabled(true)
 	}
 
 	static func locateProject() -> some View {

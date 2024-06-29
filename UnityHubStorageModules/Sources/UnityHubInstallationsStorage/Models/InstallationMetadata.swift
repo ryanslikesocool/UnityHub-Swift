@@ -7,12 +7,15 @@ public struct InstallationMetadata {
 	public let url: URL
 
 	var isInDefaultLocation: Bool {
-		let defaultInstallationPath: String = Utility.Installation.getDefaultInstallationURL().path()
+		let defaultInstallationPath: String = Utility.Application.Unity.defaultInstallationURL.path()
 		return !url.path().starts(with: defaultInstallationPath)
 	}
 
-	public var version: UnityEditorVersion? {
-		get throws { try Utility.Installation.getInfoPlist(appURL: url).bundleVersion }
+	public var version: UnityEditorVersion {
+		get throws {
+			let bundleVersionString: String = try Utility.Application.getBundleVersion(from: url)
+			return try UnityEditorVersion(bundleVersionString)
+		}
 	}
 
 	public init(url: URL) {
@@ -43,5 +46,13 @@ extension InstallationMetadata: Codable {
 		let url: URL = try container.decode(forKey: .url)
 
 		self.init(url: url)
+	}
+}
+
+// MARK: -
+
+public extension InstallationMetadata {
+	var applicationExists: Bool {
+		FileManager.default.directoryExists(at: url)
 	}
 }

@@ -8,15 +8,15 @@ struct DownloadInstallationReceiver: View {
 	var body: some View {
 		EmptyView()
 			.onReceive(Event.Installation.download, perform: receiveEvent)
-			.alert(
-				"Not Implemented",
-				isPresented: $isPresentingSheet,
-				actions: { },
-				message: {
-					Text("Downloading installations is not currently suppported.")
-				}
-			)
-//			.sheet(isPresented: $isPresentingSheet, content: EmptyView.init)
+//			.alert(
+//				"Not Implemented",
+//				isPresented: $isPresentingSheet,
+//				actions: { },
+//				message: {
+//					Text("Downloading installations is not currently suppported.")
+//				}
+//			)
+			.sheet(isPresented: $isPresentingSheet, content: DownloadSheet.init)
 	}
 }
 

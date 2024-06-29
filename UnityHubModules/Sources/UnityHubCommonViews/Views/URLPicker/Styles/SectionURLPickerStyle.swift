@@ -2,6 +2,8 @@ import SwiftUI
 import UnityHubCommon
 
 public struct SectionURLPickerStyle: URLPickerStyle {
+	public typealias Configuration = URLPickerStyleConfiguration
+
 	public func makeBody(configuration: Configuration) -> some View {
 		Section(
 			content: {
@@ -10,8 +12,13 @@ public struct SectionURLPickerStyle: URLPickerStyle {
 						Button("Select", systemImage: Constant.Symbol.folder, action: configuration.startImport)
 					},
 					label: {
-						configuration.urlLabel
-							.foregroundStyle(.secondary)
+						HStack {
+							configuration.issueButton
+								.buttonStyle(.plain)
+							
+							configuration.urlLabel
+								.foregroundStyle(.secondary)
+						}
 					}
 				)
 			},
@@ -22,6 +29,6 @@ public struct SectionURLPickerStyle: URLPickerStyle {
 	}
 }
 
-public extension URLPickerStyle where Self == SectionURLPickerStyle {
+public extension ViewStyle<URLPickerStyleConfiguration> where Self == SectionURLPickerStyle {
 	static var section: Self { Self() }
 }

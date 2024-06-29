@@ -106,7 +106,7 @@ public extension InstallationCache {
 
 			return subitems.first(where: { url in
 				(try? url.isApplication()) == true
-					&& (try? Utility.Installation.validateInstallation(appURL: url)) == true
+					&& (try? Utility.Application.Unity.validateInstallation(at: url)) == true
 					&& !contains(url)
 			})
 		}

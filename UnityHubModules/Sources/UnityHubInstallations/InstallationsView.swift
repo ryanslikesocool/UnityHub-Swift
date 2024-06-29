@@ -17,7 +17,7 @@ public struct InstallationsView: View {
 			/// for some reason, `EmptyView` works if done this way
 			.background(content: LocateInstallationReceiver.init)
 			.background(content: RemoveInstallationReceiver.init)
-			.background(content: MissingInstallationReceiver.init)
+			.background(content: MissingInstallationAtURLReceiver.init)
 			.background(content: DownloadInstallationReceiver.init)
 	}
 }

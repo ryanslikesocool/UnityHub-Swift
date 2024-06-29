@@ -44,4 +44,11 @@ public extension Label<Text, Image> {
 	static func projects() -> Self { Self("Projects", systemImage: Constant.Symbol.cube) }
 	static func installations() -> Self { Self("Installations", systemImage: Constant.Symbol.tray) }
 	static func resources() -> Self { Self("Resources", systemImage: Constant.Symbol.info_circle) }
+
+	static func issue() -> some View {
+		Self("Issue", systemImage: Constant.Symbol.exclamationMark_triangle_fill)
+			.symbolRenderingMode(.monochrome)
+			.foregroundStyle(.yellow)
+			.labelStyle(.iconOnly)
+	}
 }

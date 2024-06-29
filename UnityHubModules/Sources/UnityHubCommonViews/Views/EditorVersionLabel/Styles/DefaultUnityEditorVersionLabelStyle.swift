@@ -1,6 +1,8 @@
 import SwiftUI
 
 public struct DefaultUnityEditorVersionLabelStyle: UnityEditorVersionLabelStyle {
+	public typealias Configuration = UnityEditorVersionLabelStyleConfiguration
+	
 	public func makeBody(configuration: Configuration) -> some View {
 		let version = configuration.version
 
@@ -16,6 +18,6 @@ public struct DefaultUnityEditorVersionLabelStyle: UnityEditorVersionLabelStyle 
 	}
 }
 
-public extension UnityEditorVersionLabelStyle where Self == DefaultUnityEditorVersionLabelStyle {
+public extension ViewStyle where Self == DefaultUnityEditorVersionLabelStyle {
 	static var `default`: Self { Self() }
 }

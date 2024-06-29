@@ -62,13 +62,15 @@ public extension ProjectCache {
 		guard let installation = InstallationCache.shared[version] else {
 			throw InstallationError.missingInstallationForVersion(version)
 		}
-		try Utility.Installation.validateInstallation(appURL: installation.url)
+		try Utility.Application.Unity.validateInstallation(at: installation.url)
 
-		let installationPath: String = try Utility.Installation.getExecutableURL(appURL: installation.url).path(percentEncoded: true)
+		let installationPath: String = try Utility.Application
+			.getBundleExecutable(from: installation.url)
+			.path(percentEncoded: true)
 		let arguments: String = "-projectPath"
 		let projectPath: String = url.path(percentEncoded: true)
 
-		let command: String = "\(installationPath) \(arguments) \(projectPath)"
+		let command: String = "\(installationPath) \(arguments) \"\(projectPath)\""
 			.replacingOccurrences(of: "%20", with: #"\ "#)
 
 		Task {

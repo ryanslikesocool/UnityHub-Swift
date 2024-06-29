@@ -17,7 +17,7 @@ extension ProjectList {
 
 		var body: some View {
 			OpenProjectButton(at: project.url) {
-				ListItem(content: labelContent, menu: contextMenu)
+				ListItem(content: labelContent, menu: contextMenu, issue: issueMenu)
 			}
 			.buttonStyle(.plain)
 			.contextMenu(menuItems: contextMenu)
@@ -34,23 +34,20 @@ extension ProjectList {
 
 private extension ProjectList.Item {
 	@ViewBuilder func labelContent() -> some View {
-		let fileManager: FileManager = .default
-		let exists: Bool = fileManager.directoryExists(at: project.url)
-
 		if infoVisibility.contains(.icon) {
 			Icon($project.icon)
 				.onAppear { project.validateEmbeddedMetadata() }
-		}
 
-		Spacer()
-			.frame(width: 8)
+			Spacer()
+				.frame(width: 8)
+		}
 
 		VStack(alignment: .leading, spacing: 1) {
 			NameLabel(project)
 
 			if
 				infoVisibility.contains(.location),
-				exists
+				project.directoryExists
 			{
 				URLLabel(project.url)
 					.urlLabelStyle(.listItem)
@@ -59,19 +56,27 @@ private extension ProjectList.Item {
 
 		Spacer()
 
-		if exists {
+		if project.directoryExists {
 			if infoVisibility.contains(.lastOpened) {
 				LastOpenedLabel(date: project.lastOpened)
+
+				Spacer()
+					.frame(width: 16)
 			}
+
 			EditorVersionLabel(project.editorVersion)
-		} else {
-			MissingObjectButton {
-				Event.Project.missing(project.url)
-			}
 		}
 	}
 
-	private func contextMenu() -> some View {
+	func contextMenu() -> some View {
 		ContextMenu($project)
+	}
+
+	func issueMenu() -> some View {
+		IssueMenu(
+			projectURL: project.url,
+			missingProject: !project.directoryExists,
+			missingInstallation: !InstallationCache.shared.contains(project.editorVersion)
+		)
 	}
 }

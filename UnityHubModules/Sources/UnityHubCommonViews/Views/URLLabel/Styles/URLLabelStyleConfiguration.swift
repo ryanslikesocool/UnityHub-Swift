@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct URLLabelStyleConfiguration {
+public struct URLLabelStyleConfiguration: ViewStyleConfiguration {
 	/// The type-erased label of a ``URLLabel``.
 	public struct Label: View {
 		init(content: some View) {

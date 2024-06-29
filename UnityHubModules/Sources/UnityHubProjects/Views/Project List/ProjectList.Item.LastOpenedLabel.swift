@@ -21,7 +21,6 @@ extension ProjectList.Item {
 
 			.foregroundStyle(.tertiary)
 			.font(.caption)
-			.padding(.trailing, 16)
 		}
 	}
 }

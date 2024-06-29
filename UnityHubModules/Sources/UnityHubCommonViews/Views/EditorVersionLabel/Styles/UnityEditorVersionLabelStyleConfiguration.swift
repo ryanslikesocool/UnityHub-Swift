@@ -1,7 +1,7 @@
 import SwiftUI
 import UnityHubStorage
 
-public struct UnityEditorVersionLabelStyleConfiguration {
+public struct UnityEditorVersionLabelStyleConfiguration: ViewStyleConfiguration {
 	/// The type-erased badge of a ``UnityEditorVersionLabel``.
 	public struct Badge: View {
 		init(content: some View) {

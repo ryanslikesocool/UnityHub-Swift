@@ -19,7 +19,7 @@ public struct UnityEditorVersion {
 		self.iteration = iteration
 	}
 
-	public init?(text: some StringProtocol) {
+	public init(_ text: some StringProtocol) throws {
 		let majorRef = Reference(Integer.self)
 		let minorRef = Reference(Integer.self)
 		let patchRef = Reference(Integer.self)
@@ -68,7 +68,7 @@ public struct UnityEditorVersion {
 		}
 
 		guard let result = String(text).firstMatch(of: regex) else {
-			return nil
+			throw RegexError.noMatches
 		}
 
 		semantic = SemanticVersion(
@@ -80,22 +80,11 @@ public struct UnityEditorVersion {
 		iteration = result[iterationRef]
 	}
 
-	public init?(text: (some StringProtocol)?) {
-		guard let text else {
-			return nil
-		}
-		self.init(text: text)
-	}
-
-	public init?(_ text: some StringProtocol) {
-		self.init(text: text)
-	}
-
 	public init?(_ text: (some StringProtocol)?) {
 		guard let text else {
 			return nil
 		}
-		self.init(text: text)
+		try? self.init(text)
 	}
 }
 
@@ -114,7 +103,7 @@ extension UnityEditorVersion: Identifiable {
 extension UnityEditorVersion: Decodable {
 	public init(from decoder: any Decoder) throws {
 		let container = try decoder.singleValueContainer()
-		self = try Self(container.decode(String.self)) ?? .zero
+		self = try Self(container.decode(String.self))
 	}
 }
 
@@ -144,7 +133,7 @@ extension UnityEditorVersion: CustomStringConvertible {
 
 extension UnityEditorVersion: ExpressibleByStringLiteral {
 	public init(stringLiteral value: String.StringLiteralType) {
-		self = Self(text: value) ?? Self.zero
+		self = (try? Self(value)) ?? .zero
 	}
 }
 

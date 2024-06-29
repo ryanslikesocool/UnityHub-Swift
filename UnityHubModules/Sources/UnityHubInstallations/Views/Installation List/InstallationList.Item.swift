@@ -7,14 +7,14 @@ extension InstallationList {
 	struct Item: View {
 		@AppSetting(installation: \.infoVisibility) private var infoVisiblity
 
-		@Binding private var installation: InstallationMetadata
+		private let installation: InstallationMetadata
 
 		init(_ installation: Binding<InstallationMetadata>) {
-			_installation = installation
+			self.installation = installation.wrappedValue
 		}
 
 		var body: some View {
-			ListItem(content: labelContent, menu: contextMenu)
+			ListItem(content: labelContent, menu: contextMenu, issue: issueMenu)
 				.contextMenu(menuItems: contextMenu)
 		}
 	}
@@ -24,15 +24,12 @@ extension InstallationList {
 
 private extension InstallationList.Item {
 	@ViewBuilder func labelContent() -> some View {
-		let fileManager: FileManager = .default
-		let exists: Bool = fileManager.fileExists(at: installation.url)
-
 		VStack(alignment: .leading, spacing: 1) {
 			VersionLabel(try? installation.version)
 
 			if
 				infoVisiblity.contains(.location),
-				exists
+				installation.applicationExists
 			{
 				URLLabel(installation.url)
 					.urlLabelStyle(.listItem)
@@ -40,15 +37,16 @@ private extension InstallationList.Item {
 		}
 
 		Spacer()
-
-		if !exists {
-			MissingObjectButton {
-				Event.Installation.missing(installation.url)
-			}
-		}
 	}
 
 	func contextMenu() -> some View {
 		ContextMenu(installation)
+	}
+
+	func issueMenu() -> some View {
+		IssueMenu(
+			installationURL: installation.url,
+			missingInstallation: !installation.applicationExists
+		)
 	}
 }

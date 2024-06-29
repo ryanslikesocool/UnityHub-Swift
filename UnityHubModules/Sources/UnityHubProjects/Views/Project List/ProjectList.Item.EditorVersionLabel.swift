@@ -29,8 +29,8 @@ extension ProjectList.Item {
 private extension ProjectList.Item.EditorVersionLabel {
 	@ViewBuilder func menuContent(version: UnityEditorVersion) -> some View {
 		Section {
-			Link(destination: Utility.Version.getManualURL(version), label: Label.manual)
-			Link(destination: Utility.Version.getScriptReferenceURL(version), label: Label.scriptReference)
+			RealLink(destination: Utility.Version.getManualURL(version), label: Label.manual)
+			RealLink(destination: Utility.Version.getScriptReferenceURL(version), label: Label.scriptReference)
 		}
 
 		if installations.contains(version) {

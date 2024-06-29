@@ -61,7 +61,7 @@ private extension CacheListView {
 				get: { item },
 				set: { newValue in
 					guard let index = items.firstIndex(where: { $0.id == newValue.id }) else {
-//						Logger.module.warning("Missing item with ID \(newValue.id)")
+						// Logger.module.warning("Missing item with ID \(newValue.id)")
 						// TODO: figure out why log breaks compilation
 						return
 					}

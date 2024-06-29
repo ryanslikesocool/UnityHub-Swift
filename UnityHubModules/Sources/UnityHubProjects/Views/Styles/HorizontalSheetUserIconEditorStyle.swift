@@ -1,27 +1,27 @@
 import SwiftUI
+import UnityHubCommonViews
 import UserIcon
 
 struct HorizontalSheetUserIconEditorStyle: UserIconEditorStyle {
 	func makeBody(configuration: Configuration) -> some View {
 		let dismiss = configuration.environmentValues.dismiss
 
-		HStack(spacing: 0) {
-			makeIconPreview(view: configuration.iconPreview)
+		Sheet {
+			HStack(spacing: 0) {
+				makeIconPreview(view: configuration.iconPreview)
 
-			Divider()
+				Divider()
 
-			makeModelEditor(view: configuration.modelEditor)
-		}
-		.toolbar  {
-			ToolbarItem {
-				makeKindPicker(view: configuration.kindPicker)
-					.padding(-8)
+				makeModelEditor(view: configuration.modelEditor)
 			}
+		} header: {
+			makeKindPicker(view: configuration.kindPicker)
+				.padding([.top, .bottom], -8)
 
-			ToolbarItem(placement: .cancellationAction) {
-				Button("Done", role: .cancel) { dismiss() }
-					.controlSize(.large)
-			}
+			Spacer()
+
+			Button("Done", role: .cancel) { dismiss() }
+				.controlSize(.large)
 		}
 	}
 }

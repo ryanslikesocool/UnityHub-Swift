@@ -15,10 +15,6 @@ public extension URL {
 		try resourceValues(forKeys: [.isApplicationKey]).isApplication == true
 	}
 
-	func isExecutable() throws -> Bool {
-		try resourceValues(forKeys: [.isExecutableKey]).isExecutable == true
-	}
-
 	func isDirectory() throws -> Bool {
 		try resourceValues(forKeys: [.isDirectoryKey]).isDirectory == true
 	}

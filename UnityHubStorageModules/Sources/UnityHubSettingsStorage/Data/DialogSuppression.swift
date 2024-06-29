@@ -21,4 +21,5 @@ public extension DialogSuppression {
 
 	static let projectRemoval: Self = Self(rawValue: 1 << 0)
 	static let installationRemoval: Self = Self(rawValue: 1 << 1)
+	static let invalidLocation: Self = Self(rawValue: 1 << 2)
 }

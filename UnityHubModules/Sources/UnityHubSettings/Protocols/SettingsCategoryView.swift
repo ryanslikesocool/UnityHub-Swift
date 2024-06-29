@@ -18,7 +18,9 @@ protocol SettingsCategoryView: View {
 extension SettingsCategoryView {
 	var body: some View {
 		Form(content: makeContent)
+			.scrollDisabled(true)
 			.onChange(of: model, model.save)
+			.onDisappear(perform: model.save)
 			.tabItem(makeLabel)
 			.tag(Model.category)
 	}

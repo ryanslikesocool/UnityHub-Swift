@@ -24,18 +24,8 @@ public extension UnityEditorVersionLabel {
 
 		public var body: some View {
 			if let text {
-				Text(text)
-					.opacity(0.75)
-					.font(.caption.weight(.semibold))
-					.padding(2.5)
-					.background(color.opacity(0.2), in: containerShape)
-					.overlay(color.opacity(0.1), in: containerShape.stroke(lineWidth: 1))
-					.textSelection(.disabled)
+				UnityHubCommonViews.Badge(text, color: color)
 			}
-		}
-
-		private var containerShape: some Shape {
-			RoundedRectangle(cornerRadius: 4)
 		}
 	}
 }

@@ -1,5 +1,6 @@
 import SwiftUI
 import UnityHubCommon
+import UnityHubCommonViews
 
 struct AcknowledgementsSection: View {
 	var body: some View {
@@ -7,7 +8,7 @@ struct AcknowledgementsSection: View {
 			Text("Powered By")
 				.font(.headline)
 
-			Link("MoreWindows", destination: #URL("https://github.com/ryanslikesocool/MoreWindows"))
+			RealLink("MoreWindows", destination: #URL("https://github.com/ryanslikesocool/MoreWindows"))
 		}
 	}
 }

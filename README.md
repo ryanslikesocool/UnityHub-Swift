@@ -1,27 +1,22 @@
 # Unity Hub (Swift)
-A Unity Hub alternative, built natively for macOS.
+A [Unity Hub](https://unity.com/unity-hub) alternative, built natively for macOS.
 
 ## Features
-(Unity's version doesn't have features marked with ✨!)
-✨ Fully native UI and technology (no Electron!), loads instantly
+(The official version doesn't have features marked with ✨!)
+✨ Fully native UI and technology (Electron-free, Apple Silicon-native), loads instantly
 ✨ Smaller visual footprint
-✨ Add custom project icons for quick identification
+✨ Custom project icons for quick identification
 ✨ View useful project information without opening in Unity
-✨ Enhanced searching
-✨ Quickly add multiple projects at once
-✨ Quick links to Unity documentation
+✨ Enhanced search
+✨ Quick links to documentation
 
 # TODO
-✨ Improved background mode options
+✨ Improved background modes
 ✨ Smarter editor installation
 ✨ Single module uninstall
 
-- Find Unity versions with default and custom locations
 - Get installed modules per Unity version via modules.json
-- Load projects, added via manual location
 - Install Unity versions and modules (requires official [Unity Hub](https://unity3d.com/get-unity/download) for CLI tools)
-- Default Unity version for new projects
-- Version uninstall
 
 ![Projects view](images/Projects.png) 
 ![Installs view](images/Installs.png) 

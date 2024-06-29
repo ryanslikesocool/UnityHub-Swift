@@ -56,7 +56,7 @@ public extension InstallationCache {
 public extension InstallationCache {
 	func add(at url: borrowing URL) throws {
 		try validateInstallationURLConflict(url)
-		try Utility.Installation.validateInstallation(appURL: url)
+		try Utility.Application.Unity.validateInstallation(at: url)
 
 		_add(at: url)
 
@@ -70,11 +70,12 @@ public extension InstallationCache {
 	}
 
 	func changeURL(from oldURL: borrowing URL, to newURL: borrowing URL) throws {
-		try Utility.Installation.validateInstallation(appURL: newURL)
+		try Utility.Application.Unity.validateInstallation(at: newURL)
 
 		// TODO: improve edge case handling
-		/// what if `newURL` contains a project, but actual project is different from `oldURL`?
-		/// can we identify a project with a persistent ID?
+		/// what if `newURL` contains an editor, but actual editor is different from `oldURL`?
+		/// can we identify an editor with a persistent ID?
+		/// `UnityBuildNumber` from Info.plist, maybe?
 		do {
 			try validateInstallationURLConflict(newURL)
 		} catch {
@@ -95,6 +96,13 @@ public extension InstallationCache {
 
 	func contains(_ version: borrowing UnityEditorVersion) -> Bool {
 		installations.contains(where: { (try? $0.version) == version })
+	}
+
+	func contains(_ version: UnityEditorVersion?) -> Bool {
+		guard let version else {
+			return false
+		}
+		return contains(version)
 	}
 
 	func contains(_ url: URL) -> Bool {
