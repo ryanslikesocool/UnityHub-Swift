@@ -7,6 +7,15 @@ extension LocationTab {
 	struct OfficialHubSection: View {
 		@AppSetting(location: \.officialHubLocation) private var selection
 
+		private var isValid: Bool {
+			do {
+				try Utility.Settings.Location.validateOfficialHub(selection)
+				return true
+			} catch {
+				return false
+			}
+		}
+
 		var body: some View {
 			Section(content: content, header: header)
 		}
@@ -19,9 +28,8 @@ private extension LocationTab.OfficialHubSection {
 	@ViewBuilder func content() -> some View {
 		LocationPicker(selection: $selection)
 
-		// TODO: make value dynamic
-		HideApplicationToggle(isOn: .constant(true))
-			.disabled(false) // TODO: disable if bad location
+		HideApplicationToggle(applicationURL: selection ?? Constant.Settings.Locations.defaultOfficialHubLocation)
+			.disabled(!isValid)
 	}
 
 	@ViewBuilder func header() -> some View {

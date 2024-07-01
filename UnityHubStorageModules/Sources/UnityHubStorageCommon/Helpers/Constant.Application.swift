@@ -13,5 +13,6 @@ public extension Constant {
 		static let bundleIdentifierKey: String = "CFBundleIdentifier"
 		static let bundleExecutableKey: String = "CFBundleExecutable"
 		static let unityBuildNumberKey: String = "UnityBuildNumber"
+		static let lsuiElementKey: String = "LSUIElement"
 	}
 }

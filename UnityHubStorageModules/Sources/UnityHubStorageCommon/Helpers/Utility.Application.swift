@@ -3,14 +3,6 @@ import UnityHubCommon
 
 public extension Utility {
 	enum Application {
-		public static func getInfoPlist(from applicationURL: URL) throws -> [String: Any] {
-			let data: Data = try getInfoPlist(from: applicationURL)
-			guard let result = try PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] else {
-				throw ApplicationError.infoPlistDeserializationFailure
-			}
-			return result
-		}
-
 		public static func getInfoPlist(from applicationURL: URL) throws -> Data {
 			let url = applicationURL
 				.appending(path: Constant.Application.infoPlistPath, directoryHint: .notDirectory)
@@ -22,28 +14,57 @@ public extension Utility {
 			}
 			return data
 		}
+
+		static func getPlistValue<Value: Decodable>(
+			key plistKey: String,
+			as type: Value.Type = Value.self,
+			from applicationURL: borrowing URL
+		) throws -> Value {
+			let plistData: Data = try getInfoPlist(from: applicationURL)
+			return try getPlistValue(key: plistKey, as: type, from: plistData)
+		}
+
+		static func getPlistValue<Value: Decodable>(
+			key plistKey: String,
+			as type: Value.Type = Value.self,
+			from plistData: borrowing Data
+		) throws -> Value {
+			let codingKey = InfoPlistCodingKey(stringValue: plistKey)
+			return try PropertyListDecoder.shared.decode(InfoPlist<Value>.self, from: plistData, configuration: codingKey).value
+		}
+
+		private struct InfoPlist<Value: Decodable>: DecodableWithConfiguration {
+			let value: Value
+
+			public init(from decoder: any Decoder, configuration: InfoPlistCodingKey) throws {
+				let container = try decoder.container(keyedBy: InfoPlistCodingKey.self)
+
+				value = try container.decode(forKey: configuration)
+			}
+		}
+
+		private struct InfoPlistCodingKey: CodingKey {
+			let stringValue: String
+			let intValue: Int? = nil
+
+			init(stringValue: String) {
+				self.stringValue = stringValue
+			}
+
+			init?(intValue: Int) { nil }
+		}
 	}
 }
 
 // MARK: - Bundle Version
 
 public extension Utility.Application {
-	static func getBundleVersion(from plist: borrowing [String: Any]) throws -> String {
-		let plistKey: String = Constant.Application.bundleVersionKey
-		guard let result = plist[plistKey] as? String else {
-			throw ApplicationError.missingInfoPlistKey(plistKey)
-		}
-		return result
-	}
-
 	static func getBundleVersion(from plistData: borrowing Data) throws -> String {
-		let plist: InfoPlist_BundleVersion = try PropertyListDecoder.shared.decode(InfoPlist_BundleVersion.self, from: plistData)
-		return plist.value
+		try getPlistValue(key: Constant.Application.bundleVersionKey, from: plistData)
 	}
 
 	static func getBundleVersion(from applicationURL: borrowing URL) throws -> String {
-		let plistData: Data = try getInfoPlist(from: applicationURL)
-		return try getBundleVersion(from: plistData)
+		try getPlistValue(key: Constant.Application.bundleVersionKey, from: applicationURL)
 	}
 
 	private struct InfoPlist_BundleVersion: Decodable {
@@ -60,43 +81,29 @@ public extension Utility.Application {
 // MARK: - Bundle Identifier
 
 public extension Utility.Application {
-	static func getBundleIdentifier(from plist: borrowing [String: Any]) throws -> String {
-		let plistKey: String = Constant.Application.bundleIdentifierKey
-		guard let result = plist[plistKey] as? String else {
-			throw ApplicationError.missingInfoPlistKey(plistKey)
-		}
-		return result
-	}
-
 	static func getBundleIdentifier(from plistData: borrowing Data) throws -> String {
-		let plist: InfoPlist_BundleIdentifier = try PropertyListDecoder.shared.decode(InfoPlist_BundleIdentifier.self, from: plistData)
-		return plist.value
+		try getPlistValue(key: Constant.Application.bundleIdentifierKey, from: plistData)
 	}
 
 	static func getBundleIdentifier(from applicationURL: borrowing URL) throws -> String {
-		let plistData: Data = try getInfoPlist(from: applicationURL)
-		return try getBundleIdentifier(from: plistData)
-	}
-
-	private struct InfoPlist_BundleIdentifier: Decodable {
-		let value: String
-
-		private enum CodingKeys: String, CodingKey {
-			case value
-
-			var rawValue: String { Constant.Application.bundleIdentifierKey }
-		}
+		try getPlistValue(key: Constant.Application.bundleIdentifierKey, from: applicationURL)
 	}
 }
 
 // MARK: - Bundle Executable
 
 public extension Utility.Application {
-	static func getBundleExecutable(from plist: borrowing [String: Any], at applicationURL: borrowing URL) throws -> URL {
-		let plistKey: String = Constant.Application.bundleExecutableKey
-		guard let bundleExecutable = plist[plistKey] as? String else {
-			throw ApplicationError.missingInfoPlistKey(plistKey)
-		}
+	static func getBundleExecutable(from plistData: borrowing Data, at applicationURL: borrowing URL) throws -> URL {
+		let bundleExecutable: String = try getPlistValue(key: Constant.Application.bundleExecutableKey, from: plistData)
+		return try getBundleExecutable(named: bundleExecutable, at: applicationURL)
+	}
+
+	static func getBundleExecutable(from applicationURL: borrowing URL) throws -> URL {
+		let plistData: Data = try getInfoPlist(from: applicationURL)
+		return try getBundleExecutable(from: plistData, at: applicationURL)
+	}
+
+	private static func getBundleExecutable(named bundleExecutable: borrowing String, at applicationURL: borrowing URL) throws -> URL {
 		let executableURL = applicationURL
 			.appending(path: Constant.Application.executableDirectoryPath, directoryHint: .isDirectory)
 			.appending(component: bundleExecutable, directoryHint: .notDirectory)
@@ -105,30 +112,16 @@ public extension Utility.Application {
 		}
 		return executableURL
 	}
+}
 
-	static func getBundleExecutable(from plistData: borrowing Data, at applicationURL: borrowing URL) throws -> URL {
-		let plist: InfoPlist_BundleExecutable = try PropertyListDecoder.shared.decode(InfoPlist_BundleExecutable.self, from: plistData)
-		let executableURL = applicationURL
-			.appending(path: Constant.Application.executableDirectoryPath, directoryHint: .isDirectory)
-			.appending(component: plist.value, directoryHint: .notDirectory)
-		guard try executableURL.resourceValues(forKeys: [.isExecutableKey]).isExecutable == true else {
-			throw ApplicationError.missingExecutable
-		}
-		return executableURL
+// MARK: - LS UI Element
+
+public extension Utility.Application {
+	static func getLSUIElement(from plistData: borrowing Data) throws -> Bool? {
+		try getPlistValue(key: Constant.Application.lsuiElementKey, from: plistData)
 	}
 
-	static func getBundleExecutable(from applicationURL: borrowing URL) throws -> URL {
-		let plistData: Data = try getInfoPlist(from: applicationURL)
-		return try getBundleExecutable(from: plistData, at: applicationURL)
-	}
-
-	private struct InfoPlist_BundleExecutable: Decodable {
-		let value: String
-
-		private enum CodingKeys: String, CodingKey {
-			case value
-
-			var rawValue: String { Constant.Application.bundleExecutableKey }
-		}
+	static func getLSUIElement(from applicationURL: borrowing URL) throws -> Bool? {
+		try getPlistValue(key: Constant.Application.lsuiElementKey, from: applicationURL)
 	}
 }

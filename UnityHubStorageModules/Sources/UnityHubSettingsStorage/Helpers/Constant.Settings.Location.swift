@@ -11,8 +11,5 @@ public extension Constant.Settings {
 
 		public static let defaultOfficialHubLocation: URL = URL.applicationDirectory
 			.appending(component: #"Unity Hub.app"#, directoryHint: .notDirectory)
-
-		/// The app bundle identifier to check against.  Only the Unity Hub app should have this bundle identifier.
-		static let validOfficialHubApplicationBundleIdentifier: String = #"com.unity3d.unityhub"#
 	}
 }

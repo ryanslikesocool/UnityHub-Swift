@@ -31,9 +31,9 @@ public extension Utility.Settings {
 			guard (try? officialHubLocation.isApplication()) == true else {
 				throw LocationError.invalidType(expected: .isApplicationKey)
 			}
-			let infoPlist: [String: Any] = try Utility.Application.getInfoPlist(from: officialHubLocation)
+			let infoPlist: Data = try Utility.Application.getInfoPlist(from: officialHubLocation)
 			let bundleIdentifier = try Utility.Application.getBundleIdentifier(from: infoPlist)
-			guard bundleIdentifier == Constant.Settings.Locations.validOfficialHubApplicationBundleIdentifier else {
+			guard bundleIdentifier == Constant.Application.UnityHub.validOfficialHubApplicationBundleIdentifier else {
 				throw ApplicationError.invalidBundleIdentifier
 			}
 			let _ = try Utility.Application.getBundleExecutable(from: infoPlist, at: officialHubLocation)

@@ -33,7 +33,7 @@ public extension Utility.Application {
 
 			/// - NOTE: do not convert to `lazy var`.  increases build time to large, unknown amount (at least 300 seconds)
 
-			let infoPlist: [String: Any] = try Utility.Application.getInfoPlist(from: applicationURL)
+			let infoPlist: Data = try Utility.Application.getInfoPlist(from: applicationURL)
 			_ = try Utility.Application.getBundleExecutable(from: infoPlist, at: applicationURL)
 			let bundleIdentifier: String = try Utility.Application.getBundleIdentifier(from: infoPlist)
 
