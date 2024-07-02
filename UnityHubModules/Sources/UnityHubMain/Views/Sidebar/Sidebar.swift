@@ -4,6 +4,8 @@ import UnityHubCommonViews
 struct Sidebar: View {
 	@Environment(\.sidebarStyle) private var style
 
+	@AppSetting(general: \.compactSidebar) private var compactSidebar
+
 	@Binding var selection: SidebarItem
 
 	var body: some View {
@@ -20,5 +22,8 @@ struct Sidebar: View {
 		)
 		.listStyle(.sidebar)
 		.scrollDisabled(true)
+		.contextMenu {
+			Toggle("Compact", isOn: $compactSidebar)
+		}
 	}
 }

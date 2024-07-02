@@ -2,8 +2,6 @@ import AppKit
 import SwiftUI
 
 final class NSCustomSplitViewController: NSSplitViewController {
-	private static var splitViewIdentifier: String { "com.DevelopedWithLove.RestorationID:CustomSplitViewController" }
-
 	init(
 		sidebar sidebarProvider: @escaping () -> some View,
 		default defaultProvider: @escaping () -> some View
@@ -11,8 +9,6 @@ final class NSCustomSplitViewController: NSSplitViewController {
 		super.init(nibName: nil, bundle: nil)
 
 		splitView.dividerStyle = .thin
-		splitView.autosaveName = Self.splitViewIdentifier
-		splitView.identifier = NSUserInterfaceItemIdentifier(rawValue: Self.splitViewIdentifier)
 
 		let sidebarViewController = NSHostingController(rootView: sidebarProvider())
 		let sidebarItem = NSSplitViewItem(sidebarWithViewController: sidebarViewController)
@@ -45,15 +41,15 @@ extension NSCustomSplitViewController {
 			case let (.some(min), .none):
 				item.minimumThickness = min
 				item.maximumThickness = NSSplitViewItem.unspecifiedDimension
-				item.canCollapse = true
+				item.canCollapse = item.behavior == .sidebar || item.behavior == .inspector
 			case let (.none, .some(max)):
 				item.minimumThickness = NSSplitViewItem.unspecifiedDimension
 				item.maximumThickness = max
-				item.canCollapse = true
+				item.canCollapse = item.behavior == .sidebar || item.behavior == .inspector
 			default:
 				item.minimumThickness = NSSplitViewItem.unspecifiedDimension
 				item.maximumThickness = NSSplitViewItem.unspecifiedDimension
-				item.canCollapse = true
+				item.canCollapse = item.behavior == .sidebar || item.behavior == .inspector
 				break
 		}
 	}

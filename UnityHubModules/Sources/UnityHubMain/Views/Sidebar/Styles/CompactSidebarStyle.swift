@@ -7,14 +7,17 @@ struct CompactSidebarStyle: SidebarStyle {
 	func makeBody(configuration: SidebarStyleConfiguration) -> some View {
 		NavigationStack {
 			List(selection: configuration.selection) {
-				ForEach(configuration.links.indices, id: \.self) { index in
-					configuration.links[index]
+				Group {
+					ForEach(configuration.links.indices, id: \.self) { index in
+						configuration.links[index]
+					}
+
+					Divider()
+
+					configuration.userMenu
+						.buttonStyle(.plain)
 				}
-
-				Divider()
-
-				configuration.userMenu
-					.buttonStyle(.plain)
+				.frame(width: 59)
 			}
 			.labelStyle(.compactSidebar)
 		}

@@ -7,9 +7,9 @@ struct GeneralTab: SettingsCategoryView {
 	static let category: SettingsCategory = .general
 
 	func makeContent() -> some View {
-		AppearancePicker()
-
-		CompactSidebarToggle()
+		Section {
+			AppearancePicker()
+		}
 
 		Section {
 			DialogSuppressionResetButton()

@@ -2,14 +2,15 @@ import SwiftUI
 
 struct CompactSidebarLabelStyle: LabelStyle {
 	func makeBody(configuration: Configuration) -> some View {
-		Spacer()
-			.overlay(alignment: .center) {
-				configuration.icon
-					.font(.largeTitle)
-			}
-			.frame(maxWidth: .infinity, maxHeight: .infinity)
-			.aspectRatio(1, contentMode: .fit)
-			.contentShape(.rect)
+		HStack {
+			Spacer()
+			configuration.icon
+			Spacer()
+		}
+		.font(.largeTitle)
+		.frame(height: 48)
+		.aspectRatio(1, contentMode: .fill)
+		.contentShape(.rect)
 	}
 }
 

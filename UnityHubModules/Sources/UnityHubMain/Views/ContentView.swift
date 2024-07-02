@@ -8,6 +8,8 @@ struct ContentView: View {
 
 	@State private var sidebarSelection: SidebarItem = .projects
 
+	private var sidebarWidth: CGFloat { compactSidebar ? 91 : 160 }
+
 	var body: some View {
 		CustomSplitView(
 			sidebar: {
@@ -19,7 +21,7 @@ struct ContentView: View {
 
 		.sidebarStyle(compactSidebar ? AnySidebarStyle(.compact) : AnySidebarStyle(.default))
 
-		.customSplitViewColumnWidth(.sidebar, compactSidebar ? 91 : 160)
+		.customSplitViewColumnWidth(.sidebar, sidebarWidth)
 		.customSplitViewColumnWidth(.default, min: 500)
 
 		.errorReceiver(event: Event.locationError)
