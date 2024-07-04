@@ -1,5 +1,6 @@
 import SwiftUI
 import UnityHubCommonViews
+import UnityHubStorage
 
 struct SidebarStyleConfiguration: ViewStyleConfiguration {
 	/// A type-erased navigation link of a ``Sidebar``.

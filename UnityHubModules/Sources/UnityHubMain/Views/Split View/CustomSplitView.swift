@@ -4,8 +4,10 @@ import SwiftUI
 struct CustomSplitView<Sidebar: View, Detail: View>: NSViewControllerRepresentable {
 	typealias SidebarProvider = () -> Sidebar
 	typealias DetailProvider = () -> Detail
-	
-	@Environment(\.customSplitViewColumnWidth) private var columnWidth
+
+	@Environment(\.customSplitViewItemLayout) private var itemLayout
+	@Environment(\.customSplitViewDefaultThickness) private var defaultThickness
+	@Environment(\.customSplitViewSnapPositions) private var snapPositions
 
 	private let sidebar: SidebarProvider
 	private let detail: DetailProvider
@@ -21,27 +23,17 @@ struct CustomSplitView<Sidebar: View, Detail: View>: NSViewControllerRepresentab
 	func makeNSViewController(context: Context) -> NSCustomSplitViewController {
 		let nsViewController = NSCustomSplitViewController(
 			sidebar: sidebar,
-			default: detail
+			default: detail,
+			defaultThickness: defaultThickness
 		)
 
 		DispatchQueue.main.async {
-			Self.updateItems(in: nsViewController, with: columnWidth)
+			nsViewController.updateItems(with: itemLayout.values)
+			nsViewController.updateSnapPositions(with: snapPositions)
 		}
 
 		return nsViewController
 	}
 
-	func updateNSViewController(_ nsViewController: NSCustomSplitViewController, context: Context) { 
-		Self.updateItems(in: nsViewController, with: columnWidth)
-	}
-
-	private static func updateItems(in nsViewController: NSCustomSplitViewController, with columnWidth: [NSSplitViewItem.Behavior : CustomSplitViewColumnWidth]) {
-		for (key, value) in columnWidth {
-			guard let item = nsViewController.splitViewItems.first(where: { $0.behavior == key }) else {
-				continue
-			}
-
-			NSCustomSplitViewController.applyWidth(value, to: item)
-		}
-	}
+	func updateNSViewController(_ nsViewController: NSCustomSplitViewController, context: Context) {	}
 }

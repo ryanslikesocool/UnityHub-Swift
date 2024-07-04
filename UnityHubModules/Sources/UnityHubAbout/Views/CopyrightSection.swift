@@ -7,7 +7,7 @@ struct CopyrightSection: View {
 
 	var body: some View {
 		VStack(spacing: 0) {
-			Button("\(AppInformation.appName) (Swift) \(AppInformation.copyright ?? "© 2021 Ryan Boyer")") {
+			Button("\(NSApplication.shared.bundleName) (Swift) \(NSApplication.shared.copyright ?? "© 2021 Ryan Boyer")") {
 				openURL(Constant.Link.ryanBoyer)
 			}
 			Button("Unity, Unity Hub © Unity Technologies Inc.") {

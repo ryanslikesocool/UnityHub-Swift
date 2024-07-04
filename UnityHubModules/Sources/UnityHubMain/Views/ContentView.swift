@@ -4,27 +4,34 @@ import UnityHubCommonViews
 import UnityHubStorage
 
 struct ContentView: View {
-	@AppSetting(general: \.compactSidebar) private var compactSidebar
+	@AppSetting(general: \.sidebarDisplay) private var sidebarDisplay
 
 	@State private var sidebarSelection: SidebarItem = .projects
 
-	private var sidebarWidth: CGFloat { compactSidebar ? 91 : 160 }
-
 	var body: some View {
 		CustomSplitView(
-			sidebar: {
-				Sidebar(selection: $sidebarSelection)
-			},
+			sidebar: { Sidebar(selection: $sidebarSelection) },
 			detail: { Detail(sidebarSelection: $sidebarSelection) }
 		)
 		.ignoresSafeArea(.container, edges: .top)
 
-		.sidebarStyle(compactSidebar ? AnySidebarStyle(.compact) : AnySidebarStyle(.default))
+		.sidebarStyle(sidebarDisplay.viewStyle)
 
-		.customSplitViewColumnWidth(.sidebar, sidebarWidth)
-		.customSplitViewColumnWidth(.default, min: 500)
+		.customSplitViewItemLayout(.sidebar, min: SidebarDisplay.compact.width, max: SidebarDisplay.standard.width, collapsible: false)
+		.customSplitViewDefaultThickness(.sidebar, sidebarDisplay.width)
+		.customSplitViewSnap(index: 0, enabled: true, onChange: onChangeSnapIndex)
+
+		.customSplitViewItemLayout(.default, min: 500, collapsible: false)
 
 		.errorReceiver(event: Event.locationError)
 		.errorReceiver(event: Event.applicationError)
+	}
+}
+
+// MARK: - Functions
+
+private extension ContentView {
+	func onChangeSnapIndex(index: Int) {
+		sidebarDisplay = index == 0 ? .compact : .standard
 	}
 }
