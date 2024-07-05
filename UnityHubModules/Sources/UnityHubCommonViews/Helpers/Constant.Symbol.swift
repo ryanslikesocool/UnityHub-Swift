@@ -34,6 +34,7 @@ public extension Constant {
 		public static let checkmark: String = "checkmark"
 		public static let externalDrive: String = "externaldrive"
 		public static let xMark: String = "xmark"
+		public static let terminal: String = "terminal"
 
 		public static let finder: String = "finder"
 		public static let ellipsis_vertical: String = "ellipsis.vertical"

@@ -7,9 +7,9 @@ protocol SettingsCategoryView: View {
 
 	static var category: SettingsCategory { get }
 
-	@ViewBuilder func makeContent() -> Content
-
 	@ViewBuilder func makeLabel() -> Label
+
+	@ViewBuilder func makeContent() -> Content
 }
 
 // MARK: - Default Implementation

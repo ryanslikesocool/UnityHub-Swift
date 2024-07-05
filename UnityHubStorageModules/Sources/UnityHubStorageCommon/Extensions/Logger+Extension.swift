@@ -1,14 +1,6 @@
-import Foundation
 import OSLog
-
-package extension Logger {
-	private static let subsystem: String = "\(Bundle.main.bundleIdentifier!).UnityHubStorage"
-
-	init(category: String) {
-		self.init(subsystem: Self.subsystem, category: category)
-	}
-}
+import UnityHubCommon
 
 extension Logger {
-	static let module: Logger = Logger(category: "UnityHubStorageCommon")
+	@usableFromInline static let module: Logger = Logger(category: "UnityHubStorageCommon")
 }

@@ -6,6 +6,10 @@ import UnityHubStorage
 struct LocationTab: SettingsCategoryView {
 	static let category: SettingsCategory = .locations
 
+	func makeLabel() -> some View {
+		SwiftUI.Label("Locations", systemImage: Constant.Symbol.externalDrive)
+	}
+
 	func makeContent() -> some View {
 		Group {
 			InstallationLocationPicker()
@@ -14,9 +18,5 @@ struct LocationTab: SettingsCategoryView {
 		.urlPickerStyle(.section)
 
 		OfficialHubSection()
-	}
-
-	func makeLabel() -> some View {
-		SwiftUI.Label("Locations", systemImage: Constant.Symbol.externalDrive)
 	}
 }

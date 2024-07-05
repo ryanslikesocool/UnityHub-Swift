@@ -9,12 +9,13 @@ extension LocationTab.OfficialHubSection {
 		var body: some View {
 			URLPicker(
 				selection: $selection,
-				defaultValue: Constant.Settings.Locations.defaultOfficialHubLocation,
+				defaultValue: Constant.Settings.Location.defaultOfficialHubLocation,
 				allowedContentTypes: [.application],
 				validator: Utility.Settings.Location.validateOfficialHub,
 				label: EmptyView.init
 			)
 			.urlPickerStyle(.noLabel)
+			.fileDialogDefaultDirectory(Constant.Settings.Location.defaultOfficialHubLocation)
 		}
 	}
 }

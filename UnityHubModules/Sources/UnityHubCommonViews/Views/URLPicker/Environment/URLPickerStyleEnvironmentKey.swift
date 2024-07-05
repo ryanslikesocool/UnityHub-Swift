@@ -2,14 +2,14 @@ import SwiftUI
 
 typealias _AnyURLPickerStyle = _AnyViewStyle<URLPickerStyleConfiguration>
 
-private enum URLPickerStyleEnvironmentKey: EnvironmentKey {
-	static let defaultValue = _AnyURLPickerStyle(.inline)
-}
-
 extension EnvironmentValues {
 	fileprivate(set) var urlPickerStyle: _AnyURLPickerStyle {
-		get { self[URLPickerStyleEnvironmentKey.self] }
-		set { self[URLPickerStyleEnvironmentKey.self] = newValue }
+		get { self[__Key_urlPickerStyle.self] }
+		set { self[__Key_urlPickerStyle.self] = newValue }
+	}
+
+	private enum __Key_urlPickerStyle: EnvironmentKey {
+		static let defaultValue = _AnyURLPickerStyle(.inline)
 	}
 }
 

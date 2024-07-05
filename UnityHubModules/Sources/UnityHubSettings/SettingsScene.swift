@@ -11,6 +11,9 @@ public struct SettingsScene: Scene {
 			TabView {
 				GeneralTab()
 				LocationTab()
+				#if DEBUG
+				DevelopmentTab()
+				#endif
 			}
 			.formStyle(.grouped)
 			.fixedSize()

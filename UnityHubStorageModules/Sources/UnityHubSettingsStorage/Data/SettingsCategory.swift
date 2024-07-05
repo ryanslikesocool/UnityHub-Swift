@@ -3,6 +3,9 @@ public enum SettingsCategory: UInt8 {
 	case projects
 	case installations
 	case locations
+#if DEBUG
+	case development
+#endif
 }
 
 // MARK: - Hashable
@@ -24,6 +27,9 @@ extension SettingsCategory {
 			case .projects: "projects"
 			case .installations: "installations"
 			case .locations: "locations"
+#if DEBUG
+			case .development: "development"
+#endif
 		}
 	}
 }

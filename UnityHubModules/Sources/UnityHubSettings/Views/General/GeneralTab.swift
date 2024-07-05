@@ -6,6 +6,10 @@ import UnityHubStorage
 struct GeneralTab: SettingsCategoryView {
 	static let category: SettingsCategory = .general
 
+	func makeLabel() -> some View {
+		SwiftUI.Label("General", systemImage: Constant.Symbol.gearShape)
+	}
+
 	func makeContent() -> some View {
 		Section {
 			AppearancePicker()
@@ -14,9 +18,5 @@ struct GeneralTab: SettingsCategoryView {
 		Section {
 			DialogSuppressionResetButton()
 		}
-	}
-
-	func makeLabel() -> some View {
-		SwiftUI.Label("General", systemImage: Constant.Symbol.gearShape)
 	}
 }

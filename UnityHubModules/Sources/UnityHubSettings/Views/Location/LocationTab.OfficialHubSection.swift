@@ -28,7 +28,7 @@ private extension LocationTab.OfficialHubSection {
 	@ViewBuilder func content() -> some View {
 		LocationPicker(selection: $selection)
 
-		HideApplicationToggle(applicationURL: selection ?? Constant.Settings.Locations.defaultOfficialHubLocation)
+		HideApplicationToggle(applicationURL: selection ?? Constant.Settings.Location.defaultOfficialHubLocation)
 			.disabled(!isValid)
 	}
 

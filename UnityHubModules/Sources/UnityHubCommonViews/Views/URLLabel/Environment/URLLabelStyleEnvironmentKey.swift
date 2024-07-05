@@ -2,14 +2,14 @@ import SwiftUI
 
 typealias _AnyURLLabelStyle = _AnyViewStyle<URLLabelStyleConfiguration>
 
-private enum URLLabelStyleEnvironmentKey: EnvironmentKey {
-	static let defaultValue = _AnyURLLabelStyle(.default)
-}
-
 extension EnvironmentValues {
 	fileprivate(set) var urlLabelStyle: _AnyURLLabelStyle {
-		get { self[URLLabelStyleEnvironmentKey.self] }
-		set { self[URLLabelStyleEnvironmentKey.self] = newValue }
+		get { self[__Key_urlLabelStyle.self] }
+		set { self[__Key_urlLabelStyle.self] = newValue }
+	}
+
+	private enum __Key_urlLabelStyle: EnvironmentKey {
+		static let defaultValue = _AnyURLLabelStyle(.default)
 	}
 }
 

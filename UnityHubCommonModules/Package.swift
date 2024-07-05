@@ -17,31 +17,22 @@ let package = Package(
 		.package(url: "https://github.com/apple/swift-syntax.git", from: "510.0.1"),
 	],
 	targets: [
-		.target(
-			name: "UnityHubCommon",
-			dependencies: [
-				"UnityHubMacros",
-			]
-		),
+		.target(name: "UnityHubCommon", dependencies: [
+			"UnityHubMacros",
+		]),
 
 		// MARK: - Macros
 
-		.macro(
-			name: "UnityHubMacros",
-			dependencies: [
-				.product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
-				.product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
-			]
-		),
+		.macro(name: "UnityHubMacros", dependencies: [
+			.product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
+			.product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
+		]),
 
 		// MARK: - Tests
 
-		.testTarget(
-			name: "UnityHubMacrosTests",
-			dependencies: [
-				"UnityHubMacros",
-				.product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
-			]
-		),
+		.testTarget(name: "UnityHubMacrosTests", dependencies: [
+			"UnityHubMacros",
+			.product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
+		]),
 	]
 )

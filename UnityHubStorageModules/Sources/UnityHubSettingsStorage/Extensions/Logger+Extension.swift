@@ -1,5 +1,5 @@
 import OSLog
-import UnityHubStorageCommon
+import UnityHubCommon
 
 extension Logger {
 	@usableFromInline static let module: Logger = Logger(category: "UnityHubSettingsStorage")

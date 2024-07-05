@@ -74,7 +74,7 @@ extension InstallationCache {
 
 public extension InstallationCache {
 	func getInstallationsFromDefaultLocation() {
-		let location: URL = LocationSettings.shared.installationLocation ?? Constant.Settings.Locations.defaultInstallationLocation
+		let location: URL = LocationSettings.shared.installationLocation ?? Constant.Settings.Location.defaultInstallationLocation
 		let fileManager: FileManager = .default
 
 		let items: [URL]

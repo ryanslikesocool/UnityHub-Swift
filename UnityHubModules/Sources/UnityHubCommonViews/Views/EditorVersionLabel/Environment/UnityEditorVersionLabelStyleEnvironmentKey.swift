@@ -2,14 +2,14 @@ import SwiftUI
 
 typealias _AnyUnityEditorVersionLabelStyle = _AnyViewStyle<UnityEditorVersionLabelStyleConfiguration>
 
-private enum UnityEditorVersionLabelStyleEnvironmentKey: EnvironmentKey {
-	static let defaultValue = _AnyUnityEditorVersionLabelStyle(.default)
-}
-
 extension EnvironmentValues {
 	fileprivate(set) var unityEditorVersionLabelStyle: _AnyUnityEditorVersionLabelStyle {
-		get { self[UnityEditorVersionLabelStyleEnvironmentKey.self] }
-		set { self[UnityEditorVersionLabelStyleEnvironmentKey.self] = newValue }
+		get { self[__Key_unityEditorVersionLabelStyle.self] }
+		set { self[__Key_unityEditorVersionLabelStyle.self] = newValue }
+	}
+
+	private enum __Key_unityEditorVersionLabelStyle: EnvironmentKey {
+		static let defaultValue = _AnyUnityEditorVersionLabelStyle(.default)
 	}
 }
 

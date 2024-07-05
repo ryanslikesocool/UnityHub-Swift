@@ -19,7 +19,7 @@ public extension Utility.Application {
 
 		public static var defaultInstallationURL: URL {
 			LocationSettings.shared.installationLocation
-				?? Constant.Settings.Locations.defaultInstallationLocation
+				?? Constant.Settings.Location.defaultInstallationLocation
 		}
 
 		@discardableResult public static func validateInstallation(at applicationURL: URL) throws -> Bool {
@@ -30,8 +30,6 @@ public extension Utility.Application {
 			else {
 				throw InstallationError.missingInstallationAtURL(applicationURL)
 			}
-
-			/// - NOTE: do not convert to `lazy var`.  increases build time to large, unknown amount (at least 300 seconds)
 
 			let infoPlist: Data = try Utility.Application.getInfoPlist(from: applicationURL)
 			_ = try Utility.Application.getBundleExecutable(from: infoPlist, at: applicationURL)

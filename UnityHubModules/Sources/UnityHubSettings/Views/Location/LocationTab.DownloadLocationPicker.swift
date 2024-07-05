@@ -12,10 +12,11 @@ extension LocationTab {
 			URLPicker(
 				"Downloads",
 				selection: $selection,
-				defaultValue: Constant.Settings.Locations.defaultDownloadLocation,
+				defaultValue: Constant.Settings.Location.defaultDownloadLocation,
 				allowedContentTypes: [.folder],
 				validator: Utility.Settings.Location.validateDownloadLocation
 			)
+			.fileDialogDefaultDirectory(Constant.Settings.Location.defaultDownloadLocation)
 		}
 	}
 }
