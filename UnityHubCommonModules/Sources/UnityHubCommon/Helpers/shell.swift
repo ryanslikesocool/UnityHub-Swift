@@ -1,20 +1,22 @@
 import Foundation
 
-/// Execute a shell command.
-@discardableResult public func shell(_ command: String) throws -> String {
-	let task = Process()
-	let pipe = Pipe()
+public enum Shell {
+	/// Execute a shell command.
+	@discardableResult public static func execute(_ arguments: String...) throws -> String {
+		let task = Process()
+		let pipe = Pipe()
 
-	task.standardOutput = pipe
-	task.standardError = pipe
-	task.arguments = ["-c", command]
-	task.executableURL = URL(fileURLWithPath: "/bin/zsh")
-	task.standardInput = nil
+		task.standardOutput = pipe
+		task.standardError = pipe
+		task.arguments = ["-c"] + arguments
+		task.executableURL = URL(fileURLWithPath: "/bin/zsh")
+		task.standardInput = nil
 
-	try task.run()
+		try task.run()
 
-	let data = pipe.fileHandleForReading.readDataToEndOfFile()
-	let output = String(data: data, encoding: .utf8)!
+		let data = pipe.fileHandleForReading.readDataToEndOfFile()
+		let output = String(data: data, encoding: .utf8)!
 
-	return output
+		return output
+	}
 }
