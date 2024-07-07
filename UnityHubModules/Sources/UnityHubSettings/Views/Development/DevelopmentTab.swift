@@ -18,7 +18,7 @@ struct DevelopmentTab: SettingsCategoryView {
 			LabeledContent(content: {
 				TaskButton("Log Official CLI Help") {
 					do {
-						let result = try Shell.officialHub("help")
+						let result = try Shell.officialHub(.headless, .help)
 						print(result)
 					} catch {
 						Logger.module.error("""

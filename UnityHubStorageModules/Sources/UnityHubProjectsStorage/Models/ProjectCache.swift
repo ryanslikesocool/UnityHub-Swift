@@ -64,18 +64,12 @@ public extension ProjectCache {
 		}
 		try Utility.Application.Unity.validateInstallation(at: installation.url)
 
-		let installationPath: String = try Shell.formatURL(
-			Utility.Application
-				.getBundleExecutable(from: installation.url)
-		)
-
-		let projectPathArgument: String = "-projectPath"
-
-		let projectPath: String = Shell.formatURL(url)
+		let installationURL: URL = try Utility.Application
+			.getBundleExecutable(from: installation.url)
 
 		Task {
 			do {
-				try Shell.zsh(installationPath, projectPathArgument, projectPath)
+				try Shell.zsh(.c, .url(installationURL), "-projectPath", .url(url))
 			} catch {
 				throw ShellError(error)
 			}
