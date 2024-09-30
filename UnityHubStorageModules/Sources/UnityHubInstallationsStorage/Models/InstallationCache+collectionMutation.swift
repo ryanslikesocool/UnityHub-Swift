@@ -90,12 +90,16 @@ public extension InstallationCache {
 		save()
 	}
 
-	func get(for version: borrowing UnityEditorVersion) -> InstallationMetadata? {
-		installations.first(where: { (try? $0.version) == version })
+	func get(for version: UnityEditorVersion) -> InstallationMetadata? {
+		installations.first { installation in
+			(try? installation.version) == version
+		}
 	}
 
-	func contains(_ version: borrowing UnityEditorVersion) -> Bool {
-		installations.contains(where: { (try? $0.version) == version })
+	func contains(_ version: UnityEditorVersion) -> Bool {
+		installations.contains { installation in
+			(try? installation.version) == version
+		}
 	}
 
 	func contains(_ version: UnityEditorVersion?) -> Bool {

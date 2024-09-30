@@ -8,9 +8,21 @@ struct ProjectIssueFlags: IssueFlags {
 	}
 }
 
+// MARK: - Sendable
+
+extension ProjectIssueFlags: Sendable { }
+
+// MARK: - Equatable
+
+extension ProjectIssueFlags: Equatable { }
+
+// MARK: - Hashable
+
+extension ProjectIssueFlags: Hashable { }
+
 // MARK: - CaseIterable
 
-extension ProjectIssueFlags {
+extension ProjectIssueFlags: CaseIterable {
 	static let allCases: [Self] = [.missingProject, .missingInstallation]
 }
 

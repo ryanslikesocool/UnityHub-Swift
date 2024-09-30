@@ -2,6 +2,15 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:README.md">
+   </FileRef>
+   <FileRef
+      location = "group:LICENSE.md">
+   </FileRef>
+   <FileRef
+      location = "group:UnityHub.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:../MoreWindows">
    </FileRef>
    <FileRef
@@ -15,14 +24,5 @@
    </FileRef>
    <FileRef
       location = "group:UnityHubModules">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/ryanboyer/Documents/Xcode Projects/UnityHub-Swift/UnityHub.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:LICENSE.md">
-   </FileRef>
-   <FileRef
-      location = "group:README.md">
    </FileRef>
 </Workspace>

@@ -53,7 +53,7 @@ private extension LocateProjectReceiver {
 					try projects.changeURL(from: oldURL, to: url)
 			}
 		} catch ProjectError.invalid {
-			Event.Project.invalid()
+			Event.Project.invalid.send()
 		} catch ProjectError.alreadyExists {
 			// TODO: automatically add project to search field
 		} catch {

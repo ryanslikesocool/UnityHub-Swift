@@ -6,6 +6,14 @@ extension SearchToken {
 	}
 }
 
+// MARK: - Sendable
+
+extension SearchToken.Kind: Sendable { }
+
+// MARK: - Equatable
+
+extension SearchToken.Kind: Equatable { }
+
 // MARK: - Hashable
 
 extension SearchToken.Kind: Hashable { }

@@ -24,7 +24,7 @@ public struct SortOrderPicker<Label: View>: View {
 	}
 }
 
-// MARK: - Init+
+// MARK: - Convenience
 
 public extension SortOrderPicker
 	where Label == Text

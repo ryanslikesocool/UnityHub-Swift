@@ -18,7 +18,9 @@ extension ProjectInfoSheet {
 			LabeledContent("Size") {
 				content
 			}
-			.task { await recalculateFileSizeAsync() }
+			.task {
+				await recalculateFileSizeAsync()
+			}
 		}
 	}
 }
@@ -26,7 +28,8 @@ extension ProjectInfoSheet {
 // MARK: - Supporting Views
 
 private extension ProjectInfoSheet.FileSizeLabel {
-	@ViewBuilder var content: some View {
+	@ViewBuilder
+	var content: some View {
 		switch phase {
 			case .loading:
 				ProgressView()

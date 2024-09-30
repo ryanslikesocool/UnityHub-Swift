@@ -2,6 +2,8 @@ import SwiftUI
 import UnityHubCommon
 
 public struct SmallMenuLabelStyle: LabelStyle {
+	public init() { }
+
 	public func makeBody(configuration: Configuration) -> some View {
 		configuration
 			.icon
@@ -12,6 +14,12 @@ public struct SmallMenuLabelStyle: LabelStyle {
 	public static let width: CGFloat = 16
 }
 
-public extension LabelStyle where Self == SmallMenuLabelStyle {
-	static var smallMenuStyle: Self { Self() }
+// MARK: - Convenience
+
+public extension LabelStyle where
+	Self == SmallMenuLabelStyle
+{
+	static var smallMenuStyle: Self {
+		Self()
+	}
 }

@@ -28,7 +28,7 @@
 		AF66EBEA251AE3900088EC84 /* Unity Hub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Unity Hub.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF66EBF1251AE3910088EC84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF66EBF9251AE3910088EC84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AF66EBFA251AE3910088EC84 /* UnityHub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnityHub.entitlements; sourceTree = "<group>"; };
+		AF66EBFA251AE3910088EC84 /* Entitlements.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Entitlements.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +70,7 @@
 		AF66EBEC251AE3900088EC84 /* UnityHub */ = {
 			isa = PBXGroup;
 			children = (
-				AF66EBFA251AE3910088EC84 /* UnityHub.entitlements */,
+				AF66EBFA251AE3910088EC84 /* Entitlements.entitlements */,
 				AF66EBF9251AE3910088EC84 /* Info.plist */,
 				AF66EBF1251AE3910088EC84 /* Assets.xcassets */,
 			);
@@ -109,7 +109,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1220;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					AF66EBE9251AE3900088EC84 = {
 						CreatedOnToolsVersion = 12.2;
@@ -289,11 +289,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon - Black on Yellow";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = UnityHub/UnityHub.entitlements;
+				CODE_SIGN_ENTITLEMENTS = UnityHub/Entitlements.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 874;
+				CURRENT_PROJECT_VERSION = 957;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 838RGQ32CA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -318,11 +318,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon - Black on White";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = UnityHub/UnityHub.entitlements;
+				CODE_SIGN_ENTITLEMENTS = UnityHub/Entitlements.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 874;
+				CURRENT_PROJECT_VERSION = 957;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 838RGQ32CA;
 				ENABLE_HARDENED_RUNTIME = YES;

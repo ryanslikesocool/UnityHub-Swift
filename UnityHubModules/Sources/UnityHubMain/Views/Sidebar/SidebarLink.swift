@@ -17,7 +17,7 @@ struct SidebarLink<Label: View>: View {
 	}
 }
 
-// MARK: - Init+
+// MARK: - Convenience
 
 extension SidebarLink
 	where Label == SwiftUI.Label<Text, Image>

@@ -1,6 +1,9 @@
 import SwiftUI
 
-extension Binding where Value: Equatable {
+extension Binding where
+	Value: Equatable
+{
+	@MainActor
 	init(_ original: Binding<Value?>, defaultValue: Value) {
 		self.init(
 			get: { original.wrappedValue ?? defaultValue },

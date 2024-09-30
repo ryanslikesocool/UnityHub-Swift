@@ -4,6 +4,14 @@ enum SidebarItem: UInt8 {
 	case resources
 }
 
+// MARK: - Sendable
+
+extension SidebarItem: Sendable { }
+
+// MARK: - Equatable
+
+extension SidebarItem: Equatable { }
+
 // MARK: - Hashable
 
 extension SidebarItem: Hashable { }

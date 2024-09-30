@@ -2,6 +2,8 @@ import SwiftUI
 import UnityHubCommon
 
 public struct URLLabel: View {
+	typealias Configuration = URLLabelStyleConfiguration
+
 	@Environment(\.urlLabelStyle) private var style
 
 	private let value: URL
@@ -12,12 +14,11 @@ public struct URLLabel: View {
 
 	public var body: some View {
 		let text: String = value.abbreviatingWithTildeInPath
+		let configuration = Configuration(
+			label: Text(text)
+				.help(text)
+		)
 
-		style.makeBody(configuration: URLLabelStyleConfiguration(
-			label: URLLabelStyleConfiguration.Label(content:
-				Text(text)
-					.help(text)
-			)
-		))
+		style.makeBody(configuration: configuration)
 	}
 }

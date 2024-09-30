@@ -5,6 +5,7 @@ import UniformTypeIdentifiers
 import UnityHubCommon
 
 public struct URLPicker<Label: View>: View {
+	typealias Configuration = URLPickerStyleConfiguration
 	public typealias LabelProvider = () -> Label
 	public typealias ValidationFunction = (URL) throws -> Void
 
@@ -32,7 +33,7 @@ public struct URLPicker<Label: View>: View {
 	}
 
 	public var body: some View {
-		style.makeBody(configuration: _AnyURLPickerStyle.Configuration(
+		let configuration = Configuration(
 			label: label(),
 			urlLabel: URLLabel(selection)
 				.contextMenu {
@@ -41,29 +42,32 @@ public struct URLPicker<Label: View>: View {
 				},
 			issueButton: issueButton,
 			startImport: { isPresentingDialog = true }
-		))
-		.fileImporter(
-			isPresented: $isPresentingDialog,
-			allowedContentTypes: allowedContentTypes,
-			onCompletion: onFileImportComplete
 		)
-		.onAppear(perform: onValidate)
-		.onChange(of: selection, onValidate)
+
+		style.makeBody(configuration: configuration)
+			.fileImporter(
+				isPresented: $isPresentingDialog,
+				allowedContentTypes: allowedContentTypes,
+				onCompletion: onFileImportComplete
+			)
+			.onAppear(perform: onValidate)
+			.onChange(of: selection, onValidate)
 	}
 }
 
 // MARK: - Supporting Views
 
 private extension URLPicker {
-	@ViewBuilder var issueButton: some View {
+	@ViewBuilder
+	var issueButton: some View {
 		if
 			let issue,
 			let windowID
 		{
 			Button(action: {
 				switch issue {
-					case let issue as LocationError: Event.locationError((windowID, issue))
-					case let issue as ApplicationError: Event.applicationError((windowID, issue))
+					case let issue as LocationError: Event.locationError.send(windowID, issue)
+					case let issue as ApplicationError: Event.applicationError.send(windowID, issue)
 					default: preconditionFailure(unexpectedError: issue)
 				}
 			}, label: SwiftUI.Label.issue)
@@ -104,7 +108,7 @@ private extension URLPicker {
 	}
 }
 
-// MARK: - Init+
+// MARK: - Convenience
 
 public extension URLPicker {
 	init(

@@ -6,7 +6,8 @@ import UnityHubCommonViews
 struct UserMenu: View {
 	var body: some View {
 		Menu("User", systemImage: Constant.Symbol.person) {
-			content
+			makeContent()
+				.controlSize(.regular)
 				.labelStyle(.automatic)
 		}
 	}
@@ -15,7 +16,8 @@ struct UserMenu: View {
 // MARK: - Supporting Views
 
 private extension UserMenu {
-	@ViewBuilder var content: some View {
+	@ViewBuilder
+	func makeContent() -> some View {
 		Section {
 			Button("Account Settings", systemImage: Constant.Symbol.gearShape) { }
 				.disabled(true)

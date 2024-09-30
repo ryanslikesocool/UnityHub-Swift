@@ -1,14 +1,17 @@
 import SwiftUI
 
 /// A wrapper around ``SwiftUI/Link`` that always shows the destination as a tooltip.
-/// - Remark: This is maybe a little unnecessary, but I think it's important to be honest with the user about where a link is going.
+/// - Remark: This is maybe a little unnecessary, but I think it's important to be upfront with users about where a link is going.
 public struct RealLink<Label: View>: View {
 	public typealias LabelProvider = () -> Label
 
 	private let destination: URL
 	private let label: LabelProvider
 
-	public init(destination: URL, @ViewBuilder label: @escaping LabelProvider) {
+	public init(
+		destination: URL,
+		@ViewBuilder label: @escaping LabelProvider
+	) {
 		self.destination = destination
 		self.label = label
 	}
@@ -19,7 +22,7 @@ public struct RealLink<Label: View>: View {
 	}
 }
 
-// MARK: - Init+
+// MARK: - Convenience
 
 public extension RealLink where Label == Text {
 	init(_ title: some StringProtocol, destination: URL) {

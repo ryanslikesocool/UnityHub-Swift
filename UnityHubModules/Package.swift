@@ -1,4 +1,4 @@
-// swift-tools-version: 5.10
+// swift-tools-version: 6.0
 
 import PackageDescription
 
@@ -7,10 +7,7 @@ let package = Package(
 	defaultLocalization: "en",
 	platforms: [.macOS(.v14)],
 	products: [
-		.library(
-			name: "UnityHub",
-			targets: ["UnityHub"]
-		),
+		.library(name: "UnityHub", targets: ["UnityHub"]),
 	],
 	dependencies: [
 		.package(url: "https://github.com/ryanslikesocool/MoreWindows.git", from: "0.1.0"),

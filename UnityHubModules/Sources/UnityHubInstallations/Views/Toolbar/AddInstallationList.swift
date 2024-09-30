@@ -5,11 +5,18 @@ import UnityHubStorage
 struct AddInstallationList: View {
 	var body: some View {
 		Menu(
-			content: {
-				Button.downloadInstallation()
-				Button.locateInstallation()
-			},
+			content: makeContent,
 			label: Label.add
 		)
+	}
+}
+
+// MARK: - Supporting Views
+
+private extension AddInstallationList {
+	@ViewBuilder
+	func makeContent() -> some View {
+		Button.downloadInstallation()
+		Button.locateInstallation()
 	}
 }

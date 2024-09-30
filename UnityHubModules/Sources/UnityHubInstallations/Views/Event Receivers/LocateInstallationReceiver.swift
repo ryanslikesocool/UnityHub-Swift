@@ -53,7 +53,7 @@ private extension LocateInstallationReceiver {
 					try installations.changeURL(from: oldURL, to: url)
 			}
 		} catch InstallationError.invalid {
-			Event.Installation.invalid()
+			Event.Installation.invalid.send()
 		} catch InstallationError.alreadyExists {
 			// TODO: automatically add installation to search field
 		} catch {

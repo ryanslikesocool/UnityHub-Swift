@@ -5,6 +5,14 @@ enum SearchToken {
 	case editorVersion(UnityEditorVersion)
 }
 
+// MARK: - Sendable
+
+extension SearchToken: Sendable { }
+
+// MARK: - Equatable
+
+extension SearchToken: Equatable { }
+
 // MARK: - Hashable
 
 extension SearchToken: Hashable { }

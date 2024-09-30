@@ -1,7 +1,7 @@
 import Foundation
 
-public extension Constant {
-	enum Link {
+public enum Constant {
+	public enum Link {
 		public static let officialHub = #URL("https://unity.com/download")
 		public static let manual = #URL("https://docs.unity3d.com/Manual/index.html")
 		public static let scripting = #URL("https://docs.unity3d.com/ScriptReference/index.html")

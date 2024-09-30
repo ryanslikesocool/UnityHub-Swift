@@ -17,6 +17,7 @@ public struct AppSetting<Model: SettingsFile, Value>: DynamicProperty {
 		}
 	}
 
+	@MainActor
 	public var projectedValue: Binding<Value> {
 		Binding(
 			get: { wrappedValue },
@@ -31,7 +32,9 @@ public struct AppSetting<Model: SettingsFile, Value>: DynamicProperty {
 
 // MARK: - General Settings
 
-public extension AppSetting where Model == GeneralSettings {
+public extension AppSetting where
+	Model == GeneralSettings
+{
 	init(general keyPath: ReferenceWritableKeyPath<Model, Value>) {
 		self.init(Model.self, keyPath)
 	}
@@ -39,7 +42,9 @@ public extension AppSetting where Model == GeneralSettings {
 
 // MARK: - Project Settings
 
-public extension AppSetting where Model == ProjectSettings {
+public extension AppSetting where
+	Model == ProjectSettings
+{
 	init(project keyPath: ReferenceWritableKeyPath<Model, Value>) {
 		self.init(Model.self, keyPath)
 	}
@@ -47,7 +52,9 @@ public extension AppSetting where Model == ProjectSettings {
 
 // MARK: - Installation Settings
 
-public extension AppSetting where Model == InstallationSettings {
+public extension AppSetting where
+	Model == InstallationSettings
+{
 	init(installation keyPath: ReferenceWritableKeyPath<Model, Value>) {
 		self.init(Model.self, keyPath)
 	}
@@ -55,7 +62,9 @@ public extension AppSetting where Model == InstallationSettings {
 
 // MARK: - Location Settings
 
-public extension AppSetting where Model == LocationSettings {
+public extension AppSetting where
+	Model == LocationSettings
+{
 	init(location keyPath: ReferenceWritableKeyPath<Model, Value>) {
 		self.init(Model.self, keyPath)
 	}

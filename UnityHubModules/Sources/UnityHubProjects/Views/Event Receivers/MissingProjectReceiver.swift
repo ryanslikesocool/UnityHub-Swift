@@ -33,12 +33,12 @@ private extension MissingProjectReceiver {
 
 	func removeProject() {
 		let url = consumeValue()
-		Event.Project.remove(url)
+		Event.Project.remove.send(url)
 	}
 
 	func locateProject() {
 		let url = consumeValue()
-		Event.Project.locate(.replace(url))
+		Event.Project.locate.send(.replace(url))
 	}
 
 	func consumeValue() -> URL {

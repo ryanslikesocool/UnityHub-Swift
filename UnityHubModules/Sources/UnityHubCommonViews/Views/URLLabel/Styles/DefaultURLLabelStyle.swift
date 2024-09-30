@@ -1,7 +1,7 @@
 import SwiftUI
 
 public struct DefaultURLLabelStyle: URLLabelStyle {
-	public typealias Configuration = URLLabelStyleConfiguration
+	public init() { }
 
 	public func makeBody(configuration: Configuration) -> some View {
 		configuration.label
@@ -9,6 +9,12 @@ public struct DefaultURLLabelStyle: URLLabelStyle {
 	}
 }
 
-public extension ViewStyle<URLLabelStyleConfiguration> where Self == DefaultURLLabelStyle {
-	static var `default`: Self { Self() }
+// MARK: - Convenienice
+
+public extension URLLabelStyle where
+	Self == DefaultURLLabelStyle
+{
+	static var `default`: Self {
+		Self()
+	}
 }

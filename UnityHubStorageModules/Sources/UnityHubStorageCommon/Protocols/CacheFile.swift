@@ -13,7 +13,7 @@ public extension CacheFile {
 	}
 
 	static var fileURL: URL {
-		Constant.applicationSupportDirectory
+		URL.persistentStorageDirectory
 			.appending(path: "\(category.fileName).plist", directoryHint: .notDirectory)
 	}
 }

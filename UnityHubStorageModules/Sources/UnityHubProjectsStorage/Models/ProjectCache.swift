@@ -39,7 +39,9 @@ extension ProjectCache: Codable {
 	public func encode(to encoder: any Encoder) throws {
 		var container = encoder.singleValueContainer()
 
-		try container.encode(projects.sorted(by: \.url))
+		try container.encode(projects.sorted { (lhs, rhs) in
+			lhs.url.path() < rhs.url.path()
+		})
 	}
 }
 

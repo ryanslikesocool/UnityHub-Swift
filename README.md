@@ -3,7 +3,7 @@ A [Unity Hub](https://unity.com/unity-hub) alternative, built natively for macOS
 
 ## Features
 (The official version doesn't have features marked with ✨!)
-✨ Fully native UI and technology (Electron-free, Apple Silicon-native)
+✨ Fully native UI (Electron-free, Apple Silicon-native)
 ✨ Smaller visual footprint
 ✨ Custom project icons for quick identification
 ✨ View useful project information without opening in Unity

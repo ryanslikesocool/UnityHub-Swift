@@ -6,7 +6,8 @@ public enum Shell { }
 
 public extension Shell {
 	/// Execute a shell command.
-	@discardableResult static func execute(_ executableURL: URL, arguments: some Sequence<String>) throws -> String {
+	@discardableResult
+	static func execute(_ executableURL: URL, arguments: some Sequence<String>) throws -> String {
 //		print("\(executableURL.path(percentEncoded: false)) \(arguments.joined(separator: " "))")
 //		return ""
 

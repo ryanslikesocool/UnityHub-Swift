@@ -31,7 +31,7 @@ public struct SemanticVersion {
 			} transform: { match in
 				Integer(match)
 			}
-			
+
 			"."
 
 			/// matches `0.[0].0`
@@ -40,7 +40,7 @@ public struct SemanticVersion {
 			} transform: { match in
 				Integer(match)
 			}
-			
+
 			"."
 
 			/// matches `0.0.[0]`
@@ -64,6 +64,14 @@ public struct SemanticVersion {
 		self.init(text: text)
 	}
 }
+
+// MARK: - Sendable
+
+extension SemanticVersion: Sendable { }
+
+// MARK: - Equatable
+
+extension SemanticVersion: Equatable { }
 
 // MARK: - Hashable
 

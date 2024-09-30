@@ -18,6 +18,14 @@ public extension UnityEditorVersion {
 	}
 }
 
+// MARK: - Sendable
+
+extension UnityEditorVersion.Channel: Sendable { }
+
+// MARK: - Equatable
+
+extension UnityEditorVersion.Channel: Equatable { }
+
 // MARK: - Hashable
 
 extension UnityEditorVersion.Channel: Hashable { }

@@ -11,14 +11,21 @@ extension ProjectInfoSheet {
 		}
 
 		var body: some View {
-			LabeledContent("Editor Version") {
-				if let editorVersion {
-					UnityEditorVersionLabel(editorVersion)
-				} else {
-					Text("Unknown")
-						.foregroundStyle(.secondary)
-				}
-			}
+			LabeledContent("Editor Version", content: makeContent)
+		}
+	}
+}
+
+// MARK: - Supporting Views
+
+private extension ProjectInfoSheet.EditorVersionLabel {
+	@ViewBuilder
+	func makeContent() -> some View {
+		if let editorVersion {
+			UnityEditorVersionLabel(editorVersion)
+		} else {
+			Text("Unknown")
+				.foregroundStyle(.secondary)
 		}
 	}
 }

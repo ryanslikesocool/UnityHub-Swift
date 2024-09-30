@@ -5,33 +5,33 @@ extension Sequence<ProjectMetadata> {
 	func sorted(by criteria: ProjectSortCriteria, order: SortOrder = .forward) -> [ProjectMetadata] {
 		return switch criteria {
 			case .name:
-				sorted(by: { lhs, rhs in
+				sorted { lhs, rhs in
 					if lhs.pinned != rhs.pinned {
 						Self.comparePinned(lhs: lhs, rhs: rhs)
 					} else {
 						Self.compare(
 							lhs: lhs.name ?? lhs.url.lastPathComponent,
 							rhs: rhs.name ?? rhs.url.lastPathComponent,
-							order: order.opposite
+							order: order.inverse
 						)
 					}
-				})
+				}
 			case .editorVersion:
-				sorted(by: { lhs, rhs in
+				sorted { lhs, rhs in
 					if lhs.pinned != rhs.pinned {
 						Self.comparePinned(lhs: lhs, rhs: rhs)
 					} else {
-						Self.compare(\.editorVersion, lhs: lhs, rhs: rhs, order: order.opposite, nilIsFirst: true)
+						Self.compare(\.editorVersion, lhs: lhs, rhs: rhs, order: order.inverse, nilIsFirst: true)
 					}
-				})
+				}
 			case .lastOpened:
-				sorted(by: { lhs, rhs in
+				sorted { lhs, rhs in
 					if lhs.pinned != rhs.pinned {
 						Self.comparePinned(lhs: lhs, rhs: rhs)
 					} else {
 						Self.compare(\.lastOpened, lhs: lhs, rhs: rhs, order: order, nilIsFirst: order == .reverse)
 					}
-				})
+				}
 		}
 	}
 }

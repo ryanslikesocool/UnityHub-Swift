@@ -5,33 +5,44 @@ import UnityHubCommonViews
 struct DownloadSheet: View {
 	@Environment(\.dismiss) private var dismiss
 
-	var body: some View {
-		Sheet {
-			NavigationStack {
-				Form {
-					Section("Recommended") {
-						Text("placeholder")
-					}
-					Section {
-						NavigationLink("Official", value: DownloadSheetPage.official)
-						NavigationLink("Prerelease", value: DownloadSheetPage.prerelease)
-						NavigationLink("Archive", value: DownloadSheetPage.archive)
-					}
+	public init() { }
+
+	public var body: some View {
+		Sheet(content: makeContent, header: makeHeader)
+			.frame(width: 400)
+	}
+}
+
+// MARK: - Supporting Views
+
+private extension DownloadSheet {
+	func makeContent() -> some View {
+		NavigationStack {
+			Form {
+				Section("Recommended") {
+					Text("placeholder")
 				}
-				.formStyle(.grouped)
-				.navigationDestination(for: DownloadSheetPage.self, destination: PageView.init)
-				.navigationBarBackButtonHidden()
+				Section {
+					NavigationLink("Official", value: DownloadSheetPage.official)
+					NavigationLink("Prerelease", value: DownloadSheetPage.prerelease)
+					NavigationLink("Archive", value: DownloadSheetPage.archive)
+				}
 			}
-		} header: {
-			Button("Cancel", systemImage: Constant.Symbol.xMark, role: .cancel) { dismiss() }
-				.controlSize(.large)
-				.labelStyle(.iconOnly)
-
-			Text("Download Installation")
-				.font(.headline)
-
-			Spacer()
+			.formStyle(.grouped)
+			.navigationDestination(for: DownloadSheetPage.self, destination: PageView.init)
+			.navigationBarBackButtonHidden()
 		}
-		.frame(width: 400)
+	}
+
+	@ViewBuilder
+	func makeHeader() -> some View {
+		Button("Cancel", systemImage: Constant.Symbol.xMark, role: .cancel) { dismiss() }
+			.controlSize(.large)
+			.labelStyle(.iconOnly)
+
+		Text("Download Installation")
+			.font(.headline)
+
+		Spacer()
 	}
 }

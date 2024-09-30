@@ -1,6 +1,8 @@
 import SwiftUI
 
 public struct LargeLabelStyle: LabelStyle {
+	public init() { }
+
 	public func makeBody(configuration: Configuration) -> some View {
 		VStack {
 			configuration.icon
@@ -12,6 +14,12 @@ public struct LargeLabelStyle: LabelStyle {
 	}
 }
 
-public extension LabelStyle where Self == LargeLabelStyle {
-	static var large: Self { Self() }
+// MARK: - Convenience
+
+public extension LabelStyle where
+	Self == LargeLabelStyle
+{
+	static var large: Self {
+		Self()
+	}
 }

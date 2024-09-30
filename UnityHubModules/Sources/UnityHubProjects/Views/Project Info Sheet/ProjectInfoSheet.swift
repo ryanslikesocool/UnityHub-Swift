@@ -13,11 +13,9 @@ struct ProjectInfoSheet: View {
 
 	var body: some View {
 		Sheet {
-			Form {
-				formContent
-			}
-			.formStyle(.grouped)
-			.scrollDisabled(true)
+			Form(content: makeFormContent)
+				.formStyle(.grouped)
+				.scrollDisabled(true)
 		} header: {
 			Header(project: $project)
 		}
@@ -27,7 +25,8 @@ struct ProjectInfoSheet: View {
 // MARK: - Supporting Views
 
 private extension ProjectInfoSheet {
-	@ViewBuilder var formContent: some View {
+	@ViewBuilder
+	func makeFormContent() -> some View {
 		Section {
 			LabeledContent("Name", value: project.name ?? project.url.lastPathComponent)
 			LabeledContent("Developer", value: project.developer ?? "Unknown")

@@ -18,6 +18,8 @@ struct DisplayProjectInfoReceiver: View {
 				}
 			}
 	}
+
+	// TODO: replace `projectURL: URL?` with `Identifier<URL>?`
 }
 
 // MARK: - Functions
@@ -26,4 +28,10 @@ private extension DisplayProjectInfoReceiver {
 	func receiveEvent(value: URL) {
 		projectURL = value
 	}
+}
+
+// MARK: - URL+
+
+extension URL: @retroactive Identifiable {
+	public var id: Self { self }
 }

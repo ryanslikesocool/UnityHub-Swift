@@ -9,19 +9,34 @@ struct SortMenu: View {
 
 	var body: some View {
 		Menu(
-			content: {
-				Picker("Criteria", selection: $sortCriteria) {
-					Text("Name").tag(ProjectSortCriteria.name)
-					Text("Last Opened").tag(ProjectSortCriteria.lastOpened)
-					Text("Editor Version").tag(ProjectSortCriteria.editorVersion)
-				}
-				.labelsHidden()
-
-				SortOrderPicker("Order", selection: $sortOrder)
-			},
+			content: makeContent,
 			label: Label.sort,
-			primaryAction: { sortOrder = sortOrder.opposite }
+			primaryAction: primaryAction
 		)
 		.pickerStyle(.inline)
+	}
+}
+
+// MARK: - Supporting Views
+
+private extension SortMenu {
+	@ViewBuilder
+	func makeContent() -> some View {
+		Picker("Criteria", selection: $sortCriteria) {
+			Text("Name").tag(ProjectSortCriteria.name)
+			Text("Last Opened").tag(ProjectSortCriteria.lastOpened)
+			Text("Editor Version").tag(ProjectSortCriteria.editorVersion)
+		}
+		.labelsHidden()
+
+		SortOrderPicker("Order", selection: $sortOrder)
+	}
+}
+
+// MARK: - Functions
+
+private extension SortMenu {
+	func primaryAction() {
+		sortOrder = sortOrder.inverse
 	}
 }

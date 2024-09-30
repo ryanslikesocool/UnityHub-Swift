@@ -2,7 +2,7 @@ import SwiftUI
 import UnityHubCommon
 
 public struct NoLabelURLPickerStyle: URLPickerStyle {
-	public typealias Configuration = URLPickerStyleConfiguration
+	public init() { }
 
 	public func makeBody(configuration: Configuration) -> some View {
 		LabeledContent(
@@ -13,7 +13,7 @@ public struct NoLabelURLPickerStyle: URLPickerStyle {
 				HStack {
 					configuration.issueButton
 						.buttonStyle(.plain)
-					
+
 					configuration.urlLabel
 						.foregroundStyle(.secondary)
 				}
@@ -22,6 +22,12 @@ public struct NoLabelURLPickerStyle: URLPickerStyle {
 	}
 }
 
-public extension ViewStyle<URLPickerStyleConfiguration> where Self == NoLabelURLPickerStyle {
-	static var noLabel: Self { Self() }
+// MARK: - Convenience
+
+public extension URLPickerStyle where
+	Self == NoLabelURLPickerStyle
+{
+	static var noLabel: Self {
+		Self()
+	}
 }

@@ -18,22 +18,22 @@ extension ProjectList.Item {
 
 			Group {
 				Section {
-					let hasInstallationVersion: Bool = installations.installations.contains(where: { installation in
+					let hasInstallationVersion: Bool = installations.installations.contains { installation in
 						(try? installation.version) == project.editorVersion
-					})
+					}
 
 					ProjectList.OpenProjectButton(at: project.url, label: Label.open)
 						.disabled(!hasInstallationVersion)
 
-					openWithMenu
+					ProjectList.OpenProjectWithVersionMenu(project: $project)
 				}
 
 				Section {
 					Button.info {
-						Event.Project.displayInfo(project.url)
+						Event.Project.displayInfo.send(project.url)
 					}
 
-					Toggle(isOn: $project.pinned, label: Label.pin)
+					ProjectList.ProjectPinnedToggle(isOn: $project.pinned)
 
 					Button.showInFinder(destination: project.url)
 				}
@@ -41,48 +41,8 @@ extension ProjectList.Item {
 			.disabled(!fileManager.directoryExists(at: project.url))
 
 			Section {
-				Button(
-					role: .destructive,
-					action: { Event.Project.remove(project.url) },
-					label: Label.remove
-				)
-				.keyboardShortcut(.delete)
+				ProjectList.RemoveProjectButton(at: project.url)
 			}
 		}
-	}
-}
-
-private extension ProjectList.Item.ContextMenu {
-	var openWithMenu: some View {
-		Menu(
-			content: {
-				let versions = installations.installations
-					.compactMap { try? $0.version }
-
-				ForEach(installations.uniqueMajorVersions, id: \.self) { majorVersion in
-					Section {
-						let versionsInMajor = versions
-							.filter { version in version.major == majorVersion }
-
-						ForEach(versionsInMajor) { version in
-							let disabled: Bool = version == project.editorVersion
-
-							ProjectList.OpenProjectButton(
-								at: project.url,
-								with: version
-							) {
-								if disabled {
-									Label(version.description, systemImage: Constant.Symbol.checkmark)
-								} else {
-									Text(version.description)
-								}
-							}
-							.disabled(disabled)
-						}
-					}
-				}
-			},
-			label: Label.openWith
-		)
 	}
 }

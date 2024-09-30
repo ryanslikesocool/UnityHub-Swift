@@ -39,14 +39,14 @@ public struct IssueMenu<Flags: IssueFlags, ItemLabel: View>: View {
 // MARK: - Supporting Views
 
 private extension IssueMenu {
-	private func button() -> some View {
+	func button() -> some View {
 		Button(
 			action: { action(flags) },
 			label: Label.issue
 		)
 	}
 
-	private func menu() -> some View {
+	func menu() -> some View {
 		Menu(
 			content: {
 				ForEach(flags.enumerated, id: \.self) { flag in

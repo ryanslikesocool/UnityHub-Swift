@@ -1,8 +1,8 @@
 import SwiftUI
 
 public struct ListItemURLLabelStyle: URLLabelStyle {
-	public typealias Configuration = URLLabelStyleConfiguration
-	
+	public init() { }
+
 	public func makeBody(configuration: Configuration) -> some View {
 		configuration.label
 			.monospaced()
@@ -12,6 +12,12 @@ public struct ListItemURLLabelStyle: URLLabelStyle {
 	}
 }
 
-public extension ViewStyle<URLLabelStyleConfiguration> where Self == ListItemURLLabelStyle {
-	static var listItem: Self { Self() }
+// MARK: - Convenience
+
+public extension URLLabelStyle where
+	Self == ListItemURLLabelStyle
+{
+	static var listItem: Self {
+		Self()
+	}
 }

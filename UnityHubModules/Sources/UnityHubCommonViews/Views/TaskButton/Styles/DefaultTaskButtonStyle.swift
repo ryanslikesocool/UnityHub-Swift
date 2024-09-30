@@ -1,7 +1,7 @@
 import SwiftUI
 
 public struct DefaultTaskButtonStyle: TaskButtonStyle {
-	public typealias Configuration = TaskButtonStyleConfiguration
+	public init() { }
 
 	public func makeBody(configuration: Configuration) -> some View {
 		HStack(spacing: 4) {
@@ -17,6 +17,12 @@ public struct DefaultTaskButtonStyle: TaskButtonStyle {
 	}
 }
 
-public extension ViewStyle where Self == DefaultTaskButtonStyle {
-	static var `default`: Self { Self() }
+// MARK: - Convenience
+
+public extension TaskButtonStyle where
+	Self == DefaultTaskButtonStyle
+{
+	static var `default`: Self {
+		Self()
+	}
 }

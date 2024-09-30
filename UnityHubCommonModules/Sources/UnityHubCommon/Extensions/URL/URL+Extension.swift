@@ -1,27 +1,31 @@
 import AppKit
 
 public extension URL {
-	@inlinable func showInFinder() {
+	@inlinable
+	func showInFinder() {
 		NSWorkspace.shared.activateFileViewerSelecting([self])
 	}
 
-	@inlinable var abbreviatingWithTildeInPath: String {
+	@inlinable
+	var abbreviatingWithTildeInPath: String {
 		(path(percentEncoded: false) as NSString).abbreviatingWithTildeInPath
 	}
 }
 
 public extension URL {
-	@inlinable func isApplication() throws -> Bool {
+	@inlinable
+	func checkIsApplication() throws -> Bool {
 		try resourceValues(forKeys: [.isApplicationKey]).isApplication == true
 	}
 
-	@inlinable func isDirectory() throws -> Bool {
+	@inlinable
+	func checkIsDirectory() throws -> Bool {
 		try resourceValues(forKeys: [.isDirectoryKey]).isDirectory == true
 	}
 
 	private func directoryTotalAllocatedSize(includingSubfolders: Bool = false) throws -> Int? {
 		guard
-			try isDirectory(),
+			try checkIsDirectory(),
 			try checkResourceIsReachable()
 		else {
 			return nil

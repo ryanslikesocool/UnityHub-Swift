@@ -8,6 +8,18 @@ struct InstallationIssueFlags: IssueFlags {
 	}
 }
 
+// MARK: - Sendable
+
+extension InstallationIssueFlags: Sendable { }
+
+// MARK: - Equatable
+
+extension InstallationIssueFlags: Equatable { }
+
+// MARK: - Hashable
+
+extension InstallationIssueFlags: Hashable { }
+
 // MARK: - CaseIterable
 
 extension InstallationIssueFlags {

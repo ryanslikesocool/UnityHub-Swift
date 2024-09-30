@@ -3,7 +3,7 @@ import UnityHubCommon
 
 public extension Constant {
 	enum Settings {
-		static let directory: URL = Constant.applicationSupportDirectory
+		static let directory: URL = URL.persistentStorageDirectory
 			.appending(component: "settings", directoryHint: .isDirectory)
 
 		static func fileURL(for category: SettingsCategory) -> URL {

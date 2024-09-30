@@ -7,10 +7,7 @@ let package = Package(
 	defaultLocalization: "en",
 	platforms: [.macOS(.v14)],
 	products: [
-		.library(
-			name: "UnityHubStorage",
-			targets: ["UnityHubStorage"]
-		),
+		.library(name: "UnityHubStorage", targets: ["UnityHubStorage"]),
 	],
 	dependencies: [
 		.package(url: "https://github.com/ryanslikesocool/UserIcon.git", branch: "main"),

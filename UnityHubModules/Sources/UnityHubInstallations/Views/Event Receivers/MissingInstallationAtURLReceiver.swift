@@ -33,12 +33,12 @@ private extension MissingInstallationAtURLReceiver {
 
 	func removeInstallation() {
 		let url = consumeValue()
-		Event.Installation.remove(url)
+		Event.Installation.remove.send(url)
 	}
 
 	func locateInstallation() {
 		let url = consumeValue()
-		Event.Installation.locate(.replace(url))
+		Event.Installation.locate.send(.replace(url))
 	}
 
 	func consumeValue() -> URL {

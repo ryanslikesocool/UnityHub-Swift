@@ -1,6 +1,15 @@
 public enum InstallationInfoVisibility: UInt8 {
 	case location
+	case badge
 }
+
+// MARK: - Sendable
+
+extension InstallationInfoVisibility: Sendable { }
+
+// MARK: - Equatable
+
+extension InstallationInfoVisibility: Equatable { }
 
 // MARK: - Hashable
 

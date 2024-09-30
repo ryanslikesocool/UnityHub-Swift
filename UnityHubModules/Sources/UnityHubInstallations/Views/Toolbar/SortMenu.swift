@@ -7,13 +7,27 @@ struct SortMenu: View {
 
 	var body: some View {
 		Menu(
-			content: {
-				SortOrderPicker("Order", selection: $sortOrder)
-					.labelsHidden()
-			},
+			content: makeContent,
 			label: Label.sort,
-			primaryAction: { sortOrder = sortOrder.opposite }
+			primaryAction: primaryAction
 		)
 		.pickerStyle(.inline)
+	}
+}
+
+// MARK: - Supporting Views
+
+private extension SortMenu {
+	func makeContent() -> some View {
+		SortOrderPicker("Order", selection: $sortOrder)
+			.labelsHidden()
+	}
+}
+
+// MARK: - Functions
+
+private extension SortMenu {
+	func primaryAction() {
+		sortOrder = sortOrder.inverse
 	}
 }

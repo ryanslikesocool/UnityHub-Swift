@@ -1,20 +1,25 @@
 import SwiftUI
 
-public struct URLLabelStyleConfiguration: ViewStyleConfiguration {
+public struct URLLabelStyleConfiguration {
+	public let label: Label
+
+	@MainActor
+	init(
+		label: some View
+	) {
+		self.label = Label(label)
+	}
+}
+
+// MARK: - Supporting Data
+
+public extension URLLabelStyleConfiguration {
 	/// The type-erased label of a ``URLLabel``.
-	public struct Label: View {
-		init(content: some View) {
+	struct Label: View {
+		fileprivate init(_ content: some View) {
 			body = AnyView(content)
 		}
 
 		public var body: AnyView
-	}
-
-	public let label: Label
-
-	init(
-		label: some View
-	) {
-		self.label = Label(content: label)
 	}
 }

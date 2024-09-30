@@ -4,7 +4,9 @@ import SwiftDiagnostics
 import SwiftSyntax
 import SwiftSyntaxMacros
 
-/// - Remark: Based on https://www.avanderlee.com/swift/macros/
+/// This macro is based on
+/// [this approach](https://www.avanderlee.com/swift/macros/)
+/// by Antoine van der Lee.
 public struct URLMacro: ExpressionMacro {
 	public static func expansion(
 		of node: some FreestandingMacroExpansionSyntax,

@@ -14,6 +14,12 @@ struct CompactSidebarLabelStyle: LabelStyle {
 	}
 }
 
-extension LabelStyle where Self == CompactSidebarLabelStyle {
-	static var compactSidebar: Self { Self() }
+// MARK: - Convenience
+
+extension LabelStyle where
+	Self == CompactSidebarLabelStyle
+{
+	static var compactSidebar: Self {
+		Self()
+	}
 }

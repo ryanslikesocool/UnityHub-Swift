@@ -88,8 +88,8 @@ public extension InstallationCache {
 			return
 		}
 
-		let applicationURLs: [URL] = items.compactMap { item in
-			guard (try? item.isDirectory()) == true else {
+		let applicationURLs: [URL] = items.compactMap { item -> URL? in
+			guard (try? item.checkIsDirectory()) == true else {
 				return nil
 			}
 
@@ -104,11 +104,11 @@ public extension InstallationCache {
 				return nil
 			}
 
-			return subitems.first(where: { url in
-				(try? url.isApplication()) == true
+			return subitems.first { url in
+				(try? url.checkIsApplication()) == true
 					&& (try? Utility.Application.Unity.validateInstallation(at: url)) == true
 					&& !contains(url)
-			})
+			}
 		}
 
 		for url in applicationURLs where !contains(url) {

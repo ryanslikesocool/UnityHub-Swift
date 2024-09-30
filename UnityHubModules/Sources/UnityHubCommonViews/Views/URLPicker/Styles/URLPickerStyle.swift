@@ -1,3 +1,10 @@
 import SwiftUI
 
-public protocol URLPickerStyle: ViewStyle where Configuration == URLPickerStyleConfiguration { }
+public protocol URLPickerStyle: Sendable {
+	associatedtype Body: View
+	typealias Configuration = URLPickerStyleConfiguration
+
+	@ViewBuilder
+	@MainActor
+	func makeBody(configuration: Configuration) -> Self.Body
+}

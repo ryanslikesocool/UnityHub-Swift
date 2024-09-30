@@ -1,7 +1,7 @@
 import SwiftUI
 
 public struct DefaultBadgeStyle: BadgeStyle {
-	public typealias Configuration = BadgeStyleConfiguration
+	public init() { }
 
 	public func makeBody(configuration: Configuration) -> some View {
 		configuration.content
@@ -14,6 +14,12 @@ public struct DefaultBadgeStyle: BadgeStyle {
 	}
 }
 
-public extension ViewStyle where Self == DefaultBadgeStyle {
-	static var `default`: Self { Self() }
+// MARK: - Convenience
+
+public extension BadgeStyle where
+	Self == DefaultBadgeStyle
+{
+	static var `default`: Self {
+		Self()
+	}
 }

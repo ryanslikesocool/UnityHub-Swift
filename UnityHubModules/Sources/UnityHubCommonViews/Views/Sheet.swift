@@ -46,7 +46,7 @@ public struct Sheet<Content: View, Header: View, Footer: View>: View {
 	}
 }
 
-// MARK: - Init+
+// MARK: - Convenience
 
 public extension Sheet
 	where Header == EmptyView

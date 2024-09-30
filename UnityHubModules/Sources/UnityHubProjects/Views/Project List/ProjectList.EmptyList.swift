@@ -8,10 +8,36 @@ extension ProjectList {
 			EmptyListView {
 				Label("No Projects", systemImage: Constant.Symbol.cube)
 			} prompt: {
-				Button.createProject()
-				Text("or")
-				Button.locateProject()
+				if #available(macOS 15, *) {
+					EqualWidthHStack(content: makePromptContent)
+						.buttonStyle(.automatic.expandedLabel())
+				} else {
+					HStack(content: makePromptContent)
+				}
 			}
 		}
+	}
+}
+
+// MARK: - Supporting Views
+
+private extension ProjectList.EmptyList {
+	@ViewBuilder
+	func makePromptContent() -> some View {
+		Button.createProject()
+
+		if #available(macOS 15, *) {
+			makePromptActionSeparator()
+				.ignoresEqualSizeLayout()
+		} else {
+			makePromptActionSeparator()
+		}
+
+		Button.locateProject()
+	}
+
+	func makePromptActionSeparator() -> some View {
+		Text("or")
+			.foregroundStyle(.secondary)
 	}
 }

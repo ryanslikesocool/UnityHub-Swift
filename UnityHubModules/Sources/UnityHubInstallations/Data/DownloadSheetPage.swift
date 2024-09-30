@@ -5,6 +5,14 @@ enum DownloadSheetPage: UInt8 {
 	case archive
 }
 
+// MARK: - Sendable
+
+extension DownloadSheetPage: Sendable { }
+
+// MARK: - Equatable
+
+extension DownloadSheetPage: Equatable { }
+
 // MARK: - Hashable
 
 extension DownloadSheetPage: Hashable { }

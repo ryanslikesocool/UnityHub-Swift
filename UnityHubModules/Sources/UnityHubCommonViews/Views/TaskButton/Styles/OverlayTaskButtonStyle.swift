@@ -1,7 +1,7 @@
 import SwiftUI
 
 public struct OverlayTaskButtonStyle: TaskButtonStyle {
-	public typealias Configuration = TaskButtonStyleConfiguration
+	public init() { }
 
 	public func makeBody(configuration: Configuration) -> some View {
 		Button(role: configuration.role, action: configuration.action) {
@@ -18,6 +18,10 @@ public struct OverlayTaskButtonStyle: TaskButtonStyle {
 	}
 }
 
-public extension ViewStyle where Self == OverlayTaskButtonStyle {
-	static var overlay: Self { Self() }
+public extension TaskButtonStyle where
+	Self == OverlayTaskButtonStyle
+{
+	static var overlay: Self {
+		Self()
+	}
 }

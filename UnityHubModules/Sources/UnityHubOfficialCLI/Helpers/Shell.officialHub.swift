@@ -103,15 +103,15 @@ extension OfficialHubArgument.EditorsArgument: ShellArgumentProtocol {
 	public var shellArgument: String { rawValue }
 }
 
-extension UnityEditorVersion: ShellArgumentProtocol {
+extension UnityEditorVersion: @retroactive ShellArgumentProtocol {
 	public var shellArgument: String { description }
 }
 
-extension Architecture: ShellArgumentProtocol {
+extension Architecture: @retroactive ShellArgumentProtocol {
 	public var shellArgument: String { rawValue }
 }
 
-extension InstallationModule: ShellArgumentProtocol {
+extension InstallationModule: @retroactive ShellArgumentProtocol {
 	public var shellArgument: String { rawValue }
 }
 

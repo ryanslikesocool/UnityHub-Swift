@@ -88,6 +88,14 @@ public struct UnityEditorVersion {
 	}
 }
 
+// MARK: - Sendable
+
+extension UnityEditorVersion: Sendable { }
+
+// MARK: - Equatable
+
+extension UnityEditorVersion: Equatable { }
+
 // MARK: - Hashable
 
 extension UnityEditorVersion: Hashable { }

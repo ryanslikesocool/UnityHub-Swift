@@ -8,7 +8,7 @@ public extension Utility.Settings {
 			guard (try? installationLocation.checkResourceIsReachable()) == true else {
 				throw LocationError.missing
 			}
-			guard (try? installationLocation.isDirectory()) == true else {
+			guard (try? installationLocation.checkIsDirectory()) == true else {
 				throw LocationError.invalidType(expected: .isDirectoryKey)
 			}
 		}
@@ -18,7 +18,7 @@ public extension Utility.Settings {
 			guard (try? downloadLocation.checkResourceIsReachable()) == true else {
 				throw LocationError.missing
 			}
-			guard (try? downloadLocation.isDirectory()) == true else {
+			guard (try? downloadLocation.checkIsDirectory()) == true else {
 				throw LocationError.invalidType(expected: .isDirectoryKey)
 			}
 		}
@@ -28,7 +28,7 @@ public extension Utility.Settings {
 			guard (try? officialHubLocation.checkResourceIsReachable()) == true else {
 				throw LocationError.missing
 			}
-			guard (try? officialHubLocation.isApplication()) == true else {
+			guard (try? officialHubLocation.checkIsApplication()) == true else {
 				throw LocationError.invalidType(expected: .isApplicationKey)
 			}
 			let infoPlist: Data = try Utility.Application.getInfoPlist(from: officialHubLocation)

@@ -2,7 +2,7 @@ import SwiftUI
 import UnityHubCommon
 
 public struct InlineURLPickerStyle: URLPickerStyle {
-	public typealias Configuration = URLPickerStyleConfiguration
+	public init() { }
 
 	public func makeBody(configuration: Configuration) -> some View {
 		LabeledContent(
@@ -13,7 +13,7 @@ public struct InlineURLPickerStyle: URLPickerStyle {
 
 					configuration.urlLabel
 						.foregroundStyle(.secondary)
-					
+
 					Button("Select", systemImage: Constant.Symbol.folder, action: configuration.startImport)
 						.labelStyle(.iconOnly)
 				}
@@ -25,6 +25,12 @@ public struct InlineURLPickerStyle: URLPickerStyle {
 	}
 }
 
-public extension ViewStyle<URLPickerStyleConfiguration> where Self == InlineURLPickerStyle {
-	static var inline: Self { Self() }
+// MARK: - Convenience
+
+public extension URLPickerStyle where
+	Self == InlineURLPickerStyle
+{
+	static var inline: Self {
+		Self()
+	}
 }

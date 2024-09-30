@@ -43,7 +43,7 @@ private extension ProjectList.Item.IssueMenu {
 private extension ProjectList.Item.IssueMenu {
 	func action(flag: ProjectIssueFlags) {
 		switch flag {
-			case .missingProject: Event.Project.missing(projectURL)
+			case .missingProject: Event.Project.missing.send(projectURL)
 			case .missingInstallation: print("\(Self.self).\(#function) is not implemented")
 			default: preconditionFailure("Unsupported \(ProjectIssueFlags.self) case \(flag).")
 		}

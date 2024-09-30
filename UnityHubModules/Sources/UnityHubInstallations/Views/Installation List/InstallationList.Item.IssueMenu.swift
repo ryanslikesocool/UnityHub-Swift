@@ -41,7 +41,7 @@ private extension InstallationList.Item.IssueMenu {
 private extension InstallationList.Item.IssueMenu {
 	func action(flag: InstallationIssueFlags) {
 		switch flag {
-			case .missingInstallation: Event.Installation.missingAtURL(installationURL)
+			case .missingInstallation: Event.Installation.missingAtURL.send(installationURL)
 			default: preconditionFailure("Unsupported \(InstallationIssueFlags.self) case \(flag).")
 		}
 	}

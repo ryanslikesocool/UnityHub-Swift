@@ -6,6 +6,14 @@ enum SearchToken {
 	case majorVersion(SemanticVersion.Integer)
 }
 
+// MARK: - Sendable
+
+extension SearchToken: Sendable { }
+
+// MARK: - Equatable
+
+extension SearchToken: Equatable { }
+
 // MARK: - Hashable
 
 extension SearchToken: Hashable { }

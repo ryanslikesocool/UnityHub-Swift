@@ -21,6 +21,7 @@ public struct EmptyListView<Label: View, Prompt: View>: View {
 				.frame(height: 16)
 
 			prompt()
+				.frame(maxWidth: .infinity)
 				.foregroundStyle(.secondary)
 				.controlSize(.large)
 		}

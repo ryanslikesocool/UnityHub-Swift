@@ -8,12 +8,27 @@ struct InfoVisibilityMenu: View {
 
 	var body: some View {
 		Menu(
-			content: {
-				Toggle("Icon", isOn: $infoVisibility[.icon])
-				Toggle("Last Opened", isOn: $infoVisibility[.lastOpened])
-				Toggle("Location", isOn: $infoVisibility[.location])
-			},
+			content: makeContent,
 			label: Label.visibility
 		)
+	}
+}
+
+// MARK: - Supporting Views
+
+private extension InfoVisibilityMenu {
+	@ViewBuilder
+	func makeContent() -> some View {
+		Section {
+			Toggle("Icon", isOn: $infoVisibility[.icon])
+			Toggle("Last Opened", isOn: $infoVisibility[.lastOpened])
+			Toggle("Location", isOn: $infoVisibility[.location])
+		}
+
+		Section("Editor") {
+			Toggle("Version", isOn: $infoVisibility[.editorVersion])
+			Toggle("Badge", isOn: $infoVisibility[.editorVersionBadge])
+				.disabled(!infoVisibility[.editorVersion])
+		}
 	}
 }

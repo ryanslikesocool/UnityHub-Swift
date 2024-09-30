@@ -2,26 +2,21 @@ import SwiftUI
 import UnityHubCommonViews
 
 struct DefaultSidebarStyle: SidebarStyle {
-	typealias Configuration = SidebarStyleConfiguration
+	public init() { }
 
-	func makeBody(configuration: SidebarStyleConfiguration) -> some View {
-		NavigationStack {
-			List(selection: configuration.selection) {
-				ForEach(configuration.links.indices, id: \.self) { index in
-					configuration.links[index]
-				}
-			}
-		}
-		.toolbar {
-			ToolbarItem {
-				configuration.userMenu
-			}
-
-			ToolbarItem.sidebarTrackingSeparator(placement: .navigation)
+	public func makeBody(configuration: SidebarStyleConfiguration) -> some View {
+		ForEach(configuration.links.indices, id: \.self) { index in
+			configuration.links[index]
 		}
 	}
 }
 
-extension ViewStyle where Self == DefaultSidebarStyle {
-	static var `default`: Self { Self() }
+// MARK: - Convenience
+
+extension SidebarStyle where
+	Self == DefaultSidebarStyle
+{
+	static var `default`: Self {
+		Self()
+	}
 }

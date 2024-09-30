@@ -11,7 +11,11 @@ public struct Badge<Content: View>: View {
 	private let fill: AnyShapeStyle
 	private let stroke: AnyShapeStyle
 
-	public init(fill: some ShapeStyle, stroke: some ShapeStyle, @ViewBuilder content: @escaping ContentProvider) {
+	public init(
+		fill: some ShapeStyle,
+		stroke: some ShapeStyle,
+		@ViewBuilder content: @escaping ContentProvider
+	) {
 		self.content = content
 		self.fill = AnyShapeStyle(fill)
 		self.stroke = AnyShapeStyle(stroke)
@@ -22,20 +26,22 @@ public struct Badge<Content: View>: View {
 	}
 
 	public var body: some View {
-		style.makeBody(
-			configuration: Configuration(
-				content: content(),
-				shape: badgeShape,
-				fill: fill,
-				stroke: stroke
-			)
+		let configuration = Configuration(
+			content: content(),
+			shape: badgeShape,
+			fill: fill,
+			stroke: stroke
 		)
+
+		style.makeBody(configuration: configuration)
 	}
 }
 
-// MARK: - Init+
+// MARK: - Convenience
 
-public extension Badge where Content == Text {
+public extension Badge where
+	Content == Text
+{
 	init(_ title: some StringProtocol, fill fillColor: Color, stroke strokeColor: Color) {
 		self.init(fill: fillColor, stroke: strokeColor, content: { Text(title) })
 	}
@@ -53,7 +59,9 @@ public extension Badge where Content == Text {
 	}
 }
 
-public extension Badge where Content == Label<Text, Image> {
+public extension Badge where
+	Content == Label<Text, Image>
+{
 	init(_ title: some StringProtocol, systemImage name: String, fill fillColor: Color, stroke strokeColor: Color) {
 		self.init(fill: fillColor, stroke: strokeColor, content: { Label(title, systemImage: name) })
 	}
