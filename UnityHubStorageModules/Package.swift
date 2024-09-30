@@ -16,28 +16,28 @@ let package = Package(
 	],
 	targets: [
 		.target(name: "UnityHubStorage", dependencies: [
-			"UnityHubProjectsStorage",
-			"UnityHubInstallationsStorage",
-			"UnityHubSettingsStorage",
+			"UHStorage_Projects",
+			"UHStorage_Installations",
+			"UHStorage_Settings",
 		]),
 
 		// MARK: - Internal
 
-		.target(name: "UnityHubProjectsStorage", dependencies: [
+		.target(name: "UHStorage_Projects", dependencies: [
 			"UserIcon",
 
-			"UnityHubInstallationsStorage",
+			"UHStorage_Installations",
 		]),
 
-		.target(name: "UnityHubInstallationsStorage", dependencies: [
-			"UnityHubSettingsStorage",
+		.target(name: "UHStorage_Installations", dependencies: [
+			"UHStorage_Settings",
 		]),
 
-		.target(name: "UnityHubSettingsStorage", dependencies: [
-			"UnityHubStorageCommon",
+		.target(name: "UHStorage_Settings", dependencies: [
+			"UHStorage_Common",
 		]),
 
-		.target(name: "UnityHubStorageCommon", dependencies: [
+		.target(name: "UHStorage_Common", dependencies: [
 			.product(name: "UnityHubCommon", package: "UnityHubCommonModules"),
 		]),
 	]
