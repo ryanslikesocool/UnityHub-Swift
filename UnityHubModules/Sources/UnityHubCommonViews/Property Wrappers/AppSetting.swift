@@ -2,30 +2,36 @@ import SwiftUI
 import UnityHubCommon
 import UnityHubStorage
 
+@MainActor
 @propertyWrapper
 public struct AppSetting<Model: SettingsFile, Value>: DynamicProperty {
-	@Bindable private var model: Model = .shared
-	private let keyPath: ReferenceWritableKeyPath<Model, Value>
+	@ObservedObject
+	private var model: ObservingCurrentValue<Model>
+
+	private let keyPath: any WritableKeyPath<Model, Value> & Sendable
 
 	public var wrappedValue: Value {
-		get { model[keyPath: keyPath] }
+		get { model.wrappedValue[keyPath: keyPath] }
 		nonmutating set {
-			model[keyPath: keyPath] = newValue
+			model.wrappedValue[keyPath: keyPath] = newValue
 
 			// TODO: instead of writing on every change, only write after a certain time interval or when entering background
-			model.save()
+			model.wrappedValue.write()
 		}
 	}
 
-	@MainActor
 	public var projectedValue: Binding<Value> {
 		Binding(
 			get: { wrappedValue },
-			set: { wrappedValue = $0 }
+			set: { newValue in wrappedValue = newValue }
 		)
 	}
 
-	public init(_ model: Model.Type, _ keyPath: ReferenceWritableKeyPath<Model, Value>) {
+	public init(
+		_ model: ObservingCurrentValue<Model>,
+		_ keyPath: any WritableKeyPath<Model, Value> & Sendable
+	) {
+		self.model = model
 		self.keyPath = keyPath
 	}
 }
@@ -35,8 +41,8 @@ public struct AppSetting<Model: SettingsFile, Value>: DynamicProperty {
 public extension AppSetting where
 	Model == GeneralSettings
 {
-	init(general keyPath: ReferenceWritableKeyPath<Model, Value>) {
-		self.init(Model.self, keyPath)
+	init(general keyPath: any WritableKeyPath<Model, Value> & Sendable) {
+		self.init(Model.$shared, keyPath)
 	}
 }
 
@@ -45,8 +51,8 @@ public extension AppSetting where
 public extension AppSetting where
 	Model == ProjectSettings
 {
-	init(project keyPath: ReferenceWritableKeyPath<Model, Value>) {
-		self.init(Model.self, keyPath)
+	init(project keyPath: any WritableKeyPath<Model, Value> & Sendable) {
+		self.init(Model.$shared, keyPath)
 	}
 }
 
@@ -55,8 +61,8 @@ public extension AppSetting where
 public extension AppSetting where
 	Model == InstallationSettings
 {
-	init(installation keyPath: ReferenceWritableKeyPath<Model, Value>) {
-		self.init(Model.self, keyPath)
+	init(installation keyPath: any WritableKeyPath<Model, Value> & Sendable) {
+		self.init(Model.$shared, keyPath)
 	}
 }
 
@@ -65,7 +71,7 @@ public extension AppSetting where
 public extension AppSetting where
 	Model == LocationSettings
 {
-	init(location keyPath: ReferenceWritableKeyPath<Model, Value>) {
-		self.init(Model.self, keyPath)
+	init(location keyPath: any WritableKeyPath<Model, Value> & Sendable) {
+		self.init(Model.$shared, keyPath)
 	}
 }

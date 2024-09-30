@@ -15,19 +15,7 @@ struct DevelopmentTab: SettingsCategoryView {
 
 	func makeContent() -> some View {
 		Section {
-			LabeledContent(content: {
-				TaskButton("Log Official CLI Help") {
-					do {
-						let result = try Shell.officialHub(.headless, .help)
-						print(result)
-					} catch {
-						Logger.module.error("""
-						Failed to execute official hub help command:
-						\(error.localizedDescription)
-						""")
-					}
-				}
-			}, label: EmptyView.init)
+			LogCLIHelpButton()
 		}
 	}
 }

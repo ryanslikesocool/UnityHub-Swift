@@ -17,6 +17,7 @@ public extension Utility.Application {
 				.appending(path: Constant.Application.Unity.modulesJSONPath, directoryHint: .notDirectory)
 		}
 
+		@MainActor
 		public static var defaultInstallationURL: URL {
 			LocationSettings.shared.installationLocation
 				?? Constant.Settings.Location.defaultInstallationLocation

@@ -1,5 +1,6 @@
 import SwiftUI
 import UnityHubCommon
+import UnityHubCommonViews
 import UnityHubStorage
 
 extension ProjectList {
@@ -21,8 +22,8 @@ extension ProjectList {
 		}
 
 		var body: some View {
-			Button(
-				action: action,
+			TaskButton(
+				action: buttonAction,
 				label: label
 			)
 		}
@@ -32,9 +33,9 @@ extension ProjectList {
 // MARK: - Functions
 
 private extension ProjectList.OpenProjectButton {
-	func action() {
+	func buttonAction() async {
 		do {
-			try ProjectCache.shared.openProject(at: projectURL, with: editorVersion)
+			try await ProjectCache.shared.openProject(at: projectURL, with: editorVersion)
 		} catch ProjectError.invalid {
 			Event.Project.invalid.send()
 		} catch ProjectError.missing {

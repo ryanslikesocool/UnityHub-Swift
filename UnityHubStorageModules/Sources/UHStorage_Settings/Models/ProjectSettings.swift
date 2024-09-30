@@ -1,8 +1,9 @@
+import Combine
 import Foundation
+import UHStorage_Common
 import UnityHubCommon
 
-@Observable
-public final class ProjectSettings {
+public struct ProjectSettings {
 	public var infoVisibility: ProjectInfoVisibility.Mask
 	public var sortCriteria: ProjectSortCriteria
 	public var sortOrder: SortOrder
@@ -14,28 +15,30 @@ public final class ProjectSettings {
 	}
 }
 
+// MARK: - Sendable
+
+extension ProjectSettings: Sendable { }
+
+// MARK: - Equatable
+
+extension ProjectSettings: Equatable { }
+
 // MARK: - Hashable
 
-public extension ProjectSettings {
-	func hash(into hasher: inout Hasher) {
-		hasher.combine(infoVisibility)
-		hasher.combine(sortCriteria)
-		hasher.combine(sortOrder)
-	}
-}
+extension ProjectSettings: Hashable { }
 
 // MARK: - Codable
 
 /// - NOTE: use manual `Codable` implementation since values may change in the future.
 
-public extension ProjectSettings {
+extension ProjectSettings: Codable {
 	private enum CodingKeys: CodingKey {
 		case infoVisibility
 		case sortCriteria
 		case sortOrder
 	}
 
-	convenience init(from decoder: any Decoder) throws {
+	public init(from decoder: any Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
 		self.init()
@@ -47,7 +50,7 @@ public extension ProjectSettings {
 		sortOrder = try container.decodeIfPresent(forKey: .sortOrder) ?? sortOrder
 	}
 
-	func encode(to encoder: any Encoder) throws {
+	public func encode(to encoder: any Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encode(infoVisibility, forKey: .infoVisibility)
@@ -56,10 +59,23 @@ public extension ProjectSettings {
 	}
 }
 
+// MARK: - SingletonFile
+
+extension ProjectSettings: SingletonFile {
+	@ObservingCurrentValue
+	public static var shared: Self = Self.read(sharedSubscriber) {
+		didSet {
+			shared.write()
+		}
+	}
+
+	@MainActor
+	static let sharedSubscriber: AnyCancellable = $shared.publisher
+		.sink { newValue in newValue.write() }
+}
+
 // MARK: - SettingsFile
 
 extension ProjectSettings: SettingsFile {
-	public static let shared: ProjectSettings = ProjectSettings.load()
-
 	public static let category: SettingsCategory = .projects
 }

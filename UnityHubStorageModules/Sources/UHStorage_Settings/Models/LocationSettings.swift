@@ -1,11 +1,12 @@
+import Combine
 import Foundation
+import UHStorage_Common
 import UnityHubCommon
 
-@Observable
-public final class LocationSettings {
-	public var installationLocation: URL? { didSet { save() } }
-	public var downloadLocation: URL? { didSet { save() } }
-	public var officialHubLocation: URL? { didSet { save() } }
+public struct LocationSettings {
+	public var installationLocation: URL?
+	public var downloadLocation: URL?
+	public var officialHubLocation: URL?
 
 	public init() {
 		installationLocation = nil
@@ -14,26 +15,28 @@ public final class LocationSettings {
 	}
 }
 
+// MARK: - Sendable
+
+extension LocationSettings: Sendable { }
+
+// MARK: - Equatable
+
+extension LocationSettings: Equatable { }
+
 // MARK: - Hashable
 
-public extension LocationSettings {
-	func hash(into hasher: inout Hasher) {
-		hasher.combine(installationLocation)
-		hasher.combine(downloadLocation)
-		hasher.combine(officialHubLocation)
-	}
-}
+extension LocationSettings: Hashable { }
 
 // MARK: - Codable
 
-public extension LocationSettings {
+extension LocationSettings: Codable {
 	private enum CodingKeys: CodingKey {
 		case installationLocation
 		case downloadLocation
 		case officialHubLocation
 	}
 
-	convenience init(from decoder: any Decoder) throws {
+	public init(from decoder: any Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
 		self.init()
@@ -43,7 +46,7 @@ public extension LocationSettings {
 		officialHubLocation = try container.decodeIfPresent(forKey: .officialHubLocation) ?? officialHubLocation
 	}
 
-	func encode(to encoder: any Encoder) throws {
+	public func encode(to encoder: any Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encodeIfPresent(installationLocation, forKey: .installationLocation)
@@ -52,10 +55,23 @@ public extension LocationSettings {
 	}
 }
 
+// MARK: - SingletonFile
+
+extension LocationSettings: SingletonFile {
+	@ObservingCurrentValue
+	public static var shared: Self = Self.read(sharedSubscriber) {
+		didSet {
+			shared.write()
+		}
+	}
+
+	@MainActor
+	static let sharedSubscriber: AnyCancellable = $shared.publisher
+		.sink { newValue in newValue.write() }
+}
+
 // MARK: - SettingsFile
 
 extension LocationSettings: SettingsFile {
-	public static let shared: LocationSettings = LocationSettings.load()
-
 	public static let category: SettingsCategory = .locations
 }

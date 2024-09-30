@@ -6,6 +6,14 @@ public enum Appearance: UInt8 {
 	case dark
 }
 
+// MARK: - Sendable
+
+extension Appearance: Sendable { }
+
+// MARK: - Equatable
+
+extension Appearance: Equatable { }
+
 // MARK: - Hashable
 
 extension Appearance: Hashable { }
@@ -24,10 +32,12 @@ extension Appearance: Codable { }
 
 public extension Appearance {
 	func apply() {
-		NSApp.appearance = switch self {
-			case .light: NSAppearance(named: .aqua)
-			case .dark: NSAppearance(named: .darkAqua)
-			default: nil
+		Task { @MainActor in
+			NSApp.appearance = switch self {
+				case .light: NSAppearance(named: .aqua)
+				case .dark: NSAppearance(named: .darkAqua)
+				default: nil
+			}
 		}
 	}
 }

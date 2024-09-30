@@ -5,13 +5,13 @@ import UnityHubCommon
 // MARK: - Internal
 
 extension InstallationCache {
-	func _add(at url: URL) {
+	mutating func _add(at url: URL) {
 		let installation = InstallationMetadata(url: url)
 		installations.append(installation)
 	}
 
-	func _remove(at url: URL) {
-		installations.removeAll(where: { $0.url == url })
+	mutating func _remove(at url: URL) {
+		installations.removeAll { item in item.url == url }
 	}
 }
 
@@ -30,7 +30,7 @@ public extension InstallationCache {
 			}
 			installations[index] = newValue
 
-			save()
+			write()
 		}
 	}
 
@@ -46,7 +46,7 @@ public extension InstallationCache {
 			}
 			installations[index] = newValue
 
-			save()
+			write()
 		}
 	}
 }
@@ -54,22 +54,22 @@ public extension InstallationCache {
 // MARK: -
 
 public extension InstallationCache {
-	func add(at url: borrowing URL) throws {
+	mutating func add(at url: borrowing URL) throws {
 		try validateInstallationURLConflict(url)
 		try Utility.Application.Unity.validateInstallation(at: url)
 
 		_add(at: url)
 
-		save()
+		write()
 	}
 
-	func remove(at url: borrowing URL) {
+	mutating func remove(at url: borrowing URL) {
 		_remove(at: url)
 
-		save()
+		write()
 	}
 
-	func changeURL(from oldURL: borrowing URL, to newURL: borrowing URL) throws {
+	mutating func changeURL(from oldURL: borrowing URL, to newURL: borrowing URL) throws {
 		try Utility.Application.Unity.validateInstallation(at: newURL)
 
 		// TODO: improve edge case handling
@@ -87,7 +87,7 @@ public extension InstallationCache {
 
 		_add(at: newURL)
 
-		save()
+		write()
 	}
 
 	func get(for version: UnityEditorVersion) -> InstallationMetadata? {

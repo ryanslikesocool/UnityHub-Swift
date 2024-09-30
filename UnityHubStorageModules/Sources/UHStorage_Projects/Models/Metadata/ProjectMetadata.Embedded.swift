@@ -12,6 +12,14 @@ public extension ProjectMetadata {
 	}
 }
 
+// MARK: - Sendable
+
+extension ProjectMetadata.Embedded: Sendable { }
+
+// MARK: - Equatable
+
+extension ProjectMetadata.Embedded: Equatable { }
+
 // MARK: - Hashable
 
 extension ProjectMetadata.Embedded: Hashable { }

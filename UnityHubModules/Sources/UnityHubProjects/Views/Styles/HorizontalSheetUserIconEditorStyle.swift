@@ -3,9 +3,27 @@ import UnityHubCommonViews
 import UserIcon
 
 struct HorizontalSheetUserIconEditorStyle: UserIconEditorStyle {
-	func makeBody(configuration: Configuration) -> some View {
-		let dismiss = configuration.environmentValues.dismiss
+	public init() { }
 
+	public func makeBody(configuration: Configuration) -> some View {
+		ContentView(configuration: configuration)
+	}
+}
+
+// MARK: - Supporting Views
+
+private struct ContentView: View {
+	public typealias Configuration = UserIconEditorStyleConfiguration
+
+	@Environment(\.dismiss) private var dismiss
+
+	private let configuration: Configuration
+
+	public init(configuration: Configuration) {
+		self.configuration = configuration
+	}
+
+	public var body: some View {
 		Sheet {
 			HStack(spacing: 0) {
 				makeIconPreview(view: configuration.iconPreview)
@@ -26,9 +44,7 @@ struct HorizontalSheetUserIconEditorStyle: UserIconEditorStyle {
 	}
 }
 
-// MARK: - Supporting Views
-
-private extension HorizontalSheetUserIconEditorStyle {
+private extension ContentView {
 	func makeIconPreview(view: Configuration.IconPreview) -> some View {
 		view
 			.frame(height: Self.iconPreviewHeight)
@@ -50,7 +66,7 @@ private extension HorizontalSheetUserIconEditorStyle {
 
 // MARK: - Constants
 
-private extension HorizontalSheetUserIconEditorStyle {
+private extension ContentView {
 	private static let iconPreviewHeight: CGFloat = 192
 	private static let kindPickerHeight: CGFloat = 32
 	private static let modelEditorWidth: CGFloat = 256
@@ -60,6 +76,10 @@ private extension HorizontalSheetUserIconEditorStyle {
 
 // MARK: -
 
-extension UserIconEditorStyle where Self == HorizontalSheetUserIconEditorStyle {
-	static var horizontalSheet: Self { Self() }
+extension UserIconEditorStyle where
+	Self == HorizontalSheetUserIconEditorStyle
+{
+	static var horizontalSheet: Self {
+		Self()
+	}
 }

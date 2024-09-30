@@ -5,13 +5,13 @@ import UnityHubCommon
 // MARK: - Private
 
 private extension ProjectCache {
-	func _add(at url: URL, transform: ((inout ProjectMetadata) -> Void)? = nil) {
+	mutating func _add(at url: URL, transform: ((inout ProjectMetadata) -> Void)? = nil) {
 		var project = ProjectMetadata(url: url)
 		transform?(&project)
 		projects.append(project)
 	}
 
-	func _remove(at url: URL) {
+	mutating func _remove(at url: URL) {
 		projects.removeAll(where: { $0.url == url })
 	}
 }
@@ -31,7 +31,7 @@ public extension ProjectCache {
 			}
 			projects[index] = newValue
 
-			save()
+			write()
 		}
 	}
 }
@@ -39,22 +39,22 @@ public extension ProjectCache {
 // MARK: -
 
 public extension ProjectCache {
-	func add(at url: URL) throws {
+	mutating func add(at url: URL) throws {
 		try validateProjectURLConflict(url)
 		try Self.validateProjectContent(at: url)
 
 		_add(at: url)
 
-		save()
+		write()
 	}
 
-	func remove(at url: URL) {
+	mutating func remove(at url: URL) {
 		_remove(at: url)
 
-		save()
+		write()
 	}
 
-	func changeURL(from oldURL: URL, to newURL: URL) throws {
+	mutating func changeURL(from oldURL: URL, to newURL: URL) throws {
 		guard let oldProject = self[oldURL] else {
 			throw ProjectError.missing(oldURL)
 		}
@@ -78,6 +78,6 @@ public extension ProjectCache {
 			newProject.lastOpened = oldProject.lastOpened
 		}
 
-		save()
+		write()
 	}
 }

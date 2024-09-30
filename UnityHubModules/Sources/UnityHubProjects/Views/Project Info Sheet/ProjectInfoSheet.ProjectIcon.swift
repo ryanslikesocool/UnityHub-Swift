@@ -27,7 +27,8 @@ extension ProjectInfoSheet {
 // MARK: - Supporting Views
 
 private extension ProjectInfoSheet.ProjectIcon {
-	@ViewBuilder func label() -> some View {
+	@ViewBuilder
+	func label() -> some View {
 		Group {
 			if project.icon == .blank {
 				Circle()

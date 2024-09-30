@@ -1,34 +1,39 @@
+import Combine
 import Foundation
 import OSLog
-import UnityHubCommon
-import UHStorage_Installations
 import UHStorage_Common
+import UHStorage_Installations
+import UnityHubCommon
 
-@Observable
-public final class ProjectCache {
+@MainActor
+public struct ProjectCache {
 	public var projects: [ProjectMetadata]
 
 	public var projectEditorVersions: [UnityEditorVersion] {
 		Set(projects.compactMap(\.editorVersion)).sorted()
 	}
 
-	public init() {
+	public nonisolated init() {
 		projects = []
 	}
 }
 
+// MARK: - Sendable
+
+extension ProjectCache: Sendable { }
+
+// MARK: - Equatable
+
+extension ProjectCache: Equatable { }
+
 // MARK: - Hashable
 
-public extension ProjectCache {
-	func hash(into hasher: inout Hasher) {
-		hasher.combine(projects)
-	}
-}
+extension ProjectCache: Hashable { }
 
 // MARK: - Codable
 
-extension ProjectCache: Codable {
-	public convenience init(from decoder: any Decoder) throws {
+extension ProjectCache: @preconcurrency Codable {
+	public init(from decoder: any Decoder) throws {
 		let container = try decoder.singleValueContainer()
 
 		self.init()
@@ -39,24 +44,37 @@ extension ProjectCache: Codable {
 	public func encode(to encoder: any Encoder) throws {
 		var container = encoder.singleValueContainer()
 
-		try container.encode(projects.sorted { (lhs, rhs) in
+		try container.encode(projects.sorted { lhs, rhs in
 			lhs.url.path() < rhs.url.path()
 		})
 	}
 }
 
-// MARK: - GlobalFile
+// MARK: - SingletonFile
+
+extension ProjectCache: SingletonFile {
+	@ObservingCurrentValue
+	public static var shared: Self = Self.read(sharedSubscriber) {
+		didSet {
+			shared.write()
+		}
+	}
+
+	@MainActor
+	static let sharedSubscriber: AnyCancellable = $shared.publisher
+		.sink { newValue in newValue.write() }
+}
+
+// MARK: - CacheFile
 
 extension ProjectCache: CacheFile {
-	public static let shared: ProjectCache = ProjectCache.load()
-
-	public static let category: CacheCategory = .projects
+	public nonisolated static let category: CacheCategory = .projects
 }
 
 // MARK: -
 
 public extension ProjectCache {
-	func openProject(at url: URL, with someVersion: UnityEditorVersion?) throws {
+	mutating func openProject(at url: URL, with someVersion: UnityEditorVersion?) async throws {
 		let version: UnityEditorVersion = try unwrapVersion()
 
 		try Self.validateProjectContent(at: url)
@@ -69,18 +87,16 @@ public extension ProjectCache {
 		let installationURL: URL = try Utility.Application
 			.getBundleExecutable(from: installation.url)
 
-		Task {
-			do {
-				try Shell.zsh(.c, .url(installationURL), "-projectPath", .url(url))
-			} catch {
-				throw ShellError(error)
-			}
+		do {
+			try Shell.zsh(.c, .url(installationURL), "-projectPath", .url(url))
+		} catch {
+			throw ShellError(error)
+		}
 
-			await MainActor.run {
-				self[url]?.lastOpened = .now
-
-				save()
-			}
+		await MainActor.run {
+			// Only change if shell command succeeds
+			self[url]?.lastOpened = .now
+			write()
 		}
 
 		func unwrapVersion() throws -> UnityEditorVersion {

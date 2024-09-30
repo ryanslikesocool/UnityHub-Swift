@@ -12,7 +12,9 @@ struct InstallationList: View {
 	@State private var searchQuery: String = ""
 	@State private var searchTokens: [SearchToken] = []
 
-	var body: some View {
+	public init() { }
+
+	public var body: some View {
 		CacheListView(
 			items: $installations.installations,
 			itemFilter: filterFunction,
@@ -21,8 +23,8 @@ struct InstallationList: View {
 		)
 		.searchable(text: $searchQuery, editableTokens: $searchTokens, token: SearchTokenEditor.init)
 		.searchSuggestions { SearchTokenSuggestions(searchTokens) }
-		.onAppear(perform: installations.validateInstallations)
-		.onChange(of: scenePhase, installations.validateInstallations)
+		.onAppear { installations.validateInstallations() }
+		.onChange(of: scenePhase) { installations.validateInstallations() }
 	}
 }
 

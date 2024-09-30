@@ -1,8 +1,8 @@
 import OSLog
 import SwiftUI
-import UnityHubCommon
 import UHStorage_Installations
 import UHStorage_Settings
+import UnityHubCommon
 import UserIcon
 
 public struct ProjectMetadata {
@@ -42,6 +42,14 @@ public struct ProjectMetadata {
 		validateLazyData()
 	}
 }
+
+// MARK: - Sendable
+
+extension ProjectMetadata: Sendable { }
+
+// MARK: - Equatable
+
+extension ProjectMetadata: Equatable { }
 
 // MARK: - Hashable
 
@@ -162,6 +170,7 @@ public extension ProjectMetadata {
 		FileManager.default.directoryExists(at: url)
 	}
 
+	@MainActor
 	var installationExists: Bool {
 		InstallationCache.shared.contains(editorVersion)
 	}

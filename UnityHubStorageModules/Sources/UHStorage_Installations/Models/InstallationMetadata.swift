@@ -1,11 +1,12 @@
 import Foundation
 import OSLog
-import UnityHubCommon
 import UHStorage_Settings
+import UnityHubCommon
 
 public struct InstallationMetadata {
 	public let url: URL
 
+	@MainActor
 	var isInDefaultLocation: Bool {
 		let defaultInstallationPath: String = Utility.Application.Unity.defaultInstallationURL.path()
 		return !url.path().starts(with: defaultInstallationPath)
@@ -22,6 +23,14 @@ public struct InstallationMetadata {
 		self.url = url
 	}
 }
+
+// MARK: - Sendable
+
+extension InstallationMetadata: Sendable { }
+
+// MARK: - Equatable
+
+extension InstallationMetadata: Equatable { }
 
 // MARK: - Hashable
 

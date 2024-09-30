@@ -1,8 +1,9 @@
+import Combine
 import Foundation
+import UHStorage_Common
 import UnityHubCommon
 
-@Observable
-public final class InstallationSettings {
+public struct InstallationSettings {
 	public var infoVisibility: InstallationInfoVisibility.Mask
 	public var sortOrder: SortOrder
 
@@ -12,26 +13,29 @@ public final class InstallationSettings {
 	}
 }
 
+// MARK: - Sendable
+
+extension InstallationSettings: Sendable { }
+
+// MARK: - Equatable
+
+extension InstallationSettings: Equatable { }
+
 // MARK: - Hashable
 
-public extension InstallationSettings {
-	func hash(into hasher: inout Hasher) {
-		hasher.combine(infoVisibility)
-		hasher.combine(sortOrder)
-	}
-}
+extension InstallationSettings: Hashable { }
 
 // MARK: - Codable
 
 /// - NOTE: use manual `Codable` implementation since values may change in the future.
 
-public extension InstallationSettings {
+extension InstallationSettings: Codable {
 	private enum CodingKeys: CodingKey {
 		case infoVisibility
 		case sortOrder
 	}
 
-	convenience init(from decoder: any Decoder) throws {
+	public init(from decoder: any Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
 		self.init()
@@ -42,7 +46,7 @@ public extension InstallationSettings {
 		sortOrder = try container.decodeIfPresent(forKey: .sortOrder) ?? sortOrder
 	}
 
-	func encode(to encoder: any Encoder) throws {
+	public func encode(to encoder: any Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encode(infoVisibility, forKey: .infoVisibility)
@@ -50,10 +54,23 @@ public extension InstallationSettings {
 	}
 }
 
+// MARK: - SingletonFile
+
+extension InstallationSettings: SingletonFile {
+	@ObservingCurrentValue
+	public static var shared: Self = Self.read(sharedSubscriber) {
+		didSet {
+			shared.write()
+		}
+	}
+
+	@MainActor
+	static let sharedSubscriber: AnyCancellable = $shared.publisher
+		.sink { newValue in newValue.write() }
+}
+
 // MARK: - SettingsFile
 
 extension InstallationSettings: SettingsFile {
-	public static let shared: InstallationSettings = InstallationSettings()
-
 	public static let category: SettingsCategory = .installations
 }

@@ -3,6 +3,18 @@ public enum CacheCategory: UInt8 {
 	case installations
 }
 
+// MARK: - Sendable
+
+extension CacheCategory: Sendable { }
+
+// MARK: - Equatable
+
+extension CacheCategory: Equatable { }
+
+// MARK: - Hashable
+
+extension CacheCategory: Hashable { }
+
 // MARK: -
 
 extension CacheCategory {

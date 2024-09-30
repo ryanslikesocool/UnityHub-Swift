@@ -1,34 +1,39 @@
+import Combine
 import Foundation
 import OSLog
-import UnityHubCommon
-import UHStorage_Settings
 import UHStorage_Common
+import UHStorage_Settings
+import UnityHubCommon
 
-@Observable
-public final class InstallationCache {
+@MainActor
+public struct InstallationCache {
 	public var installations: [InstallationMetadata]
 
 	public var uniqueMajorVersions: [SemanticVersion.Integer] { Set(
 		installations.compactMap { (try? $0.version)?.major }
 	).sorted() }
 
-	public init() {
+	public nonisolated init() {
 		installations = []
 	}
 }
 
+// MARK: - Sendable
+
+// extension InstallationCache: Sendable { }
+
+// MARK: - Equatable
+
+extension InstallationCache: Equatable { }
+
 // MARK: - Hashable
 
-public extension InstallationCache {
-	func hash(into hasher: inout Hasher) {
-		hasher.combine(installations)
-	}
-}
+extension InstallationCache: Hashable { }
 
 // MARK: - Codable
 
-extension InstallationCache: Codable {
-	public convenience init(from decoder: any Decoder) throws {
+extension InstallationCache: @preconcurrency Codable {
+	public init(from decoder: any Decoder) throws {
 		let container = try decoder.singleValueContainer()
 
 		self.init()
@@ -47,12 +52,25 @@ extension InstallationCache: Codable {
 	}
 }
 
-// MARK: - GlobalFile
+// MARK: - SingletonFile
+
+extension InstallationCache: SingletonFile {
+	@ObservingCurrentValue
+	public static var shared: Self = Self.read(sharedSubscriber) {
+		didSet {
+			shared.write()
+		}
+	}
+
+	@MainActor
+	static let sharedSubscriber: AnyCancellable = $shared.publisher
+		.sink { newValue in newValue.write() }
+}
+
+// MARK: - CacheFile
 
 extension InstallationCache: CacheFile {
-	public static let shared: InstallationCache = InstallationCache.load()
-
-	public static let category: CacheCategory = .installations
+	public nonisolated static let category: CacheCategory = .installations
 }
 
 // MARK: - Validation
@@ -64,7 +82,7 @@ extension InstallationCache {
 		}
 	}
 
-	public func validateInstallations() {
+	public mutating func validateInstallations() {
 		installations = installations.filter(by: \.isInDefaultLocation, equals: true)
 		getInstallationsFromDefaultLocation()
 	}
@@ -73,7 +91,8 @@ extension InstallationCache {
 // MARK: -
 
 public extension InstallationCache {
-	func getInstallationsFromDefaultLocation() {
+	@MainActor
+	mutating func getInstallationsFromDefaultLocation() {
 		let location: URL = LocationSettings.shared.installationLocation ?? Constant.Settings.Location.defaultInstallationLocation
 		let fileManager: FileManager = .default
 

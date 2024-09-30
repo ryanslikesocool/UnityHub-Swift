@@ -4,8 +4,9 @@ import UnityHubStorage
 
 public extension Shell {
 	static var officialHub: ShellType<OfficialHubArgument> {
-		get throws {
-			let executable = try Utility.Application.getBundleExecutable(from: LocationSettings.shared.officialHubLocation ?? Constant.Settings.Location.defaultOfficialHubLocation)
+		get async throws {
+			let hubLocation = await LocationSettings.shared.officialHubLocation ?? Constant.Settings.Location.defaultOfficialHubLocation
+			let executable = try Utility.Application.getBundleExecutable(from: hubLocation)
 			return ShellType<OfficialHubArgument>(executable: executable)
 		}
 	}

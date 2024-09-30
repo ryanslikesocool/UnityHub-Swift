@@ -1,12 +1,13 @@
+import Combine
 import Foundation
+import UHStorage_Common
 import UnityHubCommon
 
-@Observable
-public final class GeneralSettings {
-	public var appearance: Appearance { didSet { save() } }
-	public var dialogSuppression: DialogSuppression { didSet { save() } }
-	public var backgroundMode: BackgroundMode { didSet { save() } }
-	public var sidebarDisplay: SidebarDisplay { didSet { save() } }
+public struct GeneralSettings {
+	public var appearance: Appearance
+	public var dialogSuppression: DialogSuppression
+	public var backgroundMode: BackgroundMode
+	public var sidebarDisplay: SidebarDisplay
 
 	public init() {
 		appearance = .automatic
@@ -16,22 +17,23 @@ public final class GeneralSettings {
 	}
 }
 
+// MARK: - Sendable
+
+extension GeneralSettings: Sendable { }
+
+// MARK: - Equatable
+
+extension GeneralSettings: Equatable { }
+
 // MARK: - Hashable
 
-public extension GeneralSettings {
-	func hash(into hasher: inout Hasher) {
-		hasher.combine(appearance)
-		hasher.combine(dialogSuppression)
-		hasher.combine(backgroundMode)
-		hasher.combine(sidebarDisplay)
-	}
-}
+extension GeneralSettings: Hashable { }
 
 // MARK: - Codable
 
 /// - NOTE: use manual `Codable` implementation since values may change in the future.
 
-public extension GeneralSettings {
+extension GeneralSettings: Codable {
 	private enum CodingKeys: CodingKey {
 		case appearance
 		case dialogSuppression
@@ -39,7 +41,7 @@ public extension GeneralSettings {
 		case sidebarDisplay
 	}
 
-	convenience init(from decoder: any Decoder) throws {
+	public init(from decoder: any Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
 		self.init()
@@ -52,7 +54,7 @@ public extension GeneralSettings {
 		sidebarDisplay = try container.decodeIfPresent(forKey: .sidebarDisplay) ?? sidebarDisplay
 	}
 
-	func encode(to encoder: any Encoder) throws {
+	public func encode(to encoder: any Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 
 		try container.encode(appearance, forKey: .appearance)
@@ -62,10 +64,27 @@ public extension GeneralSettings {
 	}
 }
 
+// MARK: - SingletonFile
+
+extension GeneralSettings: SingletonFile {
+	@ObservingCurrentValue
+	public static var shared: Self = Self.read(sharedSubscriber) {
+		didSet {
+			shared.write()
+		}
+	}
+
+	@MainActor
+	static let sharedSubscriber: AnyCancellable = $shared.publisher
+		.sink { newValue in newValue.write() }
+
+	public func initialize() {
+		appearance.apply()
+	}
+}
+
 // MARK: - SettingsFile
 
 extension GeneralSettings: SettingsFile {
-	public static let shared: GeneralSettings = GeneralSettings.load()
-
 	public static let category: SettingsCategory = .general
 }
