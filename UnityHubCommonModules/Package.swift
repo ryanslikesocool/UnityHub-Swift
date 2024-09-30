@@ -1,4 +1,4 @@
-// swift-tools-version: 5.10
+// swift-tools-version: 6.0
 
 import CompilerPluginSupport
 import PackageDescription
@@ -6,7 +6,9 @@ import PackageDescription
 let package = Package(
 	name: "UnityHubCommonModules",
 	defaultLocalization: "en",
-	platforms: [.macOS(.v14)],
+	platforms: [
+		.macOS(.v14)
+	],
 	products: [
 		.library(name: "UnityHubCommon", targets: ["UnityHubCommon"]),
 	],

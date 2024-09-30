@@ -5,7 +5,9 @@ import PackageDescription
 let package = Package(
 	name: "UnityHubStorageModules",
 	defaultLocalization: "en",
-	platforms: [.macOS(.v14)],
+	platforms: [
+		.macOS(.v14)
+	],
 	products: [
 		.library(name: "UnityHubStorage", targets: ["UnityHubStorage"]),
 	],

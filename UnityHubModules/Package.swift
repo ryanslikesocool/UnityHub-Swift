@@ -5,7 +5,9 @@ import PackageDescription
 let package = Package(
 	name: "UnityHubModules",
 	defaultLocalization: "en",
-	platforms: [.macOS(.v14)],
+	platforms: [
+		.macOS(.v14)
+	],
 	products: [
 		.library(name: "UnityHub", targets: ["UnityHub"]),
 	],

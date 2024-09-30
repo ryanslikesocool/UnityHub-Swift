@@ -2,7 +2,7 @@ import Foundation
 
 public extension Sequence {
 	func sorted<Value>(
-		by keyPath: KeyPath<Element, Value>,
+		by keyPath: any KeyPath<Element, Value> & Sendable,
 		order: SortOrder = .forward
 	) -> [Element] where
 		Value: Comparable
@@ -12,7 +12,7 @@ public extension Sequence {
 	}
 
 	func sorted<Value>(
-		by keyPath: KeyPath<Element, Value?>,
+		by keyPath: any KeyPath<Element, Value?> & Sendable,
 		optionalBehavior: OptionalSortBehavior = .late,
 		order: SortOrder = .forward
 	) -> [Element] where
