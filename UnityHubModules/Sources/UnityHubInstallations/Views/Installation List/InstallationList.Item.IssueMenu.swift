@@ -4,10 +4,12 @@ import UnityHubCommonViews
 
 extension InstallationList.Item {
 	struct IssueMenu: View {
+		@EnvironmentObject private var model: InstallationsModel
+
 		private let installationURL: URL
 		private let flags: InstallationIssueFlags
 
-		init(installationURL: URL, missingInstallation: Bool) {
+		public init(installationURL: URL, missingInstallation: Bool) {
 			self.installationURL = installationURL
 
 			var flags: InstallationIssueFlags = .none
@@ -15,7 +17,7 @@ extension InstallationList.Item {
 			self.flags = flags
 		}
 
-		var body: some View {
+		public var body: some View {
 			UnityHubCommonViews.IssueMenu(
 				flags: flags,
 				action: action,
@@ -28,7 +30,8 @@ extension InstallationList.Item {
 // MARK: - Supporting View
 
 private extension InstallationList.Item.IssueMenu {
-	@ViewBuilder func itemLabel(flag: InstallationIssueFlags) -> some View {
+	@ViewBuilder
+	func itemLabel(flag: InstallationIssueFlags) -> some View {
 		switch flag {
 			case .missingInstallation: Text("Missing Installation")
 			default: preconditionFailure("Unsupported \(InstallationIssueFlags.self) case \(flag).")
@@ -41,7 +44,7 @@ private extension InstallationList.Item.IssueMenu {
 private extension InstallationList.Item.IssueMenu {
 	func action(flag: InstallationIssueFlags) {
 		switch flag {
-			case .missingInstallation: Event.Installation.missingAtURL.send(installationURL)
+			case .missingInstallation: model.state = .missingInstallation(installationURL)
 			default: preconditionFailure("Unsupported \(InstallationIssueFlags.self) case \(flag).")
 		}
 	}

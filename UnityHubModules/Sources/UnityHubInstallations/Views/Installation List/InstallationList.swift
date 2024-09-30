@@ -9,8 +9,7 @@ struct InstallationList: View {
 	@AppSetting(installation: \.sortOrder) private var sortOrder
 	@Cache(InstallationCache.self) private var installations
 
-	@State private var searchQuery: String = ""
-	@State private var searchTokens: [SearchToken] = []
+	@EnvironmentObject private var model: InstallationsModel
 
 	public init() { }
 
@@ -21,8 +20,8 @@ struct InstallationList: View {
 			item: Item.init,
 			noItems: EmptyList.init
 		)
-		.searchable(text: $searchQuery, editableTokens: $searchTokens, token: SearchTokenEditor.init)
-		.searchSuggestions { SearchTokenSuggestions(searchTokens) }
+		.searchable(text: $model.search.query, editableTokens: $model.search.tokens, token: SearchTokenEditor.init)
+		.searchSuggestions { SearchTokenSuggestions() }
 		.onAppear { installations.validateInstallations() }
 		.onChange(of: scenePhase) { installations.validateInstallations() }
 	}
@@ -32,21 +31,7 @@ struct InstallationList: View {
 
 private extension InstallationList {
 	func filterFunction(installations: [InstallationMetadata]) -> [InstallationMetadata] {
-		var result: [InstallationMetadata] = installations
-
-		if !searchQuery.isEmpty {
-			result = result.filter { installation in
-				(try? installation.version)?.description.localizedStandardContains(searchQuery) == true
-			}
-		}
-
-		for token in searchTokens {
-			result = switch token {
-				case let .lts(state): result.filter { (try? $0.version)?.isLTS == state }
-				case let .prerelease(state): result.filter { (try? $0.version)?.isPrerelease == state }
-				case let .majorVersion(value): result.filter { (try? $0.version)?.major == value }
-			}
-		}
+		let result = model.search.filterFunction(installations: installations)
 
 		return result
 			.sorted(

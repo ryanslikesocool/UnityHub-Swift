@@ -26,8 +26,4 @@ public extension Button where Label == SwiftUI.Label<Text, Image> {
 		Button(action: action, label: Label.info)
 			.keyboardShortcut(Constant.Hotkey.info)
 	}
-
-	static func showInFinder(destination: URL) -> Self {
-		Button(action: destination.showInFinder, label: Label.showInFinder)
-	}
 }

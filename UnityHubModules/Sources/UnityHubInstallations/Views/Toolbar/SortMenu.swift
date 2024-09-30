@@ -5,7 +5,9 @@ import UnityHubCommonViews
 struct SortMenu: View {
 	@AppSetting(installation: \.sortOrder) private var sortOrder
 
-	var body: some View {
+	public init() { }
+
+	public var body: some View {
 		Menu(
 			content: makeContent,
 			label: Label.sort,

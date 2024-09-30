@@ -5,13 +5,13 @@ import UnityHubStorage
 struct SearchTokenSuggestions: View {
 	@Cache(InstallationCache.self) private var installations
 
-	private let tokens: [SearchToken]
+	@EnvironmentObject private var model: InstallationsModel
 
-	init(_ tokens: [SearchToken]) {
-		self.tokens = tokens
-	}
+	private var tokens: [SearchToken] { model.search.tokens }
 
-	var body: some View {
+	public init() { }
+
+	public var body: some View {
 		if installations.installations.count > 1 {
 			makeLTSSuggestion()
 

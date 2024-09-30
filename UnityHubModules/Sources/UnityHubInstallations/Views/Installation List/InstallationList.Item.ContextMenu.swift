@@ -7,20 +7,20 @@ extension InstallationList.Item {
 	struct ContextMenu: View {
 		private let installation: InstallationMetadata
 
-		init(_ installation: InstallationMetadata) {
+		public init(_ installation: InstallationMetadata) {
 			self.installation = installation
 		}
 
-		var body: some View {
-			let fileManager: FileManager = .default
-			let exists: Bool = fileManager.fileExists(at: installation.url)
+		public var body: some View {
+			let exists: Bool = FileManager.default.fileExists(at: installation.url)
 
 			Section {
 				Button.info {
 					print("\(Self.self).\(#function) is not implemented")
 				}
+				.disabled(true)
 
-				Button.showInFinder(destination: installation.url)
+				ShowInFinderButton(installation.url)
 			}
 			.disabled(!exists)
 
@@ -30,21 +30,11 @@ extension InstallationList.Item {
 					RealLink(destination: Utility.Version.getScriptReferenceURL(version), label: Label.scriptReference)
 				}
 
-				let bugReporterURL = Utility.Application.Unity.getBugReporterURL(for: installation.url)
-				Button(
-					action: { NSWorkspace.shared.open(bugReporterURL) },
-					label: Label.reportBug
-				)
-				.disabled(!fileManager.fileExists(at: bugReporterURL))
+				OpenBugReporterButton(installation: installation)
 			}
 
 			Section {
-				Button(
-					role: .destructive,
-					action: { Event.Installation.remove.send(installation.url) },
-					label: exists ? Label.uninstall : Label.remove
-				)
-				.keyboardShortcut(.delete)
+				RemoveInstallationButton(installation: installation)
 			}
 		}
 	}

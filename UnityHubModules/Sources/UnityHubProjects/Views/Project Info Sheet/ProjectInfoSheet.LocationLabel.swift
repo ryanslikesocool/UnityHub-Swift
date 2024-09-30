@@ -13,7 +13,7 @@ extension ProjectInfoSheet {
 			URLLabel(url)
 				.foregroundStyle(.secondary)
 				.contextMenu {
-					Button.showInFinder(destination: url)
+					ShowInFinderButton(url)
 						.labelStyle(.titleAndIcon)
 				}
 		}

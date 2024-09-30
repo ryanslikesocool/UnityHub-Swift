@@ -37,7 +37,7 @@ public struct URLPicker<Label: View>: View {
 			label: label(),
 			urlLabel: URLLabel(selection)
 				.contextMenu {
-					Button.showInFinder(destination: selection)
+					ShowInFinderButton(selection)
 						.labelStyle(.titleAndIcon)
 				},
 			issueButton: issueButton,

@@ -35,7 +35,7 @@ extension ProjectList.Item {
 
 					ProjectList.ProjectPinnedToggle(isOn: $project.pinned)
 
-					Button.showInFinder(destination: project.url)
+					ShowInFinderButton(project.url)
 				}
 			}
 			.disabled(!fileManager.directoryExists(at: project.url))

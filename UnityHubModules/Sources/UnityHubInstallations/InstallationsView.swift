@@ -1,6 +1,8 @@
 import SwiftUI
 
 public struct InstallationsView: View {
+	@StateObject private var model: InstallationsModel = InstallationsModel()
+
 	public init() { }
 
 	public var body: some View {
@@ -15,9 +17,11 @@ public struct InstallationsView: View {
 
 			/// cannot combine event receivers into a single `.background`
 			/// for some reason, `EmptyView` works if done this way
-			.background(content: LocateInstallationReceiver.init)
-			.background(content: RemoveInstallationReceiver.init)
-			.background(content: MissingInstallationAtURLReceiver.init)
-			.background(content: DownloadInstallationReceiver.init)
+			.locateInstallationFileDialog()
+			.removeInstallationConfirmationDialog()
+			.missingInstallationAlert()
+			.downloadInstallationSheet()
+
+			.environmentObject(model)
 	}
 }

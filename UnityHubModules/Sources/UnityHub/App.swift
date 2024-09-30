@@ -1,5 +1,7 @@
 import SwiftUI
-import UnityHub
+import UnityHubAbout
+import UnityHubMain
+import UnityHubSettings
 
 @main
 struct App: SwiftUI.App {

@@ -4,7 +4,9 @@ import UnityHubCommonViews
 
 extension InstallationList {
 	struct EmptyList: View {
-		var body: some View {
+		public init() { }
+
+		public var body: some View {
 			EmptyListView {
 				Label("No Installations", systemImage: Constant.Symbol.tray)
 			} prompt: {
@@ -24,7 +26,7 @@ extension InstallationList {
 private extension InstallationList.EmptyList {
 	@ViewBuilder
 	func makePromptContent() -> some View {
-		Button.downloadInstallation()
+		DownloadInstallationButton()
 
 		if #available(macOS 15, *) {
 			makePromptActionSeparator()
@@ -33,7 +35,7 @@ private extension InstallationList.EmptyList {
 			makePromptActionSeparator()
 		}
 
-		Button.locateInstallation()
+		LocateInstallationButton()
 	}
 
 	func makePromptActionSeparator() -> some View {

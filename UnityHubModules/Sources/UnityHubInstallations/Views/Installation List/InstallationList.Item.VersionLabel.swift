@@ -8,11 +8,11 @@ extension InstallationList.Item {
 
 		private let version: UnityEditorVersion?
 
-		init(_ version: UnityEditorVersion?) {
+		public init(_ version: UnityEditorVersion?) {
 			self.version = version
 		}
 
-		var body: some View {
+		public var body: some View {
 			if let version {
 				UnityEditorVersionLabel(version)
 					.unityEditorVersionLabelStyle(editorVersionLabelStyle)

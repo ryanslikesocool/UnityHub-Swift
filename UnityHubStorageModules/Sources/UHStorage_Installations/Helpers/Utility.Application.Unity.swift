@@ -1,17 +1,17 @@
 import Foundation
-import UnityHubCommon
-import UHStorage_Settings
 import UHStorage_Common
+import UHStorage_Settings
+import UnityHubCommon
 
 public extension Utility.Application {
 	enum Unity {
-		public static func getBugReporterURL(for applicationURL: URL) -> URL {
+		public static func getBugReporterURL(for applicationURL: borrowing URL) -> URL {
 			applicationURL
 				.deletingLastPathComponent()
 				.appending(path: Constant.Application.Unity.bugReporterPath, directoryHint: .notDirectory)
 		}
 
-		static func getModulesURL(for applicationURL: URL) -> URL {
+		static func getModulesURL(for applicationURL: borrowing URL) -> URL {
 			applicationURL
 				.deletingLastPathComponent()
 				.appending(path: Constant.Application.Unity.modulesJSONPath, directoryHint: .notDirectory)
@@ -23,7 +23,10 @@ public extension Utility.Application {
 				?? Constant.Settings.Location.defaultInstallationLocation
 		}
 
-		@discardableResult public static func validateInstallation(at applicationURL: URL) throws -> Bool {
+		@discardableResult
+		public static func validateInstallation(
+			at applicationURL: URL
+		) throws -> Bool {
 			let fileManager: FileManager = .default
 
 			guard

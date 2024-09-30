@@ -4,33 +4,42 @@ import UnityHubCommon
 import UnityHubCommonViews
 import UnityHubStorage
 
-struct LocateInstallationReceiver: View {
+struct LocateInstallationFileDialog: View {
+	@EnvironmentObject private var model: InstallationsModel
+
 	@Cache(InstallationCache.self) private var installations
 
-	@State private var isPresentingDialog: Bool = false
-	@State private var completion: LocateEventCompletion? = nil
-
 	var body: some View {
+		let isPresentingFileDialog = Binding(notNil: $model.state.locateInstallationCompletion)
+
 		EmptyView()
-			.onReceive(Event.Installation.locate, perform: receiveEvent)
 			.fileImporter(
-				isPresented: $isPresentingDialog,
+				isPresented: isPresentingFileDialog,
 				allowedContentTypes: [.application],
 				onCompletion: onFileImporterComplete
 			)
 			.fileDialogDefaultDirectory(URL.applicationDirectory)
-			.fileDialogConfirmationLabel(Text("Select Installation"))
+//			.fileDialogMessage(makeMessage())
+			.fileDialogConfirmationLabel(makeConfirmationLabel())
+	}
+}
+
+// MARK: - Supporting Views
+
+private extension LocateInstallationFileDialog {
+//	func makeMessage() -> Text {
+		// depends on completion
+//		Text("Locate the missing Unity installation")
+//	}
+
+	func makeConfirmationLabel() -> Text {
+		Text("Select")
 	}
 }
 
 // MARK: - Functions
 
-private extension LocateInstallationReceiver {
-	func receiveEvent(value: LocateEventCompletion) {
-		completion = value
-		isPresentingDialog = true
-	}
-
+private extension LocateInstallationFileDialog {
 	func onFileImporterComplete(result: Result<URL, Error>) {
 		switch result {
 			case let .failure(error):
@@ -62,10 +71,18 @@ private extension LocateInstallationReceiver {
 	}
 
 	func consumeValue() -> LocateEventCompletion {
-		guard let completion else {
+		guard let completion = model.state.locateInstallationCompletion else {
 			preconditionFailure(missingObject: LocateEventCompletion.self)
 		}
-		self.completion = nil
+		model.state.locateInstallationCompletion = nil
 		return completion
+	}
+}
+
+// MARK: - Convenience
+
+extension View {
+	func locateInstallationFileDialog() -> some View {
+		background(content: LocateInstallationFileDialog.init)
 	}
 }

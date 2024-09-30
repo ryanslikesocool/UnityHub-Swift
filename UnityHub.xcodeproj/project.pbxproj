@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		AF4FBFD32C260902005AF06F /* UnityHub in Frameworks */ = {isa = PBXBuildFile; productRef = AF4FBFD22C260902005AF06F /* UnityHub */; };
 		AF66EBF2251AE3910088EC84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF66EBF1251AE3910088EC84 /* Assets.xcassets */; };
-		AFCC51652CAB2BAD0064FE96 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCC51642CAB2BAD0064FE96 /* App.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -17,7 +16,6 @@
 		AF66EBF1251AE3910088EC84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF66EBF9251AE3910088EC84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF66EBFA251AE3910088EC84 /* Entitlements.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Entitlements.entitlements; sourceTree = "<group>"; };
-		AFCC51642CAB2BAD0064FE96 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +57,6 @@
 		AF66EBEC251AE3900088EC84 /* UnityHub */ = {
 			isa = PBXGroup;
 			children = (
-				AFCC51642CAB2BAD0064FE96 /* App.swift */,
 				AF66EBFA251AE3910088EC84 /* Entitlements.entitlements */,
 				AF66EBF9251AE3910088EC84 /* Info.plist */,
 				AF66EBF1251AE3910088EC84 /* Assets.xcassets */,
@@ -143,7 +140,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFCC51652CAB2BAD0064FE96 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +277,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 978;
+				CURRENT_PROJECT_VERSION = 980;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 838RGQ32CA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -311,7 +307,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 978;
+				CURRENT_PROJECT_VERSION = 980;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 838RGQ32CA;
 				ENABLE_HARDENED_RUNTIME = YES;

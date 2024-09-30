@@ -9,11 +9,11 @@ extension InstallationList {
 
 		private let installation: InstallationMetadata
 
-		init(_ installation: Binding<InstallationMetadata>) {
+		public init(_ installation: Binding<InstallationMetadata>) {
 			self.installation = installation.wrappedValue
 		}
 
-		var body: some View {
+		public var body: some View {
 			ListItem(content: labelContent, menu: contextMenu, issue: issueMenu)
 				.contextMenu(menuItems: contextMenu)
 		}

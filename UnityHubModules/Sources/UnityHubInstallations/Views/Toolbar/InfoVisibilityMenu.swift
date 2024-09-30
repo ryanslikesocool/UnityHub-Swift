@@ -6,7 +6,9 @@ import UnityHubStorage
 struct InfoVisibilityMenu: View {
 	@AppSetting(installation: \.infoVisibility) private var infoVisibility
 
-	var body: some View {
+	public init() { }
+
+	public var body: some View {
 		Menu(
 			content: makeContent,
 			label: Label.visibility

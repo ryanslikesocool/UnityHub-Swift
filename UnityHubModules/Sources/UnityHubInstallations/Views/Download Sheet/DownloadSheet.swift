@@ -23,13 +23,13 @@ private extension DownloadSheet {
 					Text("placeholder")
 				}
 				Section {
-					NavigationLink("Official", value: DownloadSheetPage.official)
-					NavigationLink("Prerelease", value: DownloadSheetPage.prerelease)
-					NavigationLink("Archive", value: DownloadSheetPage.archive)
+					NavigationLink("Official", value: DownloadSheetTab.official)
+					NavigationLink("Prerelease", value: DownloadSheetTab.prerelease)
+					NavigationLink("Archive", value: DownloadSheetTab.archive)
 				}
 			}
 			.formStyle(.grouped)
-			.navigationDestination(for: DownloadSheetPage.self, destination: PageView.init)
+			.navigationDestination(for: DownloadSheetTab.self, destination: SheetTab.init)
 			.navigationBarBackButtonHidden()
 		}
 	}
