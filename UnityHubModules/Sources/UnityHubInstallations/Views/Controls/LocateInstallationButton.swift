@@ -11,7 +11,7 @@ struct LocateInstallationButton: View {
 			action: buttonAction,
 			label: Label.locate
 		)
-		.keyboardShortcut(Constant.Hotkey.open)
+		.keyboardShortcut(.open)
 	}
 }
 

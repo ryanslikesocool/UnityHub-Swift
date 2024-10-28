@@ -1,17 +1,21 @@
 public extension Sequence {
-	func filter<T: Equatable>(
-		by keyPath: borrowing KeyPath<Element, T>,
-		equals equalityValue: T
-	) -> [Element] {
+	func filter<Value>(
+		by keyPath: borrowing KeyPath<Element, Value>,
+		equals equalityValue: Value
+	) -> [Element] where
+		Value: Equatable
+	{
 		filter { element in
 			element[keyPath: keyPath] == equalityValue
 		}
 	}
 
-	func filter<T: Equatable>(
-		by keyPath: borrowing KeyPath<Element, T?>,
-		equals equalityValue: T
-	) -> [Element] {
+	func filter<Value>(
+		by keyPath: borrowing KeyPath<Element, Value?>,
+		equals equalityValue: Value
+	) -> [Element] where
+		Value: Equatable
+	{
 		filter { element in
 			element[keyPath: keyPath] == equalityValue
 		}

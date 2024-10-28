@@ -64,9 +64,9 @@ extension GeneralSettings: Codable {
 	}
 }
 
-// MARK: - SingletonFile
+// MARK: - SingletonFileProtocol
 
-extension GeneralSettings: SingletonFile {
+extension GeneralSettings: SingletonFileProtocol {
 	@ObservingCurrentValue
 	public static var shared: Self = Self.read(sharedSubscriber) {
 		didSet {
@@ -83,8 +83,8 @@ extension GeneralSettings: SingletonFile {
 	}
 }
 
-// MARK: - SettingsFile
+// MARK: - SettingsFileProtocol
 
-extension GeneralSettings: SettingsFile {
+extension GeneralSettings: SettingsFileProtocol {
 	public static let category: SettingsCategory = .general
 }

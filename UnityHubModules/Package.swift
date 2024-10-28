@@ -32,29 +32,25 @@ let package = Package(
 		]),
 
 		.target(name: "UnityHubAbout", dependencies: [
-			"UnityHubCommonViews",
+			"UnityHubInclude",
 		]),
 
 		.target(name: "UnityHubSettings", dependencies: [
-			"UnityHubCommonViews",
+			"UnityHubInclude",
 			"UnityHubOfficialCLI",
 		]),
 
 		// MARK: - Detail
 
 		.target(name: "UnityHubResources", dependencies: [
-			"UnityHubCommonViews",
+			"UnityHubInclude",
 		]),
 
 		.target(name: "UnityHubInstallations", dependencies: [
-			"UnityHubCommonViews",
+			"UnityHubInclude",
 		]),
 
 		.target(name: "UnityHubProjects", dependencies: [
-			"UnityHubCommonViews",
-		]),
-
-		.target(name: "UnityHubCommonViews", dependencies: [
 			"UnityHubInclude",
 		]),
 
@@ -67,7 +63,9 @@ let package = Package(
 		.target(name: "UnityHubInclude", dependencies: [
 			"MoreWindows",
 			"UserIcon",
+			.product(name: "UnityHubCore", package: "UnityHubCommonModules"),
 			.product(name: "UnityHubCommon", package: "UnityHubCommonModules"),
+			.product(name: "UnityHubCommonViews", package: "UnityHubCommonModules"),
 			.product(name: "UnityHubStorage", package: "UnityHubStorageModules"),
 		]),
 	]

@@ -4,7 +4,7 @@ import UnityHubCommonViews
 import UnityHubStorage
 
 struct SearchTokenEditor: View {
-	@Cache(ProjectCache.self) private var projects
+	@CacheFile(ProjectCache.self) private var projects
 
 	@Binding var selection: SearchToken
 

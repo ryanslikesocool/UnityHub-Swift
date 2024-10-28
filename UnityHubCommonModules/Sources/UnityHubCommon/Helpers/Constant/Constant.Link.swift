@@ -2,7 +2,7 @@ import Foundation
 
 public enum Constant {
 	public enum Link {
-		public static let officialHub: URL! = URL(string: "https://unity.com/download")
+		public static let officialUnityHub: URL! = URL(string: "https://unity.com/download")
 		public static let manual: URL! = URL(string: "https://docs.unity3d.com/Manual/index.html")
 		public static let scripting: URL! = URL(string: "https://docs.unity3d.com/ScriptReference/index.html")
 		public static let unityLearn: URL! = URL(string: "https://learn.unity.com/")

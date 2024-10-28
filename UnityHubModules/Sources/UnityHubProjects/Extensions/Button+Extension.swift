@@ -10,7 +10,7 @@ extension Button where
 			action: { Event.Project.create.send() },
 			label: Label.create
 		)
-		.keyboardShortcut(Constant.Hotkey.new)
+		.keyboardShortcut(.new)
 		.disabled(true)
 	}
 
@@ -19,6 +19,6 @@ extension Button where
 			action: { Event.Project.locate.send(.add) },
 			label: Label.locate
 		)
-		.keyboardShortcut(Constant.Hotkey.open)
+		.keyboardShortcut(.open)
 	}
 }

@@ -16,8 +16,8 @@ struct DevelopedWithLoveSection: View {
 				.foregroundStyle(.tertiary)
 				.multilineTextAlignment(.center)
 
-				Image(Constant.Symbol.heart_pixel_fill)
-					.foregroundStyle(Color(Constant.Color.developedWithLove_red))
+				Image(Symbol.heart_pixel_fill)
+					.foregroundStyle(Color.developedWithLove_red)
 			}
 		}
 		.buttonStyle(.plain)

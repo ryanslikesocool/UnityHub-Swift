@@ -15,8 +15,8 @@ extension InstallationList.Item {
 			let exists: Bool = FileManager.default.fileExists(at: installation.url)
 
 			Section {
-				Button.info {
-					print("\(Self.self).\(#function) is not implemented")
+				InfoButton {
+					fatalError("\(Self.self).\(#function) is not implemented")
 				}
 				.disabled(true)
 

@@ -5,7 +5,7 @@ import UnityHubCommonViews
 import UnityHubStorage
 
 struct DisplayProjectInfoReceiver: View {
-	@Cache(ProjectCache.self) private var projects
+	@CacheFile(ProjectCache.self) private var projects
 
 	@State private var projectURL: URL? = nil
 

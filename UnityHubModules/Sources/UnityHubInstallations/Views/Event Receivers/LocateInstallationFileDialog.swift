@@ -7,9 +7,11 @@ import UnityHubStorage
 struct LocateInstallationFileDialog: View {
 	@EnvironmentObject private var model: InstallationsModel
 
-	@Cache(InstallationCache.self) private var installations
+	@CacheFile(InstallationCache.self) private var installations
 
-	var body: some View {
+	public init() { }
+
+	public var body: some View {
 		let isPresentingFileDialog = Binding(notNil: $model.state.locateInstallationCompletion)
 
 		EmptyView()
@@ -28,7 +30,7 @@ struct LocateInstallationFileDialog: View {
 
 private extension LocateInstallationFileDialog {
 //	func makeMessage() -> Text {
-		// depends on completion
+	// depends on completion
 //		Text("Locate the missing Unity installation")
 //	}
 
@@ -62,7 +64,7 @@ private extension LocateInstallationFileDialog {
 					try installations.changeURL(from: oldURL, to: url)
 			}
 		} catch InstallationError.invalid {
-			Event.Installation.invalid.send()
+			model.state = .invalidInstallation(url)
 		} catch InstallationError.alreadyExists {
 			// TODO: automatically add installation to search field
 		} catch {

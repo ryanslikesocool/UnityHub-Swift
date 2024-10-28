@@ -1,3 +1,5 @@
+import Foundation
+
 public enum SettingsCategory: UInt8 {
 	case general
 	case projects
@@ -26,6 +28,15 @@ extension SettingsCategory: Identifiable {
 	public var id: RawValue { rawValue }
 }
 
+// MARK: - Constants
+
+private extension SettingsCategory  {
+	static let fileExtension: String = "plist"
+
+	static let directory: URL = URL.persistentStorageDirectory
+		.appending(component: "settings", directoryHint: .isDirectory)
+}
+
 // MARK: -
 
 extension SettingsCategory {
@@ -39,5 +50,10 @@ extension SettingsCategory {
 			case .development: "development"
 #endif
 		}
+	}
+
+	var fileURL: URL {
+		Self.directory
+			.appending(component: "\(fileName).\(Self.fileExtension)", directoryHint: .notDirectory)
 	}
 }

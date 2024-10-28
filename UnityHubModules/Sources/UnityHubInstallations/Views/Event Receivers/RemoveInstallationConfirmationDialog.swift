@@ -7,7 +7,7 @@ private struct RemoveInstallationConfirmationDialog: View {
 	@EnvironmentObject private var model: InstallationsModel
 
 	@AppSetting(general: \.dialogSuppression) private var dialogSuppression
-	@Cache(InstallationCache.self) private var installations
+	@CacheFile(InstallationCache.self) private var installations
 
 	@State private var isPresentingDialog: Bool = false
 

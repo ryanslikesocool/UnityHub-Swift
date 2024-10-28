@@ -5,7 +5,7 @@ import UnityHubStorage
 
 extension ProjectList.Item {
 	struct ContextMenu: View {
-		@Cache(InstallationCache.self) private var installations
+		@CacheFile(InstallationCache.self) private var installations
 
 		@Binding private var project: ProjectMetadata
 
@@ -29,7 +29,7 @@ extension ProjectList.Item {
 				}
 
 				Section {
-					Button.info {
+					InfoButton {
 						Event.Project.displayInfo.send(project.url)
 					}
 

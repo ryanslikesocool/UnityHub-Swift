@@ -7,7 +7,7 @@ struct LocationTab: SettingsCategoryView {
 	static let category: SettingsCategory = .locations
 
 	func makeLabel() -> some View {
-		SwiftUI.Label("Locations", systemImage: Constant.Symbol.externalDrive)
+		SwiftUI.Label("Locations", systemImage: Symbol.externalDrive)
 	}
 
 	func makeContent() -> some View {

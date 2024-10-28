@@ -5,7 +5,7 @@ import UnityHubCommonViews
 
 struct UserMenu: View {
 	var body: some View {
-		Menu("User", systemImage: Constant.Symbol.person) {
+		Menu("User", systemImage: Symbol.person) {
 			makeContent()
 				.controlSize(.regular)
 				.labelStyle(.automatic)
@@ -19,31 +19,31 @@ private extension UserMenu {
 	@ViewBuilder
 	func makeContent() -> some View {
 		Section {
-			Button("Account Settings", systemImage: Constant.Symbol.gearShape) { }
+			Button("Account Settings", systemImage: Symbol.gearShape) { }
 				.disabled(true)
 
 			RealLink(destination: Constant.Link.cloudLogin) {
-				Label("Unity Cloud", systemImage: Constant.Symbol.cloud)
+				Label("Unity Cloud", systemImage: Symbol.cloud)
 			}
 
-			Button("Manage Licenses", systemImage: Constant.Symbol.person) { }
+			Button("Manage Licenses", systemImage: Symbol.person) { }
 				.disabled(true)
 
-			Button("Manage Organizations", systemImage: Constant.Symbol.person_3_sequence) { }
+			Button("Manage Organizations", systemImage: Symbol.person_3_sequence) { }
 				.disabled(true)
 		}
 
 		Section {
-			Menu("Troubleshooting", systemImage: Constant.Symbol.questionMark) {
+			Menu("Troubleshooting", systemImage: Symbol.questionMark) {
 				RealLink(
 					"Account Help",
-					systemImage: Constant.Symbol.questionMark,
+					systemImage: Symbol.questionMark,
 					destination: Constant.Link.accountHelp
 				)
 
 				Button(
 					"Open Log Folder",
-					systemImage: Constant.Symbol.folder
+					systemImage: Symbol.folder
 				) {
 					URL.applicationSupportDirectory.appending(path: "UnityHub/logs", directoryHint: .isDirectory).showInFinder()
 				}
@@ -54,12 +54,9 @@ private extension UserMenu {
 				)
 			}
 
-			SettingsLink {
-				Label("Settings", image: Constant.Symbol.gearShape)
-			}
-			.keyboardShortcut(Constant.Hotkey.settings)
+			SettingsButton()
 
-			Button("Sign Out", image: Constant.Symbol.rectangle_portrait_and_arrow_left, role: .destructive) { }
+			Button("Sign Out", image: Symbol.rectangle_portrait_and_arrow_left, role: .destructive) { }
 				.disabled(true)
 		}
 	}

@@ -59,9 +59,9 @@ extension ProjectSettings: Codable {
 	}
 }
 
-// MARK: - SingletonFile
+// MARK: - SingletonFileProtocol
 
-extension ProjectSettings: SingletonFile {
+extension ProjectSettings: SingletonFileProtocol {
 	@ObservingCurrentValue
 	public static var shared: Self = Self.read(sharedSubscriber) {
 		didSet {
@@ -74,8 +74,8 @@ extension ProjectSettings: SingletonFile {
 		.sink { newValue in newValue.write() }
 }
 
-// MARK: - SettingsFile
+// MARK: - SettingsFileProtocol
 
-extension ProjectSettings: SettingsFile {
+extension ProjectSettings: SettingsFileProtocol {
 	public static let category: SettingsCategory = .projects
 }

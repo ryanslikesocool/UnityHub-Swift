@@ -1,6 +1,7 @@
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
+import UnityHubStorage
 
 extension LocationTab.OfficialHubSection {
 	struct LocationPicker: View {
@@ -9,13 +10,13 @@ extension LocationTab.OfficialHubSection {
 		var body: some View {
 			URLPicker(
 				selection: $selection,
-				defaultValue: Constant.Settings.Location.defaultOfficialHubLocation,
+				defaultValue: LocationSettings.defaultOfficialHubLocation,
 				allowedContentTypes: [.application],
 				validator: Utility.Settings.Location.validateOfficialHub,
 				label: EmptyView.init
 			)
 			.urlPickerStyle(.noLabel)
-			.fileDialogDefaultDirectory(Constant.Settings.Location.defaultOfficialHubLocation)
+			.fileDialogDefaultDirectory(LocationSettings.defaultOfficialHubLocation)
 		}
 	}
 }

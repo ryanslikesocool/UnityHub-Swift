@@ -6,7 +6,7 @@ let package = Package(
 	name: "UnityHubStorageModules",
 	defaultLocalization: "en",
 	platforms: [
-		.macOS(.v14)
+		.macOS(.v14),
 	],
 	products: [
 		.library(name: "UnityHubStorage", targets: ["UnityHubStorage"]),
@@ -18,12 +18,20 @@ let package = Package(
 	],
 	targets: [
 		.target(name: "UnityHubStorage", dependencies: [
+			"UHStorage_Views",
 			"UHStorage_Projects",
 			"UHStorage_Installations",
 			"UHStorage_Settings",
+			"UHStorage_Common",
 		]),
 
 		// MARK: - Internal
+
+		.target(name: "UHStorage_Views", dependencies: [
+			.product(name: "UnityHubCommonViews", package: "UnityHubCommonModules"),
+
+			"UHStorage_Installations",
+		]),
 
 		.target(name: "UHStorage_Projects", dependencies: [
 			"UserIcon",

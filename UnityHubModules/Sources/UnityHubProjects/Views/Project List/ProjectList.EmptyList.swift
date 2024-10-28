@@ -6,7 +6,7 @@ extension ProjectList {
 	struct EmptyList: View {
 		var body: some View {
 			EmptyListView {
-				Label("No Projects", systemImage: Constant.Symbol.cube)
+				Label("No Projects", systemImage: Symbol.cube)
 			} prompt: {
 				if #available(macOS 15, *) {
 					EqualWidthHStack(content: makePromptContent)

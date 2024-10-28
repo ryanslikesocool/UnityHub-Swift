@@ -4,7 +4,7 @@ import UnityHubCommon
 public extension Utility.Settings {
 	enum Location {
 		public static func validateInstallationLocation(_ selection: URL?) throws {
-			let installationLocation: URL = selection ?? Constant.Settings.Location.defaultInstallationLocation
+			let installationLocation: URL = selection ?? LocationSettings.defaultInstallationLocation
 			guard (try? installationLocation.checkResourceIsReachable()) == true else {
 				throw LocationError.missing
 			}
@@ -14,7 +14,7 @@ public extension Utility.Settings {
 		}
 
 		public static func validateDownloadLocation(_ selection: URL?) throws {
-			let downloadLocation: URL = selection ?? Constant.Settings.Location.defaultDownloadLocation
+			let downloadLocation: URL = selection ?? LocationSettings.defaultDownloadLocation
 			guard (try? downloadLocation.checkResourceIsReachable()) == true else {
 				throw LocationError.missing
 			}
@@ -24,7 +24,7 @@ public extension Utility.Settings {
 		}
 
 		public static func validateOfficialHub(_ selection: URL?) throws {
-			let officialHubLocation: URL = selection ?? Constant.Settings.Location.defaultOfficialHubLocation
+			let officialHubLocation: URL = selection ?? LocationSettings.defaultOfficialHubLocation
 			guard (try? officialHubLocation.checkResourceIsReachable()) == true else {
 				throw LocationError.missing
 			}

@@ -52,9 +52,9 @@ extension InstallationCache: @preconcurrency Codable {
 	}
 }
 
-// MARK: - SingletonFile
+// MARK: - SingletonFileProtocol
 
-extension InstallationCache: SingletonFile {
+extension InstallationCache: SingletonFileProtocol {
 	@ObservingCurrentValue
 	public static var shared: Self = Self.read(sharedSubscriber) {
 		didSet {
@@ -67,9 +67,9 @@ extension InstallationCache: SingletonFile {
 		.sink { newValue in newValue.write() }
 }
 
-// MARK: - CacheFile
+// MARK: - CacheFileProtocol
 
-extension InstallationCache: CacheFile {
+extension InstallationCache: CacheFileProtocol {
 	public nonisolated static let category: CacheCategory = .installations
 }
 
@@ -93,7 +93,7 @@ extension InstallationCache {
 public extension InstallationCache {
 	@MainActor
 	mutating func getInstallationsFromDefaultLocation() {
-		let location: URL = LocationSettings.shared.installationLocation ?? Constant.Settings.Location.defaultInstallationLocation
+		let location: URL = LocationSettings.shared.installationLocation ?? LocationSettings.defaultInstallationLocation
 		let fileManager: FileManager = .default
 
 		let items: [URL]

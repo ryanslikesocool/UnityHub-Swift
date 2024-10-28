@@ -11,7 +11,7 @@ struct DownloadInstallationButton: View {
 			action: buttonAction,
 			label: Label.download
 		)
-		.keyboardShortcut(Constant.Hotkey.new)
+		.keyboardShortcut(.new)
 	}
 }
 

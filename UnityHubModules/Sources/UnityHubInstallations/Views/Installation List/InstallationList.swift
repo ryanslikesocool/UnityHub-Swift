@@ -7,7 +7,7 @@ struct InstallationList: View {
 	@Environment(\.scenePhase) private var scenePhase
 
 	@AppSetting(installation: \.sortOrder) private var sortOrder
-	@Cache(InstallationCache.self) private var installations
+	@CacheFile(InstallationCache.self) private var installations
 
 	@EnvironmentObject private var model: InstallationsModel
 

@@ -12,14 +12,14 @@ extension LocationTab {
 		var body: some View {
 			URLPicker(
 				selection: $selection,
-				defaultValue: Constant.Settings.Location.defaultInstallationLocation,
+				defaultValue: LocationSettings.defaultInstallationLocation,
 				allowedContentTypes: [.folder],
 				validator: Utility.Settings.Location.validateInstallationLocation
 			) {
 				Text("Installations")
 				Text("Existing installations will not be affected.")
 			}
-			.fileDialogDefaultDirectory(Constant.Settings.Location.defaultInstallationLocation)
+			.fileDialogDefaultDirectory(LocationSettings.defaultInstallationLocation)
 		}
 	}
 }

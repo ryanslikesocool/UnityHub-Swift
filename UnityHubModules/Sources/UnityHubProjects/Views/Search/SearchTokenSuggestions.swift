@@ -4,7 +4,7 @@ import UnityHubCommonViews
 import UnityHubStorage
 
 struct SearchTokenSuggestions: View {
-	@Cache(ProjectCache.self) private var projects
+	@CacheFile(ProjectCache.self) private var projects
 
 	private let tokens: [SearchToken]
 

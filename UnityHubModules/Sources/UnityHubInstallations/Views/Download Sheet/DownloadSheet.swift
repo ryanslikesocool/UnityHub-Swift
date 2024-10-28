@@ -36,7 +36,7 @@ private extension DownloadSheet {
 
 	@ViewBuilder
 	func makeHeader() -> some View {
-		Button("Cancel", systemImage: Constant.Symbol.xMark, role: .cancel) { dismiss() }
+		Button("Cancel", systemImage: Symbol.xMark, role: .cancel) { dismiss() }
 			.controlSize(.large)
 			.labelStyle(.iconOnly)
 

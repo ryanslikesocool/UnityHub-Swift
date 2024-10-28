@@ -5,7 +5,7 @@ import UnityHubCommonViews
 import UnityHubStorage
 
 struct LocateProjectReceiver: View {
-	@Cache(ProjectCache.self) private var projects
+	@CacheFile(ProjectCache.self) private var projects
 
 	@State private var isPresentingDialog: Bool = false
 	@State private var completion: LocateEventCompletion? = nil

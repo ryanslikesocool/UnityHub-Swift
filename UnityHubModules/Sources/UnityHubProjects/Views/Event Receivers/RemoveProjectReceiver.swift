@@ -6,7 +6,7 @@ import UnityHubCommonViews
 
 struct RemoveProjectReceiver: View {
 	@AppSetting(general: \.dialogSuppression) private var dialogSuppression
-	@Cache(ProjectCache.self) private var projects
+	@CacheFile(ProjectCache.self) private var projects
 
 	@State private var isPresentingDialog: Bool = false
 	@State private var url: URL? = nil

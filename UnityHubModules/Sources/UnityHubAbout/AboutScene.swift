@@ -7,10 +7,18 @@ public struct AboutScene: Scene {
 	public var body: some Scene {
 		About {
 			AcknowledgementsSection()
-			VStack(spacing: 8) {
+
+			VStack(spacing: AboutScene.groupSpacing) {
 				CopyrightSection()
 				DevelopedWithLoveSection()
 			}
 		}
+		.aboutWindowLayout(.vertical(spacing: 24))
 	}
+}
+
+// MARK: - Constants
+
+extension AboutScene {
+	static let groupSpacing: CGFloat = 8
 }

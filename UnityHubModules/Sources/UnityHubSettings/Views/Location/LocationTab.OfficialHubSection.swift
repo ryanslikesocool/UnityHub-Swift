@@ -28,7 +28,7 @@ private extension LocationTab.OfficialHubSection {
 	@ViewBuilder func content() -> some View {
 		LocationPicker(selection: $selection)
 
-		HideApplicationToggle(applicationURL: selection ?? Constant.Settings.Location.defaultOfficialHubLocation)
+		HideApplicationToggle(applicationURL: selection ?? LocationSettings.defaultOfficialHubLocation)
 			.disabled(!isValid)
 	}
 
@@ -36,11 +36,11 @@ private extension LocationTab.OfficialHubSection {
 		Text("Official Hub")
 		VStack(alignment: .leading, spacing: 0) {
 			Text("The official Unity Hub is required for downloading new installations.")
-			RealLink(destination: Constant.Link.officialHub) {
+			RealLink(destination: Constant.Link.officialUnityHub) {
 				SwiftUI.Label(
 					title: { Text("Get it from the official site") },
 					icon: {
-						Image(systemName: Constant.Symbol.arrow_up_forward)
+						Image(systemName: Symbol.arrow_up_forward)
 							.fontWeight(.medium)
 							.scaleEffect(0.9, anchor: .bottomLeading)
 					}

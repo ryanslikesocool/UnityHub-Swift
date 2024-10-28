@@ -7,7 +7,7 @@ import UnityHubStorage
 struct ProjectList: View {
 	@AppSetting(project: \.sortCriteria) private var sortCriteria
 	@AppSetting(project: \.sortOrder) private var sortOrder
-	@Cache(ProjectCache.self) private var projects
+	@CacheFile(ProjectCache.self) private var projects
 
 	@State private var searchQuery: String = ""
 	@State private var searchTokens: [SearchToken] = []

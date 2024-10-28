@@ -8,6 +8,7 @@ enum InstallationsModelState {
 	case locateInstallation(LocateEventCompletion)
 	case removeInstallation(URL)
 	case missingInstallation(URL)
+	case invalidInstallation(URL)
 }
 
 // MARK: - Sendable

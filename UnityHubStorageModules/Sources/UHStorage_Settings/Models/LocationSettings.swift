@@ -55,9 +55,9 @@ extension LocationSettings: Codable {
 	}
 }
 
-// MARK: - SingletonFile
+// MARK: - SingletonFileProtocol
 
-extension LocationSettings: SingletonFile {
+extension LocationSettings: SingletonFileProtocol {
 	@ObservingCurrentValue
 	public static var shared: Self = Self.read(sharedSubscriber) {
 		didSet {
@@ -70,8 +70,21 @@ extension LocationSettings: SingletonFile {
 		.sink { newValue in newValue.write() }
 }
 
-// MARK: - SettingsFile
+// MARK: - SettingsFileProtocol
 
-extension LocationSettings: SettingsFile {
+extension LocationSettings: SettingsFileProtocol {
 	public static let category: SettingsCategory = .locations
+}
+
+// MARK: - Constants
+
+public extension LocationSettings {
+	static let defaultInstallationLocation: URL = URL.applicationDirectory
+		.appending(component: "Unity", directoryHint: .isDirectory)
+
+	static let defaultDownloadLocation: URL = URL.cachesDirectory
+		.appending(component: "Unity", directoryHint: .isDirectory)
+
+	static let defaultOfficialHubLocation: URL = URL.applicationDirectory
+		.appending(component: "Unity Hub.app", directoryHint: .notDirectory)
 }

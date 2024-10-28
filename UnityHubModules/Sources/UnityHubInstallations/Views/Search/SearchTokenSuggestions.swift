@@ -3,7 +3,7 @@ import UnityHubCommonViews
 import UnityHubStorage
 
 struct SearchTokenSuggestions: View {
-	@Cache(InstallationCache.self) private var installations
+	@CacheFile(InstallationCache.self) private var installations
 
 	@EnvironmentObject private var model: InstallationsModel
 

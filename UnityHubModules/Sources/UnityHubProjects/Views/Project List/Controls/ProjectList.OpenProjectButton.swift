@@ -43,7 +43,7 @@ private extension ProjectList.OpenProjectButton {
 		} catch ProjectError.unknownEditorVersion {
 			fatalError("\(Self.self).\(#function) is not implemented")
 		} catch let InstallationError.missingInstallationForVersion(editorVersion) {
-			Event.Installation.missingVersion.send(editorVersion)
+			fatalError("\(Self.self).\(#function) is not implemented")
 		} catch let error as ShellError {
 			fatalError("\(Self.self).\(#function) is not implemented")
 		} catch {

@@ -14,7 +14,7 @@ extension ProjectList.Item {
 		var body: some View {
 			HStack(spacing: 0) {
 				if project.pinned {
-					Image(systemName: Constant.Symbol.pin_fill)
+					Image(systemName: Symbol.pin_fill)
 						.foregroundStyle(.orange)
 						.scaleEffect(0.7)
 						.rotationEffect(.degrees(-45))

@@ -5,7 +5,7 @@ import UnityHubStorage
 
 extension ProjectList.Item {
 	struct EditorVersionLabel: View {
-		@Cache(InstallationCache.self) private var installations
+		@CacheFile(InstallationCache.self) private var installations
 		@AppSetting(project: \.infoVisibility) private var infoVisibility
 
 		private let editorVersion: UnityEditorVersion?
@@ -43,7 +43,7 @@ private extension ProjectList.Item.EditorVersionLabel {
 
 		if installations.contains(version) {
 			Section {
-				Button("Show in Installations", systemImage: Constant.Symbol.tray) {
+				Button("Show in Installations", systemImage: Symbol.tray) {
 					print("\(Self.self).\(#function) is not implemented")
 				}
 			}

@@ -5,7 +5,7 @@ import UnityHubStorage
 
 extension ProjectList {
 	struct OpenProjectWithVersionMenu: View {
-		@Cache(InstallationCache.self) private var installations
+		@CacheFile(InstallationCache.self) private var installations
 
 		@Binding private var project: ProjectMetadata
 
@@ -36,7 +36,7 @@ private extension ProjectList.OpenProjectWithVersionMenu {
 		let isSelected: Bool = version == project.editorVersion
 
 		return ProjectList.OpenProjectButton(at: project.url, with: version) {
-			Label(version.description, systemImage: Constant.Symbol.checkmark)
+			Label(version.description, systemImage: Symbol.checkmark)
 				.labelStyle(isSelected ? AnyLabelStyle(.titleAndIcon) : AnyLabelStyle(.titleOnly))
 		}
 //		.disabled(isSelected)

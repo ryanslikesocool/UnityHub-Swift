@@ -1,4 +1,4 @@
-import UnityHubCommonViews
+import UnityHubCommon
 
 struct InstallationIssueFlags: IssueFlags {
 	let rawValue: UInt8

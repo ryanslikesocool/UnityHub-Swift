@@ -50,9 +50,9 @@ extension ProjectCache: @preconcurrency Codable {
 	}
 }
 
-// MARK: - SingletonFile
+// MARK: - SingletonFileProtocol
 
-extension ProjectCache: SingletonFile {
+extension ProjectCache: SingletonFileProtocol {
 	@ObservingCurrentValue
 	public static var shared: Self = Self.read(sharedSubscriber) {
 		didSet {
@@ -65,9 +65,9 @@ extension ProjectCache: SingletonFile {
 		.sink { newValue in newValue.write() }
 }
 
-// MARK: - CacheFile
+// MARK: - CacheFileProtocol
 
-extension ProjectCache: CacheFile {
+extension ProjectCache: CacheFileProtocol {
 	public nonisolated static let category: CacheCategory = .projects
 }
 

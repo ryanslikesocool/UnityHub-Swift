@@ -1,5 +1,6 @@
 import SwiftUI
 import UnityHubCommon
+import UnityHubCommonViews
 import UnityHubStorage
 import UserIcon
 
@@ -35,7 +36,7 @@ private extension ProjectInfoSheet.ProjectIcon {
 					.stroke(lineWidth: 1)
 					.foregroundStyle(.separator)
 					.overlay {
-						Image(systemName: Constant.Symbol.plus)
+						Image(systemName: Symbol.plus)
 							.foregroundStyle(.tertiary)
 							.font(.title3)
 					}

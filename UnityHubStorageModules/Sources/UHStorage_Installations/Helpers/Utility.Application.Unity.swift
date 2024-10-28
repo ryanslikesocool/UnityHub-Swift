@@ -20,7 +20,7 @@ public extension Utility.Application {
 		@MainActor
 		public static var defaultInstallationURL: URL {
 			LocationSettings.shared.installationLocation
-				?? Constant.Settings.Location.defaultInstallationLocation
+				?? LocationSettings.defaultInstallationLocation
 		}
 
 		@discardableResult
