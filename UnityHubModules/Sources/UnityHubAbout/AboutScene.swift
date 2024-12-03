@@ -2,6 +2,8 @@ import MoreWindows
 import SwiftUI
 
 public struct AboutScene: Scene {
+	@StateObject private var model: AboutSceneModel = AboutSceneModel()
+
 	public init() { }
 
 	public var body: some Scene {
@@ -13,12 +15,14 @@ public struct AboutScene: Scene {
 				DevelopedWithLoveSection()
 			}
 		}
-		.aboutWindowLayout(.vertical(spacing: 24))
+		.aboutWindowLayout(Self.windowLayout)
+		.environmentObject(model)
 	}
 }
 
 // MARK: - Constants
 
 extension AboutScene {
+	static let windowLayout: AboutWindowLayout = .vertical(spacing: 24)
 	static let groupSpacing: CGFloat = 8
 }

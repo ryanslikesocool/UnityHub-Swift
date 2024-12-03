@@ -62,11 +62,11 @@ private extension ProjectList {
 			}
 		}
 
-		return result
-			.sorted(
-				by: sortCriteria,
-				order: sortOrder
-			)
+		let sortComparators: [any SortComparator<ProjectMetadata>] = [
+			ProjectMetadata.pinnedComparator(),
+			sortCriteria.comparator(order: sortOrder)
+		]
+		return result.sorted(using: sortComparators)
 
 		func filterPinned(state: Bool) {
 			result = result.filter { $0.pinned == state }

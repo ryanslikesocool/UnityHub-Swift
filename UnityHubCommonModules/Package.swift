@@ -18,17 +18,25 @@ let package = Package(
 		.package(url: "https://github.com/ryanslikesocool/MoreWindows.git", branch: "main"),
 	],
 	targets: [
-		.target(name: "UnityHubCommonViews", dependencies: [
-			"MoreWindows",
+		.target(
+			name: "UnityHubCommonViews",
+			dependencies: [
+				"MoreWindows",
 
-			"UnityHubCommon",
-			"UnityHubCore",
-		]),
+				"UnityHubCommon",
+				"UnityHubCore",
+			]
+		),
 
-		.target(name: "UnityHubCommon", dependencies: [
-			"UnityHubCore",
-		]),
+		.target(
+			name: "UnityHubCommon",
+			dependencies: [
+				"UnityHubCore",
+			]
+		),
 
-		.target(name: "UnityHubCore"),
+		.target(
+			name: "UnityHubCore"
+		),
 	]
 )

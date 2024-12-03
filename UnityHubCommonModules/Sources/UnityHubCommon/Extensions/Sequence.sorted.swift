@@ -67,4 +67,14 @@ public extension Sequence {
 				}
 		}
 	}
+
+	func sorted<S>(
+		using comparators: S,
+		order: SortOrder = .forward
+	) -> [Element] where
+		S: Sequence<any SortComparator<Element>>
+	{
+		let multiComparator = MultiComparator<Element>(comparators: comparators, order: order)
+		return sorted(using: multiComparator)
+	}
 }

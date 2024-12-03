@@ -4,11 +4,13 @@ import UnityHubCommon
 import UnityHubStorage
 
 struct AddProjectList: View {
-	var body: some View {
+	public init() { }
+
+	public var body: some View {
 		Menu(
 			content: {
-				Button.createProject()
-				Button.locateProject()
+				CreateProjectButton()
+				LocateProjectButton()
 			},
 			label: Label.add
 		)

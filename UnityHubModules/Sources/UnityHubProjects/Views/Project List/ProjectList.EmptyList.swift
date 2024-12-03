@@ -24,7 +24,7 @@ extension ProjectList {
 private extension ProjectList.EmptyList {
 	@ViewBuilder
 	func makePromptContent() -> some View {
-		Button.createProject()
+		CreateProjectButton()
 
 		if #available(macOS 15, *) {
 			makePromptActionSeparator()
@@ -33,7 +33,7 @@ private extension ProjectList.EmptyList {
 			makePromptActionSeparator()
 		}
 
-		Button.locateProject()
+		LocateProjectButton()
 	}
 
 	func makePromptActionSeparator() -> some View {

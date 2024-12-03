@@ -35,6 +35,7 @@ public extension Label where
 	static func installations() -> Self { Self("Installations", systemImage: Symbol.tray) }
 	static func resources() -> Self { Self("Resources", systemImage: Symbol.info_circle) }
 
+	@MainActor
 	static func issue() -> some View {
 		Self("Issue", systemImage: Symbol.exclamationMark_triangle_fill)
 			.symbolRenderingMode(.monochrome)

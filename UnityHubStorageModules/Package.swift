@@ -17,38 +17,56 @@ let package = Package(
 		.package(path: "../UnityHubCommonModules"),
 	],
 	targets: [
-		.target(name: "UnityHubStorage", dependencies: [
-			"UHStorage_Views",
-			"UHStorage_Projects",
-			"UHStorage_Installations",
-			"UHStorage_Settings",
-			"UHStorage_Common",
-		]),
+		.target(
+			name: "UnityHubStorage",
+			dependencies: [
+				"UHStorage_Views",
+				"UHStorage_Projects",
+				"UHStorage_Installations",
+				"UHStorage_Settings",
+				"UHStorage_Common",
+			]
+		),
 
 		// MARK: - Internal
 
-		.target(name: "UHStorage_Views", dependencies: [
-			.product(name: "UnityHubCommonViews", package: "UnityHubCommonModules"),
+		.target(
+			name: "UHStorage_Views",
+			dependencies: [
+				.product(name: "UnityHubCommonViews", package: "UnityHubCommonModules"),
 
-			"UHStorage_Installations",
-		]),
+				"UHStorage_Installations",
+			]
+		),
 
-		.target(name: "UHStorage_Projects", dependencies: [
-			"UserIcon",
+		.target(
+			name: "UHStorage_Projects",
+			dependencies: [
+				"UserIcon",
 
-			"UHStorage_Installations",
-		]),
+				"UHStorage_Installations",
+			]
+		),
 
-		.target(name: "UHStorage_Installations", dependencies: [
-			"UHStorage_Settings",
-		]),
+		.target(
+			name: "UHStorage_Installations",
+			dependencies: [
+				"UHStorage_Settings",
+			]
+		),
 
-		.target(name: "UHStorage_Settings", dependencies: [
-			"UHStorage_Common",
-		]),
+		.target(
+			name: "UHStorage_Settings",
+			dependencies: [
+				"UHStorage_Common",
+			]
+		),
 
-		.target(name: "UHStorage_Common", dependencies: [
-			.product(name: "UnityHubCommon", package: "UnityHubCommonModules"),
-		]),
+		.target(
+			name: "UHStorage_Common",
+			dependencies: [
+				.product(name: "UnityHubCommon", package: "UnityHubCommonModules"),
+			]
+		),
 	]
 )
