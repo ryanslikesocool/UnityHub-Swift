@@ -1,7 +1,7 @@
 import SwiftUI
-import UnityHubInstallations
-import UnityHubProjects
-import UnityHubResources
+import UnityHubMainWindowInstallations
+import UnityHubMainWindowProjects
+import UnityHubMainWindowResources
 
 struct Detail: View {
 	@Binding var sidebarSelection: SidebarItem

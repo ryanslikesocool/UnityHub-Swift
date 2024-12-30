@@ -1,11 +1,13 @@
 import SwiftUI
-import UnityHubAbout
-import UnityHubMain
-import UnityHubSettings
+import UnityHubAboutWindow
+import UnityHubMainWindow
+import UnityHubSettingsWindow
 
 @main
-struct App: SwiftUI.App {
-	var body: some Scene {
+public struct App: SwiftUI.App {
+	public init() { }
+
+	public var body: some Scene {
 		MainScene()
 		AboutScene()
 		SettingsScene()

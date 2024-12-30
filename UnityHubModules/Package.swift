@@ -15,6 +15,16 @@ let package = Package(
 		),
 
 		.library(
+			name: "UnityHub - MainWindow",
+			targets: [
+				"UnityHubMainWindow",
+				"UnityHubMainWindowProjects",
+				"UnityHubMainWindowInstallations",
+				"UnityHubMainWindowResources",
+			]
+		),
+
+		.library(
 			name: "UnityHub - Storage",
 			targets: [
 				"UnityHubStorageViews",
@@ -41,89 +51,96 @@ let package = Package(
 		.target(
 			name: "UnityHub",
 			dependencies: [
-				"UnityHubMain",
-				"UnityHubAbout",
-				"UnityHubSettings",
+				"UnityHubMainWindow",
+				"UnityHubAboutWindow",
+				"UnityHubSettingsWindow",
 			]
 		),
 
 		.target(
-			name: "UnityHubMain",
+			name: "UnityHubAboutWindow",
 			dependencies: [
-				"UnityHubProjects",
-				"UnityHubInstallations",
-				"UnityHubResources",
+				"MoreWindows",
+
+				"UnityHubCommon",
+				"UnityHubCommonViews",
 			]
 		),
 
 		.target(
-			name: "UnityHubAbout",
+			name: "UnityHubSettingsWindow",
 			dependencies: [
-				"UnityHubInclude",
-			]
-		),
-
-		.target(
-			name: "UnityHubSettings",
-			dependencies: [
-				"UnityHubInclude",
 				"UnityHubOfficialCLI",
+				"UnityHubStorageSettings",
+				"UnityHubCommon",
+				"UnityHubCommonViews",
 			]
 		),
-
-		// MARK: - Detail
-
-		.target(
-			name: "UnityHubResources",
-			dependencies: [
-				"UnityHubInclude",
-			]
-		),
-
-		.target(
-			name: "UnityHubInstallations",
-			dependencies: [
-				"UnityHubInclude",
-			]
-		),
-
-		.target(
-			name: "UnityHubProjects",
-			dependencies: [
-				"UnityHubInclude",
-			]
-		),
-
-		// MARK: - Common
 
 		.target(
 			name: "UnityHubOfficialCLI",
 			dependencies: [
-				"UnityHubInclude",
-			]
-		),
-
-		.target(
-			name: "UnityHubInclude",
-			dependencies: [
-				"MoreWindows",
-				"UserIcon",
-
 				"UnityHubCommon",
-				"UnityHubCommonViews",
-				"UnityHubStorageViews",
-				"UnityHubStorageProjects",
-				"UnityHubStorageInstallations",
 				"UnityHubStorageSettings",
-				"UnityHubStorageCommon",
+				"UnityHubStorageInstallations",
 			]
 		),
 	]
+		+ mainWindowTargets
 		+ storageTargets
 		+ commonTargets
 )
 
 // MARK: - Target Groups
+
+var mainWindowTargets: [Target] {
+	[
+		.target(
+			name: "UnityHubMainWindow",
+			dependencies: [
+				"UnityHubMainWindowProjects",
+				"UnityHubMainWindowInstallations",
+				"UnityHubMainWindowResources",
+			]
+		),
+
+		.target(
+			name: "UnityHubMainWindowResources",
+			dependencies: [
+				"UnityHubCommon",
+				"UnityHubCommonViews",
+			]
+		),
+
+		.target(
+			name: "UnityHubMainWindowInstallations",
+			dependencies: [
+				"UnityHubStorageCommon",
+				"UnityHubStorageViews",
+				"UnityHubStorageSettings",
+				"UnityHubStorageInstallations",
+				"UnityHubCommon",
+				"UnityHubCommonViews",
+			]
+		),
+
+		.target(
+			name: "UnityHubMainWindowProjects",
+			dependencies: [
+				"UserIcon",
+
+				"UnityHubCommon",
+				"UnityHubCommonViews",
+				"UnityHubStorageCommon",
+				"UnityHubStorageViews",
+				"UnityHubStorageSettings",
+				"UnityHubStorageProjects",
+				"UnityHubStorageInstallations",
+			]
+		),
+	]
+	.formatPaths(using: "Sources/MainWindow/%@")
+}
 
 var storageTargets: [Target] {
 	[

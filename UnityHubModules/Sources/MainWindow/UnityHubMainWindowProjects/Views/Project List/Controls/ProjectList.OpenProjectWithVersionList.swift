@@ -1,5 +1,4 @@
 import SwiftUI
-import UnityHubCommon
 import UnityHubCommonViews
 import UnityHubStorageCommon
 import UnityHubStorageInstallations

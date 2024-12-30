@@ -1,7 +1,10 @@
 import AppKit
 import SwiftUI
 
-struct CustomSplitView<Sidebar: View, Detail: View>: NSViewControllerRepresentable {
+struct CustomSplitView<Sidebar, Detail>: NSViewControllerRepresentable where
+	Sidebar: View,
+	Detail: View
+{
 	typealias SidebarProvider = () -> Sidebar
 	typealias DetailProvider = () -> Detail
 
@@ -35,5 +38,5 @@ struct CustomSplitView<Sidebar: View, Detail: View>: NSViewControllerRepresentab
 		return nsViewController
 	}
 
-	func updateNSViewController(_ nsViewController: NSCustomSplitViewController, context: Context) {	}
+	func updateNSViewController(_ nsViewController: NSCustomSplitViewController, context: Context) { }
 }
