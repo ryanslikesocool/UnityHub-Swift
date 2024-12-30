@@ -10,5 +10,6 @@ struct AcknowledgementsSection: View {
 		}
 		.buttonStyle(.automatic.expandedLabel(axes: .horizontal))
 		.controlSize(.large)
+		.disabled(true)
 	}
 }

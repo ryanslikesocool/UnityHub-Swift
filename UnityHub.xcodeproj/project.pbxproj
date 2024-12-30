@@ -8,17 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		AF4FBFD32C260902005AF06F /* UnityHub in Frameworks */ = {isa = PBXBuildFile; productRef = AF4FBFD22C260902005AF06F /* UnityHub */; };
-		AF66EBF2251AE3910088EC84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF66EBF1251AE3910088EC84 /* Assets.xcassets */; };
-		AF78742C2CFEF15B00F6B8AD /* Acknowledgements.json in Resources */ = {isa = PBXBuildFile; fileRef = AF78742B2CFEF15B00F6B8AD /* Acknowledgements.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AF66EBEA251AE3900088EC84 /* Unity Hub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Unity Hub.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AF66EBF1251AE3910088EC84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AF66EBF9251AE3910088EC84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AF66EBFA251AE3910088EC84 /* Entitlements.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Entitlements.entitlements; sourceTree = "<group>"; };
-		AF78742B2CFEF15B00F6B8AD /* Acknowledgements.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Acknowledgements.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		AF3BD2C62CFF58A100C27562 /* Exceptions for "UnityHub" folder in "Unity Hub" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = AF66EBE9251AE3900088EC84 /* Unity Hub */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		AF3BD2C12CFF58A100C27562 /* UnityHub */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				AF3BD2C62CFF58A100C27562 /* Exceptions for "UnityHub" folder in "Unity Hub" target */,
+			);
+			path = UnityHub;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		AF66EBE7251AE3900088EC84 /* Frameworks */ = {
@@ -44,7 +59,7 @@
 			children = (
 				AF219E71252C5FF6008CE04C /* Frameworks */,
 				AF66EBEB251AE3900088EC84 /* Products */,
-				AF66EBEC251AE3900088EC84 /* UnityHub */,
+				AF3BD2C12CFF58A100C27562 /* UnityHub */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,17 +69,6 @@
 				AF66EBEA251AE3900088EC84 /* Unity Hub.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		AF66EBEC251AE3900088EC84 /* UnityHub */ = {
-			isa = PBXGroup;
-			children = (
-				AF66EBFA251AE3910088EC84 /* Entitlements.entitlements */,
-				AF66EBF9251AE3910088EC84 /* Info.plist */,
-				AF66EBF1251AE3910088EC84 /* Assets.xcassets */,
-				AF78742B2CFEF15B00F6B8AD /* Acknowledgements.json */,
-			);
-			path = UnityHub;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -81,6 +85,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				AF3BD2C12CFF58A100C27562 /* UnityHub */,
 			);
 			name = "Unity Hub";
 			packageProductDependencies = (
@@ -132,8 +139,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF78742C2CFEF15B00F6B8AD /* Acknowledgements.json in Resources */,
-				AF66EBF2251AE3910088EC84 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +286,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 996;
+				CURRENT_PROJECT_VERSION = 999;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 838RGQ32CA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -311,7 +316,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 996;
+				CURRENT_PROJECT_VERSION = 999;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 838RGQ32CA;
 				ENABLE_HARDENED_RUNTIME = YES;

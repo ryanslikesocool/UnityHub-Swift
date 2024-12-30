@@ -26,7 +26,9 @@ public struct RealLink<Label>: View where
 
 // MARK: - Convenience
 
-public extension RealLink where Label == Text {
+public extension RealLink where
+	Label == Text
+{
 	init<S>(_ title: S, destination: URL) where
 		S: StringProtocol
 	{
@@ -38,7 +40,9 @@ public extension RealLink where Label == Text {
 	}
 }
 
-public extension RealLink where Label == SwiftUI.Label<Text, Image> {
+public extension RealLink where
+	Label == SwiftUI.Label<Text, Image>
+{
 	init<S>(_ title: S, systemImage name: String, destination: URL) where
 		S: StringProtocol
 	{
