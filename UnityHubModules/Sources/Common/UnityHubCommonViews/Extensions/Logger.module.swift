@@ -1,5 +1,5 @@
 import OSLog
-import UnityHubCore
+import UnityHubCommon
 
 extension Logger {
 	static let module: Self = Self(category: "UnityHubCommonViews")

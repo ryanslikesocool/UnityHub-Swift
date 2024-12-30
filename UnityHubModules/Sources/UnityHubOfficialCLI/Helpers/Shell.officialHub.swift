@@ -15,7 +15,8 @@ public extension Shell {
 
 // MARK: - Argument
 
-/// Arguments taken from the [official documentation](https://docs.unity3d.com/hub/manual/HubCLI.html).
+/// Arguments taken from the
+/// [official documentation](https://docs.unity3d.com/hub/manual/HubCLI.html)\.
 public enum OfficialHubArgument {
 	case headless
 	case help
@@ -109,7 +110,7 @@ extension UnityEditorVersion: ShellArgumentProtocol {
 	public var shellArgument: String { description }
 }
 
-extension Architecture: @retroactive ShellArgumentProtocol {
+extension Architecture: ShellArgumentProtocol {
 	public var shellArgument: String { rawValue }
 }
 

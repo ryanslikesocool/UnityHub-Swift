@@ -15,7 +15,7 @@ let package = Package(
 		),
 
 		.library(
-			name: "UnityHubStorage",
+			name: "UnityHub - Storage",
 			targets: [
 				"UnityHubStorageViews",
 				"UnityHubStorageProjects",
@@ -24,12 +24,18 @@ let package = Package(
 				"UnityHubStorageCommon",
 			]
 		),
+
+		.library(
+			name: "UnityHub - Common",
+			targets: [
+				"UnityHubCommon",
+				"UnityHubCommonViews",
+			]
+		),
 	],
 	dependencies: [
 		.package(url: "https://github.com/ryanslikesocool/MoreWindows.git", from: "0.1.0"),
 		.package(url: "https://github.com/ryanslikesocool/UserIcon.git", branch: "main"),
-
-		.package(path: "../UnityHubCommonModules"),
 	],
 	targets: [
 		.target(
@@ -102,10 +108,9 @@ let package = Package(
 			dependencies: [
 				"MoreWindows",
 				"UserIcon",
-				.product(name: "UnityHubCore", package: "UnityHubCommonModules"),
-				.product(name: "UnityHubCommon", package: "UnityHubCommonModules"),
-				.product(name: "UnityHubCommonViews", package: "UnityHubCommonModules"),
 
+				"UnityHubCommon",
+				"UnityHubCommonViews",
 				"UnityHubStorageViews",
 				"UnityHubStorageProjects",
 				"UnityHubStorageInstallations",
@@ -115,6 +120,7 @@ let package = Package(
 		),
 	]
 		+ storageTargets
+		+ commonTargets
 )
 
 // MARK: - Target Groups
@@ -124,8 +130,7 @@ var storageTargets: [Target] {
 		.target(
 			name: "UnityHubStorageViews",
 			dependencies: [
-				.product(name: "UnityHubCommonViews", package: "UnityHubCommonModules"),
-
+				"UnityHubCommonViews",
 				"UnityHubStorageInstallations",
 			]
 		),
@@ -156,11 +161,27 @@ var storageTargets: [Target] {
 		.target(
 			name: "UnityHubStorageCommon",
 			dependencies: [
-				.product(name: "UnityHubCommon", package: "UnityHubCommonModules"),
+				"UnityHubCommon",
 			]
 		),
 	]
 	.formatPaths(using: "Sources/Storage/%@")
+}
+
+var commonTargets: [Target] {
+	[
+		.target(
+			name: "UnityHubCommonViews",
+			dependencies: [
+				"MoreWindows",
+
+				"UnityHubCommon",
+			]
+		),
+
+		.target(name: "UnityHubCommon"),
+	]
+	.formatPaths(using: "Sources/Common/%@")
 }
 
 // MARK: - Utility
