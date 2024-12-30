@@ -7,7 +7,7 @@ public extension UnityEditorVersion {
 
 		public let rawValue: RawValue
 
-		public init(rawValue: String) {
+		public init(rawValue: RawValue) {
 			assert(rawValue.count == 1)
 			self.rawValue = rawValue
 		}

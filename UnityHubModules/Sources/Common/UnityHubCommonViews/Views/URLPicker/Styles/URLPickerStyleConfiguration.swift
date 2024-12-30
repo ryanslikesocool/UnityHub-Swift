@@ -1,19 +1,17 @@
 import SwiftUI
 
 public struct URLPickerStyleConfiguration {
-	public typealias Action = () -> Void
-
 	public let label: Label
 	public let urlLabel: URLLabel
 	public let issueButton: IssueButton
-	public let startImport: Action
+	public let startImport: () -> Void
 
 	@MainActor
 	init(
 		label: some View,
 		urlLabel: some View,
 		issueButton: some View,
-		startImport: @escaping Action
+		startImport: @escaping () -> Void
 	) {
 		self.label = Label(label)
 		self.urlLabel = URLLabel(urlLabel)

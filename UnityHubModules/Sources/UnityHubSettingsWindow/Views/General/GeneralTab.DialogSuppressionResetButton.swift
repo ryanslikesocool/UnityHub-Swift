@@ -9,7 +9,7 @@ extension GeneralTab {
 
 		var body: some View {
 			LabeledContent {
-				Button("Reset", systemImage: Symbol.arrow_clockwise) {
+				Button("Reset", systemImage: .arrow_clockwise) {
 					selection = .none
 				}
 			} label: {

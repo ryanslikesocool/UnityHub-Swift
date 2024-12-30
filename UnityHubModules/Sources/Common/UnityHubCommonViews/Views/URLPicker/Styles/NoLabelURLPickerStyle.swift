@@ -5,20 +5,19 @@ public struct NoLabelURLPickerStyle: URLPickerStyle {
 	public init() { }
 
 	public func makeBody(configuration: Configuration) -> some View {
-		LabeledContent(
-			content: {
-				Button("Select", systemImage: Symbol.folder, action: configuration.startImport)
-			},
-			label: {
-				HStack {
-					configuration.issueButton
-						.buttonStyle(.plain)
-
-					configuration.urlLabel
-						.foregroundStyle(.secondary)
-				}
+		LabeledContent {
+			Button("Select", systemImage: .folder) {
+				configuration.startImport()
 			}
-		)
+		} label: {
+			HStack {
+				configuration.issueButton
+					.buttonStyle(.plain)
+
+				configuration.urlLabel
+					.foregroundStyle(.secondary)
+			}
+		}
 	}
 }
 

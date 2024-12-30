@@ -1,3 +1,4 @@
+import SFSymbolToolbox
 import SwiftUI
 
 /// A wrapper around ``SwiftUI/Link`` that always shows the destination as a tooltip.
@@ -5,14 +6,12 @@ import SwiftUI
 public struct RealLink<Label>: View where
 	Label: View
 {
-	public typealias LabelProvider = () -> Label
-
 	private let destination: URL
-	private let label: LabelProvider
+	private let label: () -> Label
 
 	public init(
 		destination: URL,
-		@ViewBuilder label: @escaping LabelProvider
+		@ViewBuilder label: @escaping () -> Label
 	) {
 		self.destination = destination
 		self.label = label
@@ -29,13 +28,19 @@ public struct RealLink<Label>: View where
 public extension RealLink where
 	Label == Text
 {
-	init<S>(_ title: S, destination: URL) where
+	init<S>(
+		_ title: S,
+		destination: URL
+	) where
 		S: StringProtocol
 	{
 		self.init(destination: destination, label: { Text(title) })
 	}
 
-	init(_ titleKey: LocalizedStringKey, destination: URL) {
+	init(
+		_ titleKey: LocalizedStringKey,
+		destination: URL
+	) {
 		self.init(destination: destination, label: { Text(titleKey) })
 	}
 }
@@ -43,23 +48,57 @@ public extension RealLink where
 public extension RealLink where
 	Label == SwiftUI.Label<Text, Image>
 {
-	init<S>(_ title: S, systemImage name: String, destination: URL) where
+	init<S>(
+		_ title: S,
+		systemImage: String,
+		destination: URL
+	) where
 		S: StringProtocol
 	{
-		self.init(destination: destination, label: { SwiftUI.Label(title, systemImage: name) })
+		self.init(destination: destination, label: { SwiftUI.Label(title, systemImage: systemImage) })
 	}
 
-	init(_ titleKey: LocalizedStringKey, systemImage name: String, destination: URL) {
-		self.init(destination: destination, label: { SwiftUI.Label(titleKey, systemImage: name) })
+	init(
+		_ titleKey: LocalizedStringKey,
+		systemImage: String,
+		destination: URL
+	) {
+		self.init(destination: destination, label: { SwiftUI.Label(titleKey, systemImage: systemImage) })
 	}
 
-	init<S>(_ title: S, image: ImageResource, destination: URL) where
+	init<S>(
+		_ title: S,
+		systemImage: SystemSymbol,
+		destination: URL
+	) where
+		S: StringProtocol
+	{
+		self.init(destination: destination, label: { SwiftUI.Label(title, systemImage: systemImage) })
+	}
+
+	init(
+		_ titleKey: LocalizedStringKey,
+		systemImage: SystemSymbol,
+		destination: URL
+	) {
+		self.init(destination: destination, label: { SwiftUI.Label(titleKey, systemImage: systemImage) })
+	}
+
+	init<S>(
+		_ title: S,
+		image: ImageResource,
+		destination: URL
+	) where
 		S: StringProtocol
 	{
 		self.init(destination: destination, label: { SwiftUI.Label(title, image: image) })
 	}
 
-	init(_ titleKey: LocalizedStringKey, image: ImageResource, destination: URL) {
+	init(
+		_ titleKey: LocalizedStringKey,
+		image: ImageResource,
+		destination: URL
+	) {
 		self.init(destination: destination, label: { SwiftUI.Label(titleKey, image: image) })
 	}
 }

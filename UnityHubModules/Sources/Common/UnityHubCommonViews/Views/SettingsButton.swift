@@ -5,7 +5,7 @@ public struct SettingsButton: View {
 
 	public var body: some View {
 		SettingsLink {
-			Label("Settings", image: Symbol.gearShape)
+			Label("Settings", systemImage: .gearShape)
 		}
 		.keyboardShortcut(.settings)
 	}

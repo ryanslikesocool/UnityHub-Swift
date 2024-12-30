@@ -7,18 +7,18 @@ public struct ResourcesView: View {
 
 	public var body: some View {
 		VStack {
-			RealLink("Manual", destination: Constant.Link.manual)
-			RealLink("Scripting Reference", destination: Constant.Link.scripting)
-			RealLink("Unity Learn", destination: Constant.Link.unityLearn)
-			RealLink("Unity Blog", destination: Constant.Link.unityBlog)
-			RealLink("Release Archive", destination: Constant.Link.releaseArchive)
-			RealLink("Discussions", destination: Constant.Link.discussions)
-			RealLink("Forums", destination: Constant.Link.forums)
-			RealLink("Unity Pulse", destination: Constant.Link.unityPulse)
-			RealLink("Unite", destination: Constant.Link.unite)
-			RealLink("Unity Asset Store", destination: Constant.Link.unityAssetStore)
-			RealLink("On-Demand Training", destination: Constant.Link.onDemandTraining)
-			RealLink("Unity Muse", destination: Constant.Link.unityMuse)
+			RealLink("Manual", destination: .unityResource.manual)
+			RealLink("Scripting Reference", destination: .unityResource.scripting)
+			RealLink("Unity Learn", destination: .unityResource.unityLearn)
+			RealLink("Unity Blog", destination: .unityResource.unityBlog)
+			RealLink("Release Archive", destination: .unityResource.releaseArchive)
+			RealLink("Discussions", destination: .unityResource.discussions)
+			RealLink("Forums", destination: .unityResource.forums)
+			RealLink("Unity Pulse", destination: .unityResource.unityPulse)
+			RealLink("Unite", destination: .unityResource.unite)
+			RealLink("Unity Asset Store", destination: .unityResource.unityAssetStore)
+			RealLink("On-Demand Training", destination: .unityResource.onDemandTraining)
+			RealLink("Unity Muse", destination: .unityResource.unityMuse)
 		}
 		.frame(maxWidth: .infinity, maxHeight: .infinity)
 		.toolbar {

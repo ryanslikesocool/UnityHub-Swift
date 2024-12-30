@@ -1,5 +1,6 @@
 import SwiftUI
 import UnityHubCommon
+import SFSymbolToolbox
 
 public struct SectionURLPickerStyle: URLPickerStyle {
 	public init() { }
@@ -9,7 +10,9 @@ public struct SectionURLPickerStyle: URLPickerStyle {
 			content: {
 				LabeledContent(
 					content: {
-						Button("Select", systemImage: Symbol.folder, action: configuration.startImport)
+						Button("Select", systemImage: .folder) {
+							configuration.startImport()
+						}
 					},
 					label: {
 						HStack {

@@ -10,7 +10,7 @@ struct DevelopmentTab: SettingsCategoryView {
 	static let category: SettingsCategory = .development
 
 	func makeLabel() -> some View {
-		SwiftUI.Label("Development", systemImage: Symbol.terminal)
+		SwiftUI.Label("Development", systemImage: .terminal)
 	}
 
 	func makeContent() -> some View {

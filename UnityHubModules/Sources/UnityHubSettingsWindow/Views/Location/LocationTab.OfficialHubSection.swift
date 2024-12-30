@@ -36,11 +36,11 @@ private extension LocationTab.OfficialHubSection {
 		Text("Official Hub")
 		VStack(alignment: .leading, spacing: 0) {
 			Text("The official Unity Hub is required for downloading new installations.")
-			RealLink(destination: Constant.Link.officialUnityHub) {
+			RealLink(destination: .unityResource.officialUnityHub) {
 				SwiftUI.Label(
 					title: { Text("Get it from the official site") },
 					icon: {
-						Image(systemName: Symbol.arrow_up_forward)
+						Image(systemName: .arrow_up_forward)
 							.fontWeight(.medium)
 							.scaleEffect(0.9, anchor: .bottomLeading)
 					}

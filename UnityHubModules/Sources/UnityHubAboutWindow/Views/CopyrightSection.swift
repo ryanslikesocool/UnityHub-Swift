@@ -26,7 +26,7 @@ private extension CopyrightSection {
 		let copyright = bundle.copyright ?? "© 2021 Ryan Boyer"
 
 		return Button {
-			openURL(Constant.Link.ryanBoyer)
+			openURL(.acknowledgements.ryanBoyer)
 		} label: {
 			Text("Unity Hub (Swift) \(copyright)")
 		}
@@ -34,7 +34,7 @@ private extension CopyrightSection {
 
 	func unityCopyright() -> some View {
 		Button {
-			openURL(Constant.Link.unity)
+			openURL(.acknowledgements.unity)
 		} label: {
 			Text("Unity, Unity Hub © Unity Technologies Inc.")
 		}

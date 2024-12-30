@@ -1,7 +1,7 @@
 public struct InstallationModule: RawRepresentable {
 	public let rawValue: String
 
-	public init(rawValue: String) {
+	public init(rawValue: RawValue) {
 		self.rawValue = rawValue
 	}
 }

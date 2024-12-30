@@ -14,8 +14,10 @@ public struct InlineURLPickerStyle: URLPickerStyle {
 					configuration.urlLabel
 						.foregroundStyle(.secondary)
 
-					Button("Select", systemImage: Symbol.folder, action: configuration.startImport)
-						.labelStyle(.iconOnly)
+					Button("Select", systemImage: .folder) {
+						configuration.startImport()
+					}
+					.labelStyle(.iconOnly)
 				}
 			},
 			label: {

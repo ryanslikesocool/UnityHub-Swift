@@ -12,6 +12,7 @@ public enum InstallationError: Error {
 	case invalid
 
 	/// Thrown when an editor's bundle identifier is invalid.
+	/// 
 	/// - SeeAlso:
 	///   - ``Constant/Installation/validApplicationBundleIdentifier``
 	case invalidBundleIdentifier

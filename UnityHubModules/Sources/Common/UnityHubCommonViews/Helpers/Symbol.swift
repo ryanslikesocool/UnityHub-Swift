@@ -1,40 +1,42 @@
-public enum Symbol {
-	public static let cube: String = "cube"
-	public static let tray: String = "tray"
-	public static let info: String = "info"
-	public static let info_circle: String = "info.circle"
-	public static let pin: String = "pin"
-	public static let pin_fill: String = "pin.fill"
-	public static let folder: String = "folder"
-	public static let questionMark: String = "questionmark"
-	public static let magnifyingGlass: String = "magnifyingglass"
-	public static let trash: String = "trash"
-	public static let plus: String = "plus"
-	public static let minus: String = "minus"
-	public static let eye: String = "eye"
-	public static let arrow_up_arrow_down: String = "arrow.up.arrow.down"
-	public static let arrow_clockwise: String = "arrow.clockwise"
-	public static let square_and_arrow_down: String = "square.and.arrow.down"
-	public static let arrow_up: String = "arrow.up"
-	public static let arrow_down: String = "arrow.down"
-	public static let book_closed: String = "book.closed"
-	public static let exclamationMark_triangle_fill: String = "exclamationmark.triangle.fill"
-	public static let curlyBraces: String = "curlybraces"
-	public static let person: String = "person"
-	public static let person_3_sequence: String = "person.3.sequence"
-	public static let cloud: String = "cloud"
-	public static let gearShape: String = "gearshape"
-	public static let ant: String = "ant"
-	public static let ellipsis: String = "ellipsis"
-	public static let arrow_up_forward: String = "arrow.up.forward"
-	public static let list_bullet: String = "list.bullet"
-	public static let checkmark: String = "checkmark"
-	public static let externalDrive: String = "externaldrive"
-	public static let xMark: String = "xmark"
-	public static let terminal: String = "terminal"
-
-	public static let finder: String = "finder"
-	public static let ellipsis_vertical: String = "ellipsis.vertical"
-	public static let rectangle_portrait_and_arrow_left: String = "rectangle.portrait.and.arrow.left"
-	public static let heart_pixel_fill: String = "heart.pixel.fill"
-}
+//import SFSymbolToolbox
+//
+//public enum Symbol {
+//	public static var cube: String { SystemSymbol.cube.rawValue }
+//	public static var tray: String { SystemSymbol.tray.rawValue }
+//	public static var info: String { SystemSymbol.info.rawValue }
+//	public static var info_circle: String { SystemSymbol.info_circle.rawValue }
+//	public static var pin: String { SystemSymbol.pin.rawValue }
+//	public static var pin_fill: String { SystemSymbol.pin_fill.rawValue }
+//	public static var folder: String { SystemSymbol.folder.rawValue }
+//	public static var questionMark: String { SystemSymbol.questionMark.rawValue }
+//	public static var magnifyingGlass: String { SystemSymbol.magnifyingGlass.rawValue }
+//	public static var trash: String { SystemSymbol.trash.rawValue }
+//	public static var plus: String { SystemSymbol.plus.rawValue }
+//	public static var minus: String { SystemSymbol.minus.rawValue }
+//	public static var eye: String { SystemSymbol.eye.rawValue }
+//	public static var arrow_up_arrow_down: String { SystemSymbol.arrow_up_arrow_down.rawValue }
+//	public static var arrow_clockwise: String { SystemSymbol.arrow_clockwise.rawValue }
+//	public static var square_and_arrow_down: String { SystemSymbol.square_and_arrow_down.rawValue }
+//	public static var arrow_up: String { SystemSymbol.arrow_up.rawValue }
+//	public static var arrow_down: String { SystemSymbol.arrow_down.rawValue }
+//	public static var book_closed: String { SystemSymbol.book_closed.rawValue }
+//	public static var exclamationMark_triangle_fill: String { SystemSymbol.exclamationMark_triangle_fill.rawValue }
+//	public static var curlyBraces: String { SystemSymbol.curlyBraces.rawValue }
+//	public static var person: String { SystemSymbol.person.rawValue }
+//	public static var person_3_sequence: String { SystemSymbol.person_3_sequence.rawValue }
+//	public static var cloud: String { SystemSymbol.cloud.rawValue }
+//	public static var gearShape: String { SystemSymbol.gearShape.rawValue }
+//	public static var ant: String { SystemSymbol.ant.rawValue }
+//	public static var ellipsis: String { SystemSymbol.ellipsis.rawValue }
+//	public static var arrow_up_forward: String { SystemSymbol.arrow_up_forward.rawValue }
+//	public static var list_bullet: String { SystemSymbol.list_bullet.rawValue }
+//	public static var checkmark: String { SystemSymbol.checkmark.rawValue }
+//	public static var externalDrive: String { SystemSymbol.externalDrive.rawValue }
+//	public static var xMark: String { SystemSymbol.xMark.rawValue }
+//	public static var terminal: String { SystemSymbol.terminal.rawValue }
+//
+//	public static var finder: String { CustomSymbol.finder.rawValue }
+//	public static var ellipsis_vertical: String { CustomSymbol.ellipsis_vertical.rawValue }
+//	public static var rectangle_portrait_and_arrow_left: String { CustomSymbol.rectangle_portrait_and_arrow_left.rawValue }
+//	public static var heart_pixel_fill: String { CustomSymbol.heart_pixel_fill.rawValue }
+//}

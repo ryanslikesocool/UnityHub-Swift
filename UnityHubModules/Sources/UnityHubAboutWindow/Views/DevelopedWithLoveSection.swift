@@ -6,7 +6,7 @@ struct DevelopedWithLoveSection: View {
 	@Environment(\.openURL) private var openURL
 
 	var body: some View {
-		Button(action: { openURL(Constant.Link.developedWithLove) }) {
+		Button(action: { openURL(.acknowledgements.developedWithLove) }) {
 			VStack {
 				Text("""
 				Developed With Love
@@ -16,7 +16,7 @@ struct DevelopedWithLoveSection: View {
 				.foregroundStyle(.tertiary)
 				.multilineTextAlignment(.center)
 
-				Image(Symbol.heart_pixel_fill)
+				Image(.heart_pixel_fill)
 					.foregroundStyle(Color.developedWithLove_red)
 			}
 		}

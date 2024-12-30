@@ -36,7 +36,7 @@ private extension ProjectInfoSheet.ProjectIcon {
 					.stroke(lineWidth: 1)
 					.foregroundStyle(.separator)
 					.overlay {
-						Image(systemName: Symbol.plus)
+						Image(systemName: .plus)
 							.foregroundStyle(.tertiary)
 							.font(.title3)
 					}

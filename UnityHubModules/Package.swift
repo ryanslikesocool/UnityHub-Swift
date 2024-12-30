@@ -44,8 +44,10 @@ let package = Package(
 		),
 	],
 	dependencies: [
-		.package(url: "https://github.com/ryanslikesocool/MoreWindows.git", from: "0.1.0"),
+		.package(url: "https://github.com/ryanslikesocool/MoreWindows.git", from: "0.1.4"),
 		.package(url: "https://github.com/ryanslikesocool/UserIcon.git", branch: "main"),
+//		.package(url: "https://github.com/ryanslikesocool/SFSymbolToolbox.git", branch: "main"),
+		.package(path: "~/Documents/Xcode Projects/SFSymbolToolbox"),
 	],
 	targets: [
 		.target(
@@ -196,7 +198,12 @@ var commonTargets: [Target] {
 			]
 		),
 
-		.target(name: "UnityHubCommon"),
+		.target(
+			name: "UnityHubCommon",
+			dependencies: [
+				"SFSymbolToolbox",
+			]
+		),
 	]
 	.formatPaths(using: "Sources/Common/%@")
 }

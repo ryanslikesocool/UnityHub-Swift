@@ -1,7 +1,18 @@
 import Foundation
 
-public enum Constant {
-	public enum Link {
+public extension URL {
+	static let preferencesDirectory: Self = Self.libraryDirectory
+		.appending(component: "Preferences", directoryHint: .isDirectory)
+
+	static let localPreferencesDirectory: Self = Self.preferencesDirectory
+		.appending(component: Bundle.main.bundleIdentifier!, directoryHint: .isDirectory)
+
+	static let persistentStorageDirectory: Self = Self.applicationSupportDirectory
+		.appending(component: Bundle.main.bundleIdentifier!, directoryHint: .isDirectory)
+
+	static let unityResource = UnityResource.self
+
+	enum UnityResource {
 		public static let officialUnityHub: URL! = URL(string: "https://unity.com/download")
 		public static let manual: URL! = URL(string: "https://docs.unity3d.com/Manual/index.html")
 		public static let scripting: URL! = URL(string: "https://docs.unity3d.com/ScriptReference/index.html")
@@ -18,5 +29,10 @@ public enum Constant {
 		public static let cloudLogin: URL! = URL(string: "https://cloud.unity.com/login")
 		public static let accountHelp: URL! = URL(string: "https://support.unity.com/hc/en-us/sections/201104779-Accounts-UDN")
 		public static let bugReport: URL! = URL(string: "https://github.com/ryanslikesocool/UnityHub-Swift/issues")
+
+		public static var logDirectory: URL {
+			URL.applicationSupportDirectory
+				.appending(path: "UnityHub/logs", directoryHint: .isDirectory)
+		}
 	}
 }

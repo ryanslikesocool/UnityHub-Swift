@@ -11,9 +11,6 @@
       location = "group:UnityHub.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:../MoreWindows">
-   </FileRef>
-   <FileRef
       location = "group:../UserIcon">
    </FileRef>
    <FileRef

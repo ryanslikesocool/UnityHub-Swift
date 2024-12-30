@@ -7,7 +7,7 @@ struct GeneralTab: SettingsCategoryView {
 	static let category: SettingsCategory = .general
 
 	func makeLabel() -> some View {
-		SwiftUI.Label("General", systemImage: Symbol.gearShape)
+		SwiftUI.Label("General", systemImage: .gearShape)
 	}
 
 	func makeContent() -> some View {

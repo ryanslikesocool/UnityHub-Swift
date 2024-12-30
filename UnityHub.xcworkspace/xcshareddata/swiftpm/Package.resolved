@@ -1,0 +1,15 @@
+{
+  "originHash" : "51bd96045ad7d1f8a23f9005e568de549fa721b11590bd9621fa881a7cf6061b",
+  "pins" : [
+    {
+      "identity" : "morewindows",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ryanslikesocool/MoreWindows.git",
+      "state" : {
+        "revision" : "d1aca71599e2669b646b295f54ae553841b586c5",
+        "version" : "0.1.4"
+      }
+    }
+  ],
+  "version" : 3
+}

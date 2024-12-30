@@ -38,7 +38,7 @@ private extension ProjectList.OpenProjectWithVersionMenu {
 		let isSelected: Bool = version == project.editorVersion
 
 		return ProjectList.OpenProjectButton(at: project.url, with: version) {
-			Label(version.description, systemImage: Symbol.checkmark)
+			Label(version.description, systemImage: .checkmark)
 				.labelStyle(isSelected ? AnyLabelStyle(.titleAndIcon) : AnyLabelStyle(.titleOnly))
 		}
 //		.disabled(isSelected)

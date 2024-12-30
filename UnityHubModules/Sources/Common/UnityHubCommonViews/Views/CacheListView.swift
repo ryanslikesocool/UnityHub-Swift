@@ -51,7 +51,7 @@ public struct CacheListView<Item: Identifiable, ItemView: View, NoItemsView: Vie
 
 private extension CacheListView {
 	func noSearchResultsView() -> some View {
-		Label("No Search Results", systemImage: Symbol.magnifyingGlass)
+		Label("No Search Results", systemImage: .magnifyingGlass)
 			.labelStyle(.large)
 	}
 
