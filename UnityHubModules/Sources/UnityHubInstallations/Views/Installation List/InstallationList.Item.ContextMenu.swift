@@ -1,7 +1,7 @@
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageInstallations
 
 extension InstallationList.Item {
 	struct ContextMenu: View {

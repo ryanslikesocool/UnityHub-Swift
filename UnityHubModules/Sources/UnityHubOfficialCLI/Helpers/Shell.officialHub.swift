@@ -1,6 +1,7 @@
 import Foundation
 import UnityHubCommon
-import UnityHubStorage
+import UnityHubStorageInstallations
+import UnityHubStorageSettings
 
 public extension Shell {
 	static var officialHub: ShellType<OfficialHubArgument> {
@@ -104,7 +105,7 @@ extension OfficialHubArgument.EditorsArgument: ShellArgumentProtocol {
 	public var shellArgument: String { rawValue }
 }
 
-extension UnityEditorVersion: @retroactive ShellArgumentProtocol {
+extension UnityEditorVersion: ShellArgumentProtocol {
 	public var shellArgument: String { description }
 }
 
@@ -112,7 +113,7 @@ extension Architecture: @retroactive ShellArgumentProtocol {
 	public var shellArgument: String { rawValue }
 }
 
-extension InstallationModule: @retroactive ShellArgumentProtocol {
+extension InstallationModule: ShellArgumentProtocol {
 	public var shellArgument: String { rawValue }
 }
 

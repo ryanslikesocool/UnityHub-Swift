@@ -4,7 +4,7 @@ import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
 import UnityHubOfficialCLI
-import UnityHubStorage
+import UnityHubStorageSettings
 
 struct DevelopmentTab: SettingsCategoryView {
 	static let category: SettingsCategory = .development

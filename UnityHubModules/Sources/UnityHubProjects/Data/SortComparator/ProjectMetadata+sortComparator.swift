@@ -1,6 +1,6 @@
 import Foundation
 import UnityHubCommon
-import UnityHubStorage
+import UnityHubStorageProjects
 
 extension ProjectMetadata {
 	static func pinnedComparator(order: SortOrder = .reverse) -> some SortComparator<ProjectMetadata> {

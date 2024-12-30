@@ -1,7 +1,7 @@
 import OSLog
 import SwiftUI
 import UnityHubCommon
-import UnityHubStorage
+import UnityHubStorageProjects
 
 struct AddProjectList: View {
 	public init() { }

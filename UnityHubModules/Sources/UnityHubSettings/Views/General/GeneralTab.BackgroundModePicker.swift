@@ -1,5 +1,5 @@
 import SwiftUI
-import UnityHubStorage
+import UnityHubStorageSettings
 
 extension GeneralTab {
 	struct BackgroundModePicker: View {

@@ -1,7 +1,7 @@
 import SwiftUI
 import UnityHubCommonViews
 import UnityHubCommon
-import UnityHubStorage
+import UnityHubStorageProjects
 import UserIcon
 
 extension ProjectList.Item {

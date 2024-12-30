@@ -1,4 +1,4 @@
-import UnityHubStorage
+import UnityHubStorageSettings
 
 extension SidebarDisplay {
 	var viewStyle: AnySidebarStyle {

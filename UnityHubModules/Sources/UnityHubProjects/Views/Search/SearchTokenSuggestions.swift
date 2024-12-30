@@ -1,7 +1,8 @@
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageCommon
+import UnityHubStorageProjects
 
 struct SearchTokenSuggestions: View {
 	@CacheFile(ProjectCache.self) private var projects

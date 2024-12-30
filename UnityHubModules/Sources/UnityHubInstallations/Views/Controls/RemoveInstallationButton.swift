@@ -1,5 +1,5 @@
 import SwiftUI
-import UnityHubStorage
+import UnityHubStorageInstallations
 
 struct RemoveInstallationButton: View {
 	@EnvironmentObject private var model: InstallationsModel

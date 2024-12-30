@@ -1,6 +1,6 @@
-import SwiftUI
-import UnityHubStorage
 import MoreWindows
+import SwiftUI
+import UnityHubStorageProjects
 
 public struct MainScene: Scene {
 	@State private var projectCache: ProjectCache = .shared

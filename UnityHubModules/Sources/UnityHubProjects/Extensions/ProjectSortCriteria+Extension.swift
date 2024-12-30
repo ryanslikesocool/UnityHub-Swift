@@ -1,5 +1,6 @@
 import Foundation
-import UnityHubStorage
+import UnityHubStorageProjects
+import UnityHubStorageSettings
 
 extension ProjectSortCriteria {
 	func comparator(order: SortOrder) -> any SortComparator<ProjectMetadata> {

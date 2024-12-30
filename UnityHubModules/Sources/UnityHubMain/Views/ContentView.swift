@@ -1,7 +1,7 @@
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageSettings
 
 struct ContentView: View {
 	@AppSetting(general: \.sidebarDisplay) private var sidebarDisplay

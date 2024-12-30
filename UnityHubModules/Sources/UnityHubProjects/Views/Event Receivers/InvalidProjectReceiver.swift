@@ -1,8 +1,8 @@
 import OSLog
 import SwiftUI
 import UnityHubCommon
-import UnityHubStorage
 import UnityHubCommonViews
+import UnityHubStorageProjects
 
 struct InvalidProjectReceiver: View {
 	@State private var isPresentingDialog: Bool = false

@@ -1,7 +1,8 @@
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageInstallations
+import UnityHubStorageProjects
 
 extension ProjectList {
 	struct OpenProjectButton<Label: View>: View {

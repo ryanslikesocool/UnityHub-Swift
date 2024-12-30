@@ -1,7 +1,9 @@
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageCommon
+import UnityHubStorageInstallations
+import UnityHubStorageSettings
 
 private struct RemoveInstallationConfirmationDialog: View {
 	@EnvironmentObject private var model: InstallationsModel

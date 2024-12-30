@@ -1,7 +1,8 @@
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageProjects
+import UnityHubStorageSettings
 
 struct InfoVisibilityMenu: View {
 	@AppSetting(project: \.infoVisibility) private var infoVisibility

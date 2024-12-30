@@ -57,9 +57,9 @@
 		AF66EBE1251AE3900088EC84 = {
 			isa = PBXGroup;
 			children = (
+				AF3BD2C12CFF58A100C27562 /* UnityHub */,
 				AF219E71252C5FF6008CE04C /* Frameworks */,
 				AF66EBEB251AE3900088EC84 /* Products */,
-				AF3BD2C12CFF58A100C27562 /* UnityHub */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,7 +105,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1220;
-				LastUpgradeCheck = 1610;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					AF66EBE9251AE3900088EC84 = {
 						CreatedOnToolsVersion = 12.2;
@@ -122,6 +122,7 @@
 				vi,
 			);
 			mainGroup = AF66EBE1251AE3900088EC84;
+			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 			);
 			preferredProjectObjectVersion = 77;
@@ -286,7 +287,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 999;
+				CURRENT_PROJECT_VERSION = 1001;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 838RGQ32CA;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -316,7 +317,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 999;
+				CURRENT_PROJECT_VERSION = 1001;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 838RGQ32CA;
 				ENABLE_HARDENED_RUNTIME = YES;

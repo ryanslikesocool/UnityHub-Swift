@@ -1,5 +1,5 @@
 import SwiftUI
-import UnityHubStorage
+import UnityHubStorageProjects
 
 extension ProjectInfoSheet {
 	struct Header: View {

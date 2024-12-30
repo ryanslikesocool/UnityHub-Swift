@@ -1,8 +1,10 @@
 import OSLog
 import SwiftUI
 import UnityHubCommon
-import UnityHubStorage
 import UnityHubCommonViews
+import UnityHubStorageCommon
+import UnityHubStorageProjects
+import UnityHubStorageSettings
 
 struct RemoveProjectReceiver: View {
 	@AppSetting(general: \.dialogSuppression) private var dialogSuppression

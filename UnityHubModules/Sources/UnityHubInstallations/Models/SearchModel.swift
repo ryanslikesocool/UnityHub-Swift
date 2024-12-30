@@ -1,4 +1,4 @@
-import UnityHubStorage
+import UnityHubStorageInstallations
 
 struct SearchModel {
 	public var query: String

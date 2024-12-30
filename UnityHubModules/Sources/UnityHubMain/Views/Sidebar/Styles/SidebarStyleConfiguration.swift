@@ -1,6 +1,6 @@
 import SwiftUI
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageSettings
 
 struct SidebarStyleConfiguration {
 	public let selection: Binding<SidebarItem>

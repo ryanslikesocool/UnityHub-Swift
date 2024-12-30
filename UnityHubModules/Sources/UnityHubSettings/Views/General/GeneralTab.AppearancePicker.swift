@@ -1,6 +1,6 @@
 import SwiftUI
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageSettings
 
 extension GeneralTab {
 	struct AppearancePicker: View {

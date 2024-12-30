@@ -1,7 +1,9 @@
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageCommon
+import UnityHubStorageInstallations
+import UnityHubStorageProjects
 
 extension ProjectList.Item {
 	struct ContextMenu: View {

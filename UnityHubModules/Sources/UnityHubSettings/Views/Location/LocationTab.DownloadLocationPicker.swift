@@ -1,7 +1,7 @@
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageSettings
 
 extension LocationTab {
 	struct DownloadLocationPicker: View {

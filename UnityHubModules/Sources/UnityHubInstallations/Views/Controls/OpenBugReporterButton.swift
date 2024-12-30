@@ -1,6 +1,6 @@
 import SwiftUI
 import UnityHubCommon
-import UnityHubStorage
+import UnityHubStorageInstallations
 
 struct OpenBugReporterButton: View {
 	@Environment(\.openURL) private var openURL

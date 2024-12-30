@@ -1,4 +1,4 @@
-import UnityHubStorage
+import UnityHubStorageInstallations
 
 enum SearchToken {
 	case pinned(Bool)

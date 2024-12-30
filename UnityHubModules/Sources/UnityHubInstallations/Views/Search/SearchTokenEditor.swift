@@ -1,6 +1,7 @@
 import SwiftUI
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageCommon
+import UnityHubStorageInstallations
 
 struct SearchTokenEditor: View {
 	@CacheFile(InstallationCache.self) private var installations

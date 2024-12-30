@@ -1,7 +1,8 @@
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageInstallations
+import UnityHubStorageSettings
 
 struct SortMenu: View {
 	@AppSetting(installation: \.sortOrder) private var sortOrder

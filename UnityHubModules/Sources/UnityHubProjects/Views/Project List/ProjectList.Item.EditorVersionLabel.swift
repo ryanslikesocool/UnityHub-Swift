@@ -1,7 +1,11 @@
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageCommon
+import UnityHubStorageInstallations
+import UnityHubStorageProjects
+import UnityHubStorageSettings
+import UnityHubStorageViews
 
 extension ProjectList.Item {
 	struct EditorVersionLabel: View {

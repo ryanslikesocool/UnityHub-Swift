@@ -1,6 +1,8 @@
 import SwiftUI
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageInstallations
+import UnityHubStorageSettings
+import UnityHubStorageViews
 
 extension InstallationList.Item {
 	struct VersionLabel: View {

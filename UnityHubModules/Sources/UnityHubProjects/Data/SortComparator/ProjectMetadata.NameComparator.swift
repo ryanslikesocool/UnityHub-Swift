@@ -1,5 +1,5 @@
 import Foundation
-import UnityHubStorage
+import UnityHubStorageProjects
 
 extension ProjectMetadata {
 	struct NameComparator: SortComparator {

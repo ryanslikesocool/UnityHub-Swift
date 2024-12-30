@@ -1,7 +1,7 @@
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageProjects
 
 extension ProjectList.Item {
 	struct NameLabel: View {

@@ -2,7 +2,10 @@ import OSLog
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageCommon
+import UnityHubStorageInstallations
+import UnityHubStorageProjects
+import UnityHubStorageSettings
 
 struct ProjectList: View {
 	@AppSetting(project: \.sortCriteria) private var sortCriteria
@@ -64,7 +67,7 @@ private extension ProjectList {
 
 		let sortComparators: [any SortComparator<ProjectMetadata>] = [
 			ProjectMetadata.pinnedComparator(),
-			sortCriteria.comparator(order: sortOrder)
+			sortCriteria.comparator(order: sortOrder),
 		]
 		return result.sorted(using: sortComparators)
 

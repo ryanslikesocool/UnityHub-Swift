@@ -2,7 +2,9 @@ import OSLog
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageInstallations
+import UnityHubStorageProjects
+import UnityHubStorageSettings
 import UserIcon
 
 extension ProjectList {

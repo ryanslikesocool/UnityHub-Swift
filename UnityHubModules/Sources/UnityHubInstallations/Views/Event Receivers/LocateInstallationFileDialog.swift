@@ -2,7 +2,8 @@ import OSLog
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
-import UnityHubStorage
+import UnityHubStorageInstallations
+import UnityHubStorageCommon
 
 struct LocateInstallationFileDialog: View {
 	@EnvironmentObject private var model: InstallationsModel
