@@ -1,3 +1,5 @@
+import Foundation
+
 public enum BackgroundMode: String {
 	case none
 	case hide
@@ -25,3 +27,15 @@ extension BackgroundMode: Identifiable {
 // MARK: - Codable
 
 extension BackgroundMode: Codable { }
+
+// MARK: - Localized
+
+extension BackgroundMode: CustomLocalizedStringResourceConvertible {
+	public var localizedStringResource: LocalizedStringResource {
+		switch self {
+			case .none: .backgroundModePicker.item.none
+			case .hide: .backgroundModePicker.item.hide
+			case .quit: .backgroundModePicker.item.quit
+		}
+	}
+}

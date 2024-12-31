@@ -58,7 +58,7 @@ private extension ProjectList.Item.EditorVersionLabel {
 		if infoVisibility.contains(.editorVersionBadge) {
 			AnyUnityEditorVersionLabelStyle(.default)
 		} else {
-			AnyUnityEditorVersionLabelStyle(.versionOnly)
+			AnyUnityEditorVersionLabelStyle(.default(badge: .hidden))
 		}
 	}
 }

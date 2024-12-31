@@ -4,13 +4,13 @@ import UnityHubCommonViews
 import UnityHubStorageSettings
 
 struct LocationTab: SettingsCategoryView {
-	static let category: SettingsCategory = .locations
+	public static let category: SettingsCategory = .locations
 
-	func makeLabel() -> some View {
+	public func makeLabel() -> some View {
 		SwiftUI.Label("Locations", systemImage: .externalDrive)
 	}
 
-	func makeContent() -> some View {
+	public func makeContent() -> some View {
 		Group {
 			InstallationLocationPicker()
 			DownloadLocationPicker()

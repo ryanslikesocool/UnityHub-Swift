@@ -11,7 +11,10 @@ public extension OptionSet {
 	}
 }
 
-public extension OptionSet where Self: CaseIterable, Self.Element == Self {
+public extension OptionSet where
+	Self: CaseIterable,
+	Self.Element == Self
+{
 	var isEmpty: Bool {
 		enumerated.isEmpty
 	}

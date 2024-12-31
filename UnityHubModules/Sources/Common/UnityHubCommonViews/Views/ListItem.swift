@@ -25,14 +25,14 @@ public struct ListItem<Content, Menu, Issue>: View where
 	}
 
 	public var body: some View {
-		HStack(spacing: 0) {
+		HStack(spacing: Self.spacing) {
 			content()
 			menuButton
 			issue()
 		}
-		.padding(4)
-		.frame(minHeight: Constant.ListItem.height)
-		.contentShape(.rect)
+		.padding(Self.padding)
+		.frame(minHeight: Self.height)
+		.contentShape(Self.contentShape)
 	}
 }
 
@@ -44,21 +44,27 @@ private extension ListItem {
 			content: menu,
 			label: menuLabel
 		)
-		.buttonStyle(.plain)
-		.foregroundStyle(.tertiary)
-		.menuIndicator(.hidden)
+		.buttonStyle(Self.menuButtonStyle)
+		.foregroundStyle(Self.menuButtonForegroundStyle)
+		.menuIndicator(Self.menuIndicatorVisibility)
 	}
 
 	func menuLabel() -> some View {
 		Label.menu()
-			.labelStyle(.smallMenuStyle)
+			.labelStyle(Self.menuLabelStyle)
 	}
 }
 
 // MARK: - Constants
 
-public extension Constant {
-	enum ListItem {
-		public static let height: CGFloat = 32
-	}
+private extension ListItem {
+	static var height: CGFloat { SmallMenuLabelStyle.height }
+	static var spacing: CGFloat { 0 }
+	static var padding: CGFloat { 4 }
+	static var contentShape: some Shape { .rect }
+
+	static var menuButtonStyle: some PrimitiveButtonStyle { .plain }
+	static var menuButtonForegroundStyle: some ShapeStyle { .tertiary }
+	static var menuIndicatorVisibility: Visibility { .hidden }
+	static var menuLabelStyle: some LabelStyle { .smallMenu }
 }

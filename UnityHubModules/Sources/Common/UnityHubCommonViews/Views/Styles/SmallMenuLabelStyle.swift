@@ -7,11 +7,17 @@ public struct SmallMenuLabelStyle: LabelStyle {
 	public func makeBody(configuration: Configuration) -> some View {
 		configuration
 			.icon
-			.frame(width: Self.width, height: Constant.ListItem.height)
-			.contentShape(.rect)
+			.frame(width: Self.width, height: Self.height)
+			.contentShape(Self.contentShape)
 	}
+}
 
-	public static let width: CGFloat = 16
+// MARK: - Constants
+
+public extension SmallMenuLabelStyle {
+	static let width: CGFloat = 16
+	static let height: CGFloat = 32
+	static let contentShape: some Shape = .rect
 }
 
 // MARK: - Convenience
@@ -19,7 +25,7 @@ public struct SmallMenuLabelStyle: LabelStyle {
 public extension LabelStyle where
 	Self == SmallMenuLabelStyle
 {
-	static var smallMenuStyle: Self {
+	static var smallMenu: Self {
 		Self()
 	}
 }

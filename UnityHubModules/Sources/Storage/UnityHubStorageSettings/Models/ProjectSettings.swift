@@ -4,7 +4,7 @@ import UnityHubStorageCommon
 import UnityHubCommon
 
 public struct ProjectSettings {
-	public var infoVisibility: ProjectInfoVisibility.Mask
+	public var infoVisibility: ProjectInfoVisibility.Set
 	public var sortCriteria: ProjectSortCriteria
 	public var sortOrder: SortOrder
 

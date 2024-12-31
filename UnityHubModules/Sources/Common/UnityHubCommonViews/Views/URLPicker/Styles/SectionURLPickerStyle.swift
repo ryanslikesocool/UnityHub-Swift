@@ -10,7 +10,7 @@ public struct SectionURLPickerStyle: URLPickerStyle {
 			content: {
 				LabeledContent(
 					content: {
-						Button("Select", systemImage: .folder) {
+						Button(String(localized: .common.action.select), systemImage: .folder) {
 							configuration.startImport()
 						}
 					},

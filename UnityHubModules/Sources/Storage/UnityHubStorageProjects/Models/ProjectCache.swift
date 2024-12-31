@@ -1,9 +1,9 @@
 import Combine
 import Foundation
 import OSLog
+import UnityHubCommon
 import UnityHubStorageCommon
 import UnityHubStorageInstallations
-import UnityHubCommon
 
 @MainActor
 public struct ProjectCache {
@@ -32,7 +32,7 @@ extension ProjectCache: Hashable { }
 
 // MARK: - Codable
 
-extension ProjectCache: @preconcurrency Codable {
+extension ProjectCache: @preconcurrency Encodable, @preconcurrency Decodable {
 	public init(from decoder: any Decoder) throws {
 		let container = try decoder.singleValueContainer()
 

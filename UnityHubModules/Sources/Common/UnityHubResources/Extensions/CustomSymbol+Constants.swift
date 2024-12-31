@@ -1,6 +1,10 @@
 import SFSymbolToolbox
 
 public extension CustomSymbol {
+	// MARK: C
+
+	static let cube_badge_plus: Self = "cube.badge.plus"
+
 	// MARK: E
 
 	static let ellipsis_vertical: Self = "ellipsis.vertical"

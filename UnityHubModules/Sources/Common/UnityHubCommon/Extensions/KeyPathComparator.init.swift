@@ -5,7 +5,6 @@ public extension KeyPathComparator {
 	///   - keyPath: <#keyPath description#>
 	///   - comparator: The comparator used to compare two non-`nil` objects.
 	///   - optionalBehavior: Determine how to handle `nil` objects when compared against non-`nil` objects.
-	@inlinable
 	init<Value, Comparator>(
 		_ keyPath: any KeyPath<Compared, Value?> & Sendable,
 		comparator: Comparator,
@@ -25,7 +24,6 @@ public extension KeyPathComparator {
 	///   - keyPath: <#keyPath description#>
 	///   - optionalBehavior: Determine how to handle `nil` objects when compared against non-`nil` objects.
 	///   - order: If the resulting order is forward or reverse.
-	@inlinable
 	init<Value>(
 		_ keyPath: any KeyPath<Compared, Value?> & Sendable,
 		optionalBehavior: borrowing OptionalSortBehavior = .late,

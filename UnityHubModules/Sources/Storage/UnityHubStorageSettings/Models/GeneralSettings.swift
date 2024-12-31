@@ -10,7 +10,7 @@ public struct GeneralSettings {
 	public var sidebarDisplay: SidebarDisplay
 
 	public init() {
-		appearance = .automatic
+		appearance = .system
 		dialogSuppression = .none
 		backgroundMode = .hide
 		sidebarDisplay = .standard

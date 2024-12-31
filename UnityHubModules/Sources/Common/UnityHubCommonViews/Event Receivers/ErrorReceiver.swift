@@ -1,8 +1,11 @@
+import Combine
 import MoreWindows
 import SwiftUI
-import Combine
 
-public struct ErrorReceiver<Failure: LocalizedError, Actions: View>: View {
+public struct ErrorReceiver<Failure, Actions>: View where
+	Failure: LocalizedError,
+	Actions: View
+{
 	public typealias EventType = PassthroughSubject<(WindowID, Failure), Never>
 	public typealias ActionsProvider = (Failure) -> Actions
 
@@ -55,27 +58,32 @@ private extension ErrorReceiver {
 	}
 }
 
-// MARK: - Init+
+// MARK: - Convenience
 
-public extension ErrorReceiver where Actions == EmptyView {
+public extension ErrorReceiver where
+	Actions == EmptyView
+{
 	init(event: EventType) {
 		self.init(event: event, actions: { _ in })
 	}
 }
 
-// MARK: - View+
-
 public extension View {
-	func errorReceiver<Failure: LocalizedError, Actions: View>(
+	func errorReceiver<Failure, Actions>(
 		event: PassthroughSubject<(WindowID, Failure), Never>,
 		@ViewBuilder actions: @escaping (Failure) -> Actions
-	) -> some View {
+	) -> some View where
+		Failure: LocalizedError,
+		Actions: View
+	{
 		background { ErrorReceiver(event: event, actions: actions) }
 	}
 
-	func errorReceiver<Failure: LocalizedError>(
+	func errorReceiver<Failure>(
 		event: PassthroughSubject<(WindowID, Failure), Never>
-	) -> some View {
+	) -> some View where
+		Failure: LocalizedError
+	{
 		errorReceiver(event: event, actions: { _ in })
 	}
 }

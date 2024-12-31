@@ -22,7 +22,7 @@ public enum OfficialHubArgument {
 	case help
 	case editors(EditorsArgument)
 	case installPath(InstallPathArgument)
-	case install(version: UnityEditorVersion, changeset: String?, modules: Set<InstallationModule>?, childModules: Bool, architecture: Architecture)
+	case install(version: UnityEditorVersion, changeset: String?, modules: Set<InstallationModule>?, childModules: Bool, architecture: ExecutableArchitecture)
 	case installModules(version: UnityEditorVersion, modules: Set<InstallationModule>, childModules: Bool)
 	case url(URL)
 	case some(String)
@@ -110,7 +110,7 @@ extension UnityEditorVersion: ShellArgumentProtocol {
 	public var shellArgument: String { description }
 }
 
-extension Architecture: ShellArgumentProtocol {
+extension ExecutableArchitecture: ShellArgumentProtocol {
 	public var shellArgument: String { rawValue }
 }
 

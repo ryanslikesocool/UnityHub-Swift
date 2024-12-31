@@ -1,6 +1,5 @@
 import Foundation
 import UnityHubStorageCommon
-import UnityHubCommon
 
 public protocol SettingsFileProtocol: SingletonFileProtocol {
 	static var category: SettingsCategory { get }

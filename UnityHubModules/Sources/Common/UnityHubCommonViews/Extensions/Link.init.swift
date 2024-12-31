@@ -3,19 +3,39 @@ import SwiftUI
 public extension Link where
 	Label == SwiftUI.Label<Text, Image>
 {
-	init(_ title: some StringProtocol, systemImage name: String, destination: URL) {
-		self.init(destination: destination) { Label(title, systemImage: name) }
+	nonisolated init<S>(
+		_ title: S,
+		systemImage: String,
+		destination: URL
+	) where
+		S: StringProtocol
+	{
+		self.init(destination: destination, label: { Label(title, systemImage: systemImage) })
 	}
 
-	init(_ titleKey: LocalizedStringKey, systemImage name: String, destination: URL) {
-		self.init(destination: destination) { Label(titleKey, systemImage: name) }
+	nonisolated init(
+		_ titleKey: LocalizedStringKey,
+		systemImage: String,
+		destination: URL
+	) {
+		self.init(destination: destination, label: { Label(titleKey, systemImage: systemImage) })
 	}
 
-	init(_ title: some StringProtocol, image: ImageResource, destination: URL) {
-		self.init(destination: destination) { Label(title, image: image) }
+	nonisolated init<S>(
+		_ title: S,
+		image: ImageResource,
+		destination: URL
+	) where
+		S: StringProtocol
+	{
+		self.init(destination: destination, label: { Label(title, image: image) })
 	}
 
-	init(_ titleKey: LocalizedStringKey, image: ImageResource, destination: URL) {
-		self.init(destination: destination) { Label(titleKey, image: image) }
+	nonisolated init(
+		_ titleKey: LocalizedStringKey,
+		image: ImageResource,
+		destination: URL
+	) {
+		self.init(destination: destination, label: { Label(titleKey, image: image) })
 	}
 }

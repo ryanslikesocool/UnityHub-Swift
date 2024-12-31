@@ -29,11 +29,10 @@ private extension DependencyAcknowledgementItem {
 
 	func makePrimaryLink() -> some View {
 		RealLink(destination: acknowledgement.url) {
-			Label {
-				Text("Website")
-			} icon: {
-				Image(systemName: "link")
-			}
+			Label(
+				String(localized: .acknowledgements.link.website),
+				systemImage: .link
+			)
 		}
 	}
 
@@ -41,12 +40,10 @@ private extension DependencyAcknowledgementItem {
 	func makeLicenseLink() -> some View {
 		if let url = acknowledgement.licenseURL {
 			RealLink(destination: url) {
-				Label {
-					Text("License")
-				} icon: {
-					// TODO: replace with scales symbol if/when one becomes available
-					Image(systemName: "building.columns")
-				}
+				Label(
+					String(localized: .acknowledgements.link.license),
+					systemImage: .building_columns // TODO: replace with scales symbol if/when one becomes available
+				)
 			}
 		}
 	}

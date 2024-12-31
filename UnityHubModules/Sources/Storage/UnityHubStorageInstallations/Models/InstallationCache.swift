@@ -1,17 +1,19 @@
 import Combine
 import Foundation
 import OSLog
+import UnityHubCommon
 import UnityHubStorageCommon
 import UnityHubStorageSettings
-import UnityHubCommon
 
 @MainActor
 public struct InstallationCache {
 	public var installations: [InstallationMetadata]
 
-	public var uniqueMajorVersions: [SemanticVersion.Integer] { Set(
-		installations.compactMap { (try? $0.version)?.major }
-	).sorted() }
+	public var uniqueMajorVersions: [SemanticVersion.Integer] {
+		Set(
+			installations.compactMap { (try? $0.version)?.major }
+		).sorted()
+	}
 
 	public nonisolated init() {
 		installations = []
@@ -32,7 +34,7 @@ extension InstallationCache: Hashable { }
 
 // MARK: - Codable
 
-extension InstallationCache: @preconcurrency Codable {
+extension InstallationCache: @preconcurrency Encodable, @preconcurrency Decodable {
 	public init(from decoder: any Decoder) throws {
 		let container = try decoder.singleValueContainer()
 

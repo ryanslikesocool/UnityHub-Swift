@@ -26,9 +26,9 @@ public struct IssueMenu<Flags, ItemLabel>: View where
 		Group {
 			if !flags.isEmpty {
 				if flags.count == 1 {
-					button()
+					makeButton()
 				} else {
-					menu()
+					makeMenu()
 				}
 			} else {
 				Spacer()
@@ -42,14 +42,14 @@ public struct IssueMenu<Flags, ItemLabel>: View where
 // MARK: - Supporting Views
 
 private extension IssueMenu {
-	func button() -> some View {
+	func makeButton() -> some View {
 		Button(
 			action: { action(flags) },
 			label: Label.issue
 		)
 	}
 
-	func menu() -> some View {
+	func makeMenu() -> some View {
 		Menu(
 			content: {
 				ForEach(flags.enumerated, id: \.self) { flag in

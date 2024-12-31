@@ -7,19 +7,21 @@ public struct RealLink<Label>: View where
 	Label: View
 {
 	private let destination: URL
-	private let label: () -> Label
+	private let label: Label
 
 	public init(
 		destination: URL,
-		@ViewBuilder label: @escaping () -> Label
+		@ViewBuilder label: () -> Label
 	) {
 		self.destination = destination
-		self.label = label
+		self.label = label()
 	}
 
 	public var body: some View {
-		Link(destination: destination, label: label)
-			.help(destination.description)
+		Link(destination: destination) {
+			label
+		}
+		.help(destination.description)
 	}
 }
 

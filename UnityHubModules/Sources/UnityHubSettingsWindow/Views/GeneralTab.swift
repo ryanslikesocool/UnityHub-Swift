@@ -4,13 +4,13 @@ import UnityHubCommonViews
 import UnityHubStorageSettings
 
 struct GeneralTab: SettingsCategoryView {
-	static let category: SettingsCategory = .general
+	public static let category: SettingsCategory = .general
 
-	func makeLabel() -> some View {
+	public func makeLabel() -> some View {
 		SwiftUI.Label("General", systemImage: .gearShape)
 	}
 
-	func makeContent() -> some View {
+	public func makeContent() -> some View {
 		Section {
 			AppearancePicker()
 		}

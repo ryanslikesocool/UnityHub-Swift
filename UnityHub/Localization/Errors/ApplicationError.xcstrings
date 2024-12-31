@@ -1,0 +1,149 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "DESCRIPTION.INFO_PLIST_DECODING_FAILURE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Info.plist Decoding Failure"
+          }
+        }
+      }
+    },
+    "DESCRIPTION.INVALID_BUNDLE_IDENTIFIER" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid Bundle Identifier"
+          }
+        }
+      }
+    },
+    "DESCRIPTION.MISSING_EXECUTABLE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Missing Executable"
+          }
+        }
+      }
+    },
+    "DESCRIPTION.MISSING_INFO_PLIST" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Missing Info.plist"
+          }
+        }
+      }
+    },
+    "DESCRIPTION.MISSING_INFO_PLIST_KEY" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Missing Info.plist Key"
+          }
+        }
+      }
+    },
+    "DESCRIPTION.UNEXPECTED_INFO_PLIST_VALUE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unexpected Info.plist Value"
+          }
+        }
+      }
+    },
+    "REASON.INFO_PLIST_DECODING_FAILURE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to decode the application's Info.plist file."
+          }
+        }
+      }
+    },
+    "REASON.INVALID_BUNDLE_IDENTIFIER" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The application's bundle identifier is invalid."
+          }
+        }
+      }
+    },
+    "REASON.MISSING_EXECUTABLE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The application's executable is missing."
+          }
+        }
+      }
+    },
+    "REASON.MISSING_INFO_PLIST" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not locate the application's Info.plist file."
+          }
+        }
+      }
+    },
+    "REASON.MISSING_INFO_PLIST_KEY_%@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not find the key “%@” in the application's Info.plist file."
+          }
+        }
+      }
+    },
+    "REASON.UNEXPECTED_INFO_PLIST_VALUE_%@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Found an unexpected value for key “%@” in the application's Info.plist file."
+          }
+        }
+      }
+    },
+    "RECOVERY_SUGGESTION" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ensure the selected application is correct."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

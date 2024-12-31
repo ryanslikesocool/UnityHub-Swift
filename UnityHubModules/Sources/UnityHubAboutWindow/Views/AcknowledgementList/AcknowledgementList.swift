@@ -15,8 +15,15 @@ struct AcknowledgementList<A>: View where
 		ForEach(acknowledgements.indices, id: \.self) { i in
 			A.ItemView(acknowledgements[i])
 		}
+		.labelStyle(Self.labelStyle)
 		.task {
 			await model.loadAcknowledgement(A.self)
 		}
 	}
+}
+
+// MARK: - Constants
+
+private extension AcknowledgementList {
+	static var labelStyle: some LabelStyle { .iconOnly }
 }

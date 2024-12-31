@@ -13,6 +13,7 @@ public extension SystemSymbol {
 	// MARK: B
 
 	static let book_closed: Self = "book.closed"
+	static let building_columns: Self = "building.columns"
 
 	// MARK: C
 
@@ -43,6 +44,7 @@ public extension SystemSymbol {
 
 	// MARK: L
 
+	static let link: Self = "link"
 	static let list_bullet: Self = "list.bullet"
 
 	// MARK: M
@@ -53,6 +55,7 @@ public extension SystemSymbol {
 	// MARK: P
 
 	static let person: Self = "person"
+	static let person_3: Self = "person.3"
 	static let person_3_sequence: Self = "person.3.sequence"
 	static let pin: Self = "pin"
 	static let pin_fill: Self = "pin.fill"

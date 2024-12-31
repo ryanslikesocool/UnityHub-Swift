@@ -1,6 +1,6 @@
 import SwiftUI
-import UnityHubCommonViews
 import UnityHubCommon
+import UnityHubCommonViews
 import UnityHubStorageProjects
 import UserIcon
 
@@ -8,11 +8,11 @@ extension ProjectList.Item {
 	struct Icon: View {
 		@Binding private var icon: UserIcon
 
-		init(_ icon: Binding<UserIcon>) {
+		public init(_ icon: Binding<UserIcon>) {
 			_icon = icon
 		}
 
-		var body: some View {
+		public var body: some View {
 			Group {
 				if icon != .blank {
 					UserIconView(icon)
@@ -20,8 +20,16 @@ extension ProjectList.Item {
 					Color.clear
 				}
 			}
-			.aspectRatio(1, contentMode: .fit)
-			.frame(width: Constant.ListItem.height)
+			.aspectRatio(Self.aspectRatio, contentMode: Self.contentMode)
+			.frame(width: Self.width)
 		}
 	}
+}
+
+// MARK: - Constants
+
+private extension ProjectList.Item.Icon {
+	static let aspectRatio: CGFloat = 1
+	static let contentMode: ContentMode = .fit
+	static var width: CGFloat { SmallMenuLabelStyle.height }
 }

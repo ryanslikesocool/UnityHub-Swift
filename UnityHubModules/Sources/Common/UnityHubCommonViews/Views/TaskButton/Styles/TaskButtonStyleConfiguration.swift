@@ -1,18 +1,16 @@
 import SwiftUI
 
 public struct TaskButtonStyleConfiguration {
-	public typealias Action = () -> Void
-
 	public let isExecuting: Bool
 	public let label: Label
-	public let action: Action
+	public let action: () -> Void
 	public let role: ButtonRole?
 
 	@MainActor
 	init(
 		isExecuting: Bool,
 		label: some View,
-		action: @escaping Action,
+		action: @escaping () -> Void,
 		role: ButtonRole?
 	) {
 		self.isExecuting = isExecuting

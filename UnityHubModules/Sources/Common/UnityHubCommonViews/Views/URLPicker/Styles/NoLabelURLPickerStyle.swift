@@ -6,7 +6,7 @@ public struct NoLabelURLPickerStyle: URLPickerStyle {
 
 	public func makeBody(configuration: Configuration) -> some View {
 		LabeledContent {
-			Button("Select", systemImage: .folder) {
+			Button(String(localized: .common.action.select), systemImage: .folder) {
 				configuration.startImport()
 			}
 		} label: {

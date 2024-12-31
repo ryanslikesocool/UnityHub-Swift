@@ -10,7 +10,7 @@ public struct AboutScene: Scene {
 		About {
 			AcknowledgementsSection()
 
-			VStack(spacing: AboutScene.groupSpacing) {
+			VStack(spacing: Self.groupSpacing) {
 				CopyrightSection()
 				DevelopedWithLoveSection()
 			}

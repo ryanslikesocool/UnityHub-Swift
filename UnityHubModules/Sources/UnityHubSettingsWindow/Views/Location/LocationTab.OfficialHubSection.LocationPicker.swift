@@ -5,9 +5,13 @@ import UnityHubStorageSettings
 
 extension LocationTab.OfficialHubSection {
 	struct LocationPicker: View {
-		@Binding var selection: URL?
+		@Binding private var selection: URL?
 
-		var body: some View {
+		public init(selection: Binding<URL?>) {
+			_selection = selection
+		}
+
+		public var body: some View {
 			URLPicker(
 				selection: $selection,
 				defaultValue: LocationSettings.defaultOfficialHubLocation,

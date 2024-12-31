@@ -1,6 +1,10 @@
 import SwiftUI
 
-public struct Sheet<Content: View, Header: View, Footer: View>: View {
+public struct Sheet<Content, Header, Footer>: View where
+	Content: View,
+	Header: View,
+	Footer: View
+{
 	public typealias ContentProvider = () -> Content
 	public typealias HeaderProvider = () -> Header
 	public typealias FooterProvider = () -> Footer
@@ -37,7 +41,11 @@ public struct Sheet<Content: View, Header: View, Footer: View>: View {
 		}
 	}
 
-	private func bar<BarContent: View>(content: @escaping () -> BarContent) -> some View {
+	private func bar<BarContent>(
+		content: @escaping () -> BarContent
+	) -> some View where
+		BarContent: View
+	{
 		HStack {
 			content()
 		}

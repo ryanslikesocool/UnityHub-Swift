@@ -8,7 +8,7 @@ extension InstallationList {
 
 		public var body: some View {
 			EmptyListView {
-				Label("No Installations", systemImage: Symbol.tray)
+				Label("No Installations", systemImage: .tray)
 			} prompt: {
 				if #available(macOS 15, *) {
 					EqualWidthHStack(content: makePromptContent)

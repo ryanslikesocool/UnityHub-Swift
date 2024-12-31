@@ -1,0 +1,72 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "DESCRIPTION.INVALID_TYPE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid Location Type"
+          }
+        }
+      }
+    },
+    "DESCRIPTION.MISSING" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Missing Location"
+          }
+        }
+      }
+    },
+    "REASON.INVALID_TYPE_%@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The selected location does not lead to a %@."
+          }
+        }
+      }
+    },
+    "REASON.MISSING" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is no file at the selected location."
+          }
+        }
+      }
+    },
+    "RECOVERY_SUGGESTION.INVALID_TYPE_%@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a %@."
+          }
+        }
+      }
+    },
+    "RECOVERY_SUGGESTION.MISSING" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a valid location."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

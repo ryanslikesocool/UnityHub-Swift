@@ -4,11 +4,17 @@ public extension Label where
 	Title == Text,
 	Icon == EmptyView
 {
-	init(_ title: some StringProtocol) {
+	nonisolated init<S>(
+		_ title: S
+	) where
+		S: StringProtocol
+	{
 		self.init(title: { Text(title) }, icon: EmptyView.init)
 	}
 
-	init(_ titleKey: LocalizedStringKey) {
+	nonisolated init(
+		_ titleKey: LocalizedStringKey
+	) {
 		self.init(title: { Text(titleKey) }, icon: EmptyView.init)
 	}
 }

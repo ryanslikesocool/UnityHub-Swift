@@ -8,35 +8,51 @@ struct CopyrightSection: View {
 	public init() { }
 
 	public var body: some View {
-		VStack(spacing: 0) {
-			developerCopyright()
+		VStack(spacing: Self.spacing) {
+			applicationCopyright()
 			unityCopyright()
 		}
-		.buttonStyle(.plain)
-		.font(.caption)
-		.foregroundStyle(.secondary)
+		.font(Self.font)
+		.foregroundStyle(Self.textStyle)
+		.buttonStyle(Self.buttonStyle)
 	}
+}
+
+// MARK: - Constants
+
+private extension CopyrightSection {
+	static let spacing: CGFloat = 0
+
+	static var font: Font { .caption }
+	static var textStyle: some ShapeStyle { .secondary }
+	static var buttonStyle: some PrimitiveButtonStyle { .plain }
 }
 
 // MARK: - Supporting Views
 
 private extension CopyrightSection {
-	func developerCopyright() -> some View {
-		let bundle = Bundle.main
-		let copyright = bundle.copyright ?? "© 2021 Ryan Boyer"
+	@ViewBuilder
+	func applicationCopyright() -> some View {
+		if let copyrightHolder = Bundle.main.copyright {
+			let options: String.LocalizationOptions = {
+				var options = String.LocalizationOptions()
+				options.replacements = [copyrightHolder]
+				return options
+			}()
 
-		return Button {
-			openURL(.acknowledgements.ryanBoyer)
-		} label: {
-			Text("Unity Hub (Swift) \(copyright)")
+			Button(
+				String(localized: .aboutWindow.copyright.application, options: options)
+			) {
+				openURL(.acknowledgements.ryanBoyer)
+			}
 		}
 	}
 
 	func unityCopyright() -> some View {
-		Button {
+		Button(
+			String(localized: .aboutWindow.copyright.unity)
+		) {
 			openURL(.acknowledgements.unity)
-		} label: {
-			Text("Unity, Unity Hub © Unity Technologies Inc.")
 		}
 	}
 }

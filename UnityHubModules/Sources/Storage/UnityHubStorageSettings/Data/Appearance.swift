@@ -1,7 +1,7 @@
 import AppKit
 
 public enum Appearance: UInt8 {
-	case automatic
+	case system
 	case light
 	case dark
 }
@@ -27,6 +27,18 @@ extension Appearance: Identifiable {
 // MARK: - Codable
 
 extension Appearance: Codable { }
+
+// MARK: -
+
+extension Appearance: CustomLocalizedStringResourceConvertible {
+	public var localizedStringResource: LocalizedStringResource {
+		switch self {
+			case .system: .appearancePicker.item.system
+			case .light: .appearancePicker.item.light
+			case .dark: .appearancePicker.item.dark
+		}
+	}
+}
 
 // MARK: -
 

@@ -36,9 +36,11 @@ private extension DownloadSheet {
 
 	@ViewBuilder
 	func makeHeader() -> some View {
-		Button("Cancel", systemImage: Symbol.xMark, role: .cancel) { dismiss() }
-			.controlSize(.large)
-			.labelStyle(.iconOnly)
+		Button("Cancel", systemImage: .xMark, role: .cancel) {
+			dismiss()
+		}
+		.controlSize(.large)
+		.labelStyle(.iconOnly)
 
 		Text("Download Installation")
 			.font(.headline)

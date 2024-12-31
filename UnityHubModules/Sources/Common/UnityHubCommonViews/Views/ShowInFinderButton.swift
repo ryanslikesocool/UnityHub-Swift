@@ -8,13 +8,11 @@ public struct ShowInFinderButton: View {
 	}
 
 	public var body: some View {
-		Button(action: buttonAction) {
-			Label {
-				Text("Show in Finder")
-			} icon: {
-				Image("finder")
-			}
-		}
+		Button(
+			String(localized: .common.action.showInFinder),
+			image: .finder,
+			action: buttonAction
+		)
 	}
 }
 

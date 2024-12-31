@@ -17,7 +17,6 @@ struct ContributorAcknowledgementItem: AcknowledgementItemView {
 			makeGitHubLink()
 			makePersonalLink()
 		}
-		.labelStyle(.iconOnly)
 	}
 }
 
@@ -32,11 +31,10 @@ private extension ContributorAcknowledgementItem {
 	func makePersonalLink() -> some View {
 		if let url = acknowledgement.personalURL {
 			RealLink(destination: url) {
-				Label {
-					Text("Website")
-				} icon: {
-					Image(systemName: "link")
-				}
+				Label(
+					String(localized: .acknowledgements.link.website),
+					systemImage: .link
+				)
 			}
 		}
 	}
@@ -46,7 +44,7 @@ private extension ContributorAcknowledgementItem {
 		if let url = acknowledgement.githubURL {
 			RealLink(destination: url) {
 				Label {
-					Text("GitHub")
+					Text(.acknowledgements.link.github)
 				} icon: {
 					EmptyView()
 					// TODO: add github icon asset

@@ -1,6 +1,8 @@
 import Foundation
 
-public struct ShellType<Argument: ShellArgumentProtocol> {
+public struct ShellType<Argument> where
+	Argument: ShellArgumentProtocol
+{
 	public let executable: URL
 
 	public init(executable: URL) {
@@ -33,11 +35,13 @@ extension ShellType: Identifiable {
 // MARK: -
 
 public extension ShellType {
-	@inlinable @discardableResult func callAsFunction(_ arguments: some Sequence<Argument>) throws -> String {
+	@discardableResult
+	func callAsFunction(_ arguments: some Sequence<Argument>) throws -> String {
 		try Shell.execute(executable, arguments: arguments.map(\.shellArgument))
 	}
 
-	@inlinable @discardableResult func callAsFunction(_ arguments: Argument...) throws -> String {
+	@discardableResult
+	func callAsFunction(_ arguments: Argument...) throws -> String {
 		try callAsFunction(arguments)
 	}
 }

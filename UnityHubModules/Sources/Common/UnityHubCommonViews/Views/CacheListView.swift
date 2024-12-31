@@ -2,7 +2,11 @@ import OSLog
 import SwiftUI
 import UnityHubCommon
 
-public struct CacheListView<Item: Identifiable, ItemView: View, NoItemsView: View>: View {
+public struct CacheListView<Item, ItemView, NoItemsView>: View where
+	Item: Identifiable,
+	ItemView: View,
+	NoItemsView: View
+{
 	public typealias ItemProvider = (Binding<Item>) -> ItemView
 	public typealias NoItemsProvider = () -> NoItemsView
 	public typealias ItemFilter = ([Item]) -> [Item]
@@ -57,19 +61,26 @@ private extension CacheListView {
 
 	func listView() -> some View {
 		List(filteredItems) { item in
-			let binding = Binding<Item>(
-				get: { item },
-				set: { newValue in
-					guard let index = items.firstIndex(where: { $0.id == newValue.id }) else {
-						// Logger.module.warning("Missing item with ID \(newValue.id)")
-						// TODO: figure out why log breaks compilation
-						return
-					}
-					items[index] = newValue
-				}
-			)
-
+			let binding = makeItemBinding(item)
 			itemView(binding)
 		}
+	}
+}
+
+// MARK: - Functions
+
+private extension CacheListView {
+	func makeItemBinding(_ item: Item) -> Binding<Item> {
+		Binding<Item>(
+			get: { item },
+			set: { newValue in
+				guard let index = items.firstIndex(where: { $0.id == newValue.id }) else {
+					// Logger.module.warning("Missing item with ID \(newValue.id)")
+					// TODO: figure out why log breaks compilation
+					return
+				}
+				items[index] = newValue
+			}
+		)
 	}
 }

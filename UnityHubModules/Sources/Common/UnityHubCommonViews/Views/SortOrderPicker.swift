@@ -1,15 +1,18 @@
 import SwiftUI
 import UnityHubCommon
 
-public struct SortOrderPicker<Label: View>: View {
-	public typealias LabelProvider = () -> Label
-
+public struct SortOrderPicker<Label>: View where
+	Label: View
+{
 	@Binding private var selection: SortOrder
-	private let label: LabelProvider
+	private let label: Label
 
-	public init(selection: Binding<SortOrder>, @ViewBuilder label: @escaping LabelProvider) {
+	public init(
+		selection: Binding<SortOrder>,
+		@ViewBuilder label: () -> Label
+	) {
 		_selection = selection
-		self.label = label
+		self.label = label()
 	}
 
 	public var body: some View {
@@ -18,9 +21,10 @@ public struct SortOrderPicker<Label: View>: View {
 			content: {
 				SwiftUI.Label.ascending().tag(SortOrder.reverse)
 				SwiftUI.Label.descending().tag(SortOrder.forward)
-			},
-			label: label
-		)
+			}
+		) {
+			label
+		}
 	}
 }
 
@@ -29,11 +33,19 @@ public struct SortOrderPicker<Label: View>: View {
 public extension SortOrderPicker
 	where Label == Text
 {
-	init(_ title: some StringProtocol, selection: Binding<SortOrder>) {
+	init<S>(
+		_ title: S,
+		selection: Binding<SortOrder>
+	) where
+		S: StringProtocol
+	{
 		self.init(selection: selection, label: { Text(title) })
 	}
 
-	init(_ titleKey: LocalizedStringKey, selection: Binding<SortOrder>) {
+	init(
+		_ titleKey: LocalizedStringKey,
+		selection: Binding<SortOrder>
+	) {
 		self.init(selection: selection, label: { Text(titleKey) })
 	}
 }

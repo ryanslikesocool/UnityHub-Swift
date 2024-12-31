@@ -9,7 +9,9 @@ extension LocationTab {
 
 		@State private var error: LocationError? = nil
 
-		var body: some View {
+		public init() { }
+
+		public var body: some View {
 			URLPicker(
 				"Downloads",
 				selection: $selection,

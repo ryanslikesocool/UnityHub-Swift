@@ -9,7 +9,9 @@ public extension PropertyListEncoder {
 		return self
 	}
 
-	func attemptEncode<T: Encodable>(_ object: T) -> Data? {
+	func attemptEncode<T>(_ object: T) -> Data? where
+		T: Encodable
+	{
 		do {
 			return try encode(object)
 		} catch {

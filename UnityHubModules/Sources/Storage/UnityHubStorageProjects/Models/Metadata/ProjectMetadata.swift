@@ -1,8 +1,8 @@
 import OSLog
 import SwiftUI
+import UnityHubCommon
 import UnityHubStorageInstallations
 import UnityHubStorageSettings
-import UnityHubCommon
 import UserIcon
 
 public struct ProjectMetadata {
@@ -218,28 +218,41 @@ private extension ProjectMetadata {
 // MARK: - Utility
 
 private extension ProjectMetadata {
-	static func logReadError(description: @autoclosure @escaping () -> String, at url: URL, error: Error) {
+	static func logReadError(
+		description: @autoclosure @escaping () -> String,
+		at url: URL,
+		error: Error
+	) {
 		Logger.module.warning("""
 		Failed to read \(description()) from \(url.path(percentEncoded: false)):
 		\(error.localizedDescription)
 		""")
 	}
 
-	func relativeURL(path relativePath: String, directoryHint: URL.DirectoryHint = .inferFromPath) -> URL {
+	func relativeURL(
+		path relativePath: String,
+		directoryHint: URL.DirectoryHint = .inferFromPath
+	) -> URL {
 		url.appending(path: relativePath, directoryHint: directoryHint)
 	}
 
-	func readData(at relativePath: String) throws -> Data {
+	func readData(
+		at relativePath: String
+	) throws -> Data {
 		let url: URL = relativeURL(path: relativePath, directoryHint: .notDirectory)
 		return try Data(contentsOf: url)
 	}
 
-	func readText(at relativePath: String) throws -> String {
+	func readText(
+		at relativePath: String
+	) throws -> String {
 		let url: URL = relativeURL(path: relativePath, directoryHint: .notDirectory)
 		return try String(contentsOf: url)
 	}
 
-	func readLines(at relativePath: String) throws -> [String] {
+	func readLines(
+		at relativePath: String
+	) throws -> [String] {
 		let string = try readText(at: relativePath)
 		return string.components(separatedBy: .newlines)
 	}

@@ -1,3 +1,4 @@
+@frozen
 public struct InstallationModule: RawRepresentable {
 	public let rawValue: String
 
@@ -22,6 +23,20 @@ extension InstallationModule: Hashable { }
 
 extension InstallationModule: Identifiable {
 	public var id: RawValue { rawValue }
+}
+
+// MARK: - Codable
+
+extension InstallationModule: Codable {
+	public init(from decoder: any Decoder) throws {
+		let container = try decoder.singleValueContainer()
+		try self.init(rawValue: container.decode(RawValue.self))
+	}
+
+	public func encode(to encoder: any Encoder) throws {
+		var container = encoder.singleValueContainer()
+		try container.encode(rawValue)
+	}
 }
 
 // MARK: - ExpressibleByStringLiteral

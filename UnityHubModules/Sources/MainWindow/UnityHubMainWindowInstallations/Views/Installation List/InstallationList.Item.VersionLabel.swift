@@ -33,7 +33,7 @@ private extension InstallationList.Item.VersionLabel {
 		if infoVisibility.contains(.badge) {
 			AnyUnityEditorVersionLabelStyle(.default)
 		} else {
-			AnyUnityEditorVersionLabelStyle(.versionOnly)
+			AnyUnityEditorVersionLabelStyle(.default(badge: .hidden))
 		}
 	}
 }

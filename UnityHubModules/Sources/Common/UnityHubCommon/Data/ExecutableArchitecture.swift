@@ -1,29 +1,29 @@
-public enum Architecture: String {
+public enum ExecutableArchitecture: String {
 	case x86_64
 	case arm64
 }
 
 // MARK: - Sendable
 
-extension Architecture: Sendable { }
+extension ExecutableArchitecture: Sendable { }
 
 // MARK: - Equatable
 
-extension Architecture: Equatable { }
+extension ExecutableArchitecture: Equatable { }
 
 // MARK: - Hashable
 
-extension Architecture: Hashable { }
+extension ExecutableArchitecture: Hashable { }
 
 // MARK: - Identifiable
 
-extension Architecture: Identifiable {
+extension ExecutableArchitecture: Identifiable {
 	public var id: RawValue { rawValue }
 }
 
 // MARK: - Constants
 
-public extension Architecture {
+public extension ExecutableArchitecture {
 	static var current: Self {
 #if !((os(macOS) || targetEnvironment(macCatalyst)) && arch(x86_64))
 		.arm64

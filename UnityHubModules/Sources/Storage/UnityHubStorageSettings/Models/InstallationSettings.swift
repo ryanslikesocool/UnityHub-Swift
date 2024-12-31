@@ -4,7 +4,7 @@ import UnityHubStorageCommon
 import UnityHubCommon
 
 public struct InstallationSettings {
-	public var infoVisibility: InstallationInfoVisibility.Mask
+	public var infoVisibility: InstallationInfoVisibility.Set
 	public var sortOrder: SortOrder
 
 	public init() {

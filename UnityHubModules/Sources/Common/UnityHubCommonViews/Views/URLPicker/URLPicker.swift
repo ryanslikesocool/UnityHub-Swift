@@ -4,9 +4,10 @@ import SwiftUI
 import UniformTypeIdentifiers
 import UnityHubCommon
 
-public struct URLPicker<Label: View>: View {
+public struct URLPicker<Label>: View where
+	Label: View
+{
 	typealias Configuration = URLPickerStyleConfiguration
-	public typealias LabelProvider = () -> Label
 	public typealias ValidationFunction = (URL) throws -> Void
 
 	@Environment(\.urlPickerStyle) private var style
@@ -16,7 +17,7 @@ public struct URLPicker<Label: View>: View {
 	@State private var issue: LocalizedError? = nil
 
 	@Binding private var selection: URL
-	private let label: LabelProvider
+	private let label: Label
 	private let allowedContentTypes: [UTType]
 	private let validator: ValidationFunction?
 
@@ -24,17 +25,17 @@ public struct URLPicker<Label: View>: View {
 		selection: Binding<URL>,
 		allowedContentTypes: [UTType],
 		validator: ValidationFunction? = nil,
-		@ViewBuilder label: @escaping LabelProvider
+		@ViewBuilder label: () -> Label
 	) {
 		_selection = selection
-		self.label = label
+		self.label = label()
 		self.allowedContentTypes = allowedContentTypes
 		self.validator = validator
 	}
 
 	public var body: some View {
 		let configuration = Configuration(
-			label: label(),
+			label: label,
 			urlLabel: URLLabel(selection)
 				.contextMenu {
 					ShowInFinderButton(selection)
@@ -116,7 +117,7 @@ public extension URLPicker {
 		defaultValue: URL,
 		allowedContentTypes: [UTType],
 		validator: ValidationFunction? = nil,
-		@ViewBuilder label: @escaping LabelProvider
+		@ViewBuilder label: () -> Label
 	) {
 		self.init(
 			selection: Binding<URL>(selection, fallback: defaultValue),

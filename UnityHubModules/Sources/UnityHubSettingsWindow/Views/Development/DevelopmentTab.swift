@@ -7,13 +7,13 @@ import UnityHubOfficialCLI
 import UnityHubStorageSettings
 
 struct DevelopmentTab: SettingsCategoryView {
-	static let category: SettingsCategory = .development
+	public static let category: SettingsCategory = .development
 
-	func makeLabel() -> some View {
+	public func makeLabel() -> some View {
 		SwiftUI.Label("Development", systemImage: .terminal)
 	}
 
-	func makeContent() -> some View {
+	public func makeContent() -> some View {
 		Section {
 			LogCLIHelpButton()
 		}

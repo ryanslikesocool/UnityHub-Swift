@@ -16,7 +16,9 @@ extension LocationTab {
 			}
 		}
 
-		var body: some View {
+		public init() { }
+
+		public var body: some View {
 			Section(content: content, header: header)
 		}
 	}
@@ -25,26 +27,27 @@ extension LocationTab {
 // MARK: - Supporting Views
 
 private extension LocationTab.OfficialHubSection {
-	@ViewBuilder func content() -> some View {
+	@ViewBuilder
+	func content() -> some View {
 		LocationPicker(selection: $selection)
 
 		HideApplicationToggle(applicationURL: selection ?? LocationSettings.defaultOfficialHubLocation)
 			.disabled(!isValid)
 	}
 
-	@ViewBuilder func header() -> some View {
+	@ViewBuilder
+	func header() -> some View {
 		Text("Official Hub")
 		VStack(alignment: .leading, spacing: 0) {
 			Text("The official Unity Hub is required for downloading new installations.")
 			RealLink(destination: .unityResource.officialUnityHub) {
-				SwiftUI.Label(
-					title: { Text("Get it from the official site") },
-					icon: {
-						Image(systemName: .arrow_up_forward)
-							.fontWeight(.medium)
-							.scaleEffect(0.9, anchor: .bottomLeading)
-					}
-				)
+				SwiftUI.Label {
+					Text("Get it from the official site")
+				} icon: {
+					Image(systemName: .arrow_up_forward)
+						.fontWeight(.medium)
+						.scaleEffect(0.9, anchor: .bottomLeading)
+				}
 				.labelStyle(.textTrailingIcon)
 			}
 		}
