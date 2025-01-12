@@ -7,7 +7,7 @@ public extension LocalizedStringResource {
 	/// ## Topics
 	/// - ``sortOrderPicker``
 	enum SortOrderPicker {
-		private static let localizationTable = LocalizationTableResource("SortMenu")
+		private static let localizationTable = LocalizationTableResource("SortOrderPicker")
 
 		public static let item = Item.self
 

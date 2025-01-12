@@ -1,6 +1,15 @@
 {
-  "originHash" : "88d6fc266d8cb80e284e79e210922bf10ae777ff1d6a02385977bb4d1bd24590",
+  "originHash" : "6ac2d854478a26b47b014ae70391af30a8029af8df2281123cd5099515fb50ec",
   "pins" : [
+    {
+      "identity" : "localizationtoolbox",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ryanslikesocool/LocalizationToolbox.git",
+      "state" : {
+        "revision" : "e1a40f79acab1d73dc8366b8f9ec30a8f3613ef7",
+        "version" : "0.0.4"
+      }
+    },
     {
       "identity" : "morewindows",
       "kind" : "remoteSourceControl",
@@ -8,6 +17,15 @@
       "state" : {
         "revision" : "d1aca71599e2669b646b295f54ae553841b586c5",
         "version" : "0.1.4"
+      }
+    },
+    {
+      "identity" : "sfsymboltoolbox",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ryanslikesocool/SFSymbolToolbox.git",
+      "state" : {
+        "revision" : "2a85cad13343421be8c3b4b37265a894f2763c0c",
+        "version" : "0.0.3"
       }
     }
   ],

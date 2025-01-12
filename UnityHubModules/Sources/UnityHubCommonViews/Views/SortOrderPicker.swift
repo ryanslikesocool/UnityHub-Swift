@@ -9,6 +9,9 @@ public struct SortOrderPicker<Label>: View where
 	@Binding private var selection: SelectionValue
 	private let label: Label
 
+	/// - Parameters:
+	///   - selection:
+	///   - label:
 	public init(
 		selection: Binding<SelectionValue>,
 		@ViewBuilder label: () -> Label
@@ -21,20 +24,8 @@ public struct SortOrderPicker<Label>: View where
 		Picker(
 			selection: $selection,
 			content: {
-				makeItem(.reverse, relative: .ascending)
-				makeItem(.forward, relative: .descending)
-
-//				SwiftUI.Label(
-//					String(localized: .sortOrderPicker.item.ascending),
-//					systemImage: .arrow_up
-//				)
-//				.tag(SelectionValue.reverse)
-//
-//				SwiftUI.Label(
-//					String(localized: .sortOrderPicker.item.descending),
-//					systemImage: .arrow_down
-//				)
-//				.tag(SelectionValue.forward)
+				makeItem(.reverse)
+				makeItem(.forward)
 			}
 		) {
 			label
@@ -46,12 +37,11 @@ public struct SortOrderPicker<Label>: View where
 
 private extension SortOrderPicker {
 	func makeItem(
-		_ value: SelectionValue,
-		relative: SelectionValue.Relative
+		_ value: SelectionValue
 	) -> some View {
 		SwiftUI.Label(
-			String(localized: relative.localizedStringResource),
-			systemImage: relative.systemSymbolName
+			String(localized: value.localizedStringResource),
+			systemImage: value.systemSymbolName
 		)
 		.tag(value)
 	}
@@ -62,10 +52,15 @@ private extension SortOrderPicker {
 public extension SortOrderPicker
 	where Label == Text
 {
+	/// - Parameters:
+	///   - selection:
 	init(selection: Binding<SelectionValue>) {
 		self.init(selection: selection, label: { Text(.sortOrderPicker.title_short) })
 	}
 
+	/// - Parameters:
+	///   - title:
+	///   - selection:
 	init<S>(
 		_ title: S,
 		selection: Binding<SelectionValue>
@@ -75,6 +70,9 @@ public extension SortOrderPicker
 		self.init(selection: selection, label: { Text(title) })
 	}
 
+	/// - Parameters:
+	///   - titleKey:
+	///   - selection:
 	init(
 		_ titleKey: LocalizedStringKey,
 		selection: Binding<SelectionValue>

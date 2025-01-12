@@ -28,9 +28,9 @@ private extension DownloadSheet {
 					Text(DownloadSheetTab.recommended.localizedStringResource)
 				}
 				Section {
-					NavigationLink(DownloadSheetTab.official.localizedStringResource, value: DownloadSheetTab.official)
-					NavigationLink(DownloadSheetTab.prerelease.localizedStringResource, value: DownloadSheetTab.prerelease)
-					NavigationLink(DownloadSheetTab.archive.localizedStringResource, value: DownloadSheetTab.archive)
+					NavigationLink(String(localized: DownloadSheetTab.official.localizedStringResource), value: DownloadSheetTab.official)
+					NavigationLink(String(localized: DownloadSheetTab.prerelease.localizedStringResource), value: DownloadSheetTab.prerelease)
+					NavigationLink(String(localized: DownloadSheetTab.archive.localizedStringResource), value: DownloadSheetTab.archive)
 				}
 			}
 			.formStyle(.grouped)

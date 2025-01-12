@@ -15,10 +15,6 @@ public extension OptionSet where
 	Self: CaseIterable,
 	Self.Element == Self
 {
-	var isEmpty: Bool {
-		enumerated.isEmpty
-	}
-
 	var count: Int {
 		enumerated.count
 	}
