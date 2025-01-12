@@ -1,23 +1,24 @@
 import SwiftUI
 
-struct CreditList<C>: View where
-	C: CreditProtocol
+struct CreditList<Item>: View where
+	Item: CreditItem
 {
 	@EnvironmentObject private var model: AboutSceneModel
 
-	private var credits: [C] {
-		model[keyPath: C.modelKeyPath]
+	private var credits: [Item] {
+		model[keyPath: Item.modelKeyPath]
 	}
 
-	public init(_ type: C.Type) { }
+	public init(ofType itemType: Item.Type) { }
 
 	public var body: some View {
 		ForEach(credits.indices, id: \.self) { i in
-			C.ItemView(credits[i])
+			Item.ItemView(credits[i])
 		}
+		.labeledContentStyle(Self.labeledContentStyle)
 		.labelStyle(Self.labelStyle)
 		.task {
-			await model.loadCredit(C.self)
+			await model.loadCredits(ofType: Item.self)
 		}
 	}
 }
@@ -25,5 +26,6 @@ struct CreditList<C>: View where
 // MARK: - Constants
 
 private extension CreditList {
+	static var labeledContentStyle: some LabeledContentStyle { .credit }
 	static var labelStyle: some LabelStyle { .iconOnly }
 }

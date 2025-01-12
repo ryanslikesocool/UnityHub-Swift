@@ -23,14 +23,10 @@ struct SortMenu: View {
 private extension SortMenu {
 	@ViewBuilder
 	func makeContent() -> some View {
-		Picker("Criteria", selection: $sortCriteria) {
-			Text("Name").tag(ProjectSortCriteria.name)
-			Text("Last Opened").tag(ProjectSortCriteria.lastOpened)
-			Text("Editor Version").tag(ProjectSortCriteria.editorVersion)
-		}
-		.labelsHidden()
+		ProjectSortCriteriaPicker(selection: $sortCriteria)
+			.labelsHidden()
 
-		SortOrderPicker("Order", selection: $sortOrder)
+		SortOrderPicker(selection: $sortOrder)
 	}
 }
 

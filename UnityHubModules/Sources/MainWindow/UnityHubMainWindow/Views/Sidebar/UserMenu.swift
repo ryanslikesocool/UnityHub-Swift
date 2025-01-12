@@ -19,30 +19,44 @@ private extension UserMenu {
 	@ViewBuilder
 	func makeContent() -> some View {
 		Section {
-			Button("Account Settings", systemImage: .gearShape) { }
+			Button(
+				String(localized: .userMenu.item.accountSettings),
+				systemImage: .gearShape
+			) { }
 				.disabled(true)
 
-			RealLink(destination: .unityResource.cloudLogin) {
-				Label("Unity Cloud", systemImage: .cloud)
-			}
+			RealLink(
+				String(localized: .userMenu.item.unityCloud),
+				systemImage: .cloud,
+				destination: .unityResource.cloudLogin
+			)
 
-			Button("Manage Licenses", systemImage: .person) { }
+			Button(
+				String(localized: .userMenu.item.manageLicenses),
+				systemImage: .person
+			) { }
 				.disabled(true)
 
-			Button("Manage Organizations", systemImage: .person_3_sequence) { }
+			Button(
+				String(localized: .userMenu.item.manageOrganizations),
+				systemImage: .person_3_sequence
+			) { }
 				.disabled(true)
 		}
 
 		Section {
-			Menu("Troubleshooting", systemImage: .questionMark) {
+			Menu(
+				String(localized: .userMenu.group.troubleshooting),
+				systemImage: .questionMark
+			) {
 				RealLink(
-					"Account Help",
+					String(localized: .userMenu.item.accountHelp),
 					systemImage: .questionMark,
 					destination: .unityResource.accountHelp
 				)
 
 				Button(
-					"Open Log Folder",
+					String(localized: .userMenu.item.openLogFolder),
 					systemImage: .folder
 				) {
 					URL.UnityResource.logDirectory
@@ -57,7 +71,11 @@ private extension UserMenu {
 
 			SettingsButton()
 
-			Button("Sign Out", image: .rectangle_portrait_and_arrow_left, role: .destructive) {
+			Button(
+				String(localized: .userMenu.item.signOut),
+				image: .rectangle_portrait_and_arrow_left,
+				role: .destructive
+			) {
 				fatalError("\(Self.self).\(#function) is not implemented")
 			}
 			.disabled(true)

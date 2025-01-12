@@ -19,18 +19,20 @@ struct SearchTokenSuggestions: View {
 				projects.projects.contains(where: { $0.pinned }),
 				!tokens.contains(where: { $0.kind == .pinned })
 			{
-				Label.pinned().searchCompletion(
-					SearchToken.pinned(true)
-				)
+				Label.pinned()
+					.searchCompletion(
+						SearchToken.pinned(true)
+					)
 			}
 
 			if
 				projects.projectEditorVersions.count > 1,
 				!tokens.contains(where: { $0.kind == .editorVersion })
 			{
-				Text("Editor Version").searchCompletion(
-					SearchToken.editorVersion(.zero)
-				)
+				Text("Editor Version")
+					.searchCompletion(
+						SearchToken.editorVersion(.zero)
+					)
 			}
 		}
 	}

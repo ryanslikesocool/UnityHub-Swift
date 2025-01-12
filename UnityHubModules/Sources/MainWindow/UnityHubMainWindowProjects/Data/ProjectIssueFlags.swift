@@ -1,9 +1,11 @@
 import UnityHubCommon
 
 struct ProjectIssueFlags: IssueFlags {
-	let rawValue: UInt8
+	public typealias RawValue = UInt8
 
-	init(rawValue: UInt8) {
+	public let rawValue: RawValue
+
+	init(rawValue: RawValue) {
 		self.rawValue = rawValue
 	}
 }

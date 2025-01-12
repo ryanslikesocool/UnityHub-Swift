@@ -31,8 +31,8 @@ private extension SearchTokenEditor {
 		return Picker(
 			selection: binding,
 			content: {
-				Text("Is").tag(true)
-				Text("Is Not").tag(false)
+				Text(.booleanSearchToken.item.is).tag(true)
+				Text(.booleanSearchToken.item.isNot).tag(false)
 			},
 			label: Label.pinned
 		)

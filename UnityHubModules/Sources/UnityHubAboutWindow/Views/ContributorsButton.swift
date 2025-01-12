@@ -5,7 +5,7 @@ struct ContributorsButton: View {
 
 	public var body: some View {
 		Button(
-			String(localized: .acknowledgements.item.contributors),
+			String(localized: .credits.group.contributors),
 			systemImage: .person_3
 		) {
 			fatalError("\(Self.self).\(#function) is not implemented")

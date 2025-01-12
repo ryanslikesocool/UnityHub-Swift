@@ -9,17 +9,38 @@ struct MissingProjectReceiver: View {
 		EmptyView()
 			.onReceive(Event.Project.missing, perform: receiveEvent)
 			.confirmationDialog(
-				"Missing Project",
+				makeTitle(),
 				isPresented: $isPresentingDialog,
-				actions: {
-					Button(role: .cancel, action: removeProject, label: Label.remove)
-					Button(action: locateProject, label: Label.locate)
-				},
-				message: {
-					Text("The project cannot be found.  It may have been moved or deleted.")
-				}
+				actions: makeActions,
+				message: makeMessage
 			)
 			.dialogSeverity(.critical)
+	}
+}
+
+// MARK: - Supporting Views
+
+private extension MissingProjectReceiver {
+	func makeTitle() -> Text {
+		Text(.missingProjectConfirmation.title)
+	}
+
+	@ViewBuilder
+	func makeActions() -> some View {
+		Button(
+			role: .cancel,
+			action: removeProject,
+			label: Label.remove
+		)
+
+		Button(
+			action: locateProject,
+			label: Label.locate
+		)
+	}
+
+	func makeMessage() -> Text {
+		Text(.missingProjectConfirmation.message)
 	}
 }
 

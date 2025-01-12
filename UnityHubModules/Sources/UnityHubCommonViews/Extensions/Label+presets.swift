@@ -29,13 +29,6 @@ public extension Label where
 	static func manual() -> Self { Self("Manual", systemImage: .book_closed) }
 	static func scriptReference() -> Self { Self("Script Reference", systemImage: .curlyBraces) }
 
-	static func ascending() -> Self { Self(String(localized: .common.sortOrder.ascending), systemImage: .arrow_up) }
-	static func descending() -> Self { Self(String(localized: .common.sortOrder.descending), systemImage: .arrow_down) }
-
-	static func projects() -> Self { Self("Projects", systemImage: .cube) }
-	static func installations() -> Self { Self("Installations", systemImage: .tray) }
-	static func resources() -> Self { Self("Resources", systemImage: .info_circle) }
-
 	@MainActor
 	static func issue() -> some View {
 		Self("Issue", systemImage: .exclamationMark_triangle_fill)

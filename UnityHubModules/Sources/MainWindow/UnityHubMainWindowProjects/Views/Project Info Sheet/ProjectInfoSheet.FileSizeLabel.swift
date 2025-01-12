@@ -64,15 +64,20 @@ private extension ProjectInfoSheet.FileSizeLabel {
 			newFileSize = try url.sizeOnDisk()
 		} catch {
 			Logger.module.error("""
-			Failed to calculate file size for \(url.path(percentEncoded: false)):
-			\(error.localizedDescription)
+			Failed to calculate file size.
+			- Path: \(url.path(percentEncoded: false))
+			- Error: \(error.localizedDescription)
 			""")
 			newFileSize = nil
 		}
 
 		if let newFileSize {
 			phase = .complete(newFileSize)
-			Logger.module.debug("Finished calculating file size for the project at \(url.path(percentEncoded: false)) with result \(String(describing: newFileSize)).")
+			Logger.module.debug("""
+			Finished calculating project file size.
+			- Path: \(url.path(percentEncoded: false))
+			- Size: \(String(describing: newFileSize))
+			""")
 		} else {
 			phase = .failed
 		}

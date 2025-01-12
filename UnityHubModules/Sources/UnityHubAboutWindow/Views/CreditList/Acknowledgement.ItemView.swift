@@ -1,36 +1,36 @@
 import SwiftUI
 import UnityHubCommonViews
 
-struct AcknowledgementCreditItem: CreditItemView {
-	private let credit: Acknowledgement
+extension Acknowledgement {
+	struct ItemView: CreditItemView {
+		private let credit: Acknowledgement
 
-	public init(_ credit: Acknowledgement) {
-		self.credit = credit
-	}
+		public init(_ credit: Acknowledgement) {
+			self.credit = credit
+		}
 
-	public var body: some View {
-		HStack {
-			makeTitle()
-
-			Spacer()
-
-			makeLicenseLink()
-			makePrimaryLink()
+		public var body: some View {
+			LabeledContent {
+				makeLicenseLink()
+				makePrimaryLink()
+			} label: {
+				makeTitle()
+			}
 		}
 	}
 }
 
 // MARK: - Supporting Views
 
-private extension AcknowledgementCreditItem {
+private extension Acknowledgement.ItemView {
 	func makeTitle() -> some View {
-		Text(credit.title)
+		Text(credit.name)
 	}
 
 	func makePrimaryLink() -> some View {
 		RealLink(destination: credit.projectURL) {
 			Label(
-				String(localized: .acknowledgements.link.website),
+				String(localized: .credits.link.website),
 				systemImage: .link
 			)
 		}
@@ -41,7 +41,7 @@ private extension AcknowledgementCreditItem {
 		if let url = credit.licenseURL {
 			RealLink(destination: url) {
 				Label(
-					String(localized: .acknowledgements.link.license),
+					String(localized: .credits.link.license),
 					systemImage: .building_columns // TODO: replace with scales symbol if/when one becomes available
 				)
 			}

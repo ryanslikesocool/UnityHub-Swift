@@ -40,9 +40,7 @@ public extension ShellType {
 
 // MARK: - Constants
 
-public extension ShellType where
-	Argument == ZSHArgument
-{
+public extension ShellType<ZSHArgument> {
 	static var zsh: Self {
 		Self(executablePath: "/bin/zsh")
 	}

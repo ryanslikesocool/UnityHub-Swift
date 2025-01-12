@@ -23,7 +23,7 @@ struct SortMenu: View {
 
 private extension SortMenu {
 	func makeContent() -> some View {
-		SortOrderPicker("Order", selection: $sortOrder)
+		SortOrderPicker(selection: $sortOrder)
 			.labelsHidden()
 	}
 }

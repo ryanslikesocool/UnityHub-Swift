@@ -1,0 +1,72 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "LONG_TERM_SUPPORT" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LTS"
+          }
+        }
+      }
+    },
+    "LONG_TERM_SUPPORT.VERBOSE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Long Term Support"
+          }
+        }
+      }
+    },
+    "PRERELEASE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prerelease"
+          }
+        }
+      }
+    },
+    "SEMANTIC_VERSION.MAJOR" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Major Version"
+          }
+        }
+      }
+    },
+    "SEMANTIC_VERSION.MINOR" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minor Version"
+          }
+        }
+      }
+    },
+    "SEMANTIC_VERSION.PATCH" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Patch Version"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

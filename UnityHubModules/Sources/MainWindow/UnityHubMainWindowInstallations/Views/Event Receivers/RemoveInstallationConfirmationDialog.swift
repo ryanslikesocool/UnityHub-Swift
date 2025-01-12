@@ -33,7 +33,7 @@ private struct RemoveInstallationConfirmationDialog: View {
 
 private extension RemoveInstallationConfirmationDialog {
 	func makeTitle() -> Text {
-		Text("Uninstall Editor")
+		Text(.uninstallEditorConfirmation.title)
 	}
 
 	func makeActions() -> some View {
@@ -41,7 +41,7 @@ private extension RemoveInstallationConfirmationDialog {
 	}
 
 	func makeMessage() -> some View {
-		Text("Do you want to uninstall this editor version?")
+		Text(.uninstallEditorConfirmation.message)
 	}
 }
 

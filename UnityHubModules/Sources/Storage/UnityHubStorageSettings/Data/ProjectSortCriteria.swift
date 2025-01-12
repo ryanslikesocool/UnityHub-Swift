@@ -1,3 +1,6 @@
+import Foundation
+import UnityHubResources
+
 public enum ProjectSortCriteria: UInt8 {
 	case name
 	case editorVersion
@@ -25,3 +28,15 @@ extension ProjectSortCriteria: Identifiable {
 // MARK: - Codable
 
 extension ProjectSortCriteria: Codable { }
+
+// MARK: - CustomLocalizedStringResourceConvertible
+
+extension ProjectSortCriteria: CustomLocalizedStringResourceConvertible {
+	public var localizedStringResource: LocalizedStringResource {
+		switch self {
+			case .name: .sortCriteriaPicker.item.name
+			case .editorVersion: .sortCriteriaPicker.item.editorVersion
+			case .lastOpened: .sortCriteriaPicker.item.lastOpened
+		}
+	}
+}

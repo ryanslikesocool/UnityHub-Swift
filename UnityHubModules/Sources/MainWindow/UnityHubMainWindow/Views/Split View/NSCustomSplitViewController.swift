@@ -2,6 +2,8 @@ import AppKit
 import OSLog
 import SwiftUI
 
+/// ## See Also
+/// - ``CustomSplitView``
 final class NSCustomSplitViewController: NSSplitViewController {
 	private var snapPositions: [Int: CustomSplitViewSnapPosition]
 

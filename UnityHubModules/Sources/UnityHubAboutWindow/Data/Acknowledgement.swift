@@ -1,16 +1,17 @@
 import Foundation
+import SwiftUI
 
 struct Acknowledgement {
-	public let title: String
+	public let name: String
 	public let projectURL: URL
 	public let licenseURL: URL?
 
 	private init(
-		title: String,
+		name: String,
 		projectURL: URL,
 		licenseURL: URL?
 	) {
-		self.title = title
+		self.name = name
 		self.projectURL = projectURL
 		self.licenseURL = licenseURL
 	}
@@ -24,7 +25,7 @@ extension Acknowledgement: Sendable { }
 
 extension Acknowledgement: Decodable {
 	enum CodingKeys: CodingKey {
-		case title
+		case name
 		case projectURL
 		case licenseURL
 		case licensePath
@@ -33,7 +34,7 @@ extension Acknowledgement: Decodable {
 	init(from decoder: any Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
-		title = try container.decode(String.self, forKey: .title)
+		name = try container.decode(String.self, forKey: .name)
 		projectURL = try container.decode(URL.self, forKey: .projectURL)
 
 		licenseURL = if let decodedLicenseURL = try container.decodeIfPresent(URL.self, forKey: .licenseURL) {
@@ -46,17 +47,18 @@ extension Acknowledgement: Decodable {
 	}
 }
 
-// MARK: - CreditProtocol
+// MARK: - CreditItem
 
-extension Acknowledgement: CreditProtocol {
-	typealias ItemView = AcknowledgementCreditItem
+extension Acknowledgement: CreditItem {
+	static var label: Text { Text(.credits.group.acknowledgements) }
 
-	static let fileName: String = "Acknowledgements"
-	static let fileExtension: String = "json"
+	static var fileURL: URL? {
+		Bundle.main.url(forResource: "Acknowledgements", withExtension: "json")
+	}
 
 	static var topLevelDecoder: JSONDecoder { JSONDecoder.shared }
 	static var sortComparator: (any SortComparator<Acknowledgement>)? {
-		KeyPathComparator<Self>(\.title)
+		KeyPathComparator<Self>(\.name)
 	}
 
 	static let modelKeyPath: ReferenceWritableKeyPath<AboutSceneModel, [Self]> = \.acknowledgements

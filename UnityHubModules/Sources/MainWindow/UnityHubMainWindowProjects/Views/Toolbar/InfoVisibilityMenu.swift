@@ -21,15 +21,35 @@ private extension InfoVisibilityMenu {
 	@ViewBuilder
 	func makeContent() -> some View {
 		Section {
-			Toggle("Icon", isOn: $infoVisibility[.icon])
-			Toggle("Last Opened", isOn: $infoVisibility[.lastOpened])
-			Toggle("Location", isOn: $infoVisibility[.location])
+			Toggle(
+				.visibilityMenu.item.icon,
+				isOn: $infoVisibility[.icon]
+			)
+
+			Toggle(
+				.visibilityMenu.item.lastOpened,
+				isOn: $infoVisibility[.lastOpened]
+			)
+
+			Toggle(
+				.visibilityMenu.item.location,
+				isOn: $infoVisibility[.location]
+			)
 		}
 
-		Section("Editor") {
-			Toggle("Version", isOn: $infoVisibility[.editorVersion])
-			Toggle("Badge", isOn: $infoVisibility[.editorVersionBadge])
-				.disabled(!infoVisibility[.editorVersion])
+		Section {
+			Toggle(
+				.visibilityMenu.item.version,
+				isOn: $infoVisibility[.editorVersion]
+			)
+
+			Toggle(
+				.visibilityMenu.item.badge,
+				isOn: $infoVisibility[.editorVersionBadge]
+			)
+			.disabled(!infoVisibility[.editorVersion])
+		} header: {
+			Text(.visibilityMenu.group.editor)
 		}
 	}
 }

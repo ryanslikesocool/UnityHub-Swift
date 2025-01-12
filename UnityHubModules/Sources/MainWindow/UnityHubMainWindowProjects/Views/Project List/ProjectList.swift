@@ -39,8 +39,9 @@ private extension ProjectList {
 				result = true
 			} catch {
 				Logger.module.warning("""
-				Failed to import project at \(url.path(percentEncoded: false)) during a mass-import:
-				\(error.localizedDescription)
+				Failed to import project during a mass-import.
+				- Path: \(url.path(percentEncoded: false))
+				- Error: \(error)
 				""")
 				continue
 			}

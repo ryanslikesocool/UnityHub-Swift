@@ -1,6 +1,13 @@
 import AppKit
 import SwiftUI
 
+/// ## Topics
+/// - ``NSCustomSplitViewController``
+///
+/// ### Environment
+/// - ``SwiftUICore/EnvironmentValues/customSplitViewDefaultThickness``
+/// - ``SwiftUICore/EnvironmentValues/customSplitViewItemLayout``
+/// - ``SwiftUICore/EnvironmentValues/customSplitViewSnapPositions``
 struct CustomSplitView<Sidebar, Detail>: NSViewControllerRepresentable where
 	Sidebar: View,
 	Detail: View

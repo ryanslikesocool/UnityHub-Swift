@@ -4,11 +4,13 @@ import UnityHubCommon
 public struct SortOrderPicker<Label>: View where
 	Label: View
 {
-	@Binding private var selection: SortOrder
+	public typealias SelectionValue = SortOrder
+
+	@Binding private var selection: SelectionValue
 	private let label: Label
 
 	public init(
-		selection: Binding<SortOrder>,
+		selection: Binding<SelectionValue>,
 		@ViewBuilder label: () -> Label
 	) {
 		_selection = selection
@@ -19,12 +21,39 @@ public struct SortOrderPicker<Label>: View where
 		Picker(
 			selection: $selection,
 			content: {
-				SwiftUI.Label.ascending().tag(SortOrder.reverse)
-				SwiftUI.Label.descending().tag(SortOrder.forward)
+				makeItem(.reverse, relative: .ascending)
+				makeItem(.forward, relative: .descending)
+
+//				SwiftUI.Label(
+//					String(localized: .sortOrderPicker.item.ascending),
+//					systemImage: .arrow_up
+//				)
+//				.tag(SelectionValue.reverse)
+//
+//				SwiftUI.Label(
+//					String(localized: .sortOrderPicker.item.descending),
+//					systemImage: .arrow_down
+//				)
+//				.tag(SelectionValue.forward)
 			}
 		) {
 			label
 		}
+	}
+}
+
+// MARK: - Supporting Views
+
+private extension SortOrderPicker {
+	func makeItem(
+		_ value: SelectionValue,
+		relative: SelectionValue.Relative
+	) -> some View {
+		SwiftUI.Label(
+			String(localized: relative.localizedStringResource),
+			systemImage: relative.systemSymbolName
+		)
+		.tag(value)
 	}
 }
 
@@ -33,9 +62,13 @@ public struct SortOrderPicker<Label>: View where
 public extension SortOrderPicker
 	where Label == Text
 {
+	init(selection: Binding<SelectionValue>) {
+		self.init(selection: selection, label: { Text(.sortOrderPicker.title_short) })
+	}
+
 	init<S>(
 		_ title: S,
-		selection: Binding<SortOrder>
+		selection: Binding<SelectionValue>
 	) where
 		S: StringProtocol
 	{
@@ -44,7 +77,7 @@ public extension SortOrderPicker
 
 	init(
 		_ titleKey: LocalizedStringKey,
-		selection: Binding<SortOrder>
+		selection: Binding<SelectionValue>
 	) {
 		self.init(selection: selection, label: { Text(titleKey) })
 	}

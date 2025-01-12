@@ -2,6 +2,8 @@ import SwiftUI
 import UnityHubCommonViews
 import UserIcon
 
+/// ## Topics
+/// - ``UserIconEditorStyle/horizontalSheet``
 struct HorizontalSheetUserIconEditorStyle: UserIconEditorStyle {
 	public init() { }
 
@@ -38,7 +40,10 @@ private struct ContentView: View {
 
 			Spacer()
 
-			Button("Done", role: .cancel) { dismiss() }
+			Button(
+				String(localized: .common.action.done),
+				role: .cancel
+			) { dismiss() }
 				.controlSize(.large)
 		}
 	}

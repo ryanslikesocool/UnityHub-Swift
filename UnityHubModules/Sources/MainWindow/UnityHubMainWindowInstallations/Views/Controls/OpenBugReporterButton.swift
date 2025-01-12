@@ -7,7 +7,9 @@ struct OpenBugReporterButton: View {
 
 	private let url: URL
 
-	public init(installation: borrowing InstallationMetadata) {
+	public init(
+		installation: borrowing InstallationMetadata
+	) {
 		url = Utility.Application.Unity.getBugReporterURL(for: installation.url)
 	}
 
@@ -20,13 +22,17 @@ struct OpenBugReporterButton: View {
 	}
 }
 
-// MARK: - Functions
+// MARK: - Properties
 
 private extension OpenBugReporterButton {
 	var isDisabled: Bool {
 		!FileManager.default.fileExists(at: url)
 	}
+}
 
+// MARK: - Functions
+
+private extension OpenBugReporterButton {
 	func buttonAction() {
 		openURL(url)
 	}

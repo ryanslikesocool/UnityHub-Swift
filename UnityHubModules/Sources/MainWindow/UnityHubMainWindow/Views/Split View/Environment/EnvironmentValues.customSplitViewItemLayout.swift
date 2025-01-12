@@ -1,6 +1,9 @@
 import SwiftUI
 
 extension EnvironmentValues {
+	/// ## See Also
+	/// - ``SwiftUICore/View/customSplitViewItemLayout(_:min:max:collapsible:)``
+	/// - ``SwiftUICore/View/customSplitViewItemLayout(_:_:collapsible:)``
 	@Entry
 	fileprivate(set) var customSplitViewItemLayout: [NSSplitViewItem.Behavior: CustomSplitViewItemLayout]
 		= [:]
@@ -9,6 +12,8 @@ extension EnvironmentValues {
 // MARK: - Convenience
 
 extension View {
+	/// ## See Also
+	/// - ``SwiftUICore/EnvironmentValues/customSplitViewItemLayout``
 	func customSplitViewItemLayout(
 		_ behavior: NSSplitViewItem.Behavior,
 		min: CGFloat? = nil,
@@ -26,6 +31,8 @@ extension View {
 		)
 	}
 
+	/// ## See Also
+	/// - ``SwiftUICore/EnvironmentValues/customSplitViewItemLayout``
 	func customSplitViewItemLayout(
 		_ behavior: NSSplitViewItem.Behavior,
 		_ value: CGFloat,

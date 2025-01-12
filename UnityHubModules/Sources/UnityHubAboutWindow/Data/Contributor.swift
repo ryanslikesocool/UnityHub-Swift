@@ -1,5 +1,5 @@
-import Combine
 import Foundation
+import SwiftUI
 
 struct Contributor {
 	public let name: String
@@ -25,17 +25,19 @@ extension Contributor: Sendable { }
 
 extension Contributor: Decodable { }
 
-// MARK: - CreditProtocol
+// MARK: - CreditItem
 
-extension Contributor: CreditProtocol {
-	typealias ItemView = ContributorCreditItem
+extension Contributor: CreditItem {
+	static var label: Text { Text(.credits.group.contributors) }
 
-	static let fileName: String = "Contributors"
-	static let fileExtension: String = "json"
+	static var fileURL: URL? {
+		Bundle.main.url(forResource: "Contributors", withExtension: "json")
+	}
 
 	static var topLevelDecoder: JSONDecoder { JSONDecoder.shared }
 	static var sortComparator: (any SortComparator<Contributor>)? {
 		KeyPathComparator<Self>(\.name)
 	}
+
 	static let modelKeyPath: ReferenceWritableKeyPath<AboutSceneModel, [Self]> = \.contributors
 }

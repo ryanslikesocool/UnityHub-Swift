@@ -11,13 +11,28 @@ struct InvalidProjectReceiver: View {
 		EmptyView()
 			.onReceive(Event.Project.invalid, perform: receiveEvent)
 			.alert(
-				"Invalid Project",
+				makeTitle(),
 				isPresented: $isPresentingDialog,
-				actions: { },
-				message: {
-					Text("The directory does not contain a valid project.")
-				}
+				actions: makeActions,
+				message: makeMessage
 			)
+	}
+}
+
+// MARK: - Supporting Views
+
+private extension InvalidProjectReceiver {
+	func makeTitle() -> Text {
+		Text(.invalidProjectAlert.title)
+	}
+
+	@ViewBuilder
+	func makeActions() -> some View {
+		
+	}
+
+	func makeMessage() -> Text {
+		Text(.invalidProjectAlert.message)
 	}
 }
 

@@ -10,7 +10,7 @@ extension DownloadSheet {
 
 		var body: some View {
 			Form {
-				Text(String(describing: tab))
+				Text(tab.localizedStringResource)
 			}
 			.formStyle(.grouped)
 		}

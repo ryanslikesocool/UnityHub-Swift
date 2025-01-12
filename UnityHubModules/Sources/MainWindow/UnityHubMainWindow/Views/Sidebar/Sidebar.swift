@@ -2,6 +2,12 @@ import SwiftUI
 import UnityHubCommonViews
 import UnityHubStorageSettings
 
+/// ## Topics
+/// ### Styles
+/// - ``SidebarStyle``
+/// - ``AnySidebarStyle``
+/// - ``CompactSidebarStyle``
+/// - ``DefaultSidebarStyle``
 struct Sidebar: View {
 	typealias Configuration = SidebarStyleConfiguration
 
@@ -15,9 +21,9 @@ struct Sidebar: View {
 		let configuration = Configuration(
 			selection: $selection,
 			links: [
-				SidebarLink(item: .projects, label: Label.projects),
-				SidebarLink(item: .installations, label: Label.installations),
-				SidebarLink(item: .resources, label: Label.resources),
+				SidebarLink(.projects),
+				SidebarLink(.installations),
+				SidebarLink(.resources),
 			]
 		)
 
@@ -26,10 +32,29 @@ struct Sidebar: View {
 				style.makeBody(configuration: configuration)
 			}
 		}
-		.listStyle(.sidebar)
-		.scrollDisabled(true)
-		.overlay(alignment: .bottomLeading, content: makeUserMenu)
+		.listStyle(Self.listStyle)
+		.scrollDisabled(Self.scrollDisabled)
+		.safeAreaInset(edge: .bottom) {
+			makeUserMenu()
+				.frame(alignment: .leading)
+		}
+//		.overlay(alignment: .bottomLeading, content: makeUserMenu)
 	}
+}
+
+// MARK: - Constants
+
+private extension Sidebar {
+	static let sidebarThreshold: CGFloat
+		= (SidebarDisplay.standard.width + SidebarDisplay.compact.width) * 0.5
+
+	static let listStyle: some ListStyle = .sidebar
+	static let scrollDisabled: Bool = true
+
+	static let userMenuButtonStyle: some PrimitiveButtonStyle = .borderless
+	static let userMenuControlSize: ControlSize = .small
+	static let userMenuLabelStyle: some LabelStyle = .iconOnly
+	static let userMenuPadding: CGFloat = 8
 }
 
 // MARK: - Supporting Views
@@ -37,18 +62,11 @@ struct Sidebar: View {
 private extension Sidebar {
 	func makeUserMenu() -> some View {
 		UserMenu()
-			.buttonStyle(.borderless)
-			.controlSize(.small)
-			.labelStyle(.iconOnly)
-//					.menuIndicator(.visible)
+			.buttonStyle(Self.userMenuButtonStyle)
+			.labelStyle(Self.userMenuLabelStyle)
+			.controlSize(Self.userMenuControlSize)
+//			.menuIndicator(.visible)
 			.fixedSize()
-			.padding(8)
+			.padding(Self.userMenuPadding)
 	}
-}
-
-// MARK: - Constants
-
-extension Sidebar {
-	private static let sidebarThreshold: CGFloat
-		= (SidebarDisplay.standard.width + SidebarDisplay.compact.width) * 0.5
 }

@@ -34,14 +34,8 @@ private extension CopyrightSection {
 	@ViewBuilder
 	func applicationCopyright() -> some View {
 		if let copyrightHolder = Bundle.main.copyright {
-			let options: String.LocalizationOptions = {
-				var options = String.LocalizationOptions()
-				options.replacements = [copyrightHolder]
-				return options
-			}()
-
 			Button(
-				String(localized: .aboutWindow.copyright.application, options: options)
+				LocalizedStringResource.aboutWindow.copyright.application(copyrightHolder: copyrightHolder)
 			) {
 				openURL(.acknowledgements.ryanBoyer)
 			}

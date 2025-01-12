@@ -23,11 +23,17 @@ private extension InfoVisibilityMenu {
 	@ViewBuilder
 	func makeContent() -> some View {
 		Section {
-			Toggle("Location", isOn: $infoVisibility[.location])
+			Toggle(
+				.visibilityMenu.item.location,
+				isOn: $infoVisibility[.location]
+			)
 		}
 
 		Section {
-			Toggle("Badge", isOn: $infoVisibility[.badge])
+			Toggle(
+				.visibilityMenu.item.badge,
+				isOn: $infoVisibility[.badge]
+			)
 		}
 	}
 }

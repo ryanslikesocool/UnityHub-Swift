@@ -17,15 +17,33 @@ struct RemoveProjectReceiver: View {
 		EmptyView()
 			.onReceive(Event.Project.remove, perform: receiveEvent)
 			.confirmationDialog(
-				"Remove Project?",
+				makeTitle(),
 				isPresented: $isPresentingDialog,
-				actions: {
-					Button(role: .destructive, action: confirmRemoval, label: Label.remove)
-				}, message: {
-					Text("The project files will remain on your disk.")
-				}
+				actions: makeActions,
+				message: makeMessage
 			)
 			.dialogSuppressionToggle(isSuppressed: $dialogSuppression[.projectRemoval])
+	}
+}
+
+// MARK: - Supporting Views
+
+private extension RemoveProjectReceiver {
+	func makeTitle() -> Text {
+		Text(.removeProjectConfirmation.title)
+	}
+
+	@ViewBuilder
+	func makeActions() -> some View {
+		Button(
+			role: .destructive,
+			action: confirmRemoval,
+			label: Label.remove
+		)
+	}
+
+	func makeMessage() -> Text {
+		Text(.removeProjectConfirmation.message)
 	}
 }
 

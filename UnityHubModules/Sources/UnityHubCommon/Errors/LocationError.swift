@@ -23,16 +23,12 @@ extension LocationError: LocalizedError {
 			case .invalidType: .locationError.description.invalidType
 		}
 		return String(localized: resource)
-
-//		switch self {
-//			case .missing: "Missing Location"
-//			case .invalidType: "Invalid Location Type"
-//		}
 	}
 
 	public var failureReason: String? {
 		var options = String.LocalizationOptions()
 		let resource: LocalizedStringResource
+
 		switch self {
 			case .missing:
 				resource = .locationError.reason.missing
@@ -40,17 +36,14 @@ extension LocationError: LocalizedError {
 				options.replacements = [String(describing: expected)]
 				resource = .locationError.reason.invalidType
 		}
-		return String(localized: resource, options: options)
 
-//		switch self {
-//			case .missing: "There is no file at the selected location."
-//			case let .invalidType(expected): "The selected location does not lead to a \(expected)."
-//		}
+		return String(localized: resource, options: options)
 	}
 
 	public var recoverySuggestion: String? {
 		var options = String.LocalizationOptions()
 		let resource: LocalizedStringResource
+
 		switch self {
 			case .missing:
 				resource = .locationError.recoverySuggestion.missing
@@ -58,11 +51,7 @@ extension LocationError: LocalizedError {
 				options.replacements = [String(describing: expected)]
 				resource = .locationError.recoverySuggestion.invalidType
 		}
-		return String(localized: resource, options: options)
 
-//		switch self {
-//			case .missing: "Select a valid location."
-//			case let .invalidType(expected): "Select a \(expected)."
-//		}
+		return String(localized: resource, options: options)
 	}
 }

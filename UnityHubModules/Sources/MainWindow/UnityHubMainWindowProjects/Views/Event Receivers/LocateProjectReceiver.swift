@@ -20,7 +20,7 @@ struct LocateProjectReceiver: View {
 				onCompletion: onFileImporterComplete
 			)
 			.fileDialogDefaultDirectory(URL.documentsDirectory)
-			.fileDialogConfirmationLabel(Text("Select"))
+			.fileDialogConfirmationLabel(Text(.common.action.select))
 	}
 }
 

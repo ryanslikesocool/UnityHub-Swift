@@ -32,13 +32,17 @@ private extension RemoveInstallationButton {
 	}
 }
 
-// MARK: - Functions
+// MARK: - Properties
 
 private extension RemoveInstallationButton {
 	var installationExists: Bool {
 		FileManager.default.fileExists(at: url)
 	}
+}
 
+// MARK: - Functions
+
+private extension RemoveInstallationButton {
 	func buttonAction() {
 		model.state = .removeInstallation(url)
 	}

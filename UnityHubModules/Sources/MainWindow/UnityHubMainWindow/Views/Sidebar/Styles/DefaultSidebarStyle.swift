@@ -1,6 +1,8 @@
 import SwiftUI
 import UnityHubCommonViews
 
+/// ## Topics
+/// - ``SidebarStyle/default``
 struct DefaultSidebarStyle: SidebarStyle {
 	public init() { }
 

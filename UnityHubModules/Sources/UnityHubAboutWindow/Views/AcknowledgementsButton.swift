@@ -5,7 +5,7 @@ struct AcknowledgementsButton: View {
 
 	public var body: some View {
 		Button(
-			String(localized: .acknowledgements.item.dependencies),
+			String(localized: .credits.group.acknowledgements),
 			systemImage: .book_closed
 		) {
 			fatalError("\(Self.self).\(#function) is not implemented")

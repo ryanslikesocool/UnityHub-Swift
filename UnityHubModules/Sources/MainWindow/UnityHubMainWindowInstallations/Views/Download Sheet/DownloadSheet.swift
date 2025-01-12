@@ -8,8 +8,11 @@ struct DownloadSheet: View {
 	public init() { }
 
 	public var body: some View {
-		Sheet(content: makeContent, header: makeHeader)
-			.frame(width: 400)
+		Sheet(
+			content: makeContent,
+			header: makeHeader
+		)
+		.frame(width: 400)
 	}
 }
 
@@ -19,13 +22,15 @@ private extension DownloadSheet {
 	func makeContent() -> some View {
 		NavigationStack {
 			Form {
-				Section("Recommended") {
+				Section {
 					Text("placeholder")
+				} header: {
+					Text(DownloadSheetTab.recommended.localizedStringResource)
 				}
 				Section {
-					NavigationLink("Official", value: DownloadSheetTab.official)
-					NavigationLink("Prerelease", value: DownloadSheetTab.prerelease)
-					NavigationLink("Archive", value: DownloadSheetTab.archive)
+					NavigationLink(DownloadSheetTab.official.localizedStringResource, value: DownloadSheetTab.official)
+					NavigationLink(DownloadSheetTab.prerelease.localizedStringResource, value: DownloadSheetTab.prerelease)
+					NavigationLink(DownloadSheetTab.archive.localizedStringResource, value: DownloadSheetTab.archive)
 				}
 			}
 			.formStyle(.grouped)
@@ -36,13 +41,17 @@ private extension DownloadSheet {
 
 	@ViewBuilder
 	func makeHeader() -> some View {
-		Button("Cancel", systemImage: .xMark, role: .cancel) {
+		Button(
+			String(localized: .common.action.cancel),
+			systemImage: .xMark,
+			role: .cancel
+		) {
 			dismiss()
 		}
 		.controlSize(.large)
 		.labelStyle(.iconOnly)
 
-		Text("Download Installation")
+		Text(.downloadSheet.title)
 			.font(.headline)
 
 		Spacer()

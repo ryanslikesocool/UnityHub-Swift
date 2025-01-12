@@ -42,11 +42,11 @@ private extension ProjectList.OpenProjectButton {
 		} catch ProjectError.missing {
 			Event.Project.missing.send(projectURL)
 		} catch ProjectError.unknownEditorVersion {
-			fatalError("\(Self.self).\(#function) is not implemented")
+			fatalError("\(Self.self).\(#function)@\(#line) is not implemented")
 		} catch let InstallationError.missingInstallationForVersion(editorVersion) {
-			fatalError("\(Self.self).\(#function) is not implemented")
+			fatalError("\(Self.self).\(#function)@\(#line) is not implemented")
 		} catch let error as ShellError {
-			fatalError("\(Self.self).\(#function) is not implemented")
+			fatalError("\(Self.self).\(#function)@\(#line) is not implemented")
 		} catch {
 			preconditionFailure(unexpectedError: error)
 		}

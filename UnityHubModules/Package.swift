@@ -199,14 +199,6 @@ var storageTargets: [Target] {
 var commonTargets: [Target] {
 	[
 		.target(
-			name: "UnityHubResources",
-			dependencies: [
-				"LocalizationToolbox",
-				"SFSymbolToolbox",
-			]
-		),
-
-		.target(
 			name: "UnityHubCommonViews",
 			dependencies: [
 				"MoreWindows",
@@ -220,6 +212,14 @@ var commonTargets: [Target] {
 			name: "UnityHubCommon",
 			dependencies: [
 				"UnityHubResources",
+			]
+		),
+
+		.target(
+			name: "UnityHubResources",
+			dependencies: [
+				"LocalizationToolbox",
+				"SFSymbolToolbox",
 			]
 		),
 	]

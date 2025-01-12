@@ -30,6 +30,9 @@ public struct RealLink<Label>: View where
 public extension RealLink where
 	Label == Text
 {
+	/// - Parameters:
+	///   - title:
+	///   - destination:
 	init<S>(
 		_ title: S,
 		destination: URL
@@ -39,6 +42,9 @@ public extension RealLink where
 		self.init(destination: destination, label: { Text(title) })
 	}
 
+	/// - Parameters:
+	///   - titleKey:
+	///   - destination:
 	init(
 		_ titleKey: LocalizedStringKey,
 		destination: URL
@@ -50,6 +56,10 @@ public extension RealLink where
 public extension RealLink where
 	Label == SwiftUI.Label<Text, Image>
 {
+	/// - Parameters:
+	///   - title:
+	///   - systemImage:
+	///   - destination:
 	init<S>(
 		_ title: S,
 		systemImage: String,
@@ -60,6 +70,10 @@ public extension RealLink where
 		self.init(destination: destination, label: { SwiftUI.Label(title, systemImage: systemImage) })
 	}
 
+	/// - Parameters:
+	///   - titleKey:
+	///   - systemImage:
+	///   - destination:
 	init(
 		_ titleKey: LocalizedStringKey,
 		systemImage: String,
@@ -68,6 +82,10 @@ public extension RealLink where
 		self.init(destination: destination, label: { SwiftUI.Label(titleKey, systemImage: systemImage) })
 	}
 
+	/// - Parameters:
+	///   - title:
+	///   - systemImage:
+	///   - destination:
 	init<S>(
 		_ title: S,
 		systemImage: SystemSymbolName,
@@ -78,6 +96,10 @@ public extension RealLink where
 		self.init(destination: destination, label: { SwiftUI.Label(title, systemImage: systemImage) })
 	}
 
+	/// - Parameters:
+	///   - titleKey:
+	///   - systemImage:
+	///   - destination:
 	init(
 		_ titleKey: LocalizedStringKey,
 		systemImage: SystemSymbolName,
@@ -86,6 +108,10 @@ public extension RealLink where
 		self.init(destination: destination, label: { SwiftUI.Label(titleKey, systemImage: systemImage) })
 	}
 
+	/// - Parameters:
+	///   - title:
+	///   - image:
+	///   - destination:
 	init<S>(
 		_ title: S,
 		image: ImageResource,
@@ -96,6 +122,10 @@ public extension RealLink where
 		self.init(destination: destination, label: { SwiftUI.Label(title, image: image) })
 	}
 
+	/// - Parameters:
+	///   - titleKey:
+	///   - image:
+	///   - destination:
 	init(
 		_ titleKey: LocalizedStringKey,
 		image: ImageResource,

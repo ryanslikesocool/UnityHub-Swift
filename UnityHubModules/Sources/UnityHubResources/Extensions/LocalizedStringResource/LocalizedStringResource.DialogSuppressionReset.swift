@@ -4,6 +4,8 @@ import LocalizationToolbox
 public extension LocalizedStringResource {
 	static let dialogSuppressionReset = DialogSuppressionReset.self
 
+	/// ## Topics
+	/// - ``dialogSuppressionReset``
 	enum DialogSuppressionReset {
 		private static let localizationTable = LocalizationTableResource("DialogSuppressionReset")
 

@@ -2,6 +2,7 @@ import Combine
 import Foundation
 import OSLog
 import UnityHubCommon
+import UnityHubShell
 import UnityHubStorageCommon
 import UnityHubStorageInstallations
 

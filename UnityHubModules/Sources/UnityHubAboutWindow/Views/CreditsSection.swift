@@ -19,6 +19,6 @@ struct CreditsSection: View {
 private extension CreditsSection {
 	static var spacing: CGFloat { AboutScene.groupSpacing }
 
-	static var buttonStyle: some PrimitiveButtonStyle { .automatic.expandedLabel(axes: .horizontal) }
+	static var buttonStyle: some PrimitiveButtonStyle { .automatic.expandingLabel(.horizontal) }
 	static let controlSize: ControlSize = .large
 }

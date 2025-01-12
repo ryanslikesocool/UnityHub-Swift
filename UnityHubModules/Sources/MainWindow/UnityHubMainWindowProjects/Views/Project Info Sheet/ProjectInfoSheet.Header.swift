@@ -14,14 +14,17 @@ extension ProjectInfoSheet {
 		var body: some View {
 			ProjectIcon(project: $project)
 				.frame(height: 32)
-				.padding([.bottom, .top], -8)
+				.padding(.vertical, -8)
 
 			Text(project.name ?? project.url.lastPathComponent)
 				.font(.headline)
 
 			Spacer()
 
-			Button("Done", role: .cancel) { dismiss() }
+			Button(
+				String(localized: .common.action.done),
+				role: .cancel
+			) { dismiss() }
 				.controlSize(.large)
 		}
 	}

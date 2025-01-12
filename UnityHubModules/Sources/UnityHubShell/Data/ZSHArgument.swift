@@ -1,5 +1,6 @@
 import Foundation
 
+@frozen
 public struct ZSHArgument: RawRepresentable {
 	public typealias RawValue = String
 

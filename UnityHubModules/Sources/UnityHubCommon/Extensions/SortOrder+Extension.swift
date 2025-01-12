@@ -1,4 +1,4 @@
-import SwiftUI
+import Foundation
 
 public extension SortOrder {
 	var inverse: Self {

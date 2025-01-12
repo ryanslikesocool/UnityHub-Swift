@@ -36,7 +36,7 @@ private extension LocateInstallationFileDialog {
 //	}
 
 	func makeConfirmationLabel() -> Text {
-		Text("Select")
+		Text(.common.action.select)
 	}
 }
 

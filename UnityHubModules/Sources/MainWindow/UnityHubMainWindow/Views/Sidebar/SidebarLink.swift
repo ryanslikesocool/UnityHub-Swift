@@ -1,19 +1,24 @@
 import SwiftUI
 import UnityHubCommonViews
 
-struct SidebarLink<Label: View>: View {
-	typealias LabelProvider = () -> Label
-
+struct SidebarLink<Label>: View where
+	Label: View
+{
 	private let item: SidebarItem
-	private let label: LabelProvider
+	private let label: Label
 
-	init(item: SidebarItem, @ViewBuilder label: @escaping LabelProvider) {
+	public init(
+		item: SidebarItem,
+		@ViewBuilder label: () -> Label
+	) {
 		self.item = item
-		self.label = label
+		self.label = label()
 	}
 
-	var body: some View {
-		NavigationLink(value: item, label: label)
+	public var body: some View {
+		NavigationLink(value: item) {
+			label
+		}
 	}
 }
 
@@ -22,11 +27,28 @@ struct SidebarLink<Label: View>: View {
 extension SidebarLink
 	where Label == SwiftUI.Label<Text, Image>
 {
-	init(_ title: some StringProtocol, systemImage name: String, item: SidebarItem) {
-		self.init(item: item, label: { Label(title, systemImage: name) })
+	init(_ item: SidebarItem) {
+		self.init(item: item) {
+			Label(
+				item.localizedStringResource,
+				systemImage: item.systemImage.rawValue
+			)
+		}
 	}
 
-	init(_ titleKey: LocalizedStringKey, systemImage name: String, item: SidebarItem) {
-		self.init(item: item, label: { Label(titleKey, systemImage: name) })
-	}
+//	init(
+//		_ title: some StringProtocol,
+//		systemImage name: String,
+//		item: SidebarItem
+//	) {
+//		self.init(item: item, label: { Label(title, systemImage: name) })
+//	}
+//
+//	init(
+//		_ titleKey: LocalizedStringKey,
+//		systemImage name: String,
+//		item: SidebarItem
+//	) {
+//		self.init(item: item, label: { Label(titleKey, systemImage: name) })
+//	}
 }

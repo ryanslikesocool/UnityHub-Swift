@@ -1,16 +1,26 @@
 [
 	{
-		"title" : "MoreWindows",
+		"name" : "MoreWindows",
 		"projectURL" : "https://github.com/ryanslikesocool/MoreWindows",
 		"licensePath" : "blob/main/LICENSE.md"
 	},
 	{
-		"title" : "Unity Hub",
+		"name" : "Unity Hub",
 		"projectURL" : "https://unity.com/download"
 	},
 	{
-		"title" : "UserIcon",
+		"name" : "UserIcon",
 		"projectURL" : "https://github.com/ryanslikesocool/UserIcon",
+		"licensePath" : "blob/main/LICENSE.md"
+	},
+	{
+		"name": "LocalizationToolbox",
+		"projectURL": "https://github.com/ryanslikesocool/LocalizationToolbox",
+		"licensePath" : "blob/main/LICENSE.md"
+	},
+	{
+		"name": "SFSymbolToolbox",
+		"projectURL": "https://github.com/ryanslikesocool/SFSymbolToolbox",
 		"licensePath" : "blob/main/LICENSE.md"
 	}
 ]

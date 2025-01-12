@@ -4,6 +4,8 @@ import LocalizationToolbox
 public extension LocalizedStringResource {
 	static let backgroundModePicker = BackgroundModePicker.self
 
+	/// ## Topics
+	/// - ``backgroundModePicker``
 	enum BackgroundModePicker {
 		private static let localizationTable = LocalizationTableResource("BackgroundModePicker")
 
@@ -12,6 +14,8 @@ public extension LocalizedStringResource {
 
 		public static let item = Item.self
 
+		/// ## Topics
+		/// - ``item``
 		public enum Item {
 			public static let none = LocalizedStringResource("ITEM.NONE", table: localizationTable)
 			public static let hide = LocalizedStringResource("ITEM.HIDE", table: localizationTable)

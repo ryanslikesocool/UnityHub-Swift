@@ -1,6 +1,7 @@
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
+import UnityHubResources
 
 extension InstallationList.Item {
 	struct IssueMenu: View {
@@ -33,7 +34,7 @@ private extension InstallationList.Item.IssueMenu {
 	@ViewBuilder
 	func itemLabel(flag: InstallationIssueFlags) -> some View {
 		switch flag {
-			case .missingInstallation: Text("Missing Installation")
+			case .missingInstallation: Text(.missingInstallationAlert.title)
 			default: preconditionFailure("Unsupported \(InstallationIssueFlags.self) case \(flag).")
 		}
 	}

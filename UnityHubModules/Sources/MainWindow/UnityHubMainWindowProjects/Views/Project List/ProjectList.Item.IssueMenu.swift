@@ -29,7 +29,8 @@ extension ProjectList.Item {
 // MARK: - Supporting Views
 
 private extension ProjectList.Item.IssueMenu {
-	@ViewBuilder func itemLabel(flag: ProjectIssueFlags) -> some View {
+	@ViewBuilder
+	func itemLabel(flag: ProjectIssueFlags) -> some View {
 		switch flag {
 			case .missingProject: Text("Missing Project")
 			case .missingInstallation: Text("Missing Installation")

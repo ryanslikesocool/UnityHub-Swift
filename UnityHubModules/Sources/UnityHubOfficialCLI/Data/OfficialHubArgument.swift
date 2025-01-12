@@ -6,6 +6,7 @@ import UnityHubStorageSettings
 
 /// Arguments taken from the
 /// [official documentation]( https://docs.unity3d.com/hub/manual/HubCLI.html ).
+@frozen
 public struct OfficialHubArgument: RawRepresentable {
 	public typealias RawValue = String
 

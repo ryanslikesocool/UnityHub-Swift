@@ -47,8 +47,11 @@ private extension ProjectList.Item.EditorVersionLabel {
 
 		if installations.contains(version) {
 			Section {
-				Button("Show in Installations", systemImage: .tray) {
-					print("\(Self.self).\(#function) is not implemented")
+				Button(
+					"Show in Installations",
+					systemImage: .tray
+				) {
+					print("\(Self.self).\(#function)@\(#line) is not implemented")
 				}
 			}
 		}

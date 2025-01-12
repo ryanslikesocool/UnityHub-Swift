@@ -1,7 +1,11 @@
 import SwiftUI
 
+/// ## Topics
+/// - ``SwiftUI/LabelStyle/compactSidebar``
 struct CompactSidebarLabelStyle: LabelStyle {
-	func makeBody(configuration: Configuration) -> some View {
+	public init() { }
+
+	public func makeBody(configuration: Configuration) -> some View {
 		HStack {
 			Spacer()
 			configuration.icon

@@ -15,30 +15,31 @@ final class AboutSceneModel: ObservableObject {
 // MARK: -
 
 extension AboutSceneModel {
-	nonisolated func loadCredit<C>(_ type: C.Type) async where
-		C: CreditProtocol
+	nonisolated func loadCredits<Item>(
+		ofType type: Item.Type
+	) async where
+		Item: CreditItem
 	{
 		do {
-			guard let url = Bundle.main.url(forResource: C.fileName, withExtension: C.fileExtension) else {
+			guard let url = Item.fileURL else {
 				throw CocoaError(.fileReadNoSuchFile)
 			}
 			let data = try Data(contentsOf: url)
 
-			var credits = try C.topLevelDecoder.decode([C].self, from: data)
-			if let sortComparator = C.sortComparator {
+			var credits = try Item.topLevelDecoder.decode([Item].self, from: data)
+			if let sortComparator = Item.sortComparator {
 				credits.sort(using: sortComparator)
 			}
 
 			await MainActor.run {
 				objectWillChange.send()
-				self[keyPath: C.modelKeyPath] = credits
+				self[keyPath: Item.modelKeyPath] = credits
 			}
 		} catch {
 			assertionFailure("""
 			Failed to load credit file:
+			- Type: \(Item.self)
 			- Error: \(error)
-			- Type: \(C.self)
-			- File Name: \(C.fileName).\(C.fileExtension)
 			""")
 		}
 	}

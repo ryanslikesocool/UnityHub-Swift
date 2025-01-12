@@ -22,17 +22,25 @@ struct MissingInstallationAlert: View {
 
 private extension MissingInstallationAlert {
 	func makeTitle() -> Text {
-		Text("Missing Installation")
+		Text(.missingInstallationAlert.title)
 	}
 
 	@ViewBuilder
 	func makeActions() -> some View {
-		Button(role: .cancel, action: removeInstallation, label: Label.remove)
-		Button(action: locateInstallation, label: Label.locate)
+		Button(
+			role: .cancel,
+			action: removeInstallation,
+			label: Label.remove
+		)
+
+		Button(
+			action: locateInstallation,
+			label: Label.locate
+		)
 	}
 
 	func makeMessage() -> some View {
-		Text("The installation cannot be found.  It may have been moved or deleted.")
+		Text(.missingInstallationAlert.message)
 	}
 }
 

@@ -1,5 +1,6 @@
 import Foundation
 
+@frozen
 public enum Shell { }
 
 // MARK: -
@@ -39,4 +40,10 @@ public extension Shell {
 	) throws -> String {
 		try execute(executableURL, arguments: arguments)
 	}
+}
+
+// MARK: - Constants
+
+public extension Shell {
+	static var zsh: ShellType<ZSHArgument> { .zsh }
 }
