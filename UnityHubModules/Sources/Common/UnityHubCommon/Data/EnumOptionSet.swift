@@ -2,6 +2,8 @@ public struct EnumOptionSet<Enum>: OptionSet where
 	Enum: RawRepresentable,
 	Enum.RawValue: FixedWidthInteger & UnsignedInteger
 {
+	public typealias Enum = Enum
+
 	public let rawValue: Enum.RawValue
 
 	public init(rawValue: RawValue) {

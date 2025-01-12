@@ -1,6 +1,6 @@
 import SFSymbolToolbox
 
-public extension SystemSymbol {
+public extension SystemSymbolName {
 	// MARK: A
 
 	static let ant: Self = "ant"

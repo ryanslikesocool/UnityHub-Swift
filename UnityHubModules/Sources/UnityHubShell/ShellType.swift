@@ -3,14 +3,10 @@ import Foundation
 public struct ShellType<Argument> where
 	Argument: ShellArgumentProtocol
 {
-	public let executable: URL
+	public let executableURL: URL
 
-	public init(executable: URL) {
-		self.executable = executable
-	}
-
-	public init(executable: String) {
-		self.init(executable: URL(filePath: executable, directoryHint: .notDirectory))
+	public init(executableURL: URL) {
+		self.executableURL = executableURL
 	}
 }
 
@@ -29,7 +25,27 @@ extension ShellType: Hashable { }
 // MARK: - Identifiable
 
 extension ShellType: Identifiable {
-	public var id: URL { executable }
+	public var id: URL { executableURL }
+}
+
+// MARK: - Convenience
+
+public extension ShellType {
+	init(executablePath: String) {
+		self.init(
+			executableURL: URL(filePath: executablePath, directoryHint: .notDirectory)
+		)
+	}
+}
+
+// MARK: - Constants
+
+public extension ShellType where
+	Argument == ZSHArgument
+{
+	static var zsh: Self {
+		Self(executablePath: "/bin/zsh")
+	}
 }
 
 // MARK: -
@@ -37,7 +53,10 @@ extension ShellType: Identifiable {
 public extension ShellType {
 	@discardableResult
 	func callAsFunction(_ arguments: some Sequence<Argument>) throws -> String {
-		try Shell.execute(executable, arguments: arguments.map(\.shellArgument))
+		try Shell.execute(
+			executableURL,
+			arguments: arguments.map(\.shellArgument)
+		)
 	}
 
 	@discardableResult

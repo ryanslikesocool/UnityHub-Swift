@@ -7,7 +7,10 @@ public enum Shell { }
 public extension Shell {
 	/// Execute a shell command.
 	@discardableResult
-	static func execute(_ executableURL: URL, arguments: some Sequence<String>) throws -> String {
+	static func execute(
+		_ executableURL: URL,
+		arguments: [String]
+	) throws -> String {
 //		print("\(executableURL.path(percentEncoded: false)) \(arguments.joined(separator: " "))")
 //		return ""
 
@@ -16,7 +19,7 @@ public extension Shell {
 
 		task.standardOutput = pipe
 		task.standardError = pipe
-		task.arguments = Array(arguments)
+		task.arguments = arguments
 		task.executableURL = executableURL
 		task.standardInput = nil
 
@@ -26,5 +29,14 @@ public extension Shell {
 		let output = String(data: data, encoding: .utf8)!
 
 		return output
+	}
+
+	/// Execute a shell command.
+	@discardableResult
+	static func execute(
+		_ executableURL: URL,
+		arguments: String...
+	) throws -> String {
+		try execute(executableURL, arguments: arguments)
 	}
 }

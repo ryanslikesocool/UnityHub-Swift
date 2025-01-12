@@ -47,7 +47,7 @@ let package = Package(
 		.package(url: "https://github.com/ryanslikesocool/MoreWindows.git", from: "0.1.4"),
 
 //		.package(url: "https://github.com/ryanslikesocool/UserIcon.git", branch: "main"),
-		.package(path: "~/Documents/Xcode Projects/UserIcon"),
+		.package(path: "~/Documents/Xcode Projects/UserIcon/UserIcon"),
 
 //		.package(url: "https://github.com/ryanslikesocool/SFSymbolToolbox.git", branch: "main"),
 		.package(path: "~/Documents/Xcode Projects/SFSymbolToolbox"),
@@ -91,6 +91,17 @@ let package = Package(
 				"UnityHubCommon",
 				"UnityHubStorageSettings",
 				"UnityHubStorageInstallations",
+				"UnityHubShell",
+			]
+		),
+
+		.target(name: "UnityHubShell"),
+
+		.target(
+			name: "UnityHubResources",
+			dependencies: [
+				"LocalizationToolbox",
+				"SFSymbolToolbox",
 			]
 		),
 	]
@@ -208,15 +219,7 @@ var commonTargets: [Target] {
 		.target(
 			name: "UnityHubCommon",
 			dependencies: [
-				"UnityHubResources"
-			]
-		),
-
-		.target(
-			name: "UnityHubResources",
-			dependencies: [
-				"LocalizationToolbox",
-				"SFSymbolToolbox",
+				"UnityHubResources",
 			]
 		),
 	]

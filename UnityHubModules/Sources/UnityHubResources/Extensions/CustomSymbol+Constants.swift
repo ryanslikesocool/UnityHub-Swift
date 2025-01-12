@@ -1,6 +1,6 @@
 import SFSymbolToolbox
 
-public extension CustomSymbol {
+public extension CustomSymbolName {
 	// MARK: C
 
 	static let cube_badge_plus: Self = "cube.badge.plus"

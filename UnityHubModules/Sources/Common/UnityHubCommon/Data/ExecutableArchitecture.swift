@@ -1,5 +1,17 @@
 public enum ExecutableArchitecture: String {
+	/// The 32-bit PowerPC architecture.
+	case ppc
+
+	/// The 64-bit PowerPC architecture.
+	case ppc64
+
+	/// The 32-bit Intel architecture.
+	case i386
+
+	/// The 64-bit Intel architecture.
 	case x86_64
+
+	/// The 64-bit ARM architecture.
 	case arm64
 }
 

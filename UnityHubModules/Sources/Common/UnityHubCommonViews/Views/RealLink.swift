@@ -70,7 +70,7 @@ public extension RealLink where
 
 	init<S>(
 		_ title: S,
-		systemImage: SystemSymbol,
+		systemImage: SystemSymbolName,
 		destination: URL
 	) where
 		S: StringProtocol
@@ -80,7 +80,7 @@ public extension RealLink where
 
 	init(
 		_ titleKey: LocalizedStringKey,
-		systemImage: SystemSymbol,
+		systemImage: SystemSymbolName,
 		destination: URL
 	) {
 		self.init(destination: destination, label: { SwiftUI.Label(titleKey, systemImage: systemImage) })
