@@ -96,14 +96,6 @@ let package = Package(
 		),
 
 		.target(name: "UnityHubShell"),
-
-		.target(
-			name: "UnityHubResources",
-			dependencies: [
-				"LocalizationToolbox",
-				"SFSymbolToolbox",
-			]
-		),
 	]
 		+ mainWindowTargets
 		+ storageTargets
@@ -207,6 +199,14 @@ var storageTargets: [Target] {
 var commonTargets: [Target] {
 	[
 		.target(
+			name: "UnityHubResources",
+			dependencies: [
+				"LocalizationToolbox",
+				"SFSymbolToolbox",
+			]
+		),
+
+		.target(
 			name: "UnityHubCommonViews",
 			dependencies: [
 				"MoreWindows",
@@ -223,7 +223,6 @@ var commonTargets: [Target] {
 			]
 		),
 	]
-	.formatPaths(using: "Sources/Common/%@")
 }
 
 // MARK: - Utility
