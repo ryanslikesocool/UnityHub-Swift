@@ -1,11 +1,11 @@
 import SwiftUI
 import UnityHubCommonViews
 
-struct ContributorAcknowledgementItem: AcknowledgementItemView {
-	private let acknowledgement: Contributor
+struct ContributorCreditItem: CreditItemView {
+	private let credit: Contributor
 
-	public init(_ acknowledgement: Contributor) {
-		self.acknowledgement = acknowledgement
+	public init(_ credit: Contributor) {
+		self.credit = credit
 	}
 
 	public var body: some View {
@@ -22,14 +22,14 @@ struct ContributorAcknowledgementItem: AcknowledgementItemView {
 
 // MARK: - Supporting Views
 
-private extension ContributorAcknowledgementItem {
+private extension ContributorCreditItem {
 	func makeTitle() -> some View {
-		Text(acknowledgement.name)
+		Text(credit.name)
 	}
 
 	@ViewBuilder
 	func makePersonalLink() -> some View {
-		if let url = acknowledgement.personalURL {
+		if let url = credit.personalURL {
 			RealLink(destination: url) {
 				Label(
 					String(localized: .acknowledgements.link.website),
@@ -41,7 +41,7 @@ private extension ContributorAcknowledgementItem {
 
 	@ViewBuilder
 	func makeGitHubLink() -> some View {
-		if let url = acknowledgement.githubURL {
+		if let url = credit.githubURL {
 			RealLink(destination: url) {
 				Label {
 					Text(.acknowledgements.link.github)

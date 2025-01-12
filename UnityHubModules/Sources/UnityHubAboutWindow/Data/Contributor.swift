@@ -25,15 +25,15 @@ extension Contributor: Sendable { }
 
 extension Contributor: Decodable { }
 
-// MARK: - Acknowledgement
+// MARK: - CreditProtocol
 
-extension Contributor: Acknowledgement {
-	typealias ItemView = ContributorAcknowledgementItem
+extension Contributor: CreditProtocol {
+	typealias ItemView = ContributorCreditItem
 
 	static let fileName: String = "Contributors"
 	static let fileExtension: String = "json"
 
-	static var decoder: JSONDecoder { JSONDecoder.shared }
+	static var topLevelDecoder: JSONDecoder { JSONDecoder.shared }
 	static var sortComparator: (any SortComparator<Contributor>)? {
 		KeyPathComparator<Self>(\.name)
 	}

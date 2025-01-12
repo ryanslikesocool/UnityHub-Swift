@@ -8,7 +8,7 @@ public struct AboutScene: Scene {
 
 	public var body: some Scene {
 		About {
-			AcknowledgementsSection()
+			CreditsSection()
 
 			VStack(spacing: Self.groupSpacing) {
 				CopyrightSection()

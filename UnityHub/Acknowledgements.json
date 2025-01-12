@@ -1,0 +1,16 @@
+[
+	{
+		"title" : "MoreWindows",
+		"projectURL" : "https://github.com/ryanslikesocool/MoreWindows",
+		"licensePath" : "blob/main/LICENSE.md"
+	},
+	{
+		"title" : "Unity Hub",
+		"projectURL" : "https://unity.com/download"
+	},
+	{
+		"title" : "UserIcon",
+		"projectURL" : "https://github.com/ryanslikesocool/UserIcon",
+		"licensePath" : "blob/main/LICENSE.md"
+	}
+]

@@ -3,11 +3,11 @@ import OSLog
 
 @MainActor
 final class AboutSceneModel: ObservableObject {
-	/* private(set) */ var dependencies: [Dependency]
+	/* private(set) */ var acknowledgements: [Acknowledgement]
 	/* private(set) */ var contributors: [Contributor]
 
 	init() {
-		dependencies = []
+		acknowledgements = []
 		contributors = []
 	}
 }
@@ -15,30 +15,30 @@ final class AboutSceneModel: ObservableObject {
 // MARK: -
 
 extension AboutSceneModel {
-	nonisolated func loadAcknowledgement<A>(_ type: A.Type) async where
-		A: Acknowledgement
+	nonisolated func loadCredit<C>(_ type: C.Type) async where
+		C: CreditProtocol
 	{
 		do {
-			guard let url = Bundle.main.url(forResource: A.fileName, withExtension: A.fileExtension) else {
+			guard let url = Bundle.main.url(forResource: C.fileName, withExtension: C.fileExtension) else {
 				throw CocoaError(.fileReadNoSuchFile)
 			}
 			let data = try Data(contentsOf: url)
 
-			var acknowledgements = try A.decoder.decode([A].self, from: data)
-			if let sortComparator = A.sortComparator {
-				acknowledgements.sort(using: sortComparator)
+			var credits = try C.topLevelDecoder.decode([C].self, from: data)
+			if let sortComparator = C.sortComparator {
+				credits.sort(using: sortComparator)
 			}
 
 			await MainActor.run {
 				objectWillChange.send()
-				self[keyPath: A.modelKeyPath] = acknowledgements
+				self[keyPath: C.modelKeyPath] = credits
 			}
 		} catch {
 			assertionFailure("""
-			Failed to load acknowledgement file:
+			Failed to load credit file:
 			- Error: \(error)
-			- Type: \(A.self)
-			- File Name: \(A.fileName).\(A.fileExtension)
+			- Type: \(C.self)
+			- File Name: \(C.fileName).\(C.fileExtension)
 			""")
 		}
 	}

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct AcknowledgementsSection: View {
+struct CreditsSection: View {
 	public init() { }
 
 	public var body: some View {
@@ -16,7 +16,7 @@ struct AcknowledgementsSection: View {
 
 // MARK: - Constants
 
-private extension AcknowledgementsSection {
+private extension CreditsSection {
 	static var spacing: CGFloat { AboutScene.groupSpacing }
 
 	static var buttonStyle: some PrimitiveButtonStyle { .automatic.expandedLabel(axes: .horizontal) }

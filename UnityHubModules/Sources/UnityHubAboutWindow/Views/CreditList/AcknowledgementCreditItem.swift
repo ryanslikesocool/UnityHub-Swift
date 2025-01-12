@@ -1,11 +1,11 @@
 import SwiftUI
 import UnityHubCommonViews
 
-struct DependencyAcknowledgementItem: AcknowledgementItemView {
-	private let acknowledgement: Dependency
+struct AcknowledgementCreditItem: CreditItemView {
+	private let credit: Acknowledgement
 
-	public init(_ acknowledgement: Dependency) {
-		self.acknowledgement = acknowledgement
+	public init(_ credit: Acknowledgement) {
+		self.credit = credit
 	}
 
 	public var body: some View {
@@ -22,13 +22,13 @@ struct DependencyAcknowledgementItem: AcknowledgementItemView {
 
 // MARK: - Supporting Views
 
-private extension DependencyAcknowledgementItem {
+private extension AcknowledgementCreditItem {
 	func makeTitle() -> some View {
-		Text(acknowledgement.title)
+		Text(credit.title)
 	}
 
 	func makePrimaryLink() -> some View {
-		RealLink(destination: acknowledgement.url) {
+		RealLink(destination: credit.projectURL) {
 			Label(
 				String(localized: .acknowledgements.link.website),
 				systemImage: .link
@@ -38,7 +38,7 @@ private extension DependencyAcknowledgementItem {
 
 	@ViewBuilder
 	func makeLicenseLink() -> some View {
-		if let url = acknowledgement.licenseURL {
+		if let url = credit.licenseURL {
 			RealLink(destination: url) {
 				Label(
 					String(localized: .acknowledgements.link.license),

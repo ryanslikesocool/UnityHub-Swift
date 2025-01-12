@@ -2,6 +2,7 @@ import OSLog
 import SwiftUI
 import UnityHubCommon
 import UnityHubCommonViews
+import UnityHubShell
 
 extension DevelopmentTab {
 	struct LogCLIHelpButton: View {
