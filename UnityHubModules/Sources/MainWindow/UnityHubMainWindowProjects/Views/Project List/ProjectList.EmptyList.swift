@@ -10,7 +10,7 @@ extension ProjectList {
 			} prompt: {
 				if #available(macOS 15, *) {
 					EqualWidthHStack(content: makePromptContent)
-						.buttonStyle(.automatic.expandedLabel())
+						.buttonStyle(.automatic.expandingLabel(.horizontal))
 				} else {
 					HStack(content: makePromptContent)
 				}

@@ -6,12 +6,21 @@ public struct LargeLabelStyle: LabelStyle {
 	public func makeBody(configuration: Configuration) -> some View {
 		VStack {
 			configuration.icon
-				.font(.largeTitle)
+				.font(Self.iconFont)
 			configuration.title
-				.font(.title3)
+				.font(Self.titleFont)
 		}
-		.foregroundStyle(.tertiary)
+		.foregroundStyle(Self.foregroundStyle)
 	}
+}
+
+// MARK: - Constants
+
+private extension LargeLabelStyle {
+	static var iconFont: Font { .largeTitle }
+	static var titleFont: Font { .title3 }
+
+	static var foregroundStyle: some ShapeStyle { .tertiary }
 }
 
 // MARK: - Convenience

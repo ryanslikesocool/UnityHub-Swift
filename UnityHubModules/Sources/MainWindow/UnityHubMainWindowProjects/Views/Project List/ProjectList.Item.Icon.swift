@@ -31,5 +31,5 @@ extension ProjectList.Item {
 private extension ProjectList.Item.Icon {
 	static let aspectRatio: CGFloat = 1
 	static let contentMode: ContentMode = .fit
-	static var width: CGFloat { SmallMenuLabelStyle.height }
+	static var width: CGFloat? { SmallMenuLabelStyle.height }
 }

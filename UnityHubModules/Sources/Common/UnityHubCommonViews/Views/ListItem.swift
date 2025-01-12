@@ -58,7 +58,7 @@ private extension ListItem {
 // MARK: - Constants
 
 private extension ListItem {
-	static var height: CGFloat { SmallMenuLabelStyle.height }
+	static var height: CGFloat? { SmallMenuLabelStyle.height }
 	static var spacing: CGFloat { 0 }
 	static var padding: CGFloat { 4 }
 	static var contentShape: some Shape { .rect }

@@ -15,8 +15,8 @@ public struct SmallMenuLabelStyle: LabelStyle {
 // MARK: - Constants
 
 public extension SmallMenuLabelStyle {
-	static let width: CGFloat = 16
-	static let height: CGFloat = 32
+	static let width: CGFloat? = 16
+	static let height: CGFloat? = 32
 	static let contentShape: some Shape = .rect
 }
 
